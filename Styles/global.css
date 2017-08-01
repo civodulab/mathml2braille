@@ -1,0 +1,16 @@
+h1{
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+h2{
+    font-size: 1.5em;
+    margin-bottom: .5em;
+}
+h3{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.courant-sans-top{
+    margin-top: 0;
+}
