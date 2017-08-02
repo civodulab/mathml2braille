@@ -638,8 +638,8 @@
         42: '-5-35-', // *
         43: '-235-', // +
         61: '-2356-', // =
-        91: '-12356-' , // [
-        93: '-23456-' , // ]
+        91: '-12356-', // [
+        93: '-23456-', // ]
         124: '-456-', // |
         33: '-456-35-', // factoriel !
         183: '-35-35-', // middle dot &#xB7;
@@ -650,6 +650,8 @@
         62: '-5-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
         8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
         8805: '-45-345-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
+        10877: '-45-126-', // LESS-THAN OR SLANTED EQUAL TO ⩽
+        10878: '-45-345-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
         177: '-235-36-', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
         8800: '-235-2356-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
         247: '-25-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
@@ -1277,7 +1279,10 @@
         60: '-5-126-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
         62: '-5-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
         8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
+        10877: '-45-126-', // LESS-THAN OR SLANTED EQUAL TO ⩽
+        10878: '-45-345-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
         8805: '-45-345-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
+
         177: '-235-36-', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
         8800: '-235-2356-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
         247: '-25-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
@@ -1835,18 +1840,29 @@
         parent = multiscripts[0].parentNode,
         df = d.createDocumentFragment(),
         base = elt[0],
-        post1 = elt[1],
-        post2 = elt[2],
-        pre1 = elt[4],
+        post1,
+        post2,
+        pre1,
+        pre2;
+      if (elt[1].tagName === 'mprescripts') {
+        pre1 = elt[2];
+        pre2 = elt[3];
+        post1 = d.createElement('none');
+        post2 = d.createElement('none');
+      } else {
+        post1 = elt[1];
+        post2 = elt[2];
+        pre1 = elt[4];
         pre2 = elt[5];
-      pre1.tagName !== 'NONE' && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+      }
+      (pre1.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
       (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-      pre2.tagName !== 'NONE' && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+      (pre2.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
       (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
       df.appendChild(base);
-      post1.tagName !== 'NONE' && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+      (post1.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
       (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-      post2.tagName !== 'NONE' && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+      (post2.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
       (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
       parent.replaceChild(df, multiscripts[0]);
 
@@ -1870,14 +1886,14 @@
           lenfants = enfants.length,
           i = 0;
         for (; i != lenfants - 1; i++) {
-          s[i]=s[i]||slast;
-          
+          s[i] = s[i] || slast;
+
           enfants[i].appendChild(d.createTextNode(s[i]));
           s[i] && (slast = s[i]);
         }
       }
-        block.innerHTML = fenced[0].innerHTML;
-      
+      block.innerHTML = fenced[0].innerHTML;
+
       (open === null) && (open = mathBraille.caracMath.parenthese.open);
       (end === null) && (end = mathBraille.caracMath.parenthese.close);
 
@@ -1885,7 +1901,7 @@
 
       (open.split('').length === 1) && (open = open.charCodeAt());
       (end.split('').length === 1) && (end = end.charCodeAt());
-      
+
       switch (open) {
         case 40: // para (
           if (mtable[0]) {
@@ -1901,8 +1917,8 @@
             open = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.open;
-          }else{
-            open=mathBraille.caracMath.crochet.open;
+          } else {
+            open = mathBraille.caracMath.crochet.open;
           }
           break;
         case 123: //'{':
@@ -1935,8 +1951,8 @@
             end = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.close;
-          }else{
-            end=mathBraille.caracMath.crochet.close;
+          } else {
+            end = mathBraille.caracMath.crochet.close;
           }
           break;
         case 125: //'}':
@@ -2028,11 +2044,11 @@
   function _mover(monEquation, tagName) {
     tagName = tagName || 'mover';
     //console.log(tagName);
-    var vecteur = monEquation.getElementsByTagName(tagName);
-    while (vecteur[0]) {
+    var mover = monEquation.getElementsByTagName(tagName);
+    while (mover[0]) {
       var df = d.createDocumentFragment(),
-        parent = vecteur[0].parentNode,
-        elt = vecteur[0].children,
+        parent = mover[0].parentNode,
+        elt = mover[0].children,
         carCode = String(elt[1].textContent.trim().charCodeAt()),
         sep = '',
         myArray = Object.keys(mathBraille.caracDec.susouscrit);
@@ -2072,8 +2088,7 @@
         df.appendChild(d.createTextNode(sep));
         enfant2.children.length > 1 && df.appendChild(enfant2.block()) || df.appendChild(enfant2);
       }
-      parent.replaceChild(df, vecteur[0]);
-
+      parent.replaceChild(df, mover[0]);
     }
   }
 
