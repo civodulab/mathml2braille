@@ -19,7 +19,7 @@ mathml2braille('.class');
 ⠰⠱⠖⠣⠱⠆⠌⠱⠳⠶⠫⠱
 ```
 ```
-brailledirect('.class');
+brailledirect('.js-brailleDirect');
 ```
 * Les tables de caractères sont basées sur celles du logiciel [Duxbury DBT Win](http://www.duxburysystems.com/). Pour l'instant il n'y a que les tables française et américaine.
 ## Langues
