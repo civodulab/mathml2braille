@@ -10,10 +10,11 @@ mathml2braille();
 mathml2braille('.class');
 ```
 ## Braille Direct
-* transforme le texte en braille unicode
+* Transformer du texte en braille unicode
 ```
 brailledirect('.class');
 ```
+* Les tables de caractères sont basées sur celles de DBTWin
 ## Langues
 * Le choix de la table de caractères est basé sur la langue définie sur l'équation ou, par défaut, celle du document
 ```
