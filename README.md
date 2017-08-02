@@ -18,6 +18,7 @@ mathml2braille('.class');
 ```
 Code Html
 <p class="js-brailleDirect">>5+25;/58=65</p>
+
 Sortie navigateur
 ⠰⠱⠖⠣⠱⠆⠌⠱⠳⠶⠫⠱
 ```
