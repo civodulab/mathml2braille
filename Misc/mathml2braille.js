@@ -468,7 +468,6 @@
           i = 0;
         for (; i != lenfants - 1; i++) {
           s[i] = s[i] || slast;
-
           enfants[i].appendChild(d.createTextNode(s[i]));
           s[i] && (slast = s[i]);
         }
@@ -482,6 +481,7 @@
 
       (open.split('').length === 1) && (open = open.charCodeAt());
       (end.split('').length === 1) && (end = end.charCodeAt());
+console.log(open);
 
       switch (open) {
         case 40: // para (
@@ -500,6 +500,15 @@
             open = mathBraille.caracMath.grandcrochet1.open;
           } else {
             open = mathBraille.caracMath.crochet.open;
+          }
+          break;
+          case 93: //']':
+          if (mtable[0]) {
+            open = mathBraille.caracMath.grandcrochet2.close;
+          } else if (fenced2[0]) {
+            open = mathBraille.caracMath.grandcrochet1.close;
+          } else {
+            open = mathBraille.caracMath.crochet.close;
           }
           break;
         case 123: //'{':
@@ -534,6 +543,15 @@
             end = mathBraille.caracMath.grandcrochet1.close;
           } else {
             end = mathBraille.caracMath.crochet.close;
+          }
+          break;
+           case 91: //'[':
+          if (mtable[0]) {
+            end = mathBraille.caracMath.grandcrochet2.open;
+          } else if (fenced2[0]) {
+            end = mathBraille.caracMath.grandcrochet1.open;
+          } else {
+            end = mathBraille.caracMath.crochet.open;
           }
           break;
         case 125: //'}':
@@ -608,6 +626,8 @@
         j = 0;
       mn[i].textContent = '';
       for (; j < lnum; j++) {
+        // console.log(num[j]+' -> '+num[j].charCodeAt());
+        
         var carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
         mn[i].textContent += carac;
       }
