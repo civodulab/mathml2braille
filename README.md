@@ -1,6 +1,6 @@
 # mathml2braille
 Script Javascript.
-Converti les équations mathML, ou du texte (braille direct), en braille Unicode.
+Convertis les équations mathML, ou du texte (braille direct), en braille Unicode.
 
 ![](header.png)
 
