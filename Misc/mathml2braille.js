@@ -404,7 +404,6 @@
     var mesTags = ['annotation-xml', 'annotation'],
       l = mesTags.length,
       i = 0;
-
     for (; i != l; i++) {
       var superflus = monEquation.getElementsByTagName(mesTags[i]);
       while (superflus[0]) {
@@ -481,7 +480,6 @@
 
       (open.split('').length === 1) && (open = open.charCodeAt());
       (end.split('').length === 1) && (end = end.charCodeAt());
-console.log(open);
 
       switch (open) {
         case 40: // para (
@@ -502,7 +500,7 @@ console.log(open);
             open = mathBraille.caracMath.crochet.open;
           }
           break;
-          case 93: //']':
+        case 93: //']':
           if (mtable[0]) {
             open = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
@@ -545,7 +543,7 @@ console.log(open);
             end = mathBraille.caracMath.crochet.close;
           }
           break;
-           case 91: //'[':
+        case 91: //'[':
           if (mtable[0]) {
             end = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
@@ -627,7 +625,7 @@ console.log(open);
       mn[i].textContent = '';
       for (; j < lnum; j++) {
         // console.log(num[j]+' -> '+num[j].charCodeAt());
-        
+
         var carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
         mn[i].textContent += carac;
       }

@@ -1,6 +1,6 @@
  
     // table américaine basée sur DBTWin
-    // Utiliséé pour le braille direct
+    // Utilisée pour le braille direct
     var TBAdbt = {
       ' ': 'BLANK',
       'a': 1,
@@ -77,8 +77,8 @@
           'close': '-23-'
         },
         'parenthese': {
-          'open': '-236-',
-          'close': '-356-'
+          'open': '-12356-',
+          'close': '-23456-'
         },
         'grandeparenthese1': { // imbrication
           'open': '-5-236-',
@@ -97,24 +97,24 @@
           'close': '-456-356-'
         },
         'barre': {
-          'open': '-123456-',
-          'close': '-123456-'
+          'open': '-1256-',
+          'close': '-1256-'
         },
         'grandebarre': { //plusieurs lignes
           'open': '-456-123456-',
           'close': '-456-123456-'
         },
         'doublebarre': {
-          'open': '-45-123456-',
-          'close': '-45-123456-'
+          'open': '-1256-1256-',
+          'close': '-1256-1256-'
         },
         'grandedoublebarre': { //plusieurs lignes
           'open': '-46-123456-',
           'close': '-46-123456-'
         },
         'crochet': {
-          'open': '-12356-',
-          'close': '-23456-',
+          'open': '-4-12356-',
+          'close': '-4-23456-',
         },
         'grandcrochet1': {
           'open': '-5-12356-',
@@ -217,7 +217,7 @@
         44: '-46-', // ,
         45: '-36-', // -
         42: '-5-35-', // *
-        43: '-235-', // +
+        43: '-346-', // +
         61: '-2356-', // =
         33: '-456-35-', // factoriel !
         183: '-35-35-', // middle dot &#xB7;
