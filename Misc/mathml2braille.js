@@ -1,6 +1,6 @@
 /**
  * mathml2braille
- * Convertis les équations mathML en Braille Unicode
+ * Convertit les équations mathML en Braille Unicode
  * @author Ludovic BAL <ludo.bal62@gmail.com>
  * @version ...
  * 
@@ -9,7 +9,7 @@
   'use strict';
   /**
    * String Prototype braille
-   * Convertis texte en braille unicode
+   * Convertit texte en braille unicode
    * @param {array} maTable optionel
    * @returns {string}
    */
