@@ -1,16 +1,16 @@
 /**
  * mathml2braille
- * Converti les équations mathML en Braille Unicode
+ * Convertis les équations mathML en Braille Unicode
  * @author Ludovic BAL <ludo.bal62@gmail.com>
- * @version 0.5
+ * @version ...
  * 
  */
 (function (w, d, undefined) {
   'use strict';
   /**
    * String Prototype braille
-   * Converti texte en braille unicode
-   * @param {array} maTable 
+   * Convertis texte en braille unicode
+   * @param {array} maTable optionel
    * @returns {string}
    */
   String.prototype.braille = function (maTable) {
