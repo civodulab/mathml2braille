@@ -424,7 +424,7 @@
         post2,
         pre1,
         pre2;
-      if (elt[1].tagName === 'mprescripts') {
+      if (elt[1].tagName.toLowerCase() === 'mprescripts') {
         pre1 = elt[2];
         pre2 = elt[3];
         post1 = d.createElement('none');
@@ -435,14 +435,14 @@
         pre1 = elt[4];
         pre2 = elt[5];
       }
-      (pre1.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+      (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
       (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-      (pre2.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+      (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
       (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
       df.appendChild(base);
-      (post1.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+      (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
       (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-      (post2.tagName.toUpperCase() !== 'NONE') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+      (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
       (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
       parent.replaceChild(df, multiscripts[0]);
 
@@ -586,6 +586,7 @@
         ltd = td.length,
         k = 0;
       for (; k != ltd; k++) {
+      	(td[k].textContent.trim().length===0)&&td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
         (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
       }
     }

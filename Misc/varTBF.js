@@ -150,6 +150,7 @@
         'fraction': '-34-',
         'matrice': {
           'sepLigne': '-6-345-',
+          'caseVide': '-5-2-'
         },
         'racine': '-345-',
         'majuscule': '-46-',
