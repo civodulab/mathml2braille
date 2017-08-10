@@ -448,6 +448,8 @@
 
     }
   }
+  
+  var matriceLineaire=false;
 
   function _mfenced(monEquation) {
     var fenced = monEquation.getElementsByTagName('mfenced');
@@ -483,7 +485,7 @@
 
       switch (open) {
         case 40: // para (
-          if (mtable[0]) {
+          if (mtable[0]&&matriceLineaire) {
             open = mathBraille.caracMath.grandeparenthese2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandeparenthese1.open;
@@ -492,7 +494,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0]) {
+          if (mtable[0]&&matriceLineaire) {
             open = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.open;
@@ -501,7 +503,7 @@
           }
           break;
         case 93: //']':
-          if (mtable[0]) {
+          if (mtable[0]&&matriceLineaire) {
             open = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.close;
@@ -525,7 +527,7 @@
       }
       switch (end) {
         case 41:
-          if (mtable[0]) {
+          if (mtable[0]&&matriceLineaire) {
             end = mathBraille.caracMath.grandeparenthese2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandeparenthese1.close;
@@ -535,7 +537,7 @@
 
           break;
         case 93: //']':
-          if (mtable[0]) {
+          if (mtable[0]&&matriceLineaire) {
             end = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.close;
@@ -544,7 +546,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0]) {
+          if (mtable[0]&&matriceLineaire) {
             end = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.open;
@@ -570,6 +572,7 @@
     }
 
   }
+  
 
   function _matrice(monEquation) {
     var tbl = monEquation.getElementsByTagName('mtable'),
@@ -580,6 +583,7 @@
         ltr = tr.length,
         j = 0;
       for (; j != ltr; j++) {
+       tbl[i].insertBefore(d.createTextNode('lgMat'),tr[j]);
         (j !== ltr - 1) && tr[j].appendChild(d.createTextNode(mathBraille.caracMath.matrice.sepLigne + mathBraille.caracMath.espaceInsecable));
       }
       var td = tbl[i].getElementsByTagName('mtd'),
@@ -733,7 +737,7 @@
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
     monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
     monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
-    monEquation.textContent = monEquation.textContent.braille();
+   // monEquation.textContent = monEquation.textContent.braille();
   }
 
   w.mathml2braille = mathml;
@@ -741,5 +745,5 @@
 
 }(window, document));
 
-mathml2braille();
+mathml2braille('.test');
 brailledirect('.js-brailleDirect');
