@@ -17,6 +17,7 @@
     // Source
     // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
     var brailleUnicode = {
+      'finlgMat': 'finlgMat',
       'BLANK': 10240,
       1: 10241,
       12: 10243,
@@ -364,7 +365,7 @@
         _mi(m);
         _mmultiscripts(m);
         _msqrt(m);
-        _matrice(m);
+        // _matriceLineaire(m);
         _writeform(m);
         m.classList.add('courant-sans-top');
         maForm.appendChild(m);
@@ -448,8 +449,8 @@
 
     }
   }
-  
-  var matriceLineaire=false;
+
+  var matriceLineaire = false;
 
   function _mfenced(monEquation) {
     var fenced = monEquation.getElementsByTagName('mfenced');
@@ -485,7 +486,7 @@
 
       switch (open) {
         case 40: // para (
-          if (mtable[0]&&matriceLineaire) {
+          if (mtable[0] && matriceLineaire) {
             open = mathBraille.caracMath.grandeparenthese2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandeparenthese1.open;
@@ -494,7 +495,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0]&&matriceLineaire) {
+          if (mtable[0] && matriceLineaire) {
             open = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.open;
@@ -503,7 +504,7 @@
           }
           break;
         case 93: //']':
-          if (mtable[0]&&matriceLineaire) {
+          if (mtable[0] && matriceLineaire) {
             open = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.close;
@@ -527,7 +528,7 @@
       }
       switch (end) {
         case 41:
-          if (mtable[0]&&matriceLineaire) {
+          if (mtable[0] && matriceLineaire) {
             end = mathBraille.caracMath.grandeparenthese2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandeparenthese1.close;
@@ -537,7 +538,7 @@
 
           break;
         case 93: //']':
-          if (mtable[0]&&matriceLineaire) {
+          if (mtable[0] && matriceLineaire) {
             end = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.close;
@@ -546,7 +547,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0]&&matriceLineaire) {
+          if (mtable[0] && matriceLineaire) {
             end = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.open;
@@ -568,13 +569,59 @@
           end = mathBraille.caracMath.crochetdouble.close;
           break;
       }
+      block = mtable[0] && _mtable(open, end, block);
+
       parent.replaceChild(block.block(open, end), fenced[0]);
+
+
     }
 
   }
-  
 
-  function _matrice(monEquation) {
+
+  function _mtable(open, close, block) {
+    var tbl = block.getElementsByTagName('mtable'),
+      l = tbl.length,
+      i = 0;
+    for (; i != l; i++) {
+      var parent = tbl[i].parentNode;
+
+      //  parent.insertBefore(d.createTextNode('-mat-'),tbl[i]);
+
+      var tr = tbl[i].getElementsByTagName('mtr'),
+        ltr = tr.length,
+        j = 0;
+      // while (tr[0]) {
+      //   var parent = tr[0].parentNode;
+      //   var span = d.createElement('span');
+      //   span.setAttribute('style', 'display:block');
+      //   span.innerHTML = tr[0].innerHTML;
+      //   parent.replaceChild(span, tr[0])
+
+      // }
+      for (; j != ltr; j++) {
+        // var span=d.createElement('span');
+        // span.setAttribute('style','display:block');
+        // span.appendChild(tr[j]);
+        //  tbl[i].insertBefore(d.createTextNode('-lgMat-'),tr[j]);
+        (j !== ltr - 1)&&tbl[i].insertBefore(d.createTextNode('-12345678-'), tr[j].nextSibling);
+        // (j !== ltr - 1) && tr[j].appendChild(d.createElement('br'));
+
+      }
+      var td = tbl[i].getElementsByTagName('mtd'),
+        ltd = td.length,
+        k = 0;
+
+      for (; k != ltd; k++) {
+        (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
+        (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+        // parent = td[k].parentNode;
+      }
+    }
+    return block;
+  }
+
+  function _matriceLineaire(monEquation) {
     var tbl = monEquation.getElementsByTagName('mtable'),
       l = tbl.length,
       i = 0;
@@ -583,14 +630,14 @@
         ltr = tr.length,
         j = 0;
       for (; j != ltr; j++) {
-       tbl[i].insertBefore(d.createTextNode('lgMat'),tr[j]);
+        //  tbl[i].insertBefore(d.createTextNode('lgMat'),tr[j]);
         (j !== ltr - 1) && tr[j].appendChild(d.createTextNode(mathBraille.caracMath.matrice.sepLigne + mathBraille.caracMath.espaceInsecable));
       }
       var td = tbl[i].getElementsByTagName('mtd'),
         ltd = td.length,
         k = 0;
       for (; k != ltd; k++) {
-      	(td[k].textContent.trim().length===0)&&td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
+        (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
         (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
       }
     }
@@ -733,11 +780,28 @@
     _mover(monEquation, 'mroot');
   }
 
+  function _retourChariotMatLineaire(monEquation) {
+    var txt = monEquation.textContent.split('');
+    for (var i = 0; i < txt.length; i++) {
+      var rg = RegExp(txt[i],'gi');
+      if (txt[i].charCodeAt() === 10495) {
+      return monEquation.textContent.replace(rg, '<br/>');
+        
+      }
+      // var eq = (txt[i].charCodeAt() === 10495) && (monEquation.textContent.replace(rg, '<br/>'));
+
+    }
+    
+  }
+
   function _writeform(monEquation) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
     monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
     monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
-   // monEquation.textContent = monEquation.textContent.braille();
+
+    monEquation.textContent = monEquation.textContent.braille();
+    monEquation.innerHTML = _retourChariotMatLineaire(monEquation);
+
   }
 
   w.mathml2braille = mathml;
