@@ -86,7 +86,7 @@
     // mathématiques français
     mathTBF = {
       'caracMath': {
-        'espaceInsecable': 'BLANK',
+        'espaceInsecable': '-BLANK-',
         'blocks': {
           'open': '-56-',
           'close': '-23-'

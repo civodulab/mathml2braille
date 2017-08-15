@@ -340,6 +340,14 @@
       var options = {
         matriceLineaire: false
       };
+      if (clmath && typeof clmath === 'object') {
+        arguments[1] = clmath;
+        clmath = undefined;
+
+
+
+      }
+
 
       // Create options by extending defaults with the passed in arugments
       if (arguments[1] && typeof arguments[1] === "object") {
@@ -608,6 +616,8 @@
     for (; i != l; i++) {
       var parent = tbl[i].parentNode;
       parent.insertBefore(d.createTextNode('-1234567-'), tbl[i]);
+      close && parent.insertBefore(d.createTextNode('-1278-'), tbl[i]);
+
       var tr = tbl[i].getElementsByTagName('mtr'),
         ltr = tr.length,
         j = 0;
@@ -635,7 +645,6 @@
         ltr = tr.length,
         j = 0;
       for (; j != ltr; j++) {
-        //  tbl[i].insertBefore(d.createTextNode('lgMat'),tr[j]);
         (j !== ltr - 1) && tr[j].appendChild(d.createTextNode(mathBraille.caracMath.matrice.sepLigne + mathBraille.caracMath.espaceInsecable));
       }
       var td = tbl[i].getElementsByTagName('mtd'),
@@ -652,7 +661,6 @@
     tagName = tagName || 'msubsup';
     var msubsup = monEquation.getElementsByTagName(tagName);
     while (msubsup[0]) {
-      //	console.log(tagName);
       var elt = msubsup[0].children,
         parent = msubsup[0].parentNode,
         sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
@@ -787,27 +795,28 @@
 
   function _retourChariotMatLineaire(monEquation) {
     var txt = monEquation.textContent.split('');
-    for (var i = 0; i < txt.length; i++) {
-      var rg = RegExp(txt[i], 'gi'),
-      nbcar;
-      if (txt[i].charCodeAt() === 10367) {
-        nbcar=i;
-        monEquation.textContent = monEquation.textContent.replace(rg, '');
-        
-      }
-      if (txt[i].charCodeAt() === 10495) {
-        var txtreplace='<br/>';
-        for(var j=0;j!=nbcar;j++){
-        txtreplace+=String.fromCharCode(10240);
-
-        }
-        monEquation.textContent = monEquation.textContent.replace(rg, txtreplace);
-      }
+    var nbcar = txt.indexOf(String.fromCharCode(10367));
+    (nbcar !== -1) && txt.splice(nbcar, 1);
+    // si fermeture de parenthèse
+    var close = txt.indexOf(String.fromCharCode(10435));
+    if (close !== -1) {
+      txt.splice(close, 1);
+      nbcar = nbcar - 1;
     }
-    return monEquation.textContent;
+    var elt = String.fromCharCode(10495);
+    var idx = txt.indexOf(elt);
+    while (idx != -1) {
+      txt.splice(idx, 1, '<br/>');
+      for (var j = 0; j != nbcar; j++) {
+        txt.splice(idx + j + 1, 0, String.fromCharCode(10240));
+      }
+      idx = txt.indexOf(elt, idx + 1);
+    }
+
+    return txt.join('');
   }
 
- 
+
 
   function _writeform(monEquation, options) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
@@ -816,8 +825,6 @@
 
     monEquation.textContent = monEquation.textContent.braille();
     !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatLineaire(monEquation));
-    // !options.matriceLineaire && (monEquation.innerHTML = _caracAvantMat(monEquation));
-    // monEquation.innerHTML = _retourChariotMatLineaire(monEquation);
 
   }
 
@@ -827,7 +834,7 @@
 }(window, document));
 
 var options = {
-  'matriceLineaire': false
+  'matriceLineaire': true
 }
-mathml2braille('.test', options);
+mathml2braille(options);
 brailledirect('.js-brailleDirect');
