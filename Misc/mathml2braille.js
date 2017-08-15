@@ -337,6 +337,14 @@
   var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
     mathBraille = {},
     mathml = function (clmath) {
+      var options = {
+        matriceLineaire: false
+      };
+
+      // Create options by extending defaults with the passed in arugments
+      if (arguments[1] && typeof arguments[1] === "object") {
+        options = _extendDefaults(options, arguments[1]);
+      }
       var mesFormules = clmath && d.querySelectorAll(clmath) || d.getElementsByContainTagName('math'),
         l = mesFormules.length,
         i = 0;
@@ -353,7 +361,7 @@
         _superflus(m);
         _mn(m);
         _mfrac(m);
-        _mfenced(m);
+        _mfenced(m, options);
         _mover(m);
         _munder(m);
         _msup(m);
@@ -365,8 +373,8 @@
         _mi(m);
         _mmultiscripts(m);
         _msqrt(m);
-        // _matriceLineaire(m);
-        _writeform(m);
+        options.matriceLineaire && _matriceLineaire(m);
+        _writeform(m, options);
         m.classList.add('courant-sans-top');
         maForm.appendChild(m);
 
@@ -386,6 +394,18 @@
         tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
       }
     };
+
+  // Utility method to extend defaults with user options
+  function _extendDefaults(source, properties) {
+    var property;
+    for (property in properties) {
+      if (properties.hasOwnProperty(property)) {
+        source[property] = properties[property];
+      }
+    }
+    return source;
+  }
+
 
   function _supprimeprefix(monEquation) {
     var mesDom = monEquation.getElementsByTagName('*'),
@@ -450,9 +470,8 @@
     }
   }
 
-  var matriceLineaire = false;
 
-  function _mfenced(monEquation) {
+  function _mfenced(monEquation, options) {
     var fenced = monEquation.getElementsByTagName('mfenced');
     while (fenced[0]) {
       var open = fenced[0].getAttribute('open'),
@@ -486,7 +505,7 @@
 
       switch (open) {
         case 40: // para (
-          if (mtable[0] && matriceLineaire) {
+          if (mtable[0] && options.matriceLineaire) {
             open = mathBraille.caracMath.grandeparenthese2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandeparenthese1.open;
@@ -495,7 +514,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0] && matriceLineaire) {
+          if (mtable[0] && options.matriceLineaire) {
             open = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.open;
@@ -504,7 +523,7 @@
           }
           break;
         case 93: //']':
-          if (mtable[0] && matriceLineaire) {
+          if (mtable[0] && options.matriceLineaire) {
             open = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.close;
@@ -528,7 +547,7 @@
       }
       switch (end) {
         case 41:
-          if (mtable[0] && matriceLineaire) {
+          if (mtable[0] && options.matriceLineaire) {
             end = mathBraille.caracMath.grandeparenthese2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandeparenthese1.close;
@@ -538,7 +557,7 @@
 
           break;
         case 93: //']':
-          if (mtable[0] && matriceLineaire) {
+          if (mtable[0] && options.matriceLineaire) {
             end = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.close;
@@ -547,7 +566,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0] && matriceLineaire) {
+          if (mtable[0] && options.matriceLineaire) {
             end = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.open;
@@ -569,7 +588,10 @@
           end = mathBraille.caracMath.crochetdouble.close;
           break;
       }
-      block = mtable[0] && _mtable(open, end, block);
+
+      !options.matriceLineaire && _mtable(open, end, block);
+
+      // block = mtable[0] && _mtable(open, end, block);
 
       parent.replaceChild(block.block(open, end), fenced[0]);
 
@@ -585,37 +607,20 @@
       i = 0;
     for (; i != l; i++) {
       var parent = tbl[i].parentNode;
-
-      //  parent.insertBefore(d.createTextNode('-mat-'),tbl[i]);
-
+      parent.insertBefore(d.createTextNode('-1234567-'), tbl[i]);
       var tr = tbl[i].getElementsByTagName('mtr'),
         ltr = tr.length,
         j = 0;
-      // while (tr[0]) {
-      //   var parent = tr[0].parentNode;
-      //   var span = d.createElement('span');
-      //   span.setAttribute('style', 'display:block');
-      //   span.innerHTML = tr[0].innerHTML;
-      //   parent.replaceChild(span, tr[0])
-
-      // }
       for (; j != ltr; j++) {
-        // var span=d.createElement('span');
-        // span.setAttribute('style','display:block');
-        // span.appendChild(tr[j]);
-        //  tbl[i].insertBefore(d.createTextNode('-lgMat-'),tr[j]);
-        (j !== ltr - 1)&&tbl[i].insertBefore(d.createTextNode('-12345678-'), tr[j].nextSibling);
-        // (j !== ltr - 1) && tr[j].appendChild(d.createElement('br'));
-
-      }
-      var td = tbl[i].getElementsByTagName('mtd'),
-        ltd = td.length,
-        k = 0;
-
-      for (; k != ltd; k++) {
-        (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
-        (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
-        // parent = td[k].parentNode;
+        var txtNode = close && (close + '-12345678-' + open) || ('-12345678-');
+        (j !== ltr - 1) && tbl[i].insertBefore(d.createTextNode(txtNode), tr[j].nextSibling);
+        var td = tr[j].getElementsByTagName('mtd'),
+          ltd = td.length,
+          k = 0;
+        for (; k != ltd; k++) {
+          (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
+          (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+        }
       }
     }
     return block;
@@ -783,24 +788,36 @@
   function _retourChariotMatLineaire(monEquation) {
     var txt = monEquation.textContent.split('');
     for (var i = 0; i < txt.length; i++) {
-      var rg = RegExp(txt[i],'gi');
-      if (txt[i].charCodeAt() === 10495) {
-      return monEquation.textContent.replace(rg, '<br/>');
+      var rg = RegExp(txt[i], 'gi'),
+      nbcar;
+      if (txt[i].charCodeAt() === 10367) {
+        nbcar=i;
+        monEquation.textContent = monEquation.textContent.replace(rg, '');
         
       }
-      // var eq = (txt[i].charCodeAt() === 10495) && (monEquation.textContent.replace(rg, '<br/>'));
+      if (txt[i].charCodeAt() === 10495) {
+        var txtreplace='<br/>';
+        for(var j=0;j!=nbcar;j++){
+        txtreplace+=String.fromCharCode(10240);
 
+        }
+        monEquation.textContent = monEquation.textContent.replace(rg, txtreplace);
+      }
     }
-    
+    return monEquation.textContent;
   }
 
-  function _writeform(monEquation) {
+ 
+
+  function _writeform(monEquation, options) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
     monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
     monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
     monEquation.textContent = monEquation.textContent.braille();
-    monEquation.innerHTML = _retourChariotMatLineaire(monEquation);
+    !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatLineaire(monEquation));
+    // !options.matriceLineaire && (monEquation.innerHTML = _caracAvantMat(monEquation));
+    // monEquation.innerHTML = _retourChariotMatLineaire(monEquation);
 
   }
 
@@ -809,5 +826,8 @@
 
 }(window, document));
 
-mathml2braille('.test');
+var options = {
+  'matriceLineaire': false
+}
+mathml2braille('.test', options);
 brailledirect('.js-brailleDirect');
