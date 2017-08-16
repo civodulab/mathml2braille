@@ -506,14 +506,16 @@
       (open === null) && (open = mathBraille.caracMath.parenthese.open);
       (end === null) && (end = mathBraille.caracMath.parenthese.close);
 
-      var fenced2 = fenced[0].getElementsByTagName('mfenced');
 
       (open.split('').length === 1) && (open = open.charCodeAt());
       (end.split('').length === 1) && (end = end.charCodeAt());
 
+      var fenced2 = fenced[0].getElementsByTagName('mfenced'),
+        monBool = mtable[0] && options.matriceLineaire;
+
       switch (open) {
         case 40: // para (
-          if (mtable[0] && options.matriceLineaire) {
+          if (monBool) {
             open = mathBraille.caracMath.grandeparenthese2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandeparenthese1.open;
@@ -522,7 +524,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0] && options.matriceLineaire) {
+          if (monBool) {
             open = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.open;
@@ -531,7 +533,7 @@
           }
           break;
         case 93: //']':
-          if (mtable[0] && options.matriceLineaire) {
+          if (monBool) {
             open = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.close;
@@ -555,7 +557,7 @@
       }
       switch (end) {
         case 41:
-          if (mtable[0] && options.matriceLineaire) {
+          if (monBool) {
             end = mathBraille.caracMath.grandeparenthese2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandeparenthese1.close;
@@ -565,7 +567,7 @@
 
           break;
         case 93: //']':
-          if (mtable[0] && options.matriceLineaire) {
+          if (monBool) {
             end = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.close;
@@ -574,7 +576,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0] && options.matriceLineaire) {
+          if (monBool) {
             end = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.open;
@@ -596,20 +598,14 @@
           end = mathBraille.caracMath.crochetdouble.close;
           break;
       }
-
-      !options.matriceLineaire && _mtable(open, end, block);
-
-      // block = mtable[0] && _mtable(open, end, block);
-
+      !options.matriceLineaire && _matriceBlock(open, end, block);
       parent.replaceChild(block.block(open, end), fenced[0]);
-
-
     }
 
   }
 
 
-  function _mtable(open, close, block) {
+  function _matriceBlock(open, close, block) {
     var tbl = block.getElementsByTagName('mtable'),
       l = tbl.length,
       i = 0;
@@ -628,8 +624,14 @@
           ltd = td.length,
           k = 0;
         for (; k != ltd; k++) {
+          parent = td[k].parentNode;
+
+
           (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
-          (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+          (k !== ltd - 1) && parent.insertBefore(d.createTextNode(mathBraille.caracMath.espaceInsecable), td[k].nextSibling);
+          parent.insertBefore(d.createTextNode('-124578-'), td[k].nextSibling);
+          parent.insertBefore(d.createTextNode('-124578-'), td[k]);
+          // (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
         }
       }
     }
@@ -794,17 +796,16 @@
   }
 
   function _retourChariotMatLineaire(monEquation) {
-    var txt = monEquation.textContent.split('');
-    var nbcar = txt.indexOf(String.fromCharCode(10367));
+    var txt = monEquation.textContent.split(''),
+      nbcar = txt.indexOf(String.fromCharCode(10367));
     (nbcar !== -1) && txt.splice(nbcar, 1);
-    // si fermeture de parenthèse
     var close = txt.indexOf(String.fromCharCode(10435));
     if (close !== -1) {
       txt.splice(close, 1);
       nbcar = nbcar - 1;
     }
-    var elt = String.fromCharCode(10495);
-    var idx = txt.indexOf(elt);
+    var elt = String.fromCharCode(10495),
+      idx = txt.indexOf(elt);
     while (idx != -1) {
       txt.splice(idx, 1, '<br/>');
       for (var j = 0; j != nbcar; j++) {
@@ -812,11 +813,56 @@
       }
       idx = txt.indexOf(elt, idx + 1);
     }
-
     return txt.join('');
   }
 
 
+  function _calculEspaceMTD(monEquation) {
+    var regex = RegExp(String.fromCharCode(10495), 'gi'),
+    nbligne = monEquation.textContent.match(regex) && monEquation.textContent.match(regex).length + 1;
+    if (nbligne===null) return monEquation.textContent;
+    var txt = monEquation.textContent.split('');
+    var tabcal = [];
+    var lcellule = [];
+    var marque = String.fromCharCode(10459);
+    var marque1 = txt.indexOf(marque),
+      marque2 = txt.indexOf(marque, marque1 + 1);
+    
+    while (marque1 !== -1) {
+      var l = marque2 - marque1 - 1;
+      tabcal.push(l);
+      marque1 = txt.indexOf(marque, marque2 + 1);
+      marque2 = txt.indexOf(marque, marque1 + 1);
+    }
+    lcellule.length = tabcal.length / nbligne;
+    lcellule.fill(0);
+    for (var i = 0; i < tabcal.length; i++) {
+      (tabcal[i] > lcellule[i % nbligne]) && (lcellule[i % nbligne] = tabcal[i]);
+    }
+
+    marque1 = txt.indexOf(marque),
+      marque2 = txt.indexOf(marque, marque1 + 1);
+    var k = 0;
+    while (marque1 !== -1) {
+      l = marque2 - marque1 - 1;
+      console.log(l + ' - ' + lcellule[k % nbligne]);
+
+      if (l < lcellule[k % nbligne]) {
+        for (i = 0; i < lcellule[k % nbligne] - l; i++) {
+          txt.splice(marque2 + i + 1, 0, String.fromCharCode(10240));
+        }
+      }
+      txt.splice(marque2, 1);
+      txt.splice(marque1, 1);
+      marque1 = txt.indexOf(marque);
+      marque2 = txt.indexOf(marque, marque1 + 1);
+      k += 1;
+    }
+    console.log(lcellule);
+
+
+    return txt.join('');
+  }
 
   function _writeform(monEquation, options) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
@@ -824,6 +870,7 @@
     monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
     monEquation.textContent = monEquation.textContent.braille();
+    !options.matriceLineaire && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
     !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatLineaire(monEquation));
 
   }
@@ -834,7 +881,7 @@
 }(window, document));
 
 var options = {
-  'matriceLineaire': true
+  'matriceLineaire': false
 }
 mathml2braille(options);
 brailledirect('.js-brailleDirect');
