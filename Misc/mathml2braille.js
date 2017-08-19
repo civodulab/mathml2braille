@@ -17,6 +17,7 @@
     // Source
     // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
     var brailleUnicode = {
+      'finlgMat': 'finlgMat',
       'BLANK': 10240,
       1: 10241,
       12: 10243,
@@ -287,7 +288,6 @@
     return String.fromCharCode.apply(String, txt);
   };
 
-
   /**
    * getElementsByContainTagName
    * 
@@ -335,7 +335,29 @@
 
   var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
     mathBraille = {},
+    /* variables pour les matrices */
+    braillemarqueCell = '-124578-',
+    braillemarqueMat = '-1234567-',
+    braillemarqueClose = '-1278-',
+    braillemarqueRetourLigne = '-12345678-',
+    marqueCell = braillemarqueCell.substring(1, braillemarqueCell.length - 1).braille(),
+    marqueMat = braillemarqueMat.substring(1, braillemarqueMat.length - 1).braille(),
+    marqueClose = braillemarqueClose.substring(1, braillemarqueClose.length - 1).braille(),
+    marqueRetourLigne = braillemarqueRetourLigne.substring(1, braillemarqueRetourLigne.length - 1).braille(),
+    espace = String.fromCharCode(10240),
+    /* fin variables matrice */
     mathml = function (clmath) {
+      var options = {
+        'matriceLineaire': false
+      };
+      if (clmath && typeof clmath === 'object') {
+        arguments[1] = clmath;
+        clmath = undefined;
+      }
+
+      if (arguments[1] && typeof arguments[1] === "object") {
+        options = _extendDefaults(options, arguments[1]);
+      }
       var mesFormules = clmath && d.querySelectorAll(clmath) || d.getElementsByContainTagName('math'),
         l = mesFormules.length,
         i = 0;
@@ -343,7 +365,7 @@
         var langue = mesFormules[i].getAttribute('lang') || mesFormules[i].getAttribute('xml:lang') || langueDoc,
           lg = langue.split('-')[0];
         mathBraille = allVar[lg].mathBraille || allVar.fr.mathBraille;
-
+        mesFormules[i].setAttribute('aria-hidden',true);
         var parent = mesFormules[i].parentNode,
           maForm = d.createDocumentFragment(),
           m = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
@@ -352,7 +374,7 @@
         _superflus(m);
         _mn(m);
         _mfrac(m);
-        _mfenced(m);
+        _mfenced(m, options);
         _mover(m);
         _munder(m);
         _msup(m);
@@ -364,8 +386,8 @@
         _mi(m);
         _mmultiscripts(m);
         _msqrt(m);
-        _matrice(m);
-        _writeform(m);
+        options.matriceLineaire && _matriceLineaire(m);
+        _writeform(m, options);
         m.classList.add('courant-sans-top');
         maForm.appendChild(m);
 
@@ -385,6 +407,16 @@
         tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
       }
     };
+
+  function _extendDefaults(source, properties) {
+    var property;
+    for (property in properties) {
+      if (properties.hasOwnProperty(property)) {
+        source[property] = properties[property];
+      }
+    }
+    return source;
+  }
 
   function _supprimeprefix(monEquation) {
     var mesDom = monEquation.getElementsByTagName('*'),
@@ -449,7 +481,8 @@
     }
   }
 
-  function _mfenced(monEquation) {
+
+  function _mfenced(monEquation, options) {
     var fenced = monEquation.getElementsByTagName('mfenced');
     while (fenced[0]) {
       var open = fenced[0].getAttribute('open'),
@@ -476,14 +509,16 @@
       (open === null) && (open = mathBraille.caracMath.parenthese.open);
       (end === null) && (end = mathBraille.caracMath.parenthese.close);
 
-      var fenced2 = fenced[0].getElementsByTagName('mfenced');
 
       (open.split('').length === 1) && (open = open.charCodeAt());
       (end.split('').length === 1) && (end = end.charCodeAt());
 
+      var fenced2 = fenced[0].getElementsByTagName('mfenced'),
+        monBool = mtable[0] && options.matriceLineaire;
+
       switch (open) {
         case 40: // para (
-          if (mtable[0]) {
+          if (monBool) {
             open = mathBraille.caracMath.grandeparenthese2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandeparenthese1.open;
@@ -492,7 +527,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0]) {
+          if (monBool) {
             open = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.open;
@@ -501,7 +536,7 @@
           }
           break;
         case 93: //']':
-          if (mtable[0]) {
+          if (monBool) {
             open = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             open = mathBraille.caracMath.grandcrochet1.close;
@@ -525,7 +560,7 @@
       }
       switch (end) {
         case 41:
-          if (mtable[0]) {
+          if (monBool) {
             end = mathBraille.caracMath.grandeparenthese2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandeparenthese1.close;
@@ -535,7 +570,7 @@
 
           break;
         case 93: //']':
-          if (mtable[0]) {
+          if (monBool) {
             end = mathBraille.caracMath.grandcrochet2.close;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.close;
@@ -544,7 +579,7 @@
           }
           break;
         case 91: //'[':
-          if (mtable[0]) {
+          if (monBool) {
             end = mathBraille.caracMath.grandcrochet2.open;
           } else if (fenced2[0]) {
             end = mathBraille.caracMath.grandcrochet1.open;
@@ -566,12 +601,46 @@
           end = mathBraille.caracMath.crochetdouble.close;
           break;
       }
+      !options.matriceLineaire && _matriceBlock(open, end, block);
       parent.replaceChild(block.block(open, end), fenced[0]);
     }
 
   }
 
-  function _matrice(monEquation) {
+
+  function _matriceBlock(open, close, block) {
+    var tbl = block.getElementsByTagName('mtable'),
+      l = tbl.length,
+      i = 0;
+    for (; i != l; i++) {
+      var parent = tbl[i].parentNode;
+      parent.insertBefore(d.createTextNode(braillemarqueMat), tbl[i]);
+      close && parent.insertBefore(d.createTextNode(braillemarqueClose), tbl[i]);
+
+      var tr = tbl[i].getElementsByTagName('mtr'),
+        ltr = tr.length,
+        j = 0;
+      for (; j != ltr; j++) {
+        var txtNode = close && (close + braillemarqueRetourLigne + open) || braillemarqueRetourLigne;
+        (j !== ltr - 1) && tbl[i].insertBefore(d.createTextNode(txtNode), tr[j].nextSibling);
+        var td = tr[j].getElementsByTagName('mtd'),
+          ltd = td.length,
+          k = 0;
+        for (; k != ltd; k++) {
+          parent = td[k].parentNode;
+
+
+          (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
+          (k !== ltd - 1) && parent.insertBefore(d.createTextNode(mathBraille.caracMath.espaceInsecable), td[k].nextSibling);
+          parent.insertBefore(d.createTextNode(braillemarqueCell), td[k].nextSibling);
+          parent.insertBefore(d.createTextNode(braillemarqueCell), td[k]);
+        }
+      }
+    }
+    return block;
+  }
+
+  function _matriceLineaire(monEquation) {
     var tbl = monEquation.getElementsByTagName('mtable'),
       l = tbl.length,
       i = 0;
@@ -586,7 +655,7 @@
         ltd = td.length,
         k = 0;
       for (; k != ltd; k++) {
-      	(td[k].textContent.trim().length===0)&&td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
+        (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
         (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
       }
     }
@@ -596,13 +665,11 @@
     tagName = tagName || 'msubsup';
     var msubsup = monEquation.getElementsByTagName(tagName);
     while (msubsup[0]) {
-      //	console.log(tagName);
       var elt = msubsup[0].children,
         parent = msubsup[0].parentNode,
         sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
         sep2 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.exposant)),
         df = d.createDocumentFragment();
-      //	console.log(elt[0].tagName);
       df.appendChild(elt[0]);
       (tagName === 'munderover') && df.appendChild(sep1.cloneNode());
       df.appendChild(sep1);
@@ -625,8 +692,6 @@
         j = 0;
       mn[i].textContent = '';
       for (; j < lnum; j++) {
-        // console.log(num[j]+' -> '+num[j].charCodeAt());
-
         var carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
         mn[i].textContent += carac;
       }
@@ -643,7 +708,6 @@
 
   function _mover(monEquation, tagName) {
     tagName = tagName || 'mover';
-    //console.log(tagName);
     var mover = monEquation.getElementsByTagName(tagName);
     while (mover[0]) {
       var df = d.createDocumentFragment(),
@@ -729,11 +793,84 @@
     _mover(monEquation, 'mroot');
   }
 
-  function _writeform(monEquation) {
+  function _retourChariotMatrice(monEquation) {
+    var txt = monEquation.textContent.split(''),
+      nbcar = txt.indexOf(marqueMat);
+    if (nbcar === -1) return monEquation.textContent;
+    txt.splice(nbcar, 1)
+    var close = txt.indexOf(marqueClose);
+    if (close !== -1) {
+      txt.splice(close, 1);
+      nbcar = nbcar - 1;
+    }
+    var idx = txt.indexOf(marqueRetourLigne),
+      spc = "";
+    while (idx != -1) {
+      for (var j = 0; j != nbcar; j++) {
+        spc += espace;
+      }
+      txt.splice(idx, 1, '<br/>' + spc);
+      idx = txt.indexOf(marqueRetourLigne, idx + 1);
+    }
+    return txt.join('');
+  }
+
+
+  function _calculEspaceMTD(monEquation) {
+    var regex = RegExp(marqueRetourLigne, 'gi'),
+      nbligne = monEquation.textContent.match(regex) && (monEquation.textContent.match(regex).length + 1);
+    if (nbligne === null) return monEquation.textContent;
+    var txt = monEquation.textContent.split(''),
+      lcell = [],
+      lcol = [],
+      posmarque = [],
+      marque1 = txt.indexOf(marqueCell),
+      marque2 = txt.indexOf(marqueCell, marque1 + 1),
+      i = 0,
+      j = 0;
+
+    while (marque1 !== -1) {
+      var l = marque2 - marque1 - 1;
+      lcell.push(l);
+      posmarque.push(marque2);
+      marque1 = txt.indexOf(marqueCell, marque2 + 1);
+      marque2 = txt.indexOf(marqueCell, marque1 + 1);
+    }
+    var llcell = lcell.length;
+    lcol.length = llcell / nbligne;
+    lcol.fill(0);
+    for (; i < lcell.length; i++) {
+      (lcell[i] > lcol[i % nbligne]) && (lcol[i % nbligne] = lcell[i]);
+    }
+
+    for (; j != llcell; j++) {
+      marque2 = posmarque[j];
+      l = lcol[j % nbligne] - lcell[j];
+      var spc = "";
+      if (l > 0) {
+        for (i = 1; i <= l; i++) {
+          spc += espace;
+        }
+        txt.splice(marque2, 1, spc);
+      }
+    }
+    txt = txt.filter(_filtremarque);
+    return txt.join('');
+  }
+
+  function _filtremarque(element) {
+    return element != marqueCell;
+  }
+
+  function _writeform(monEquation, options) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
     monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
     monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
+
     monEquation.textContent = monEquation.textContent.braille();
+    !options.matriceLineaire && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
+    !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatrice(monEquation));
+
   }
 
   w.mathml2braille = mathml;
@@ -741,5 +878,9 @@
 
 }(window, document));
 
-mathml2braille();
+var options = {
+  'matriceLineaire': true
+}
+mathml2braille('.js-math2braille');
+mathml2braille('.js-matrice-lineaire',options);
 brailledirect('.js-brailleDirect');
