@@ -5,19 +5,21 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
 ![](header.png)
 
 ## mathML
-* Convertir toutes les équations
+- Convertir toutes les équations
 ```
 mathml2braille();
 ```
-* Ne convertir que les éléments d'une classe
+- Ne convertir que les éléments d'une classe
 ```
 mathml2braille('.class');
 ```
-* Option pour les matrices : (mode bloque par défaut)
-``` mode linéaire
+- Option pour les matrices : (mode bloque par défaut)
+    - mode linéaire
+```
 mathml2braille('.class',{'matriceLineaire': true});
 ```
-``` mode bloque
+    - mode bloque
+```
 mathml2braille('.class',{'matriceLineaire': false});
 ou
 mathml2braille('.class');
