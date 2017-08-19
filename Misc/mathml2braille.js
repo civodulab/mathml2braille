@@ -805,12 +805,14 @@
       nbcar = nbcar - 1;
     }
     var elt = String.fromCharCode(10495),
-      idx = txt.indexOf(elt);
+      idx = txt.indexOf(elt),
+      spc="",
+      espace=String.fromCharCode(10240);
     while (idx != -1) {
-      txt.splice(idx, 1, '<br/>');
       for (var j = 0; j != nbcar; j++) {
-        txt.splice(idx + j + 1, 0, String.fromCharCode(10240));
+      	spc+=espace;
       }
+      txt.splice(idx, 1, '<br/>'+spc);
       idx = txt.indexOf(elt, idx + 1);
     }
     return txt.join('');
@@ -821,48 +823,49 @@
     var regex = RegExp(String.fromCharCode(10495), 'gi'),
     nbligne = monEquation.textContent.match(regex) && monEquation.textContent.match(regex).length + 1;
     if (nbligne===null) return monEquation.textContent;
-    var txt = monEquation.textContent.split('');
-    var tabcal = [];
-    var lcellule = [];
-    var marque = String.fromCharCode(10459);
-    var marque1 = txt.indexOf(marque),
-      marque2 = txt.indexOf(marque, marque1 + 1);
+    var txt = monEquation.textContent.split(''),
+    lcell = [],
+    lcol = [],
+    posmarque=[],
+    marque = String.fromCharCode(10459),
+    espace=String.fromCharCode(10240),
+    marque1 = txt.indexOf(marque),
+    marque2 = txt.indexOf(marque, marque1 + 1),
+    i=0,
+    j=0;
     
     while (marque1 !== -1) {
       var l = marque2 - marque1 - 1;
-      tabcal.push(l);
+      lcell.push(l);
+      posmarque.push(marque2);
       marque1 = txt.indexOf(marque, marque2 + 1);
       marque2 = txt.indexOf(marque, marque1 + 1);
     }
-    lcellule.length = tabcal.length / nbligne;
-    lcellule.fill(0);
-    for (var i = 0; i < tabcal.length; i++) {
-      (tabcal[i] > lcellule[i % nbligne]) && (lcellule[i % nbligne] = tabcal[i]);
+    var llcell=lcell.length;
+    lcol.length = llcell / nbligne;
+    lcol.fill(0);
+    for (; i < lcell.length; i++) {
+      (lcell[i] > lcol[i % nbligne]) && (lcol[i % nbligne] = lcell[i]);
     }
-
-    marque1 = txt.indexOf(marque),
-      marque2 = txt.indexOf(marque, marque1 + 1);
-    var k = 0;
-    while (marque1 !== -1) {
-      l = marque2 - marque1 - 1;
-      console.log(l + ' - ' + lcellule[k % nbligne]);
-
-      if (l < lcellule[k % nbligne]) {
-        for (i = 0; i < lcellule[k % nbligne] - l; i++) {
-          txt.splice(marque2 + i + 1, 0, String.fromCharCode(10240));
-        }
-      }
-      txt.splice(marque2, 1);
-      txt.splice(marque1, 1);
-      marque1 = txt.indexOf(marque);
-      marque2 = txt.indexOf(marque, marque1 + 1);
-      k += 1;
+  
+    for(;j!=llcell;j++){
+    	marque2=posmarque[j];
+    	l = lcol[j % nbligne]-lcell[j];
+    	var spc="";
+    	if (l >0) {
+    	for (i = 1; i <= l; i++) {
+    	spc+=espace;
+    	}
+    	txt.splice(marque2, 1, spc);
+    	}
     }
-    console.log(lcellule);
-
-
+    txt=txt.filter(_filtremarque);
     return txt.join('');
   }
+
+function _filtremarque(element){
+	return element != String.fromCharCode(10459);
+}
 
   function _writeform(monEquation, options) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
