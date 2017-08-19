@@ -288,7 +288,6 @@
     return String.fromCharCode.apply(String, txt);
   };
 
-
   /**
    * getElementsByContainTagName
    * 
@@ -336,20 +335,26 @@
 
   var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
     mathBraille = {},
+    /* variables pour les matrices */
+    braillemarqueCell = '-124578-',
+    braillemarqueMat = '-1234567-',
+    braillemarqueClose = '-1278-',
+    braillemarqueRetourLigne = '-12345678-',
+    marqueCell = braillemarqueCell.substring(1, braillemarqueCell.length - 1).braille(),
+    marqueMat = braillemarqueMat.substring(1, braillemarqueMat.length - 1).braille(),
+    marqueClose = braillemarqueClose.substring(1, braillemarqueClose.length - 1).braille(),
+    marqueRetourLigne = braillemarqueRetourLigne.substring(1, braillemarqueRetourLigne.length - 1).braille(),
+    espace = String.fromCharCode(10240),
+    /* fin variables matrice */
     mathml = function (clmath) {
       var options = {
-        matriceLineaire: false
+        'matriceLineaire': false
       };
       if (clmath && typeof clmath === 'object') {
         arguments[1] = clmath;
         clmath = undefined;
-
-
-
       }
 
-
-      // Create options by extending defaults with the passed in arugments
       if (arguments[1] && typeof arguments[1] === "object") {
         options = _extendDefaults(options, arguments[1]);
       }
@@ -360,7 +365,7 @@
         var langue = mesFormules[i].getAttribute('lang') || mesFormules[i].getAttribute('xml:lang') || langueDoc,
           lg = langue.split('-')[0];
         mathBraille = allVar[lg].mathBraille || allVar.fr.mathBraille;
-
+        mesFormules[i].setAttribute('aria-hidden',true);
         var parent = mesFormules[i].parentNode,
           maForm = d.createDocumentFragment(),
           m = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
@@ -403,7 +408,6 @@
       }
     };
 
-  // Utility method to extend defaults with user options
   function _extendDefaults(source, properties) {
     var property;
     for (property in properties) {
@@ -413,7 +417,6 @@
     }
     return source;
   }
-
 
   function _supprimeprefix(monEquation) {
     var mesDom = monEquation.getElementsByTagName('*'),
@@ -611,14 +614,14 @@
       i = 0;
     for (; i != l; i++) {
       var parent = tbl[i].parentNode;
-      parent.insertBefore(d.createTextNode('-1234567-'), tbl[i]);
-      close && parent.insertBefore(d.createTextNode('-1278-'), tbl[i]);
+      parent.insertBefore(d.createTextNode(braillemarqueMat), tbl[i]);
+      close && parent.insertBefore(d.createTextNode(braillemarqueClose), tbl[i]);
 
       var tr = tbl[i].getElementsByTagName('mtr'),
         ltr = tr.length,
         j = 0;
       for (; j != ltr; j++) {
-        var txtNode = close && (close + '-12345678-' + open) || ('-12345678-');
+        var txtNode = close && (close + braillemarqueRetourLigne + open) || braillemarqueRetourLigne;
         (j !== ltr - 1) && tbl[i].insertBefore(d.createTextNode(txtNode), tr[j].nextSibling);
         var td = tr[j].getElementsByTagName('mtd'),
           ltd = td.length,
@@ -629,9 +632,8 @@
 
           (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
           (k !== ltd - 1) && parent.insertBefore(d.createTextNode(mathBraille.caracMath.espaceInsecable), td[k].nextSibling);
-          parent.insertBefore(d.createTextNode('-124578-'), td[k].nextSibling);
-          parent.insertBefore(d.createTextNode('-124578-'), td[k]);
-          // (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+          parent.insertBefore(d.createTextNode(braillemarqueCell), td[k].nextSibling);
+          parent.insertBefore(d.createTextNode(braillemarqueCell), td[k]);
         }
       }
     }
@@ -668,7 +670,6 @@
         sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
         sep2 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.exposant)),
         df = d.createDocumentFragment();
-      //	console.log(elt[0].tagName);
       df.appendChild(elt[0]);
       (tagName === 'munderover') && df.appendChild(sep1.cloneNode());
       df.appendChild(sep1);
@@ -691,8 +692,6 @@
         j = 0;
       mn[i].textContent = '';
       for (; j < lnum; j++) {
-        // console.log(num[j]+' -> '+num[j].charCodeAt());
-
         var carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
         mn[i].textContent += carac;
       }
@@ -709,7 +708,6 @@
 
   function _mover(monEquation, tagName) {
     tagName = tagName || 'mover';
-    //console.log(tagName);
     var mover = monEquation.getElementsByTagName(tagName);
     while (mover[0]) {
       var df = d.createDocumentFragment(),
@@ -795,77 +793,74 @@
     _mover(monEquation, 'mroot');
   }
 
-  function _retourChariotMatLineaire(monEquation) {
+  function _retourChariotMatrice(monEquation) {
     var txt = monEquation.textContent.split(''),
-      nbcar = txt.indexOf(String.fromCharCode(10367));
-    (nbcar !== -1) && txt.splice(nbcar, 1);
-    var close = txt.indexOf(String.fromCharCode(10435));
+      nbcar = txt.indexOf(marqueMat);
+    if (nbcar === -1) return monEquation.textContent;
+    txt.splice(nbcar, 1)
+    var close = txt.indexOf(marqueClose);
     if (close !== -1) {
       txt.splice(close, 1);
       nbcar = nbcar - 1;
     }
-    var elt = String.fromCharCode(10495),
-      idx = txt.indexOf(elt),
-      spc="",
-      espace=String.fromCharCode(10240);
+    var idx = txt.indexOf(marqueRetourLigne),
+      spc = "";
     while (idx != -1) {
       for (var j = 0; j != nbcar; j++) {
-      	spc+=espace;
+        spc += espace;
       }
-      txt.splice(idx, 1, '<br/>'+spc);
-      idx = txt.indexOf(elt, idx + 1);
+      txt.splice(idx, 1, '<br/>' + spc);
+      idx = txt.indexOf(marqueRetourLigne, idx + 1);
     }
     return txt.join('');
   }
 
 
   function _calculEspaceMTD(monEquation) {
-    var regex = RegExp(String.fromCharCode(10495), 'gi'),
-    nbligne = monEquation.textContent.match(regex) && monEquation.textContent.match(regex).length + 1;
-    if (nbligne===null) return monEquation.textContent;
+    var regex = RegExp(marqueRetourLigne, 'gi'),
+      nbligne = monEquation.textContent.match(regex) && (monEquation.textContent.match(regex).length + 1);
+    if (nbligne === null) return monEquation.textContent;
     var txt = monEquation.textContent.split(''),
-    lcell = [],
-    lcol = [],
-    posmarque=[],
-    marque = String.fromCharCode(10459),
-    espace=String.fromCharCode(10240),
-    marque1 = txt.indexOf(marque),
-    marque2 = txt.indexOf(marque, marque1 + 1),
-    i=0,
-    j=0;
-    
+      lcell = [],
+      lcol = [],
+      posmarque = [],
+      marque1 = txt.indexOf(marqueCell),
+      marque2 = txt.indexOf(marqueCell, marque1 + 1),
+      i = 0,
+      j = 0;
+
     while (marque1 !== -1) {
       var l = marque2 - marque1 - 1;
       lcell.push(l);
       posmarque.push(marque2);
-      marque1 = txt.indexOf(marque, marque2 + 1);
-      marque2 = txt.indexOf(marque, marque1 + 1);
+      marque1 = txt.indexOf(marqueCell, marque2 + 1);
+      marque2 = txt.indexOf(marqueCell, marque1 + 1);
     }
-    var llcell=lcell.length;
+    var llcell = lcell.length;
     lcol.length = llcell / nbligne;
     lcol.fill(0);
     for (; i < lcell.length; i++) {
       (lcell[i] > lcol[i % nbligne]) && (lcol[i % nbligne] = lcell[i]);
     }
-  
-    for(;j!=llcell;j++){
-    	marque2=posmarque[j];
-    	l = lcol[j % nbligne]-lcell[j];
-    	var spc="";
-    	if (l >0) {
-    	for (i = 1; i <= l; i++) {
-    	spc+=espace;
-    	}
-    	txt.splice(marque2, 1, spc);
-    	}
+
+    for (; j != llcell; j++) {
+      marque2 = posmarque[j];
+      l = lcol[j % nbligne] - lcell[j];
+      var spc = "";
+      if (l > 0) {
+        for (i = 1; i <= l; i++) {
+          spc += espace;
+        }
+        txt.splice(marque2, 1, spc);
+      }
     }
-    txt=txt.filter(_filtremarque);
+    txt = txt.filter(_filtremarque);
     return txt.join('');
   }
 
-function _filtremarque(element){
-	return element != String.fromCharCode(10459);
-}
+  function _filtremarque(element) {
+    return element != marqueCell;
+  }
 
   function _writeform(monEquation, options) {
     monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
@@ -874,7 +869,7 @@ function _filtremarque(element){
 
     monEquation.textContent = monEquation.textContent.braille();
     !options.matriceLineaire && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
-    !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatLineaire(monEquation));
+    !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatrice(monEquation));
 
   }
 
@@ -884,7 +879,8 @@ function _filtremarque(element){
 }(window, document));
 
 var options = {
-  'matriceLineaire': false
+  'matriceLineaire': true
 }
-mathml2braille(options);
+mathml2braille('.js-math2braille');
+mathml2braille('.js-matrice-lineaire',options);
 brailledirect('.js-brailleDirect');
