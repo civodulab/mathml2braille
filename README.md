@@ -15,26 +15,24 @@ mathml2braille('.class');
 ```
 - Option pour les matrices : (mode bloque par défaut)
     - mode linéaire
-```
-mathml2braille('.class',{'matriceLineaire': true});
-```
+    ```javascript
+    mathml2braille('.class',{'matriceLineaire': true});
+    ```
     - mode bloque
-```
-mathml2braille('.class',{'matriceLineaire': false});
-ou
-mathml2braille('.class');
-
-```
+    ```javascript
+    mathml2braille('.class',{'matriceLineaire': false});
+    ou
+    mathml2braille('.class');
+    ```
 ## Braille Direct
 * Transformer du texte en braille unicode
-```
-Code Html
+```html
 <p class="js-brailleDirect">>5+25;/58=65</p>
 
 Sortie navigateur
 ⠰⠱⠖⠣⠱⠆⠌⠱⠳⠶⠫⠱
 ```
-```
+```javascript
 javascript
 brailledirect('.js-brailleDirect');
 ```
