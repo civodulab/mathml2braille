@@ -878,9 +878,3 @@
 
 }(window, document));
 
-var options = {
-  'matriceLineaire': true
-}
-mathml2braille('.js-math2braille');
-mathml2braille('.js-matrice-lineaire',options);
-brailledirect('.js-brailleDirect');

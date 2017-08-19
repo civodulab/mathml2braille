@@ -14,12 +14,10 @@ mathml2braille();
 mathml2braille('.class');
 ```
 * Option pour les matrices : (mode bloque par défaut)
-** mode linéaire
-```
+``` mode linéaire
 mathml2braille('.class',{'matriceLineaire': true});
 ```
-** mode bloque
-```
+``` mode bloque
 mathml2braille('.class',{'matriceLineaire': false});
 ou
 mathml2braille('.class');
