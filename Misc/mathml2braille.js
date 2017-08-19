@@ -2,7 +2,7 @@
  * mathml2braille
  * Convertit les équations mathML en Braille Unicode
  * @author Ludovic BAL <ludo.bal62@gmail.com>
- * @version ...
+ * @version 1.0
  * 
  */
 (function (w, d, undefined) {
@@ -17,7 +17,6 @@
     // Source
     // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
     var brailleUnicode = {
-      'finlgMat': 'finlgMat',
       'BLANK': 10240,
       1: 10241,
       12: 10243,
@@ -295,8 +294,8 @@
    * @returns {array}
    */
   Object.prototype.getElementsByContainTagName = function (tag) {
-    var a = [];
-    var n = this.getElementsByTagName('*'),
+    var a = [],
+    n = this.getElementsByTagName('*'),
       l = n.length,
       i = 0;
     tag = tag.toUpperCase();
@@ -374,18 +373,24 @@
         _superflus(m);
         _mn(m);
         _mfrac(m);
-        _mfenced(m, options);
+        _mroot(m);
+        _msqrt(m);
+        
+        // _mfenced(m, options);
         _mover(m);
         _munder(m);
         _msup(m);
         _msub(m);
         _msubsup(m);
         _munderover(m);
-        _mroot(m);
+        // _mroot(m);
         _mo(m);
         _mi(m);
         _mmultiscripts(m);
-        _msqrt(m);
+
+        _mfenced(m, options);
+        
+        // _msqrt(m);
         options.matriceLineaire && _matriceLineaire(m);
         _writeform(m, options);
         m.classList.add('courant-sans-top');

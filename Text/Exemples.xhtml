@@ -10,18 +10,47 @@
 
 <body>
 	<section epub:type="subchapter">
-		<h1>Mathématiques</h1>
-		<h2>Exemple de formules mathématiques.</h2>
-		<h3>Braille direct</h3>
+		<h1>Exemple de formules mathématiques.</h1>
+		<h2>Braille direct</h2>
 		<p>>5+25;/x=65</p>
 		<p class="js-brailleDirect">>5+25;/x=65</p>
-		<h3>MathML</h3>
+		<h2>MathML</h2>
 		<p class="courant">
 			Langue "en"<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" lang="en" class="js-math2braille">
 				<mn>5</mn>
 				<mo>,</mo>
 				<mn>7</mn>
+			</math>
+		</p>
+		<h3>Notations ensemblistes</h3>
+		<p class="courant">Sans "separators"<br/>
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>E</mi>
+				<mo>=</mo>
+				<mfenced open="{" close="}">
+					<mrow>
+						<mi>a</mi>
+						<mo>,</mo>
+						<mi>b</mi>
+						<mo>,</mo>
+						<mi>c</mi>
+						<mo>,</mo>
+						<mi>d</mi>
+					</mrow>
+				</mfenced>
+			</math>
+		</p>
+		<p class="courant">Avec "separators"<br/>
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>E</mi>
+				<mo>=</mo>
+				<mfenced open="{" close="}" separators=",">
+					<mi>a</mi>
+					<mi>b</mi>
+					<mi>c</mi>
+					<mi>d</mi>
+				</mfenced>
 			</math>
 		</p>
 		<p class="courant">
@@ -74,6 +103,775 @@
 				</mfenced>
 			</math>
 		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>x</mi>
+				<mo>&#x2209;</mo>
+				<msup>
+					<mi mathvariant="normal">&#x211D;</mi>
+					<mo>+</mo>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>D</mi>
+				<mo>&#x2282;</mo>
+				<mi>F</mi>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>D</mi>
+				<mo>&#x2284;</mo>
+				<mi>E</mi>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>A</mi>
+				<mo>&#x2286;</mo>
+				<mi>B</mi>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>A</mi>
+				<mo>&#x2229;</mo>
+				<mi>B</mi>
+				<mo>=</mo>
+				<mo>&#x2205;</mo>
+			</math>
+		</p>
+		<h3>Divisions, fractions</h3>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfrac>
+					<mn>2</mn>
+					<mn>3</mn>
+				</mfrac>
+				<mo>=</mo>
+				<mfrac>
+					<mn>4</mn>
+					<mn>6</mn>
+				</mfrac>
+			</math>
+		</p>
+
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mn>1</mn>
+				<mo>&#xF7;</mo>
+				<mn>2</mn>
+				<mo>=</mo>
+				<mn>0</mn>
+				<mo>,</mo>
+				<mn>5</mn>
+			</math>
+		</p>
+
+		<h3>Blocs</h3>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfrac>
+					<mrow>
+						<mi>a</mi>
+						<mo>+</mo>
+						<mi>b</mi>
+					</mrow>
+					<mi>a</mi>
+				</mfrac>
+			</math>
+		</p>
+
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfrac>
+					<mrow>
+						<mi>a</mi>
+						<mo>+</mo>
+						<mi>b</mi>
+					</mrow>
+					<mrow>
+						<mi>c</mi>
+						<mo>+</mo>
+						<mi>d</mi>
+					</mrow>
+				</mfrac>
+			</math>
+		</p>
+
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfrac>
+					<mi>a</mi>
+					<mi>b</mi>
+				</mfrac>
+				<mo>+</mo>
+				<mfrac>
+					<mi>c</mi>
+					<mi>d</mi>
+				</mfrac>
+				<mo>=</mo>
+				<mfrac>
+					<mrow>
+						<mi>a</mi>
+						<mi>d</mi>
+						<mo>+</mo>
+						<mi>b</mi>
+						<mi>c</mi>
+					</mrow>
+					<mrow>
+						<mi>b</mi>
+						<mi>d</mi>
+					</mrow>
+				</mfrac>
+			</math>
+		</p>
+
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>Card</mi>
+				<mo>&#xA0;</mo>
+				<mi>E</mi>
+				<mo>=</mo>
+				<mn>5</mn>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>e</mi>
+					<mrow>
+						<mi>x</mi>
+						<mo>+</mo>
+						<mn>3</mn>
+					</mrow>
+				</msup>
+			</math>
+		</p>
+
+
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>e</mi>
+					<mn>7</mn>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>e</mi>
+					<mrow>
+						<mo>-</mo>
+						<mi>x</mi>
+					</mrow>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>e</mi>
+					<mrow>
+						<mo>-</mo>
+						<mi mathvariant="normal">&#x3C0;</mi>
+					</mrow>
+				</msup>
+			</math>
+		</p>
+
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>e</mi>
+					<mrow>
+						<mo>-</mo>
+						<mn>1</mn>
+					</mrow>
+				</msup>
+				<mo>=</mo>
+				<mfrac>
+					<mn>1</mn>
+					<mi>x</mi>
+				</mfrac>
+			</math>
+		</p>
+		<h3>Indices</h3>
+		<h4>Accentuations mathématiques</h4>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>a</mi>
+				<mo>'</mo>
+			</math>
+		</p>
+		<p class="courant">
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>x</mi>
+				<mo>''</mo>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>a</mi>
+				<mo>'</mo>
+				<mi>x</mi>
+				<mo>+</mo>
+				<mi>a</mi>
+				<mo>''</mo>
+				<mi>y</mi>
+				<mo>+</mo>
+				<mi>a</mi>
+				<mo>'''</mo>
+				<mi>z</mi>
+			</math>
+		</p>
+
+		<h4>Indice inférieur</h4>
+
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msub>
+					<mi>a</mi>
+					<mi>p</mi>
+				</msub>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msub>
+					<mi>x</mi>
+					<mn>0</mn>
+				</msub>
+			</math>
+		</p>
+
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msub>
+					<mi>u</mi>
+					<mrow>
+						<mi>n</mi>
+						<mo>+</mo>
+						<mn>1</mn>
+					</mrow>
+				</msub>
+			</math>
+		</p>
+		<h4>Indice supérieur exposant</h4>
+
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>x</mi>
+					<mn>2</mn>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>x</mi>
+					<mrow>
+						<mi>p</mi>
+						<mo>+</mo>
+						<mi>q</mi>
+					</mrow>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>a</mi>
+					<mrow>
+						<mo>-</mo>
+						<mn>5</mn>
+						<mo>,</mo>
+						<mn>3</mn>
+					</mrow>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi>a</mi>
+					<mi mathvariant="normal">&#x3C0;</mi>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mn>5</mn>
+					<mn>2</mn>
+				</msup>
+				<msqrt>
+					<mn>3</mn>
+				</msqrt>
+				<mo>&#x2260;</mo>
+				<msup>
+					<mn>5</mn>
+					<mrow>
+						<mn>2</mn>
+						<msqrt>
+							<mn>3</mn>
+						</msqrt>
+					</mrow>
+				</msup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msup>
+					<mi mathvariant="normal">e</mi>
+					<mrow>
+						<mo>-</mo>
+						<mn>5</mn>
+						<mi mathvariant="normal">x</mi>
+					</mrow>
+				</msup>
+				<mo>&#x2260;</mo>
+				<msup>
+					<mi mathvariant="normal">e</mi>
+					<mrow>
+						<mo>-</mo>
+						<mn>5</mn>
+					</mrow>
+				</msup>
+				<mi mathvariant="normal">x</mi>
+			</math>
+		</p>
+
+		<h4>Indices inférieurs et supérieurs</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi mathvariant="normal">a</mi>
+				<msub>
+					<mo>'</mo>
+					<mn>0</mn>
+				</msub>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi mathvariant="normal">x</mi>
+				<msubsup>
+					<mo>'</mo>
+					<mn>0</mn>
+					<mn>2</mn>
+				</msubsup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi mathvariant="normal">a</mi>
+				<msubsup>
+					<mo>''</mo>
+					<mrow>
+						<mi mathvariant="normal">m</mi>
+						<mo>+</mo>
+						<mi mathvariant="normal">n</mi>
+					</mrow>
+					<mrow>
+						<mi mathvariant="normal">p</mi>
+						<mo>+</mo>
+						<mi mathvariant="normal">q</mi>
+					</mrow>
+				</msubsup>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msubsup>
+					<mi mathvariant="normal">&#x211D;</mi>
+					<mo>+</mo>
+					<mo>*</mo>
+				</msubsup>
+			</math>
+		</p>
+		<h4>Indices placés à gauche d'une quantité ou préfixes</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mmultiscripts>
+					<mi>A</mi>
+					<mprescripts/>
+					<none/>
+					<mi>t</mi>
+				</mmultiscripts>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mmultiscripts>
+					<mi>w</mi>
+					<mprescripts/>
+					<mn>2</mn>
+					<none/>
+				</mmultiscripts>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mmultiscripts>
+					<mi>A</mi>
+					<mprescripts/>
+					<none/>
+					<mi>t</mi>
+				</mmultiscripts>
+				<mmultiscripts>
+					<mi>B</mi>
+					<mprescripts/>
+					<none/>
+					<mi>t</mi>
+				</mmultiscripts>
+			</math>
+		</p>
+		<p class="courant">Chimie (à travailler)</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mmultiscripts>
+					<mi mathvariant="normal">O</mi>
+					<mprescripts/>
+					<mn>8</mn>
+					<mn>16</mn>
+				</mmultiscripts>
+			</math>
+		</p>
+
+		<h4>Indices suscrits ou souscrits</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<munderover>
+					<mo>&#x2211;</mo>
+					<mrow>
+						<mi>i</mi>
+						<mo>=</mo>
+						<mn>1</mn>
+					</mrow>
+					<mi>n</mi>
+				</munderover>
+				<msub>
+					<mi>u</mi>
+					<mn>1</mn>
+				</msub>
+				<mo>+</mo>
+				<msub>
+					<mi>u</mi>
+					<mn>2</mn>
+				</msub>
+				<mo>+</mo>
+				<mo>&#x22EF;</mo>
+				<mo>+</mo>
+				<msub>
+					<mi>u</mi>
+					<mi>n</mi>
+				</msub>
+			</math>
+		</p>
+		<h4>Radicaux</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msqrt>
+					<mn>2</mn>
+				</msqrt>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mroot>
+					<mi>a</mi>
+					<mn>4</mn>
+				</mroot>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mroot>
+					<msup>
+						<mfenced>
+							<mrow>
+								<mi>a</mi>
+								<mo>+</mo>
+								<mi>b</mi>
+							</mrow>
+						</mfenced>
+						<mn>3</mn>
+					</msup>
+					<mn>6</mn>
+				</mroot>
+				<mo>=</mo>
+				<msqrt>
+					<mfenced>
+						<mrow>
+							<mi>a</mi>
+							<mo>+</mo>
+							<mi>b</mi>
+						</mrow>
+					</mfenced>
+				</msqrt>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mroot>
+					<mrow>
+						<mi>a</mi>
+						<mo>+</mo>
+						<msqrt>
+							<mi>a</mi>
+							<mo>+</mo>
+							<mi>b</mi>
+						</msqrt>
+					</mrow>
+					<mn>3</mn>
+				</mroot>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mroot>
+					<mi>a</mi>
+					<mn>4</mn>
+				</mroot>
+				<mroot>
+					<mi>b</mi>
+					<mn>3</mn>
+				</mroot>
+			</math>
+		</p>
+		<h4>Flèches</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>f</mi>
+				<mo>:</mo>
+				<mo>&#xA0;</mo>
+				<mi mathvariant="normal">&#x211D;</mi>
+				<mo>&#x2192;</mo>
+				<mi mathvariant="normal">&#x211D;</mi>
+				<mspace linebreak="newline" />
+				<mi>x</mi>
+				<mo>&#x21A6;</mo>
+				<mi>f</mi>
+				<mfenced>
+					<mi>x</mi>
+				</mfenced>
+				<mspace linebreak="newline" />
+			</math>
+		</p>
+
+		<p class="courant">Avec "table"<br/>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mtable>
+					<mtr>
+						<mtd>
+							<mi>f</mi>
+							<mo>:</mo>
+							<mo>&#xA0;</mo>
+							<mi mathvariant="normal">&#x211D;</mi>
+							<mo>&#x2192;</mo>
+							<mi mathvariant="normal">&#x211D;</mi>
+						</mtd>
+					</mtr>
+					<mtr>
+						<mtd>
+							<mi>x</mi>
+							<mo>&#x21A6;</mo>
+							<mi>f</mi>
+							<mfenced>
+								<mi>x</mi>
+							</mfenced>
+						</mtd>
+					</mtr>
+				</mtable>
+				<mspace linebreak="newline" />
+			</math>
+		</p>
+		<h3>Signes suscrits, signes souscrits, géométrie</h3>
+		<h4>Signes suscrits</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mover>
+					<mi>v</mi>
+					<mo>&#x2192;</mo>
+				</mover>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mover>
+					<mrow>
+						<mi>A</mi>
+						<mi>B</mi>
+					</mrow>
+					<mo>&#x23DC;</mo>
+				</mover>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mover>
+					<mrow>
+						<mi>A</mi>
+						<mi>B</mi>
+					</mrow>
+					<mo>&#xAF;</mo>
+				</mover>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mover>
+					<mrow>
+						<mi>A</mi>
+						<mi>O</mi>
+						<mi>B</mi>
+					</mrow>
+					<mo>^</mo>
+				</mover>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mover>
+					<mfenced>
+						<mrow>
+							<mi>O</mi>
+							<mi>x</mi>
+							<mo>,</mo>
+							<mi>O</mi>
+							<mi>y</mi>
+						</mrow>
+					</mfenced>
+					<mo>^</mo>
+				</mover>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mover>
+					<mfenced>
+						<mrow>
+							<mover>
+								<mrow>
+									<mi>O</mi>
+									<mi>A</mi>
+								</mrow>
+								<mo>&#x2192;</mo>
+							</mover>
+							<mo>,</mo>
+							<mover>
+								<mrow>
+									<mi>O</mi>
+									<mi>M</mi>
+								</mrow>
+								<mo>&#x2192;</mo>
+							</mover>
+						</mrow>
+					</mfenced>
+					<mo>^</mo>
+				</mover>
+			</math>
+		</p>
+		<h4>Signes souscrits</h4>
+		<p class="courant">À faire</p>
+		<h4>Signes géométriques</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfenced>
+					<mi>D</mi>
+				</mfenced>
+				<mo>&#x2225;</mo>
+				<mfenced>
+					<mo>&#x2206;</mo>
+				</mfenced>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfenced>
+					<mrow>
+						<mi>A</mi>
+						<mi>B</mi>
+					</mrow>
+				</mfenced>
+				<mo>&#x22A5;</mo>
+				<mfenced>
+					<mrow>
+						<mi>A</mi>
+						<mo>'</mo>
+						<mi>B</mi>
+						<mo>'</mo>
+					</mrow>
+				</mfenced>
+			</math>
+		</p>
+
+		<h3>Encadrements, barres verticales</h3>
+		<h4>Valeur absolue, module, norme...</h4>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfenced open="|" close="|">
+					<msub>
+						<mi>x</mi>
+						<mn>0</mn>
+					</msub>
+				</mfenced>
+			</math>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mfenced open="||" close="||">
+					<mrow>
+						<mi>k</mi>
+						<mover>
+							<mi>u</mi>
+							<mo>&#x2192;</mo>
+						</mover>
+					</mrow>
+				</mfenced>
+				<mo>=</mo>
+				<mfenced open="|" close="|">
+					<mi>k</mi>
+				</mfenced>
+				<mfenced open="||" close="||">
+					<mover>
+						<mi>u</mi>
+						<mo>&#x2192;</mo>
+					</mover>
+				</mfenced>
+			</math>
+		</p>
+		<p class="courant">À voir ("menclose")
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<msub>
+					<menclose notation="right">
+						<mi>f</mi>
+					</menclose>
+					<mi>E</mi>
+				</msub>
+			</math>
+		</p>
+
+
+
+
+
+
+
+
+
+
+
+		<p>======================================</p>
+		<p>======================================</p>
+		<p>======================================</p>
+		<p>======================================</p>
+		<p>======================================</p>
+
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mi>u</mi>
@@ -773,10 +1571,9 @@
 		var options = {
 			'matriceLineaire': true
 		}
-		mathml2braille('.js-math2braille');
-		mathml2braille('.js-matrice-lineaire', options);
+		mathml2braille();
+		// mathml2braille('.js-matrice-lineaire', options);
 		brailledirect('.js-brailleDirect');
-
 	</script>
 </body>
 

@@ -231,6 +231,7 @@
         57: '-246-', // 9
         39: '-3-', // '
         44: '-2-', // ,
+        58: '-25-', // :
         59: '-23-', // ;
         45: '-36-', // -
         42: '-5-35-', // *
@@ -251,7 +252,7 @@
         10877: '-45-126-', // LESS-THAN OR SLANTED EQUAL TO ⩽
         10878: '-45-345-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
         177: '-235-36-', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
-        8800: '-235-2356-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
+        8800: '-46-2356-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
         247: '-25-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
         215: '-35-', //TIMES X × &times; &‌#215; &‌#x00D7;
         8722: '-36-', //MINUS − &minus; &‌#8722; &‌#x2212;
@@ -535,7 +536,7 @@
         // NOT NORMAL SUBGROUP OF OR EQUAL TO ⋬ &‌#8940; &‌#x22EC;
         // DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL ⋭ &‌#8941; &‌#x22ED;
         // VERTICAL ELLIPSIS ⋮ &‌#8942; &‌#x22EE;
-        // MIDLINE HORIZONTAL ELLIPSIS ⋯ &‌#8943; &‌#x22EF;
+        8943: '-256-256-256-', // MIDLINE HORIZONTAL ELLIPSIS ⋯ &‌#8943; &‌#x22EF;
         // UP RIGHT DIAGONAL ELLIPSIS ⋰ &‌#8944; &‌#x22F0;
         // DOWN RIGHT DIAGONAL ELLIPSIS ⋱ &‌#8945; &‌#x22F1;
         /* lettres grecques */
