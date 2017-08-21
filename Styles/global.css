@@ -1,16 +1,29 @@
-h1{
+h1 {
     font-size: 2em;
     margin-top: 1em;
     margin-bottom: 1em;
 }
-h2{
+
+h2 {
     font-size: 1.5em;
     margin-bottom: .5em;
 }
-h3{
+
+h3 {
     text-decoration: underline;
     font-weight: bold;
 }
-.courant-sans-top{
+
+.courant-sans-top {
     margin-top: 0;
+}
+
+.Arevoir {
+    color: #D81414;
+    border-top-color: darkred;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-color: darkred;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
 }
