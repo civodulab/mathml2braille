@@ -704,7 +704,7 @@
             l = mn.length,
             i = 0;
         for (; i != l; i++) {
-            var num = mn[i].textContent.trim().split(''),
+            var num = mn[i].length>1&&mn[i].textContent.trim().split('')||mn[i].textContent.split(''),
                 lnum = num.length,
                 j = 0;
             mn[i].textContent = '';
@@ -886,7 +886,7 @@
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
         monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
-        // monEquation.textContent = monEquation.textContent.braille();
+         monEquation.textContent = monEquation.textContent.braille();
         !options.matriceLineaire && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
         !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatrice(monEquation));
 
