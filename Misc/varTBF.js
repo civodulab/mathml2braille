@@ -539,10 +539,11 @@
              // DOES NOT CONTAIN AS NORMAL SUBGROUP ⋫ &‌#8939; &‌#x22EB;
              // NOT NORMAL SUBGROUP OF OR EQUAL TO ⋬ &‌#8940; &‌#x22EC;
              // DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL ⋭ &‌#8941; &‌#x22ED;
-             // VERTICAL ELLIPSIS ⋮ &‌#8942; &‌#x22EE;
+             8942: '-256-256-256-', // VERTICAL ELLIPSIS ⋮ &‌#8942; &‌#x22EE;
+             8230: '-256-256-256-', // HORIZONTAL ELLIPSIS ⋯
              8943: '-256-256-256-', // MIDLINE HORIZONTAL ELLIPSIS ⋯ &‌#8943; &‌#x22EF;
-             // UP RIGHT DIAGONAL ELLIPSIS ⋰ &‌#8944; &‌#x22F0;
-             // DOWN RIGHT DIAGONAL ELLIPSIS ⋱ &‌#8945; &‌#x22F1;
+             8944: '-256-256-256-', // UP RIGHT DIAGONAL ELLIPSIS ⋰ &‌#8944; &‌#x22F0;
+             8945: '-256-256-256-', // DOWN RIGHT DIAGONAL ELLIPSIS ⋱ &‌#8945; &‌#x22F1;
              /* lettres grecques */
              8721: '-46-45-234-', //CAPITAL SIGMA N-ARY SUMMATION ∑ &sum; &‌#8721; &‌#x2211;
              8719: '-46-45-1234-', //CAPITAL PI N-ARY PRODUCT ∏ &prod; &‌#8719; &‌#x220F;
