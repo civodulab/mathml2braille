@@ -229,7 +229,7 @@
 			</math>
 		</p>
 
-		<p class="courant">
+		<p class="courant Arevoir">
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>Card</mi>
 				<mo>&#xA0;</mo>
@@ -605,13 +605,11 @@
 				</mroot>
 				<mo>=</mo>
 				<msqrt>
-					<mfenced>
-						<mrow>
-							<mi>a</mi>
-							<mo>+</mo>
-							<mi>b</mi>
-						</mrow>
-					</mfenced>
+					<mrow>
+						<mi>a</mi>
+						<mo>+</mo>
+						<mi>b</mi>
+					</mrow>
 				</msqrt>
 			</math>
 		</p>
@@ -644,7 +642,7 @@
 			</math>
 		</p>
 		<h3>11. Flèches</h3>
-		<p class="courant">
+		<p class="courant Arevoir">
 			<math xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>f</mi>
 				<mo>:</mo>
@@ -659,11 +657,10 @@
 				<mfenced>
 					<mi>x</mi>
 				</mfenced>
-				<mspace linebreak="newline" />
 			</math>
 		</p>
 
-		<p class="courant">Avec "table"<br/>
+		<p class="courant Arevoir">Avec "table"<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML">
 				<mtable>
 					<mtr>
@@ -687,7 +684,6 @@
 						</mtd>
 					</mtr>
 				</mtable>
-				<mspace linebreak="newline" />
 			</math>
 		</p>
 		<h3>12. Signes suscrits, signes souscrits, géométrie</h3>
@@ -857,7 +853,7 @@
 				</mfenced>
 			</math>
 		</p>
-		<p class="courant">À voir ("menclose")
+		<p class="courant Arevoir">À voir ("menclose")
 			<math xmlns="http://www.w3.org/1998/Math/MathML">
 				<msub>
 					<menclose notation="right">
@@ -986,7 +982,7 @@
 				</mfenced>
 			</math>
 		</p>
-		<p class="courant Arevoir"> A revoir "mfenced"<br/>
+		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>f</mi>
 				<mo>&#x2218;</mo>
@@ -1237,7 +1233,7 @@
 			</math>
 		</p>
 		<p class="courant Arevoir">
-			<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="test">
 				<mi>ln</mi>
 				<mo>&#xA0;</mo>
 				<mi>x</mi>
@@ -1252,8 +1248,9 @@
 				<mi>y</mi>
 			</math>
 		</p>
+		
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="test">
 				<msub>
 					<mi>log</mi>
 					<mn>7</mn>
@@ -1906,34 +1903,7 @@
 				</mrow>
 			</math>
 		</p>
-		<p class="courant">
-			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
-				<mrow>
-					<mi>&#964;</mi>
-					<mo>=</mo>
-					<mfenced open="[" close="]">
-						<mtable>
-							<mtr>
-								<mtd>
-									<mi>x+5</mi>
-								</mtd>
-								<mtd>
-									<mi>y-65</mi>
-								</mtd>
-							</mtr>
-							<mtr>
-								<mtd>
-									<mi>z</mi>
-								</mtd>
-								<mtd>
-									<mi>w+1</mi>
-								</mtd>
-							</mtr>
-						</mtable>
-					</mfenced>
-				</mrow>
-			</math>
-		</p>
+
 		<h4>Système d'équations</h4>
 		<p class="courant">Non linéaire<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2100,8 +2070,8 @@
 		var options = {
 			'matriceLineaire': true
 		}
-		 mathml2braille();
-		//mathml2braille('.test');
+		mathml2braille();
+		// mathml2braille('.test');
 		// mathml2braille('.js-matrice-lineaire', options);
 		brailledirect('.js-brailleDirect');
 	</script>

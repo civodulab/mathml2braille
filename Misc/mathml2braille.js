@@ -278,7 +278,7 @@
             txt = maTable && this.split('') || this.split('-'),
             l = txt.length,
             i = 0;
-        for (; i != l; i++) {
+        for (; i !== l; i++) {
             if (!tmpTable[txt[i]]) {
                 return 'caractère ' + txt[i] + ' non défini';
             }
@@ -299,7 +299,7 @@
             l = n.length,
             i = 0;
         tag = tag.toUpperCase();
-        for (; i != l; i++) {
+        for (; i !== l; i++) {
             var node = n[i].tagName.toUpperCase();
             (node.indexOf(tag) !== -1) && a.push(n[i]);
         }
@@ -360,7 +360,7 @@
             var mesFormules = clmath && d.querySelectorAll(clmath) || d.getElementsByContainTagName('math'),
                 l = mesFormules.length,
                 i = 0;
-            for (; i != l; i++) {
+            for (; i !== l; i++) {
                 var langue = mesFormules[i].getAttribute('lang') || mesFormules[i].getAttribute('xml:lang') || langueDoc,
                     lg = langue.split('-')[0];
                 mathBraille = allVar[lg].mathBraille || allVar.fr.mathBraille;
@@ -371,12 +371,13 @@
                 m.innerHTML = mesFormules[i].innerHTML;
                 _supprimeprefix(m);
                 _superflus(m);
-                _mn(m);
-                
+                _inutile(m);
+                // _mn(m);
+                _mmultiscripts(m);
+
                 _mfrac(m);
                 _mroot(m);
                 _msqrt(m);
-
                 _mover(m);
                 _munder(m);
                 _msup(m);
@@ -384,12 +385,12 @@
                 _msubsup(m);
                 _munderover(m);
                 _mfenced(m, options);
-                console.log(m.innerHTML);
-                
+                _mn(m);
+
                 _mo(m);
                 _mi(m);
-                
-                _mmultiscripts(m);
+
+                // _mmultiscripts(m);
 
                 options.matriceLineaire && _matriceLineaire(m);
                 _writeform(m, options);
@@ -405,7 +406,7 @@
                 tbf6 = d.querySelectorAll(maClass),
                 l = tbf6.length,
                 i = 0;
-            for (; i != l; i++) {
+            for (; i !== l; i++) {
                 var langue = tbf6[i].getAttribute('lang') || tbf6[i].getAttribute('xml:lang') || langueDoc,
                     lg = langue.split('-')[0],
                     maTable = allVar[lg].TBdbt || allVar.fr.TBdbt;
@@ -438,25 +439,47 @@
         }
     }
 
-    function _superflus(monEquation) {
+    function _inutile(monEquation) {
         var mesTags = ['annotation-xml', 'annotation'],
             l = mesTags.length,
             i = 0;
-        for (; i != l; i++) {
-            var superflus = monEquation.getElementsByTagName(mesTags[i]);
-            while (superflus[0]) {
-                var parent = superflus[0].parentNode;
-                parent.removeChild(superflus[0]);
+        for (; i !== l; i++) {
+            var inutile = monEquation.getElementsByTagName(mesTags[i]);
+            while (inutile[0]) {
+                var parent = inutile[0].parentNode;
+                parent.removeChild(inutile[0]);
             }
         }
     }
+
+    function _superflus(monEquation) {
+        var mesTags = ['mpadded', 'mstyle'],
+            l = mesTags.length,
+            i = 0,
+            df = d.createDocumentFragment(),
+            parent;
+        for (; i !== l; i++) {
+            var superflus = monEquation.getElementsByTagName(mesTags[i]),
+                enfants = superflus.children;
+            while (superflus[0]) {
+                parent = superflus[0].parentNode;
+
+                while (enfants[0]) {
+                    df.appendChild(enfants[0]);
+                }
+                parent.replaceChild(df, superflus[0]);
+            }
+        }
+    }
+
+  
 
     function _mmultiscripts(monEquation) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts');
         while (multiscripts[0]) {
             var elt = multiscripts[0].children,
                 parent = multiscripts[0].parentNode,
-                df = d.createDocumentFragment(),
+                df = d.createElement('block'),
                 base = elt[0],
                 post1,
                 post2,
@@ -504,7 +527,7 @@
                     enfants = fenced[0].children,
                     lenfants = enfants.length,
                     i = 0;
-                for (; i != lenfants - 1; i++) {
+                for (; i !== lenfants - 1; i++) {
                     s[i] = s[i] || slast;
                     enfants[i].appendChild(d.createTextNode(s[i]));
                     s[i] && (slast = s[i]);
@@ -519,15 +542,15 @@
             (open.split('').length === 1) && (open = open.charCodeAt());
             (end.split('').length === 1) && (end = end.charCodeAt());
 
-            var fenced2 = fenced[0].getElementsByTagName('mfenced'),
-                monBool = mtable[0] && options.matriceLineaire;
+            // var fenced2 = fenced[0].getElementsByTagName('mfenced'),
+            var monBool = mtable[0] && options.matriceLineaire;
 
             switch (open) {
                 case 40: // para (
                     if (monBool) {
                         open = mathBraille.caracMath.grandeparenthese2.open;
-                    } else if (fenced2[0]) {
-                        open = mathBraille.caracMath.grandeparenthese1.open;
+                        // } else if (fenced2[0]) {
+                        //     open = mathBraille.caracMath.grandeparenthese1.open;
                     } else {
                         open = mathBraille.caracMath.parenthese.open;
                     }
@@ -535,8 +558,8 @@
                 case 91: //'[':
                     if (monBool) {
                         open = mathBraille.caracMath.grandcrochet2.open;
-                    } else if (fenced2[0]) {
-                        open = mathBraille.caracMath.grandcrochet1.open;
+                        // } else if (fenced2[0]) {
+                        //     open = mathBraille.caracMath.grandcrochet1.open;
                     } else {
                         open = mathBraille.caracMath.crochet.open;
                     }
@@ -544,8 +567,8 @@
                 case 93: //']':
                     if (monBool) {
                         open = mathBraille.caracMath.grandcrochet2.close;
-                    } else if (fenced2[0]) {
-                        open = mathBraille.caracMath.grandcrochet1.close;
+                        // } else if (fenced2[0]) {
+                        //     open = mathBraille.caracMath.grandcrochet1.close;
                     } else {
                         open = mathBraille.caracMath.crochet.close;
                     }
@@ -572,8 +595,8 @@
                 case 41:
                     if (monBool) {
                         end = mathBraille.caracMath.grandeparenthese2.close;
-                    } else if (fenced2[0]) {
-                        end = mathBraille.caracMath.grandeparenthese1.close;
+                        // } else if (fenced2[0]) {
+                        //     end = mathBraille.caracMath.grandeparenthese1.close;
                     } else {
                         end = mathBraille.caracMath.parenthese.close;
                     }
@@ -582,8 +605,8 @@
                 case 93: //']':
                     if (monBool) {
                         end = mathBraille.caracMath.grandcrochet2.close;
-                    } else if (fenced2[0]) {
-                        end = mathBraille.caracMath.grandcrochet1.close;
+                        // } else if (fenced2[0]) {
+                        //     end = mathBraille.caracMath.grandcrochet1.close;
                     } else {
                         end = mathBraille.caracMath.crochet.close;
                     }
@@ -591,8 +614,8 @@
                 case 91: //'[':
                     if (monBool) {
                         end = mathBraille.caracMath.grandcrochet2.open;
-                    } else if (fenced2[0]) {
-                        end = mathBraille.caracMath.grandcrochet1.open;
+                        // } else if (fenced2[0]) {
+                        //     end = mathBraille.caracMath.grandcrochet1.open;
                     } else {
                         end = mathBraille.caracMath.crochet.open;
                     }
@@ -624,7 +647,7 @@
         var tbl = block.getElementsByTagName('mtable'),
             l = tbl.length,
             i = 0;
-        for (; i != l; i++) {
+        for (; i !== l; i++) {
             var parent = tbl[i].parentNode;
             parent.insertBefore(d.createTextNode(braillemarqueMat), tbl[i]);
             close && parent.insertBefore(d.createTextNode(braillemarqueClose), tbl[i]);
@@ -632,13 +655,13 @@
             var tr = tbl[i].getElementsByTagName('mtr'),
                 ltr = tr.length,
                 j = 0;
-            for (; j != ltr; j++) {
+            for (; j !== ltr; j++) {
                 var txtNode = close && (close + braillemarqueRetourLigne + open) || braillemarqueRetourLigne;
                 (j !== ltr - 1) && tbl[i].insertBefore(d.createTextNode(txtNode), tr[j].nextSibling);
                 var td = tr[j].getElementsByTagName('mtd'),
                     ltd = td.length,
                     k = 0;
-                for (; k != ltd; k++) {
+                for (; k !== ltd; k++) {
                     parent = td[k].parentNode;
                     (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
                     (k !== ltd - 1) && parent.insertBefore(d.createTextNode(mathBraille.caracMath.espaceInsecable), td[k].nextSibling);
@@ -654,17 +677,17 @@
         var tbl = monEquation.getElementsByTagName('mtable'),
             l = tbl.length,
             i = 0;
-        for (; i != l; i++) {
+        for (; i !== l; i++) {
             var tr = tbl[i].getElementsByTagName('mtr'),
                 ltr = tr.length,
                 j = 0;
-            for (; j != ltr; j++) {
+            for (; j !== ltr; j++) {
                 (j !== ltr - 1) && tr[j].appendChild(d.createTextNode(mathBraille.caracMath.matrice.sepLigne + mathBraille.caracMath.espaceInsecable));
             }
             var td = tbl[i].getElementsByTagName('mtd'),
                 ltd = td.length,
                 k = 0;
-            for (; k != ltd; k++) {
+            for (; k !== ltd; k++) {
                 (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
                 (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
             }
@@ -679,20 +702,14 @@
                 parent = msubsup[0].parentNode,
                 sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
                 sep2 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.exposant)),
-                df = d.createDocumentFragment();
-            console.log(elt[0].innerHTML);
+                df = d.createElement('block');
             df.appendChild(elt[0]);
-            console.log(elt[0].innerHTML);
-
             (tagName === 'munderover') && df.appendChild(sep1.cloneNode());
             df.appendChild(sep1);
             (elt[0].children.length > 1) && df.appendChild(elt[0].block()) || df.appendChild(elt[0]);
             (tagName === 'munderover') && df.appendChild(sep2.cloneNode());
             df.appendChild(sep2);
-            console.log(elt[0]);
-
             (elt[0].children.length > 1) && df.appendChild(elt[0].block()) || df.appendChild(elt[0]);
-            console.log(df);
             parent.replaceChild(df, msubsup[0]);
 
         }
@@ -703,8 +720,8 @@
         var mn = monEquation.getElementsByTagName(tagName),
             l = mn.length,
             i = 0;
-        for (; i != l; i++) {
-            var num = mn[i].length>1&&mn[i].textContent.trim().split('')||mn[i].textContent.split(''),
+        for (; i !== l; i++) {
+            var num = mn[i].length > 1 && mn[i].textContent.trim().split('') || mn[i].textContent.split(''),
                 lnum = num.length,
                 j = 0;
             mn[i].textContent = '';
@@ -769,7 +786,6 @@
                 bloc.appendChild(d.createTextNode(sep));
                 enfant2.children.length > 1 && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
             }
-            console.log(bloc);
             parent.replaceChild(bloc, mover[0]);
         }
     }
@@ -799,10 +815,20 @@
         while (racine[0]) {
             var bloc = d.createElement('block'),
                 parent = racine[0].parentNode,
-                block = d.createElement('block');
+                block = d.createElement('block'),
+                enfants = block.children;
             bloc.appendChild(d.createTextNode(mathBraille.caracMath.racine));
             block.innerHTML = racine[0].innerHTML;
-            bloc.appendChild(block.block());
+
+            if (enfants.length === 1) {
+                if (enfants[0].tagName.toLowerCase() === 'mrow' || enfants[0].tagName.toLowerCase() === 'mpadded') {
+                    enfants[0].children.length > 1 && bloc.appendChild(block.block()) || bloc.appendChild(block);
+                } else {
+                    bloc.appendChild(block);
+                }
+            } else {
+                bloc.appendChild(block.block());
+            }
             parent.replaceChild(bloc, racine[0]);
         }
     }
@@ -824,10 +850,10 @@
         var idx = txt.indexOf(marqueRetourLigne),
             spc = "",
             j = 0;
-        for (; j != nbcar; j++) {
+        for (; j !== nbcar; j++) {
             spc += espace;
         }
-        while (idx != -1) {
+        while (idx !== -1) {
             txt.splice(idx, 1, '<br/>' + spc);
             idx = txt.indexOf(marqueRetourLigne, idx + 1);
         }
@@ -859,10 +885,10 @@
             llcol = llcell / nbligne;
         lcol.length = llcol;
         lcol.fill(0);
-        for (; i != llcell; i++) {
+        for (; i !== llcell; i++) {
             (lcell[i] > lcol[i % llcol]) && (lcol[i % llcol] = lcell[i]);
         }
-        for (; j != llcell; j++) {
+        for (; j !== llcell; j++) {
             marque2 = posmarque[j];
             l = lcol[j % llcol] - lcell[j];
             var spc = "";
@@ -878,7 +904,7 @@
     }
 
     function _filtremarque(element) {
-        return element != marqueCell;
+        return element !== marqueCell;
     }
 
     function _writeform(monEquation, options) {
@@ -886,7 +912,7 @@
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
         monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
-         monEquation.textContent = monEquation.textContent.braille();
+        monEquation.textContent = monEquation.textContent.braille();
         !options.matriceLineaire && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
         !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatrice(monEquation));
 
