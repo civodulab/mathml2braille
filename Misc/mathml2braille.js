@@ -366,12 +366,13 @@
                 mathBraille = allVar[lg].mathBraille || allVar.fr.mathBraille;
                 mesFormules[i].setAttribute('aria-hidden', true);
                 var parent = mesFormules[i].parentNode,
-                    maForm = d.createDocumentFragment(),
-                    m = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
-                m.innerHTML = mesFormules[i].innerHTML;
+                    m = d.createElement('math'),
+                    maForm = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
+                m.innerHTML=mesFormules[i].innerHTML;
                 _supprimeprefix(m);
                 _superflus(m);
                 _inutile(m);
+                _ajoutmfenced(m);
                 // _mn(m);
                 _mmultiscripts(m);
 
@@ -394,8 +395,9 @@
 
                 options.matriceLineaire && _matriceLineaire(m);
                 _writeform(m, options);
-                m.classList.add('courant-sans-top');
                 maForm.appendChild(m);
+                maForm.classList.add('courant-sans-top');
+              //  maForm.appendChild(m);
 
                 parent.insertBefore(maForm, mesFormules[i].nextSibling);
 
@@ -472,7 +474,29 @@
         }
     }
 
-  
+  function _ajoutmfenced(monEquation){
+  	var tbl=monEquation.getElementsByTagName('mtable'),
+  	ltbl=tbl.length,
+  	i=0,
+  	parent,
+  	stop=false;
+  	for(;i!==ltbl;i++){
+  		parent=tbl[i].parentNode;
+  		while(parent.tagName.toLowerCase()!=='math'&&stop===false){
+  		console.log(stop);
+  			if(parent.tagName.toLowerCase()==='mfenced'){
+  				stop=true;
+  			} else{
+  				parent=parent.parentNode;
+  			}
+  		
+  		}
+  		console.log(i+' '+parent.tagName);
+  		
+  	}
+  	
+  	
+  }
 
     function _mmultiscripts(monEquation) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts');
