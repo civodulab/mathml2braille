@@ -642,7 +642,38 @@
 			</math>
 		</p>
 		<h3>11. Flèches</h3>
-		<p class="courant Arevoir">
+
+		<p class="courant Arevoir">MathType<br/>
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+				<mtable columnalign='left'>
+					<mtr>
+						<mtd>
+							<mi>f</mi>
+							<mo>:</mo>
+							<mi>&#x211D;</mi>
+							<mo>&#x2192;</mo>
+							<mi>&#x211D;</mi>
+						</mtd>
+					</mtr>
+					<mtr>
+						<mtd>
+							<mi>x</mi>
+							<mo>&#x21A6;</mo>
+							<mi>y</mi>
+							<mo>=</mo>
+							<mfrac>
+								<mn>1</mn>
+								<mi>x</mi>
+							</mfrac>
+
+						</mtd>
+					</mtr>
+				</mtable>
+
+			</math>
+
+		</p>
+		<p class="courant Arevoir">Wiris avec "mspace linebreak"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mi>f</mi>
 				<mo>:</mo>
@@ -653,14 +684,15 @@
 				<mspace linebreak="newline" />
 				<mi>x</mi>
 				<mo>&#x21A6;</mo>
-				<mi>f</mi>
-				<mfenced>
+				<mi>y</mi>
+				<mo>=</mo>
+				<mfrac>
+					<mn>1</mn>
 					<mi>x</mi>
-				</mfenced>
+				</mfrac>
 			</math>
 		</p>
-
-		<p class="courant Arevoir">Avec "table"<br/>
+		<p class="courant Arevoir">Wiris avec "table"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mtable>
 					<mtr>
@@ -677,10 +709,12 @@
 						<mtd>
 							<mi>x</mi>
 							<mo>&#x21A6;</mo>
-							<mi>f</mi>
-							<mfenced>
+							<mi>y</mi>
+							<mo>=</mo>
+							<mfrac>
+								<mn>1</mn>
 								<mi>x</mi>
-							</mfenced>
+							</mfrac>
 						</mtd>
 					</mtr>
 				</mtable>
@@ -1128,7 +1162,48 @@
 				<mn>0</mn>
 			</math>
 		</p>
-		<p class="courant Arevoir">À revoir<br/>
+		<p class="courant ">MathType<br/>
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+				<mrow>
+					<munder>
+						<mrow>
+							<mi>lim</mi>
+						</mrow>
+						<mtable columnalign='left'>
+							<mtr>
+								<mtd>
+									<mrow>
+										<mi>x</mi>
+										<mo>&#x2192;</mo>
+										<mn>4</mn>
+									</mrow>
+								</mtd>
+							</mtr>
+							<mtr>
+								<mtd>
+									<mrow>
+										<mi>x</mi>
+										<mo>&#x003E;</mo>
+										<mn>4</mn>
+									</mrow>
+								</mtd>
+							</mtr>
+						</mtable>
+					</munder>
+					<mi>f</mi>
+					<mrow>
+						<mo>(</mo>
+						<mi>x</mi>
+						<mo>)</mo>
+					</mrow>
+					<mo>=</mo>
+					<mo>&#x2212;</mo>
+					<mi>&#x221E;</mi>
+				</mrow>
+			</math>
+
+		</p>
+		<p class="courant ">Wiris avec "mtable"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mrow>
 					<munder>
@@ -2215,7 +2290,7 @@
 				</mfenced>
 			</math>
 		</p>
-		<p class="courant Arevoir">Sans "mfenced"<br/>
+		<p class="courant">Sans "mfenced"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mrow>
 					<mrow>
@@ -2455,7 +2530,7 @@
 			</math>
 		</p>
 		<p class="courant">Wiris<br/>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-lineaire">
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mfenced>
 					<mtable>
 						<mtr>
@@ -2588,8 +2663,8 @@
 		var options = {
 			'matriceLineaire': true
 		}
-		mathml2braille('.js-math2braille');
-		// mathml2braille('.test');
+		mathml2braille('.js-math2braille', options);
+		// mathml2braille('.test',options);
 		mathml2braille('.js-matrice-lineaire', options);
 		brailledirect('.js-brailleDirect');
 	</script>

@@ -372,6 +372,8 @@
                 _supprimeprefix(m);
                 _superflus(m);
                 _inutile(m);
+                _tableSeul(m);
+                var hardmat = _boolHardMatrice(m);
                 _ajoutmfenced(m);
                 // _mn(m);
                 _mmultiscripts(m);
@@ -385,7 +387,7 @@
                 _msub(m);
                 _msubsup(m);
                 _munderover(m);
-                _mfenced(m, options);
+                _mfenced(m, options, hardmat);
                 _mn(m);
 
                 _mo(m);
@@ -393,8 +395,8 @@
 
                 // _mmultiscripts(m);
 
-                options.matriceLineaire && _matriceLineaire(m);
-                _writeform(m, options);
+                (options.matriceLineaire || hardmat) && _matriceLineaire(m);
+                _writeform(m, options, hardmat);
                 maForm.appendChild(m);
                 maForm.classList.add('courant-sans-top');
                 //  maForm.appendChild(m);
@@ -424,6 +426,37 @@
             }
         }
         return source;
+    }
+
+    function _tableSeul(monEquation) {
+        var tbl = monEquation.getElementsByTagName('mtable'),
+            bloc = d.createElement('block');
+        if (tbl.length > 0 && monEquation.children.length === 1) {
+            var Tagenfant = monEquation.children[0].tagName,
+                parent = tbl[0].parentNode;
+            if (Tagenfant.toLowerCase() === 'mtable') {
+                var tr = tbl[0].getElementsByTagName('mtr'),
+                    ltr = tr.length,
+                    i = 0;
+                for (; i !== ltr; i++) {
+                    (i !== ltr - 1) && tr[i].appendChild(d.createTextNode(braillemarqueRetourLigne));
+
+                }
+                while (tr[0]) {
+                    bloc.appendChild(tr[0]);
+                }
+                parent.replaceChild(bloc, tbl[0]);
+            }
+
+
+        }
+
+    }
+
+    function _boolHardMatrice(monEquation) {
+        var tbl = monEquation.getElementsByTagName('mtable');
+        if (tbl.length > 1) return true;
+        return false;
     }
 
     function _supprimeprefix(monEquation) {
@@ -482,12 +515,23 @@
             parent;
         for (; i !== ltbl; i++) {
             boolfenced = _boolMfenced(tbl[i]);
-            if(!boolfenced){ //recherche parenthèse
-                parent=tbl[i].parentNode;
-                while (parent.children.length<=1&&parent.tagName.toLowerCase()!=='math') {
-                    parent=parent.parentNode;
+            if (!boolfenced) { //recherche parenthèse
+                parent = tbl[i].parentNode;
+                while (parent.children.length <= 1 && parent.tagName.toLowerCase() !== 'math') {
+                    parent = parent.parentNode;
                 }
-                // console.log(parent.innerHTML);
+                if (parent.children.length === 3) {
+                    var fenced = d.createElement('mfenced'),
+                        open = parent.children[0].textContent,
+                        close = parent.children[2].textContent;
+                    parent.removeChild(parent.children[0]);
+                    parent.removeChild(parent.children[1]);
+                    fenced.setAttribute('open', open);
+                    fenced.setAttribute('close', close);
+                    fenced.appendChild(parent.children[0]);
+                    parent.appendChild(fenced);
+
+                }
             }
 
         }
@@ -542,7 +586,7 @@
     }
 
 
-    function _mfenced(monEquation, options) {
+    function _mfenced(monEquation, options, hardmat) {
         var fenced = monEquation.getElementsByTagName('mfenced');
         while (fenced[0]) {
             var open = fenced[0].getAttribute('open'),
@@ -566,15 +610,15 @@
             }
             block.innerHTML = fenced[0].innerHTML;
 
-            (open === null) && (open = mathBraille.caracMath.parenthese.open);
-            (end === null) && (end = mathBraille.caracMath.parenthese.close);
+            (open === null) && (open = '(');
+            (end === null) && (end = ')');
 
 
             (open.split('').length === 1) && (open = open.charCodeAt());
             (end.split('').length === 1) && (end = end.charCodeAt());
             // console.log(mtable.length);
             // var fenced2 = fenced[0].getElementsByTagName('mfenced'),
-            var monBool = mtable.length>0 && options.matriceLineaire;
+            var monBool = mtable.length > 0 && (options.matriceLineaire || hardmat);
 
             switch (open) {
                 case 40: // para (
@@ -668,7 +712,7 @@
                 case 10215: // crochet double fermé
                     end = mathBraille.caracMath.crochetdouble.close;
                     break;
-            }!options.matriceLineaire && _matriceBlock(open, end, block);
+            }(!options.matriceLineaire && !hardmat) && _matriceBlock(open, end, block);
             parent.replaceChild(block.block(open, end), fenced[0]);
         }
     }
@@ -775,6 +819,12 @@
         tagName = tagName || 'mover';
         var mover = monEquation.getElementsByTagName(tagName);
         while (mover[0]) {
+            var tbl = mover[0].getElementsByTagName('mtable');
+            if (tbl.length > 0) {
+                _tableUnder(mover[0]);
+            }
+
+
             var bloc = d.createElement('block'),
                 parent = mover[0].parentNode,
                 elt = mover[0].children,
@@ -819,6 +869,23 @@
             }
             parent.replaceChild(bloc, mover[0]);
         }
+    }
+
+    function _tableUnder(under) {
+        var bloc = d.createElement('block'),
+            tbl = under.getElementsByTagName('mtable');
+
+        var tr = tbl[0].getElementsByTagName('mtr'),
+            ltr = tr.length,
+            j = 0;
+        for (; j !== ltr; j++) {
+            (j !== ltr - 1) && tr[j].appendChild(d.createTextNode('-2-'));
+        }
+        while (tr[0]) {
+            bloc.appendChild(tr[0]);
+        }
+        under.replaceChild(bloc, tbl[0]);
+        return under;
     }
 
     function _munder(monEquation) {
@@ -871,12 +938,14 @@
     function _retourChariotMatrice(monEquation) {
         var txt = monEquation.textContent.split(''),
             nbcar = txt.indexOf(marqueMat);
-        if (nbcar === -1) return monEquation.textContent;
-        txt.splice(nbcar, 1)
+        nbcar !== -1 && txt.splice(nbcar, 1);
+
         var close = txt.indexOf(marqueClose);
         if (close !== -1) {
             txt.splice(close, 1);
-            nbcar = nbcar - 1;
+            nbcar = (nbcar !== -1) && (nbcar - 1) || 0;
+        } else {
+            nbcar = (nbcar !== -1) && nbcar || 0;
         }
         var idx = txt.indexOf(marqueRetourLigne),
             spc = "",
@@ -896,8 +965,8 @@
         var regex = RegExp(marqueRetourLigne, 'gi'),
             nbligne = monEquation.textContent.match(regex) && (monEquation.textContent.match(regex).length + 1);
         if (nbligne === null) return monEquation.textContent;
-        var mesTables=monEquation.textContent.split(marqueMat);
-        if(mesTables.length>2) return 'Équation trop compliqué';
+        var mesTables = monEquation.textContent.split(marqueMat);
+        if (mesTables.length > 2) return 'Équation trop compliqué';
         // console.log(mesTables.length);
         var txt = monEquation.textContent.split(''),
             lcell = [],
@@ -941,14 +1010,15 @@
         return element !== marqueCell;
     }
 
-    function _writeform(monEquation, options) {
+    function _writeform(monEquation, options, hardmat) {
         monEquation.textContent = monEquation.textContent.replace(/\s*/gi, '');
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
         monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
         monEquation.textContent = monEquation.textContent.braille();
-        !options.matriceLineaire && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
-        !options.matriceLineaire && (monEquation.innerHTML = _retourChariotMatrice(monEquation));
+        (!options.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
+        // (!options.matriceLineaire&&!hardmat) && (monEquation.innerHTML = _retourChariotMatrice(monEquation));
+        monEquation.innerHTML = _retourChariotMatrice(monEquation);
 
     }
 
