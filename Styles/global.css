@@ -27,3 +27,7 @@ h3 {
     border-bottom-width: 2px;
     border-bottom-style: solid;
 }
+
+span {
+    display: block;
+}

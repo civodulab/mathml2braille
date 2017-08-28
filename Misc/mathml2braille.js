@@ -347,8 +347,9 @@
         /* fin variables matrice */
         mathml = function (clmath) {
             var options = {
-                'matriceLineaire': false
-            };
+                'matriceLineaire': false,
+                'niveauMatriceProportion': 10 //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+            }
             if (clmath && typeof clmath === 'object') {
                 arguments[1] = clmath;
                 clmath = undefined;
@@ -373,7 +374,7 @@
                 _superflus(m);
                 _inutile(m);
                 _tableSeul(m);
-                var hardmat = _boolHardMatrice(m);
+                var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
                 // _mn(m);
                 _mmultiscripts(m);
@@ -453,9 +454,20 @@
 
     }
 
-    function _boolHardMatrice(monEquation) {
+    function _boolHardMatrice(monEquation, options) {
         var tbl = monEquation.getElementsByTagName('mtable');
         if (tbl.length > 1) return true;
+        if(tbl.length===0) return false;
+        var td = tbl[0].getElementsByTagName('mtd'),
+            ltd = td.length,
+            i = 0,
+            tailleCell = 0;
+        for (; i !== ltd; i++) {
+            var t = td[i].textContent.replace(/\s*/gi, '').length;
+            (tailleCell <= t) && (tailleCell = t);
+        }
+        console.log(tailleCell);
+        if(tailleCell>=options.niveauMatriceProportion) return true;
         return false;
     }
 
