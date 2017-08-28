@@ -16,13 +16,14 @@
 		<p class="js-brailleDirect">>5+25;/x=65</p>
 		<h2>MathML</h2>
 		<p class="courant">
-			Langue "en"<br/>
+			Langue "en" (que chiffres pour l'instant)<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" lang="en" class="js-math2braille">
 				<mn>5</mn>
 				<mo>,</mo>
 				<mn>7</mn>
 			</math>
 		</p>
+		<h2>Exemples tirés du document PDF "<a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h2>
 		<h3>6. Notations ensemblistes</h3>
 		<p class="courant">Sans "separators"<br/>
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1541,13 +1542,8 @@
 			</math>
 		</p>
 
+		<h2>Autres exemples</h2>
 
-
-		<p>======================================</p>
-		<p>======================================</p>
-		<p>======================================</p>
-		<p>======================================</p>
-		<p>======================================</p>
 
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1896,64 +1892,7 @@
 			</math>
 		</p>
 
-		<p class="courant">
-			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
-				<munder>
-					<mrow>
-						<mi>A</mi>
-						<mo>+</mo>
-						<mn>9</mn>
-					</mrow>
-					<mn>65</mn>
-				</munder>
-			</math>
-		</p>
 
-		<p class="courant">
-			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
-				<mrow>
-					<semantics>
-						<mrow>
-							<munderover>
-								<mo>&#x03A3;</mo>
-								<mn>1</mn>
-								<mrow>
-									<mi>t</mi>
-									<mo>&#x2192;</mo>
-									<mn>4</mn>
-								</mrow>
-							</munderover>
-							<mfrac>
-								<mrow>
-									<mo>&#x2202;</mo>
-									<mi>x</mi>
-								</mrow>
-								<mi>x</mi>
-							</mfrac>
-						</mrow>
-						<annotation-xml encoding="MathML-Content">
-							<apply>
-								<int></int>
-								<bvar>
-									<ci>x</ci>
-								</bvar>
-								<lowlimit>
-									<cn>1</cn>
-								</lowlimit>
-								<uplimit>
-									<ci>t</ci>
-								</uplimit>
-								<apply>
-									<divide></divide>
-									<cn>1</cn>
-									<ci>x</ci>
-								</apply>
-							</apply>
-						</annotation-xml>
-					</semantics>
-				</mrow>
-			</math>
-		</p>
 
 		<p class="courant">
 			<math class="js-math2braille" xmlns='http://www.w3.org/1998/Math/MathML'>
@@ -2663,7 +2602,7 @@
 		var options = {
 			'matriceLineaire': true
 		}
-		mathml2braille('.js-math2braille', options);
+		mathml2braille('.js-math2braille');
 		// mathml2braille('.test',options);
 		mathml2braille('.js-matrice-lineaire', options);
 		brailledirect('.js-brailleDirect');
