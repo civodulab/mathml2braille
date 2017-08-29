@@ -348,7 +348,7 @@
         mathml = function (clmath) {
             var options = {
                 'matriceLineaire': false,
-                'niveauMatriceProportion': 10 //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+                'maxCaracCell': 10 //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
             }
             if (clmath && typeof clmath === 'object') {
                 arguments[1] = clmath;
@@ -398,7 +398,7 @@
 
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
-                maForm.appendChild(m);
+                maForm.innerHTML=m.innerHTML;
                 maForm.classList.add('courant-sans-top');
                 //  maForm.appendChild(m);
 
@@ -441,23 +441,19 @@
                     i = 0;
                 for (; i !== ltr; i++) {
                     (i !== ltr - 1) && tr[i].appendChild(d.createTextNode(braillemarqueRetourLigne));
-
                 }
                 while (tr[0]) {
                     bloc.appendChild(tr[0]);
                 }
                 parent.replaceChild(bloc, tbl[0]);
             }
-
-
         }
-
     }
 
     function _boolHardMatrice(monEquation, options) {
         var tbl = monEquation.getElementsByTagName('mtable');
         if (tbl.length > 1) return true;
-        if(tbl.length===0) return false;
+        if (tbl.length === 0) return false;
         var td = tbl[0].getElementsByTagName('mtd'),
             ltd = td.length,
             i = 0,
@@ -467,7 +463,7 @@
             (tailleCell <= t) && (tailleCell = t);
         }
         console.log(tailleCell);
-        if(tailleCell>=options.niveauMatriceProportion) return true;
+        if (tailleCell >= options.maxCaracCell) return true;
         return false;
     }
 
@@ -593,7 +589,6 @@
             (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
             (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
             parent.replaceChild(df, multiscripts[0]);
-
         }
     }
 
@@ -835,7 +830,6 @@
             if (tbl.length > 0) {
                 _tableUnder(mover[0]);
             }
-
 
             var bloc = d.createElement('block'),
                 parent = mover[0].parentNode,
