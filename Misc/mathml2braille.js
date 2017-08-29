@@ -348,7 +348,8 @@
         mathml = function (clmath) {
             var options = {
                 'matriceLineaire': false,
-                'maxCaracCell': 10 //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+                'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+                'chimie': false
             }
             if (clmath && typeof clmath === 'object') {
                 arguments[1] = clmath;
@@ -376,6 +377,7 @@
                 _tableSeul(m);
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
+                // _pbBlocs(m); // cas particulier de blocs (limite, intégrale, etc.)
                 // _mn(m);
                 _mmultiscripts(m);
 
@@ -398,7 +400,7 @@
 
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
-                maForm.innerHTML=m.innerHTML;
+                maForm.innerHTML = m.innerHTML;
                 maForm.classList.add('courant-sans-top');
                 //  maForm.appendChild(m);
 
@@ -427,6 +429,39 @@
             }
         }
         return source;
+    }
+
+    function _pbBlocs(monEquation) {
+        var mi = monEquation.getElementsByTagName('mi'),
+            lmi = mi.length,
+            i = 0;
+        for (; i !== lmi; i++) {
+            var txt = mi[i].textContent,
+                parent = mi[i].parentNode,
+                first,
+                last,
+                bool=true;
+            if (txt.length > 1 && txt === 'lim') {
+                while(parent.tagName!=='munder'){
+                    parent=parent.parentNode;
+                }
+                first=parent.nextElementSibling;
+                last=first;
+
+                while (bool) {
+                    last=last.nextElementSibling;
+                    !last&&(bool=false);
+                }
+                if(last){
+                    last=last.previousElementSibling;
+                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.blocks.open),first);
+                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.blocks.close),last.nextSibling);
+                }
+                
+                // console.log(first.textContent+' '+last.textContent);
+            }
+
+        }
     }
 
     function _tableSeul(monEquation) {
@@ -462,7 +497,6 @@
             var t = td[i].textContent.replace(/\s*/gi, '').length;
             (tailleCell <= t) && (tailleCell = t);
         }
-        console.log(tailleCell);
         if (tailleCell >= options.maxCaracCell) return true;
         return false;
     }

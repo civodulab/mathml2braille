@@ -726,5 +726,7 @@
              ⇾ 8702 21FE   RIGHTWARDS OPEN-HEADED ARROW
              ⇿ 8703 21FF   LEFT RIGHT OPEN-HEADED ARROW
              */
+            9633:'-456-1456-', // □ alembertien
+            9651: '-46-45-145-', // White Up-Pointing Triangle △
          }
      };
