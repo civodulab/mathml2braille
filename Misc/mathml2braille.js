@@ -369,7 +369,8 @@
                 mesFormules[i].setAttribute('aria-hidden', true);
                 var parent = mesFormules[i].parentNode,
                     m = d.createElement('math'),
-                    maForm = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
+                    // maForm = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
+                    maForm = d.createElement('span');
                 m.innerHTML = mesFormules[i].innerHTML;
                 _supprimeprefix(m);
                 _superflus(m);
@@ -377,7 +378,7 @@
                 _tableSeul(m);
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
-                // _pbBlocs(m); // cas particulier de blocs (limite, intégrale, etc.)
+                _pbBlocs(m); // cas particulier de blocs (limite, intégrale, etc.)
                 // _mn(m);
                 _mmultiscripts(m);
 
@@ -401,12 +402,13 @@
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
                 maForm.innerHTML = m.innerHTML;
-                maForm.classList.add('courant-sans-top');
+                maForm.classList.add('js-mathmlConverti');
                 //  maForm.appendChild(m);
 
                 parent.insertBefore(maForm, mesFormules[i].nextSibling);
 
             }
+            stat(); // à supprimer à la fin
         },
         brailledirect = function (maClass) {
             var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
@@ -420,6 +422,33 @@
                 tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
             }
         };
+    /***** A supprimer à la fin **********/
+    function stat() {
+        var converti = document.querySelectorAll('.js-mathmlConverti'),
+            braille = document.querySelectorAll('.mathbraille'),
+            lbraille = braille.length,
+            g=0,
+            b=0,
+            pourcent=0,
+            i = 0;
+        for (; i !== lbraille; i++) {
+            var parent = braille[i].parentElement,
+            txt=braille[i].textContent.replace(/\s*/gi, '');
+            if(txt!==''){
+                if (txt === converti[i].textContent) {
+                    parent.classList.add('good');
+                    braille[i].classList.add('hidden');
+                    g++
+                } else {
+                    parent.classList.add('bad');
+                    b++
+                }
+            }
+        }
+        pourcent=Math.round(100*g/(b+g));
+        d.getElementById('stat').innerHTML=g+' équations bonnes sur '+(b+g)+' - '+pourcent+'%';
+    }
+    /************************************/
 
     function _extendDefaults(source, properties) {
         var property;
@@ -432,7 +461,8 @@
     }
 
     function _pbBlocs(monEquation) {
-        var mi = monEquation.getElementsByTagName('mi'),
+        var badmo = ['(', ')', '+', '-', '[', ']'],
+            mi = monEquation.getElementsByTagName('mi'),
             lmi = mi.length,
             i = 0;
         for (; i !== lmi; i++) {
@@ -440,24 +470,38 @@
                 parent = mi[i].parentNode,
                 first,
                 last,
-                bool=true;
+                lastprevious,
+                bool = true;
             if (txt.length > 1 && txt === 'lim') {
-                while(parent.tagName!=='munder'){
-                    parent=parent.parentNode;
+                while (parent.tagName !== 'munder') {
+                    parent = parent.parentNode;
                 }
-                first=parent.nextElementSibling;
-                last=first;
+                first = parent.nextElementSibling;
+                last = first;
 
                 while (bool) {
-                    last=last.nextElementSibling;
-                    !last&&(bool=false);
+                    lastprevious = last;
+                    if (last.tagName === 'mo') {
+                        if (badmo.indexOf(last.textContent) !== -1) {
+                            last = last.nextElementSibling;
+                        } else {
+                            bool = false;
+                        }
+                    } else {
+                        last = last.nextElementSibling;
+
+                    }!last && (bool = false);
+
                 }
-                if(last){
-                    last=last.previousElementSibling;
-                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.blocks.open),first);
-                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.blocks.close),last.nextSibling);
+                if (last) {
+                    last = last.previousElementSibling;
+                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), first);
+                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), last.nextSibling);
+                } else {
+                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), first);
+                    parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), lastprevious.nextSibling);
                 }
-                
+
                 // console.log(first.textContent+' '+last.textContent);
             }
 

@@ -14,12 +14,13 @@ h3 {
     font-weight: bold;
 }
 
-.courant-sans-top {
+.js-mathmlConverti {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
-.Arevoir {
-    color: #D81414;
+.bad {
+    background-color: #FFEBEB;
     border-top-color: darkred;
     border-top-width: 2px;
     border-top-style: solid;
@@ -30,4 +31,32 @@ h3 {
 
 span {
     display: block;
+}
+.js-brailleDirect::before{
+    /* content: "Braille Direct :\0000A0"; */
+}
+.js-brailleDirect{
+    margin-top: 0;
+}
+math::before{
+    /* content: "MathML :\0000A0"; */
+}
+.js-mathmlConverti::before{
+    /* content: "mathml2braille :\0000A0"; */
+}
+.mathbraille::after{
+    content: "\0000A0(bonne écriture)";
+
+}
+.hidden{
+    display: none;
+}
+.good{
+    background-color: #E1FBE7;
+    border-top-color: #008B1F;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-color: #008B08;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
 }

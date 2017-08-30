@@ -10,24 +10,11 @@
 
 <body>
 	<section epub:type="subchapter">
-		<h1>Exemple de formules mathématiques.</h1>
-		<h2>Braille direct</h2>
-		<p>>5+25;/x=65</p>
-		<p class="js-brailleDirect">>5+25;/x=65</p>
-		<h2>MathML</h2>
-		<p class="courant">
-			Langue "en" (que chiffres pour l'instant)<br/>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" lang="en" class="js-math2braille">
-				<mn>5</mn>
-				<mo>,</mo>
-				<mn>7</mn>
-			</math>
-		</p>
-		<h2>Exemples tirés du document PDF "<a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h2>
-		<h3>6. Notations ensemblistes</h3>
+<p id="stat"></p>
+		<h1>Exemples tirés du document PDF "<a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h1>
+		<h2>6. Notations ensemblistes</h2>
 		<p class="courant">
 			<span>E égale l'ensemble d'éléments a, b, c et d</span> Sans "separators"<br/>
-
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>E</mi>
 				<mo>=</mo>
@@ -43,6 +30,7 @@
 					</mrow>
 				</mfenced>
 			</math>
+			<span class="mathbraille">⠨⠑⠶⠨⠦⠁⠂⠃⠂⠉⠂⠙⠨⠴</span>
 		</p>
 		<p class="courant">Avec "separators"<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -55,6 +43,8 @@
 					<mi>d</mi>
 				</mfenced>
 			</math>
+			<span class="mathbraille">⠨⠑⠶⠨⠦⠁⠂⠃⠂⠉⠂⠙⠨⠴</span>
+
 		</p>
 		<p class="courant">
 			<span>« grand r étoile » égale intervalle ouvert « moins l'infini, zéro » union intervalle ouvert « zéro, plus l'infini »</span>			Sans "mfenced"<br/>
@@ -78,6 +68,7 @@
 				<mo>&#x221E;</mo>
 				<mo>[</mo>
 			</math>
+			<span class="mathbraille">⠨⠨⠗⠈⠐⠔⠶⠾⠤⠘⠉⠂⠼⠷⠸⠖⠾⠼⠂⠖⠘⠉⠷</span>
 		</p>
 		<p class="courant">
 			Avec <i>mfenced</i><br/>
@@ -105,6 +96,27 @@
 					</mrow>
 				</mfenced>
 			</math>
+			<span class="mathbraille">⠨⠨⠗⠈⠐⠔⠶⠾⠤⠘⠉⠂⠼⠷⠸⠖⠾⠼⠂⠖⠘⠉⠷</span>
+
+		</p>
+		<p class="courant">
+			<span>x appartient à (est élément de) l'intervalle fermé « zéro virgule un ; deux virgule trois »</span>
+			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+				<mi>x</mi>
+				<mo>&#x2208;</mo>
+				<mfenced open="[" close="]">
+					<mrow>
+						<mn>0</mn>
+						<mo>,</mo>
+						<mn>1</mn>
+						<mo>;</mo>
+						<mn>2</mn>
+						<mo>,</mo>
+						<mn>3</mn>
+					</mrow>
+				</mfenced>
+			</math>
+			<span class="mathbraille">⠭⠘⠡⠷⠼⠂⠡⠆⠣⠂⠩⠾</span>
 		</p>
 		<p class="courant">
 			<span>x n'appartient pas à « grand r plus »</span>
@@ -116,6 +128,7 @@
 					<mo>+</mo>
 				</msup>
 			</math>
+			<span class="mathbraille">⠭⠘⠌⠨⠨⠗⠈⠖</span>
 		</p>
 		<p class="courant">
 			<span>D est inclus dans F</span>
@@ -124,6 +137,7 @@
 				<mo>&#x2282;</mo>
 				<mi>F</mi>
 			</math>
+			<span class="mathbraille">⠨⠙⠨⠡⠨⠋</span>
 		</p>
 		<p class="courant">
 			<span>D n'est pas inclus dans E</span>
@@ -132,6 +146,7 @@
 				<mo>&#x2284;</mo>
 				<mi>E</mi>
 			</math>
+			<span class="mathbraille">⠨⠙⠨⠌⠨⠑</span>
 		</p>
 		<p class="courant">
 			<span>A est inclus dans B au sens large</span>
@@ -140,6 +155,7 @@
 				<mo>&#x2286;</mo>
 				<mi>B</mi>
 			</math>
+			<span class="mathbraille">⠨⠁⠸⠨⠡⠨⠃</span>
 		</p>
 		<p class="courant">
 			<span>A inter B égale l'ensemble vide</span>
@@ -149,7 +165,7 @@
 				<mi>B</mi>
 				<mo>=</mo>
 				<mo>&#x2205;</mo>
-			</math>
+			</math><span class="mathbraille">⠨⠁⠘⠖⠨⠃⠶⠘⠼</span>
 		</p>
 		<p class="courant">
 			<span>complémentaire de F dans E</span>
@@ -161,9 +177,9 @@
 					</msub>
 					<mi>F</mi>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠩⠢⠨⠑⠨⠋</span>
 		</p>
-		<h3>7. Divisions, fractions</h3>
+		<h2>7. Divisions, fractions</h2>
 		<p class="courant">
 			<span>deux tiers égalent quatre sixièmes</span>
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -176,7 +192,7 @@
 					<mn>4</mn>
 					<mn>6</mn>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille">⠣⠌⠩⠶⠹⠌⠫</span>
 		</p>
 
 		<p class="courant">
@@ -189,10 +205,10 @@
 				<mn>0</mn>
 				<mo>,</mo>
 				<mn>5</mn>
-			</math>
+			</math><span class="mathbraille">⠡⠒⠣⠶⠼⠂⠱</span>
 		</p>
 
-		<h3>8. Blocs</h3>
+		<h2>8. Blocs</h2>
 		<p class="courant">
 			<span>« a plus b » sur a </span>
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -204,7 +220,7 @@
 					</mrow>
 					<mi>a</mi>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille">⠰⠁⠖⠃⠆⠌⠁</span>
 		</p>
 
 		<p class="courant">
@@ -222,7 +238,7 @@
 						<mi>d</mi>
 					</mrow>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille">⠰⠁⠖⠃⠆⠌⠰⠉⠖⠙⠆</span>
 		</p>
 
 		<p class="courant">
@@ -252,9 +268,10 @@
 					</mrow>
 				</mfrac>
 			</math>
+			<span class="mathbraille">⠁⠌⠃⠖⠉⠌⠙⠶⠰⠁⠙⠖⠃⠉⠆⠌⠃⠙</span>
 		</p>
 
-		<p class="courant Arevoir">
+		<p class="courant">
 			<span>cardinal de E égale cinq</span>
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>Card</mi>
@@ -263,6 +280,7 @@
 				<mo>=</mo>
 				<mn>5</mn>
 			</math>
+			<span class="mathbraille">⠨⠉⠁⠗⠙⠰⠨⠑⠆⠶⠱</span>
 		</p>
 		<p class="courant">
 			<span>e exposant « x plus trois »</span>
@@ -275,7 +293,7 @@
 						<mn>3</mn>
 					</mrow>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠑⠈⠰⠭⠖⠩⠆</span>
 		</p>
 
 
@@ -286,7 +304,7 @@
 					<mi>e</mi>
 					<mn>7</mn>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠑⠈⠻</span>
 		</p>
 		<p class="courant">
 			<span>e exposant « moins x »</span>
@@ -298,7 +316,7 @@
 						<mi>x</mi>
 					</mrow>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠑⠈⠤⠭</span>
 		</p>
 		<p class="courant">
 			<span>e exposant « moins pi »</span>
@@ -310,7 +328,7 @@
 						<mi mathvariant="normal">&#x3C0;</mi>
 					</mrow>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠑⠈⠤⠘⠏</span>
 		</p>
 
 		<p class="courant">
@@ -328,23 +346,23 @@
 					<mn>1</mn>
 					<mi>x</mi>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille">⠭⠈⠤⠡⠶⠡⠌⠭</span>
 		</p>
-		<h3>9. Indices</h3>
-		<h4>9.1 Accentuations mathématiques</h4>
+		<h2>9. Indices</h2>
+		<h3>9.1 Accentuations mathématiques</h3>
 		<p class="courant">
 			<span>a prime</span>
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>a</mi>
 				<mo>'</mo>
-			</math>
+			</math><span class="mathbraille">⠁⠄</span>
 		</p>
 		<p class="courant">
 			<span>x seconde</span>
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
 				<mi>x</mi>
 				<mo>''</mo>
-			</math>
+			</math><span class="mathbraille">⠭⠄⠄</span>
 		</p>
 		<p class="courant">
 			<span>a prime x plus a seconde y plus a tierce z</span>
@@ -360,10 +378,10 @@
 				<mi>a</mi>
 				<mo>'''</mo>
 				<mi>z</mi>
-			</math>
+			</math><span class="mathbraille">⠁⠄⠭⠖⠁⠄⠄⠽⠖⠁⠄⠄⠄⠵</span>
 		</p>
 
-		<h4>9.2 Indice inférieur</h4>
+		<h3>9.2 Indice inférieur</h3>
 
 		<p class="courant">
 			<span>a indice p</span>
@@ -372,7 +390,7 @@
 					<mi>a</mi>
 					<mi>p</mi>
 				</msub>
-			</math>
+			</math><span class="mathbraille">⠁⠢⠏</span>
 		</p>
 		<p class="courant">
 			<span>x indice zéro</span>
@@ -381,7 +399,7 @@
 					<mi>x</mi>
 					<mn>0</mn>
 				</msub>
-			</math>
+			</math><span class="mathbraille">⠭⠢⠼</span>
 		</p>
 
 		<p class="courant">
@@ -395,9 +413,9 @@
 						<mn>1</mn>
 					</mrow>
 				</msub>
-			</math>
+			</math><span class="mathbraille">⠥⠢⠰⠝⠖⠡⠆</span>
 		</p>
-		<h4>9.3 Indice supérieur exposant</h4>
+		<h3>9.3 Indice supérieur exposant</h3>
 
 		<p class="courant">
 			<span>x exposant deux</span>
@@ -406,7 +424,7 @@
 					<mi>x</mi>
 					<mn>2</mn>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠭⠈⠣</span>
 		</p>
 		<p class="courant">
 			<span>x exposant « p plus q »</span>
@@ -419,7 +437,7 @@
 						<mi>q</mi>
 					</mrow>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠭⠈⠰⠏⠖⠟⠆</span>
 		</p>
 		<p class="courant">
 			<span>a exposant « moins cinq virgule trois »</span>
@@ -433,7 +451,7 @@
 						<mn>3</mn>
 					</mrow>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠁⠈⠤⠱⠂⠩</span>
 		</p>
 		<p class="courant">
 			<span>a exposant pi</span>
@@ -442,7 +460,7 @@
 					<mi>a</mi>
 					<mi mathvariant="normal">&#x3C0;</mi>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠁⠈⠘⠏</span>
 		</p>
 		<p class="courant">
 			<span>« cinq exposant deux » « racine carrée de trois » différent de cinq exposant « deux racine carrée de trois »</span>
@@ -464,7 +482,7 @@
 						</msqrt>
 					</mrow>
 				</msup>
-			</math>
+			</math><span class="mathbraille">⠱⠈⠣⠜⠩⠨⠶⠱⠈⠰⠣⠜⠩⠆</span>
 		</p>
 		<p class="courant">
 			<span>e exposant « moins cinq x » différent de « e exposant moins cinq » x</span>
@@ -486,10 +504,10 @@
 					</mrow>
 				</msup>
 				<mi mathvariant="normal">x</mi>
-			</math>
+			</math><span class="mathbraille">⠑⠈⠰⠤⠱⠭⠆⠨⠶⠰⠑⠈⠤⠱⠆⠭</span>
 		</p>
 
-		<h4>9.4 Indices inférieurs et supérieurs</h4>
+		<h3>9.4 Indices inférieurs et supérieurs</h3>
 		<p class="courant">
 			<span>a prime indice zéro</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -498,7 +516,7 @@
 					<mo>'</mo>
 					<mn>0</mn>
 				</msub>
-			</math>
+			</math><span class="mathbraille">⠁⠄⠢⠼</span>
 		</p>
 		<p class="courant">
 			<span>x prime indice zéro au carré</span>
@@ -509,7 +527,7 @@
 					<mn>0</mn>
 					<mn>2</mn>
 				</msubsup>
-			</math>
+			</math><span class="mathbraille">⠭⠄⠢⠼⠈⠣</span>
 		</p>
 		<p class="courant">
 			<span>combinaison de m parmi p égale combinaison de m parmi « m moins p »</span>
@@ -532,7 +550,7 @@
 					</msubsup>
 
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠉⠢⠍⠈⠏⠶⠨⠉⠢⠍⠈⠰⠍⠤⠏⠆</span>
 		</p>
 		<p class="courant">
 			<span>a seconde indice « m plus n » exposant « p plus q »</span>
@@ -551,7 +569,7 @@
 						<mi mathvariant="normal">q</mi>
 					</mrow>
 				</msubsup>
-			</math>
+			</math><span class="mathbraille">⠁⠄⠄⠢⠰⠍⠖⠝⠆⠈⠰⠏⠖⠟⠆</span>
 		</p>
 		<p class="courant">
 			<span>grand r indice plus exposant étoile</span>
@@ -561,9 +579,9 @@
 					<mo>+</mo>
 					<mo>*</mo>
 				</msubsup>
-			</math>
+			</math><span class="mathbraille">⠨⠨⠗⠢⠖⠈⠐⠔</span>
 		</p>
-		<h4>9.5 Indices placés à gauche d'une quantité ou préfixes</h4>
+		<h3>9.5 Indices placés à gauche d'une quantité ou préfixes</h3>
 		<p class="courant">
 			<span>A indice supérieur t à gauche (transposée de A)</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -573,7 +591,7 @@
 					<none/>
 					<mi>t</mi>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille">⠈⠞⠨⠁</span>
 		</p>
 		<p class="courant">
 			<span>w indice inférieur deux à gauche</span>
@@ -584,7 +602,7 @@
 					<mn>2</mn>
 					<none/>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille">⠢⠣⠺</span>
 		</p>
 		<p class="courant">
 			<span>« A indice supérieur t à gauche » « B indice supérieur t à gauche »</span>
@@ -601,10 +619,11 @@
 					<none/>
 					<mi>t</mi>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille">⠰⠈⠞⠨⠁⠆⠰⠈⠞⠨⠃⠆</span>
 		</p>
-		<p class="courant Arevoir">Chimie (à travailler)</p>
 		<p class="courant">
+			<span>Chimie (à travailler)</span>
+			<span>O précédé de huit en indice et de seize en exposant</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mmultiscripts>
 					<mi mathvariant="normal">O</mi>
@@ -612,10 +631,9 @@
 					<mn>8</mn>
 					<mn>16</mn>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille">⠨⠕⠠⠢⠳⠠⠈⠡⠫</span>
 		</p>
-
-		<h4>9.6 Indices suscrits ou souscrits</h4>
+		<h3>9.6 Indices suscrits ou souscrits</h3>
 		<p class="courant">
 			<span>somme pour i variant de un à n de « u indice i » égale « u indice un » plus « u indice deux » plus points de suspension plus « u indice n »</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -649,16 +667,16 @@
 					<mi>u</mi>
 					<mi>n</mi>
 				</msub>
-			</math>
+			</math><span class="mathbraille">⠨⠘⠎⠢⠢⠰⠊⠶⠡⠆⠈⠈⠝⠥⠢⠊⠶⠥⠢⠡⠖⠥⠢⠣⠖⠲⠲⠲⠖⠥⠢⠝</span>
 		</p>
-		<h3>10. Radicaux</h3>
+		<h2>10. Radicaux</h2>
 		<p class="courant">
 			<span>racine carrée de deux</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<msqrt>
 					<mn>2</mn>
 				</msqrt>
-			</math>
+			</math><span class="mathbraille">⠜⠣</span>
 		</p>
 		<p class="courant">
 			<span>racine quatrième de a</span>
@@ -667,7 +685,7 @@
 					<mi>a</mi>
 					<mn>4</mn>
 				</mroot>
-			</math>
+			</math><span class="mathbraille">⠈⠹⠜⠁</span>
 		</p>
 		<p class="courant">
 			<span>racine sixième de « (a plus b) au cube » égale racine carrée de « a plus b »</span>
@@ -693,7 +711,7 @@
 						<mi>b</mi>
 					</mrow>
 				</msqrt>
-			</math>
+			</math><span class="mathbraille">⠈⠫⠜⠰⠦⠁⠖⠃⠴⠈⠩⠆⠶⠜⠰⠁⠖⠃⠆</span>
 		</p>
 		<p class="courant">
 			<span>racine cubique de « a plus racine carrée de "a plus b" »</span>
@@ -710,7 +728,7 @@
 					</mrow>
 					<mn>3</mn>
 				</mroot>
-			</math>
+			</math><span class="mathbraille">⠈⠩⠜⠰⠁⠖⠜⠰⠁⠖⠃⠆⠆</span>
 		</p>
 		<p class="courant">
 			<span>« racine quatrième de a » « racine cubique de b »</span>
@@ -723,9 +741,9 @@
 					<mi>b</mi>
 					<mn>3</mn>
 				</mroot>
-			</math>
+			</math><span class="mathbraille">⠰⠈⠹⠜⠁⠆⠰⠈⠩⠜⠃⠆</span>
 		</p>
-		<h3>11. Flèches</h3>
+		<h2>11. Flèches</h2>
 
 		<p class="courant Arevoir">
 			<span>f de grand r dans grand r, x a pour image y égale « un sur x »</span> MathType
@@ -736,6 +754,7 @@
 						<mtd>
 							<mi>f</mi>
 							<mo>:</mo>
+							<mo>&#xA0;</mo>
 							<mi>&#x211D;</mi>
 							<mo>&#x2192;</mo>
 							<mi>&#x211D;</mi>
@@ -755,27 +774,9 @@
 						</mtd>
 					</mtr>
 				</mtable>
-			</math>
+			</math><span class="mathbraille">⠋⠒⠀⠨⠨⠗⠸⠱⠨⠨⠗<br/>⠭⠐⠱⠽⠶⠡⠌⠭</span>
 		</p>
-		<p class="courant Arevoir">Wiris avec "mspace linebreak"<br/>
-			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
-				<mi>f</mi>
-				<mo>:</mo>
-				<mo>&#xA0;</mo>
-				<mi mathvariant="normal">&#x211D;</mi>
-				<mo>&#x2192;</mo>
-				<mi mathvariant="normal">&#x211D;</mi>
-				<mspace linebreak="newline" />
-				<mi>x</mi>
-				<mo>&#x21A6;</mo>
-				<mi>y</mi>
-				<mo>=</mo>
-				<mfrac>
-					<mn>1</mn>
-					<mi>x</mi>
-				</mfrac>
-			</math>
-		</p>
+
 		<p class="courant Arevoir">Wiris avec "table"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mtable>
@@ -802,10 +803,10 @@
 						</mtd>
 					</mtr>
 				</mtable>
-			</math>
+			</math><span class="mathbraille">⠋⠒⠀⠨⠨⠗⠸⠱⠨⠨⠗<br/>⠭⠐⠱⠽⠶⠡⠌⠭</span>
 		</p>
-		<h3>12. Signes suscrits, signes souscrits, géométrie</h3>
-		<h4>12.1 Signes suscrits</h4>
+		<h2>12. Signes suscrits, signes souscrits, géométrie</h2>
+		<h3>12.1 Signes suscrits</h3>
 		<p class="courant">
 			<span>vecteur v</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -813,7 +814,7 @@
 					<mi>v</mi>
 					<mo>&#x2192;</mo>
 				</mover>
-			</math>
+			</math><span class="mathbraille">⠨⠒⠧</span>
 		</p>
 		<p class="courant">
 			<span>mesure algébrique de AB</span>
@@ -825,7 +826,7 @@
 					</mrow>
 					<mo>&#xAF;</mo>
 				</mover>
-			</math>
+			</math><span class="mathbraille">⠸⠒⠨⠁⠨⠃</span>
 		</p>
 		<p class="courant">
 			<span>arc AB</span>
@@ -837,7 +838,7 @@
 					</mrow>
 					<mo>&#x23DC;</mo>
 				</mover>
-			</math>
+			</math><span class="mathbraille">⠈⠒⠨⠁⠨⠃</span>
 
 		</p>
 		<p class="courant">
@@ -851,7 +852,7 @@
 					</mrow>
 					<mo>^</mo>
 				</mover>
-			</math>
+			</math><span class="mathbraille">⠘⠒⠨⠁⠨⠕⠨⠃</span>
 		</p>
 		<p class="courant">
 			<span>angle de Ox avec Oy </span>
@@ -868,7 +869,7 @@
 					</mfenced>
 					<mo>^</mo>
 				</mover>
-			</math>
+			</math><span class="mathbraille">⠘⠒⠦⠨⠕⠭⠂⠨⠕⠽⠴</span>
 		</p>
 		<p class="courant">
 			<span>angle du vecteur OA avec le vecteur OM</span>
@@ -895,9 +896,9 @@
 					</mfenced>
 					<mo>^</mo>
 				</mover>
-			</math>
+			</math><span class="mathbraille">⠘⠒⠦⠨⠒⠨⠕⠨⠁⠂⠨⠒⠨⠕⠨⠍⠴</span>
 		</p>
-		<h4>12.2 Signes souscrits</h4>
+		<h3>12.2 Signes souscrits</h3>
 		<p class="courant">
 			<span>demi-rond convexe vers le haut</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -907,7 +908,7 @@
 						<mo>&#x2322;</mo>
 					</munder>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠈⠒⠨⠭</span>
 		</p>
 		<p class="courant">
 			<span>accent circonflexe</span>
@@ -919,7 +920,7 @@
 					</munder>
 
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠘⠒⠨⠭</span>
 		</p>
 		<p class="courant">
 			<span>flèche vers la droite </span>
@@ -930,7 +931,7 @@
 						<mo>&#x2192;</mo>
 					</munder>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠨⠒⠨⠭</span>
 		</p>
 		<p class="courant">
 			<span>barre horizontale </span>
@@ -941,7 +942,7 @@
 						<mo>_</mo>
 					</munder>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠸⠒⠨⠭</span>
 		</p>
 		<p class="courant">
 			<span>demi-rond convexe vers le bas</span>
@@ -954,7 +955,7 @@
 					</munder>
 
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠈⠈⠒⠨⠭</span>
 		</p>
 		<p class="courant">
 			<span>accent circonflexe renversé </span>
@@ -966,7 +967,7 @@
 					</munder>
 
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠸⠘⠒⠨⠭</span>
 		</p>
 		<p class="courant">
 			<span>tilde</span>
@@ -978,9 +979,9 @@
 					</munder>
 
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠐⠸⠒⠨⠭</span>
 		</p>
-		<h4>12.3 Signes géométriques</h4>
+		<h3>12.3 Signes géométriques</h3>
 		<p class="courant">
 			<span>la droite « d majuscule » est parallèle à la droite « delta majuscule »</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -991,7 +992,7 @@
 				<mfenced>
 					<mo>&#x2206;</mo>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠦⠨⠙⠴⠸⠳⠦⠨⠘⠙⠴</span>
 		</p>
 		<p class="courant">
 			<span>la droite « AB » est perpendiculaire à la droite « A prime B prime »</span>
@@ -1011,11 +1012,11 @@
 						<mo>'</mo>
 					</mrow>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠦⠨⠁⠨⠃⠴⠘⠳⠦⠨⠁⠄⠨⠃⠄⠴</span>
 		</p>
 
-		<h3>13. Encadrements, barres verticales</h3>
-		<h4>13.2 Valeur absolue, module, norme...</h4>
+		<h2>13. Encadrements, barres verticales</h2>
+		<h3>13.2 Valeur absolue, module, norme...</h3>
 		<p class="courant">
 			<span>valeur absolue de « x indice zéro »</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -1025,7 +1026,7 @@
 						<mn>0</mn>
 					</msub>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠿⠭⠢⠼⠿</span>
 		</p>
 		<p class="courant">
 			<span>module de « a plus ib »</span>
@@ -1038,7 +1039,7 @@
 						<mi>b</mi>
 					</mrow>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠿⠁⠖⠊⠃⠿</span>
 		</p>
 		<p class="courant">
 			<span>norme de « k vecteur u » égale « valeur absolue de k » « norme de vecteur u »</span>MathType<br/>
@@ -1074,7 +1075,7 @@
 						<mo>&#x2016;</mo>
 					</mrow>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠘⠿⠅⠨⠒⠥⠘⠿⠶⠿⠅⠿⠘⠿⠨⠒⠥⠘⠿</span>
 
 		</p>
 		<p class="courant">Wiris<br/>
@@ -1098,10 +1099,11 @@
 						<mo>&#x2192;</mo>
 					</mover>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠘⠿⠅⠨⠒⠥⠘⠿⠶⠿⠅⠿⠘⠿⠨⠒⠥⠘⠿</span>
 		</p>
-		<p class="courant Arevoir">
-			<span>f restreinte à l'ensemble E</span>MathType<br/>
+		<p class="courant">
+			<span>f restreinte à l'ensemble E</span>
+			<span>MathType</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mrow>
 					<msub>
@@ -1115,9 +1117,10 @@
 					</msub>
 
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠋⠿⠨⠑</span>
 		</p>
-		<p class="courant Arevoir">À voir ("menclose") - Wiris<br/>
+		<p class="courant">
+			<span>À voir ("menclose") - Wiris</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<msub>
 					<menclose notation="right">
@@ -1125,11 +1128,11 @@
 					</menclose>
 					<mi>E</mi>
 				</msub>
-			</math>
+			</math><span class="mathbraille">⠋⠿⠨⠑</span>
 		</p>
 
 
-		<h4>13.3 Déterminants et matrices</h4>
+		<h3>13.3 Déterminants et matrices</h3>
 		<p class="courant">
 			<span>I égale déterminant « 1, 0 ; 2, 3 » égale 3</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -1157,7 +1160,8 @@
 				</mfenced>
 				<mo>=</mo>
 				<mn>3</mn>
-			</math>
+			</math><span class="mathbraille">⠨⠊⠶⠿⠡⠀⠼⠿<br/>
+					⠀⠀⠀⠿⠣⠀⠩⠿⠶⠩</span>
 		</p>
 		<p class="courant">
 			<span>J égale la matrice « 1, case vide, case vide, 4 ; 2, 3, 5, 6; -7, 8, case vide, 9 »</span>
@@ -1205,7 +1209,9 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠨⠚⠶⠦⠡⠀⠀⠐⠂⠀⠐⠂⠀⠹⠴<br/>
+					⠀⠀⠀⠦⠣⠀⠀⠩⠀⠀⠱⠀⠀⠫⠴<br/>
+					⠀⠀⠀⠦⠤⠻⠀⠳⠀⠀⠐⠂⠀⠪⠴</span>
 		</p>
 		<p class="courant">Linéaire<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-lineaire">
@@ -1252,7 +1258,7 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠨⠚⠶⠘⠦⠡⠀⠐⠂⠀⠐⠂⠀⠹⠀⠠⠜⠀⠣⠀⠩⠀⠱⠀⠫⠀⠠⠜⠀⠤⠻⠀⠳⠀⠐⠂⠀⠪⠘⠴</span>
 		</p>
 		<p class="courant">
 			<span>K égale la matrice« 1, quotient de "x au carré plus 3x moins 9" par " 6x au cube moins x au carré plus 1" ; quotient de "x plus 3" par "y plus 5", "g de x" » </span>
@@ -1336,11 +1342,12 @@
 						<mo>]</mo>
 					</mrow>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠅⠶⠘⠷⠡⠀⠰⠭⠈⠣⠖⠩⠭⠤⠪⠆⠌⠰⠫⠭⠈⠩⠤⠭⠈⠣⠖⠡⠆⠀⠠⠜⠀⠰⠭⠖⠩⠆⠌⠰⠽⠖⠱⠆⠀⠛⠦⠭⠴⠘⠾</span>
 		</p>
-		<h4>13.4 Systèmes</h4>
+		<h3>13.4 Systèmes</h3>
 		<p class="courant">
 			<span>Le système d'équations « deux x plus trois y égale cinq » et « trois x moins sept y égale huit » </span>
+			<span>avec "mfenced"</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mfenced open="{" close="">
 					<mtable columnalign="left">
@@ -1368,7 +1375,51 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱<br/>
+					⠀⠀⠩⠭⠤⠻⠽⠶⠳</span>
+		</p>
+		<p class="courant">
+			<span>MathType (sans "mfenced")</span>
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+				<mrow>
+					<mrow>
+						<mo>{</mo>
+						<mrow>
+							<mtable>
+								<mtr>
+									<mtd>
+										<mrow>
+											<mn>2</mn>
+											<mi>x</mi>
+											<mo>+</mo>
+											<mn>3</mn>
+											<mi>y</mi>
+											<mo>=</mo>
+											<mn>5</mn>
+										</mrow>
+									</mtd>
+								</mtr>
+								<mtr>
+									<mtd>
+										<mrow>
+											<mn>3</mn>
+											<mi>x</mi>
+											<mo>-</mo>
+											<mn>7</mn>
+											<mi>y</mi>
+											<mo>=</mo>
+											<mn>8</mn>
+										</mrow>
+									</mtd>
+								</mtr>
+
+							</mtable>
+						</mrow>
+					</mrow>
+				</mrow>
+			</math><span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱<br/>
+				⠀⠀⠩⠭⠤⠻⠽⠶⠳</span>
+
 		</p>
 		<p class="courant">Linéaire<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-matrice-lineaire">
@@ -1398,26 +1449,26 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱⠀⠠⠜⠀⠩⠭⠤⠻⠽⠶⠳</span>
 		</p>
-		<h3>14. Fonctions</h3>
-		<h2>14.1 Notation</h2>
+		<h2>14. Fonctions</h2>
+		<h1>14.1 Notation</h1>
 		<p class="courant">
 			<span>laplacien (grand delta)</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mrow>
 					<mo>&#x25B3;</mo>
-					
+
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠘⠙</span>
 		</p>
 		<p class="courant">
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
 				<mrow>
 					<mo>&#x0394;</mo>
-				
+
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠘⠙</span>
 		</p>
 		<p class="courant">
 			<span>d'alembertien (petit carré)</span>
@@ -1425,7 +1476,7 @@
 				<mrow>
 					<mo>&#x25A1;</mo>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠸⠹</span>
 		</p>
 		<p class="courant">
 			<span>différentielle absolue, covariante, nabla
@@ -1435,7 +1486,7 @@
 				<mrow>
 					<mo>&#x2207;</mo>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠨⠹</span>
 		</p>
 		<p class="courant">
 			<span>f de x</span>
@@ -1444,7 +1495,7 @@
 				<mfenced>
 					<mi>x</mi>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠋⠦⠭⠴</span>
 		</p>
 		<p class="courant">
 			<span>g prime de x égale « trois x plus quatre »</span>
@@ -1463,7 +1514,7 @@
 					<mo>+</mo>
 					<mn>4</mn>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠛⠄⠦⠭⠴⠶⠩⠭⠖⠹</span>
 
 		</p>
 		<p class="courant">
@@ -1485,7 +1536,7 @@
 						</mfenced>
 					</mrow>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠋⠸⠼⠛⠦⠭⠴⠶⠋⠷⠛⠦⠭⠴⠾</span>
 		</p>
 
 		<p class="courant">
@@ -1515,10 +1566,10 @@
 				<mo>-</mo>
 				<mn>7</mn>
 				<mi>x</mi>
-			</math>
+			</math><span class="mathbraille">⠐⠙⠋⠦⠭⠂⠽⠴⠌⠐⠙⠭⠶⠱⠭⠽⠤⠻⠭</span>
 		</p>
 
-		<h4>14.2 Limites</h4>
+		<h3>14.2 Limites</h3>
 		<p class="courant">
 			<span>limite de f de x quand x tend vers plus l'infini égale zéro</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -1537,7 +1588,7 @@
 				</mfenced>
 				<mo>=</mo>
 				<mn>0</mn>
-			</math>
+			</math><span class="mathbraille">⠇⠊⠍⠢⠢⠰⠭⠸⠱⠖⠘⠉⠆⠋⠦⠭⠴⠶⠼</span>
 		</p>
 		<p class="courant ">MathType<br/>
 			<span>limite quand x tend vers quatre, x strictement supérieur à quatre, de f de x égale moins l'infini</span>
@@ -1578,7 +1629,7 @@
 					<mo>&#x2212;</mo>
 					<mi>&#x221E;</mi>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠇⠊⠍⠢⠢⠰⠭⠸⠱⠹⠂⠭⠐⠜⠹⠆⠋⠦⠭⠴⠶⠤⠘⠉</span>
 		</p>
 		<p class="courant ">Wiris avec "mtable"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -1617,7 +1668,7 @@
 					<mo>&#x2212;</mo>
 					<mi>&#x221E;</mi>
 				</mrow>
-			</math>
+			</math><span class="mathbraille">⠇⠊⠍⠢⠢⠰⠭⠸⠱⠹⠂⠭⠐⠜⠹⠆⠋⠦⠭⠴⠶⠤⠘⠉</span>
 		</p>
 		<p class="courant Arevoir">
 			<span>limite quand x tend vers plus l'infini de « ln de "x plus deux" sur x » égale zéro</span>À revoir "blocs"<br/>
@@ -1646,12 +1697,12 @@
 				</mfrac>
 				<mo>=</mo>
 				<mn>0</mn>
-			</math>
+			</math><span class="mathbraille">⠇⠊⠍⠢⠢⠰⠭⠸⠱⠖⠘⠉⠆⠰⠇⠝⠦⠭⠖⠣⠴⠌⠭⠆⠶⠼</span>
 		</p>
 
-		<h4>14.3 Tableaux de signes, tableaux de variation</h4>
+		<h3>14.3 Tableaux de signes, tableaux de variation</h3>
 		<p class="courant">À faire</p>
-		<h4>14.4 Intégrales</h4>
+		<h3>14.4 Intégrales</h3>
 		<p class="courant">
 			<span>intégrale de a à b de « f de x dx »</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -1666,7 +1717,7 @@
 				</mfenced>
 				<mo>d</mo>
 				<mi>x</mi>
-			</math>
+			</math><span class="mathbraille">⠯⠢⠁⠈⠃⠋⠦⠭⠴⠙⠭</span>
 		</p>
 
 		<p class="courant">
@@ -1699,7 +1750,7 @@
 				<mfenced>
 					<mn>0</mn>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠯⠢⠼⠈⠰⠱⠌⠣⠆⠋⠦⠭⠴⠙⠭⠶⠨⠋⠦⠱⠌⠣⠴⠤⠨⠋⠦⠼⠴</span>
 		</p>
 		<p class="courant Arevoir">
 			<span>intégrale un à deux de « cinq x dx »</span>À revoir "blocs"<br/>
@@ -1713,7 +1764,7 @@
 				<mi>x</mi>
 				<mo>d</mo>
 				<mi>x</mi>
-			</math>
+			</math><span class="mathbraille">⠯⠢⠡⠈⠣⠰⠱⠭⠆⠙⠭</span>
 		</p>
 		<p class="courant">
 			<span>intégrale le long de (C) de « f de x dx »</span>
@@ -1730,7 +1781,7 @@
 				</mfenced>
 				<mo>d</mo>
 				<mi>x</mi>
-			</math>
+			</math><span class="mathbraille">⠯⠢⠦⠨⠉⠴⠋⠦⠭⠴⠙⠭</span>
 		</p>
 		<p class="courant">
 			<span>intégrale ou somme double sur S de « f de x, y dx dy »</span>
@@ -1751,9 +1802,9 @@
 				<mi>x</mi>
 				<mi>d</mi>
 				<mi>y</mi>
-			</math>
+			</math><span class="mathbraille">⠨⠯⠯⠢⠨⠎⠋⠦⠭⠂⠽⠴⠙⠭⠙⠽</span>
 		</p>
-		<h4>14.5 Logarithmes</h4>
+		<h3>14.5 Logarithmes</h3>
 
 		<p class="courant">
 			<span>logarithme népérien de (a sur b)</span>
@@ -1765,7 +1816,7 @@
 						<mi>b</mi>
 					</mfrac>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille">⠇⠝⠦⠁⠌⠃⠴</span>
 		</p>
 		<p class="courant Arevoir">
 			<span>logarithme népérien de « xy » égale logarithme népérien de x plus logarithme népérien de y </span>
@@ -1782,9 +1833,33 @@
 				<mi>ln</mi>
 				<mo>&#xA0;</mo>
 				<mi>y</mi>
-			</math>
+			</math><span class="mathbraille">⠇⠝⠰⠭⠽⠆⠶⠇⠝⠰⠭⠆⠖⠇⠝⠰⠽⠆</span>
 		</p>
 
+		<p class="courant">
+			<span>logarithme en base sept de x égale logarithme népérien de x divisé par logarithme népérien de sept </span>
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<msub>
+					<mi>log</mi>
+					<mn>7</mn>
+				</msub>
+				<mo>&#xA0;</mo>
+				<mi>x</mi>
+				<mo>=</mo>
+				<mfrac>
+					<mrow>
+						<mi>ln</mi>
+						<mo>&#xA0;</mo>
+						<mi>x</mi>
+					</mrow>
+					<mrow>
+						<mi>ln</mi>
+						<mo>&#xA0;</mo>
+						<mn>7</mn>
+					</mrow>
+				</mfrac>
+			</math><span class="mathbraille">⠇⠕⠛⠢⠻⠰⠭⠆⠶⠇⠝⠰⠭⠆⠌⠇⠝⠰⠻⠆</span>
+		</p>
 		<p class="courant">
 			<span>logarithme en base sept de x égale logarithme népérien de x divisé par logarithme népérien de sept </span>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1810,9 +1885,9 @@
 						</mfenced>
 					</mrow>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille">⠇⠕⠛⠢⠻⠦⠭⠴⠶⠇⠝⠦⠭⠴⠌⠇⠝⠦⠻⠴</span>
 		</p>
-		<h4>14.6 Trigonométrie</h4>
+		<h3>14.6 Trigonométrie</h3>
 		<p class="courant Arevoir">
 			<span>cosinus (a plus b) égale cosinus a cosinus b moins sinus a sinus b</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -1838,7 +1913,7 @@
 				<mi>sin</mi>
 				<mo>&#xA0;</mo>
 				<mi>b</mi>
-			</math>
+			</math><span class="mathbraille">⠉⠕⠎⠦⠁⠖⠃⠴⠶⠉⠕⠎⠰⠁⠆⠉⠕⠎⠰⠃⠆⠤⠎⠊⠝⠰⠁⠆⠎⠊⠝⠰⠃⠆</span>
 		</p>
 		<p class="courant Arevoir">
 			<span>cosinus hyperbolique au carré de x moins sinus hyperbolique au carré de x égale un</span>
@@ -1859,11 +1934,11 @@
 				<mi>x</mi>
 				<mo>=</mo>
 				<mn>1</mn>
-			</math>
+			</math><span class="mathbraille">⠉⠓⠈⠣⠰⠭⠆⠤⠎⠓⠈⠣⠰⠭⠆⠶⠡</span>
 		</p>
 
 
-		<h3>15. Quantificateurs et signes d'implications</h3>
+		<h2>15. Quantificateurs et signes d'implications</h2>
 		<p class="courant">
 			<span>il existe x tel que x appartienne à l'ensemble A</span>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1874,7 +1949,7 @@
 				<mi>x</mi>
 				<mo>&#x2208;</mo>
 				<mi>A</mi>
-			</math>
+			</math><span class="mathbraille">⠸⠡⠭⠒⠀⠭⠘⠡⠨⠁</span>
 		</p>
 		<p class="courant">
 			<span>quel que soit epsilon supérieur à zéro, il existe êta supérieur à zéro tel que « valeur absolue de "x indice deux" moins "x indice un" » inférieur ou égal à êta implique valeur absolue de « "f de x indice deux" moins "f de x indice un" » inférieur ou égal à epsilon</span>
@@ -1907,6 +1982,7 @@
 				<mi> &#x3B7; </mi>
 				<mo>&#xA0;</mo>
 				<mo>&#x21D2;</mo>
+				<mo>&#xA0;</mo>
 				<mfenced open="|" close="|">
 					<mrow>
 						<mi>f</mi>
@@ -1928,20 +2004,22 @@
 				</mfenced>
 				<mo>&#x2A7D;</mo>
 				<mi>&#x3B5;</mi>
-			</math>
+			</math><span class="mathbraille">⠸⠌⠘⠑⠐⠜⠼⠀⠸⠡⠘⠓⠐⠜⠼⠒⠀⠿⠭⠢⠣⠤⠭⠢⠡⠿⠘⠣⠘⠓⠀⠒⠂⠀⠿⠋⠦⠭⠢⠣⠴⠤⠋⠦⠭⠢⠡⠴⠿⠘⠣⠘⠑
+				</span>
 		</p>
 
-		<h2>Autres exemples</h2>
+		<h1>Autres exemples</h1>
 
 
 		<p class="courant">
+			<span>u prime plus v prime</span>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mi>u</mi>
 				<mo>'</mo>
 				<mo>+</mo>
 				<mi>v</mi>
 				<mo>'</mo>
-			</math>
+			</math><span class="mathbraille">⠥⠄⠖⠧⠄</span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1955,7 +2033,7 @@
 						<mi> d </mi>
 					</mfrac>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille">⠰⠁⠌⠃⠆⠌⠰⠉⠌⠙⠆</span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1964,7 +2042,7 @@
 					<mi>a</mi>
 					<mi>b</mi>
 				</msubsup>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1974,7 +2052,7 @@
 					<mi>b</mi>
 					<mi>a</mi>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1984,7 +2062,7 @@
 					<none/>
 					<mn>8</mn>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -1994,7 +2072,7 @@
 					<mn>9</mn>
 					<none/>
 				</mmultiscripts>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2007,7 +2085,7 @@
 				<mn>2</mn>
 				<mo>&#x2A7D;</mo>
 				<mn>45</mn>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2024,7 +2102,7 @@
 					<mi>n</mi>
 				</munderover>
 				<mi>k</mi>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2032,7 +2110,7 @@
 					<mn>12</mn>
 					<mn>45</mn>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2043,7 +2121,7 @@
 					<mi>d</mi>
 					<mi>e</mi>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2054,7 +2132,7 @@
 					<mi>d</mi>
 					<mi>e</mi>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2074,7 +2152,7 @@
 						</mrow>
 					</mfenced>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2116,7 +2194,7 @@
 						<mi>x</mi>
 					</mrow>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2137,7 +2215,7 @@
 						<mn>788</mn>
 					</mrow>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2171,7 +2249,7 @@
 					<mi>y</mi>
 					<mi>j</mi>
 				</msub>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
@@ -2194,7 +2272,7 @@
 						<mi>i</mi>
 					</msub>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -2212,7 +2290,7 @@
 				</mfenced>
 				<mi>d</mi>
 				<mi>x</mi>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML" style="display:block">
@@ -2239,7 +2317,7 @@
 
 				</mmultiscripts>
 
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML" style="display:block">
@@ -2261,7 +2339,7 @@
 					</mrow>
 					<mi>x</mi>
 				</mfrac>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">
 			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2269,7 +2347,7 @@
 					<mi>A</mi>
 					<mn>65</mn>
 				</mover>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
 		<p class="courant">
@@ -2278,7 +2356,7 @@
 					<mi>A</mi>
 					<mn>65</mn>
 				</mroot>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
 
@@ -2322,7 +2400,7 @@
 						<mo stretchy='true'>&#x005E;</mo>
 					</mover>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
 		<p class="courant">
@@ -2332,7 +2410,7 @@
 					<mo>+</mo>
 					<mn>2</mn>
 				</msqrt>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
 
@@ -2350,7 +2428,7 @@
 						<mi>X</mi>
 					</mfrac>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
 		<p class="courant">
@@ -2380,10 +2458,10 @@
 						</mrow>
 					</mfrac>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
-		<h4>Système d'équations</h4>
+		<h3>Système d'équations</h3>
 		<p class="courant">Non linéaire<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mi>I</mi>
@@ -2416,7 +2494,7 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">Linéaire<br/>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-lineaire">
@@ -2450,7 +2528,7 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">Matrice non linéaire<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="matrice js-math2braille" id="matrice">
@@ -2494,7 +2572,7 @@
 						</mrow>
 					</mfenced>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">Matrice linéaire<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-matrice-lineaire">
@@ -2537,7 +2615,7 @@
 						</mrow>
 					</mfenced>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">Avec "mfenced"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -2616,7 +2694,7 @@
 						</mtable>
 					</mrow>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">Sans "mfenced"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -2699,7 +2777,7 @@
 						<mo>)</mo>
 					</mrow>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">MathType<br/>Sans "mfenced"<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -2855,7 +2933,7 @@
 						<mo>)</mo>
 					</mrow>
 				</mrow>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 		<p class="courant">Wiris<br/>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -2978,7 +3056,7 @@
 						</mtr>
 					</mtable>
 				</mfenced>
-			</math>
+			</math><span class="mathbraille"></span>
 		</p>
 
 	</section>
