@@ -48,9 +48,16 @@ math::before{
     content: "\0000A0(bonne écriture)";
 
 }
-.hidden{
+.bad>.mathbraille{
+    display: block;
+}
+.good>.mathbraille{
     display: none;
 }
+.mathbraille{
+    display: none;
+}
+
 .good{
     background-color: #E1FBE7;
     border-top-color: #008B1F;
