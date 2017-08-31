@@ -430,17 +430,22 @@
     /***** A supprimer à la fin **********/
     function stat() {
         var converti = document.querySelectorAll('.js-mathmlConverti'),
-            braille = document.querySelectorAll('.mathbraille'),
-            lbraille = braille.length,
+            // braille = document.querySelectorAll('.mathbraille'),
+            lconverti = converti.length,
             g = 0,
             b = 0,
             pourcent = 0,
             i = 0;
-        for (; i !== lbraille; i++) {
-            var parent = braille[i].parentElement,
-                txt = braille[i].textContent.replace(/\s*/gi, '');
-            if (txt !== '') {
-                if (txt === converti[i].textContent) {
+        for (; i !== lconverti; i++) {
+            var parent = converti[i].parentElement,
+                math2 = parent.querySelector('.mathbraille2'),
+                math = parent.querySelector('.mathbraille'),
+                txt = converti[i].textContent.trimall();
+            if (math.textContent !== '') {
+                if (txt === math.textContent.trimall()) {
+                    parent.classList.add('good');
+                    g++
+                } else if (math2 && (math2.textContent.trimall() === txt)) {
                     parent.classList.add('good');
                     g++
                 } else {
@@ -448,6 +453,7 @@
                     b++
                 }
             }
+
         }
         pourcent = Math.round(100 * g / (b + g));
         d.getElementById('stat').innerHTML = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
@@ -481,6 +487,15 @@
                     while (parent.tagName !== 'munder') {
                         parent = parent.parentNode;
                     }
+                    if (parent.nextElementSibling.tagName === 'mfrac') {
+                        var frac = parent.nextElementSibling;
+                        parent = parent.parentNode;
+                        var bloc = d.createElement('mfrac');
+                        bloc.innerHTML = frac.innerHTML;
+                        parent.replaceChild(bloc.block(), frac);
+                    }
+                    continue;
+
                 } else if (zap.indexOf(parent.tagName) === -1) {
                     parent = mi[i];
                 }
@@ -489,23 +504,10 @@
                 if (first.tagName === 'mfenced' || first.textContent.indexOf('(') !== -1) continue;
 
                 while (last && (last.tagName !== 'mo' && last.textContent.trimall().length === 1)) {
-
                     lastprevious = last;
                     last = last.nextElementSibling;
                 }
-                // while (bool) {
-                //     lastprevious = last;
-                //     if (last.tagName === 'mo') {
-                //         if (badmo.indexOf(last.textContent) !== -1) {
-                //             last = last.nextElementSibling;
-                //         } else {
-                //             bool = false;
-                //         }
-                //     } else {
-                //         last = last.nextElementSibling;
-                //     }
-                //     (!last) && (bool = false);
-                // }
+
                 if (last) {
                     last = last.previousElementSibling;
                     parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), first);
@@ -611,26 +613,51 @@
             ltbl = tbl.length,
             i = 0,
             boolfenced,
-            parent;
+            parent,
+            para = ['(', ')', '[', ']', '{', '}', '|'];
         for (; i !== ltbl; i++) {
             boolfenced = _boolMfenced(tbl[i]);
             if (!boolfenced) { //recherche parenthèse
                 parent = tbl[i].parentNode;
+
                 while (parent.children.length <= 1 && parent.tagName.toLowerCase() !== 'math') {
                     parent = parent.parentNode;
                 }
+                console.log(parent.children);
+                var fenced = d.createElement('mfenced'),
+                    open,
+                    close;
+
                 if (parent.children.length === 3) {
-                    var fenced = d.createElement('mfenced'),
-                        open = parent.children[0].textContent,
-                        close = parent.children[2].textContent;
+                    open = parent.children[0].textContent;
+                    close = parent.children[2].textContent;
                     parent.removeChild(parent.children[0]);
                     parent.removeChild(parent.children[1]);
                     fenced.setAttribute('open', open);
                     fenced.setAttribute('close', close);
                     fenced.appendChild(parent.children[0]);
                     parent.appendChild(fenced);
+                 } else if (parent.children.length === 2) {
+                    if (parent.children[0].tagName === 'mo') {
+                        open = parent.children[0].textContent;
+                        fenced.setAttribute('open', open);
+                        fenced.setAttribute('close', '');
+                        parent.removeChild(parent.children[0]);
+                        fenced.appendChild(parent.children[0]);
+                        parent.appendChild(fenced);
+                    } else if(parent.children[1].tagName === 'mo') {
+                        close = parent.children[1].textContent;
+                        fenced.setAttribute('open', '');
+                        fenced.setAttribute('close', close);
+                        parent.removeChild(parent.children[1]);
+                        fenced.appendChild(parent.children[0]);
+                        parent.appendChild(fenced);
+                    }
+                   
 
                 }
+
+
             }
 
         }
@@ -987,18 +1014,19 @@
     }
 
     function _tableUnder(under) {
-        var bloc = d.createElement('block'),
-            tbl = under.getElementsByTagName('mtable');
-
-        var tr = tbl[0].getElementsByTagName('mtr'),
+        var bloc = d.createElement('mrow'),
+            tbl = under.getElementsByTagName('mtable'),
+            tr = tbl[0].getElementsByTagName('mtr'),
             ltr = tr.length,
             j = 0;
+
         for (; j !== ltr; j++) {
             (j !== ltr - 1) && tr[j].appendChild(d.createTextNode('-2-'));
         }
         while (tr[0]) {
             bloc.appendChild(tr[0]);
         }
+
         under.replaceChild(bloc, tbl[0]);
         return under;
     }
