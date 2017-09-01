@@ -2,7 +2,7 @@
 Script Javascript.
 Convertit les équations mathML, ou du texte (braille direct), en braille Unicode.
 
-![](header.png)
+![Une équation mathématique suivie de sa transcription en braille CBFU](header.png)
 
 ## mathML
 - Convertir toutes les équations
@@ -36,7 +36,7 @@ Sortie navigateur
     ```
     ⠰⠱⠖⠣⠱⠆⠌⠱⠳⠶⠫⠱
     ```
-    
+
 - Les tables de caractères sont basées sur celles du logiciel [Duxbury DBT Win](http://www.duxburysystems.com/). Pour l'instant il n'y a que les tables française et américaine.
 ## Langues
 - Le choix de la table de caractères est basé sur la langue définie sur l'équation ou, par défaut, celle du document
