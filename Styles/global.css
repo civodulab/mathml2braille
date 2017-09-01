@@ -29,47 +29,46 @@ h3 {
     border-bottom-style: solid;
 }
 
-span {
+span,
+math {
     display: block;
 }
-.js-brailleDirect::before{
-    /* content: "Braille Direct :\0000A0"; */
-}
-.js-brailleDirect{
+
+.js-brailleDirect {
     margin-top: 0;
 }
-math::before{
-    /* content: "MathML :\0000A0"; */
-}
-.js-mathmlConverti::before{
-    /* content: "mathml2braille :\0000A0"; */
-}
-.mathbraille::after{
-    content: "\0000A0(bonne écriture)";
 
+.mathbraille::after {
+    content: "\0000A0(bonne écriture)";
 }
-.bad::before{
+
+.bad::before {
     content: "BAD";
     color: #B30101
 }
-.bad>.mathbraille{
+
+.bad>.mathbraille {
     display: block;
 }
-.good::before{
+
+.good::before {
     content: "GOOD";
     color: #006900;
 }
-.good>.mathbraille{
-    display: none;
-}
-.mathbraille{
-    display: none;
-}
-.mathbraille2{
+
+.good>.mathbraille {
     display: none;
 }
 
-.good{
+.mathbraille {
+    display: none;
+}
+
+.mathbraille2 {
+    display: none;
+}
+
+.good {
     background-color: #E1FBE7;
     border-top-color: #008B1F;
     border-top-width: 2px;

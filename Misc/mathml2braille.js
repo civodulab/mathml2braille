@@ -385,16 +385,16 @@
                 _ajoutmfenced(m);
                 _pbBlocs(m); // cas particulier de blocs (limite, intégrale, etc.)
                 // _mn(m);
-                _mmultiscripts(m);
+                _mmultiscripts(m, options);
 
                 _mfrac(m);
                 _mroot(m);
                 _msqrt(m);
                 _mover(m);
-                _munder(m);
+                _munder(m, options);
                 _msup(m);
-                _msub(m);
-                _msubsup(m);
+                _msub(m, options);
+                _msubsup(m, options);
                 _munderover(m);
                 _mfenced(m, options, hardmat);
                 _mn(m);
@@ -472,6 +472,7 @@
 
     function _pbBlocs(monEquation) {
         var zap = ['msub', 'msup'],
+            qui = ['cos', 'sin', 'lim', 'ch', 'sh', 'ln', 'log','Card','tan','arctan'],
             mi = monEquation.getElementsByTagName('mi'),
             lmi = mi.length,
             i = 0;
@@ -480,9 +481,8 @@
                 parent = mi[i].parentNode,
                 first,
                 last,
-                lastprevious,
-                bool = true;
-            if (txt.length > 1) {
+                lastprevious;
+            if (qui.indexOf(txt) !== -1) {
                 if (txt === 'lim') {
                     while (parent.tagName !== 'munder') {
                         parent = parent.parentNode;
@@ -501,7 +501,7 @@
                 }
                 first = parent.nextElementSibling;
                 last = first;
-                if (first.tagName === 'mfenced' || first.textContent.indexOf('(') !== -1) continue;
+                if ((first && first.tagName === 'mfenced') || (first && first.textContent.indexOf('(') !== -1)) continue;
 
                 while (last && (last.tagName !== 'mo' && last.textContent.trimall().length === 1)) {
                     lastprevious = last;
@@ -512,7 +512,7 @@
                     last = last.previousElementSibling;
                     parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), first);
                     parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), last.nextSibling);
-                } else {
+                } else if (lastprevious) {
                     parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), first);
                     parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), lastprevious.nextSibling);
                 }
@@ -623,7 +623,6 @@
                 while (parent.children.length <= 1 && parent.tagName.toLowerCase() !== 'math') {
                     parent = parent.parentNode;
                 }
-                console.log(parent.children);
                 var fenced = d.createElement('mfenced'),
                     open,
                     close;
@@ -637,7 +636,7 @@
                     fenced.setAttribute('close', close);
                     fenced.appendChild(parent.children[0]);
                     parent.appendChild(fenced);
-                 } else if (parent.children.length === 2) {
+                } else if (parent.children.length === 2) {
                     if (parent.children[0].tagName === 'mo') {
                         open = parent.children[0].textContent;
                         fenced.setAttribute('open', open);
@@ -645,7 +644,7 @@
                         parent.removeChild(parent.children[0]);
                         fenced.appendChild(parent.children[0]);
                         parent.appendChild(fenced);
-                    } else if(parent.children[1].tagName === 'mo') {
+                    } else if (parent.children[1].tagName === 'mo') {
                         close = parent.children[1].textContent;
                         fenced.setAttribute('open', '');
                         fenced.setAttribute('close', close);
@@ -653,11 +652,7 @@
                         fenced.appendChild(parent.children[0]);
                         parent.appendChild(fenced);
                     }
-                   
-
                 }
-
-
             }
 
         }
@@ -675,7 +670,7 @@
         return false;
     }
 
-    function _mmultiscripts(monEquation) {
+    function _mmultiscripts(monEquation, options) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts'),
             monbool = (multiscripts.length > 1) && true || false;
 
@@ -699,15 +694,28 @@
                 pre1 = elt[4];
                 pre2 = elt[5];
             }
-            (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
-            (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-            (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
-            (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
-            df.appendChild(base);
-            (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
-            (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-            (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
-            (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+            if (options.chimie) {
+                df.appendChild(base);
+                (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.point6 + mathBraille.caracMath.indice));
+                (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
+                (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.point6 + mathBraille.caracMath.exposant));
+                (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
+                (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+                (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
+                (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+                (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+            } else {
+                (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+                (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
+                (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+                (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
+                df.appendChild(base);
+                (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
+                (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
+                (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
+                (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+            }
+
             df = monbool && df.block() || df;
             parent.replaceChild(df, multiscripts[0]);
         }
@@ -897,7 +905,7 @@
         }
     }
 
-    function _msubsup(monEquation, tagName) {
+    function _msubsup(monEquation, options, tagName) {
         tagName = tagName || 'msubsup';
         var msubsup = monEquation.getElementsByTagName(tagName);
         while (msubsup[0]) {
@@ -906,6 +914,9 @@
                 sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
                 sep2 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.exposant)),
                 df = d.createElement('block');
+                
+             sep1 = (options&&options.chimie) && d.createElement('block').appendChild(d.createTextNode('')) || sep1;
+            //  console.log(sep1);
             df.appendChild(elt[0]);
             (tagName === 'munderover') && df.appendChild(sep1.cloneNode());
             df.appendChild(sep1);
@@ -943,7 +954,7 @@
         _mo(monEquation, 'mi');
     }
 
-    function _mover(monEquation, tagName) {
+    function _mover(monEquation, tagName, options) {
         tagName = tagName || 'mover';
         var mover = monEquation.getElementsByTagName(tagName),
             monbool = false;
@@ -976,12 +987,14 @@
                         break;
                     case 'munder':
                         sep = mathBraille.caracMath.souscrit;
+                        sep = options.chimie && mathBraille.caracMath.point6 + sep || sep;
                         break;
                     case 'msup':
                         sep = mathBraille.caracMath.exposant;
                         break;
                     case 'msub':
                         sep = (enfant1.textContent.trim() !== '|') && mathBraille.caracMath.indice || sep;
+                        options.chimie && (sep = '');
                         break;
                     case 'mfrac':
                         if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
@@ -1031,20 +1044,20 @@
         return under;
     }
 
-    function _munder(monEquation) {
-        _mover(monEquation, 'munder');
+    function _munder(monEquation, o) {
+        _mover(monEquation, 'munder', o);
     }
 
-    function _munderover(monEquation) {
-        _msubsup(monEquation, 'munderover');
+    function _munderover(monEquation,o) {
+        _msubsup(monEquation,o, 'munderover');
     }
 
     function _mfrac(monEquation) {
         _mover(monEquation, 'mfrac');
     }
 
-    function _msub(monEquation) {
-        _mover(monEquation, 'msub');
+    function _msub(monEquation, o) {
+        _mover(monEquation, 'msub', o);
     }
 
     function _msup(monEquation) {
