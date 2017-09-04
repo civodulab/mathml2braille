@@ -355,7 +355,7 @@
                 'matriceLineaire': false,
                 'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
                 'chimie': false
-            }
+            };
             if (clmath && typeof clmath === 'object') {
                 arguments[1] = clmath;
                 clmath = undefined;
@@ -390,7 +390,7 @@
                 _mfrac(m);
                 _mroot(m);
                 _msqrt(m);
-                _mover(m);
+                _mover(m,'mover',options);
                 _munder(m, options);
                 _msup(m);
                 _msub(m, options);
@@ -984,6 +984,7 @@
                 switch (tagName) {
                     case 'mover':
                         sep = mathBraille.caracMath.suscrit;
+                        options.chimie && (sep = '');
                         break;
                     case 'munder':
                         sep = mathBraille.caracMath.souscrit;
