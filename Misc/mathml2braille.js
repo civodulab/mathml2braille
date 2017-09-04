@@ -472,7 +472,7 @@
 
     function _pbBlocs(monEquation) {
         var zap = ['msub', 'msup'],
-            qui = ['cos', 'sin', 'lim', 'ch', 'sh', 'ln', 'log', 'Card', 'tan', 'arctan'],
+            qui = ['cos', 'sin', 'lim', 'ch', 'sh', 'ln', 'log', 'Card', 'tan', 'arctan', 'arcsin', 'arccos', 'arccotan'],
             mi = monEquation.getElementsByTagName('mi'),
             lmi = mi.length,
             i = 0;
@@ -612,9 +612,11 @@
         var tbl = monEquation.getElementsByTagName('mtable'),
             ltbl = tbl.length,
             i = 0,
+            fenced,
             boolfenced,
-            parent,
-            para = ['(', ')', '[', ']', '{', '}', '|'];
+            open,
+            close,
+            parent;
         for (; i !== ltbl; i++) {
             boolfenced = _boolMfenced(tbl[i]);
             if (!boolfenced) { //recherche parenthèse
@@ -623,9 +625,7 @@
                 while (parent.children.length <= 1 && parent.tagName.toLowerCase() !== 'math') {
                     parent = parent.parentNode;
                 }
-                var fenced = d.createElement('mfenced'),
-                    open,
-                    close;
+                fenced = d.createElement('mfenced');
 
                 if (parent.children.length === 3) {
                     open = parent.children[0].textContent;
@@ -717,17 +717,25 @@
         }
     }
 
-
     function _mfenced(monEquation, options, hardmat) {
-        var fenced = monEquation.getElementsByTagName('mfenced');
+        var fenced = monEquation.getElementsByTagName('mfenced'),
+            open,
+            close,
+            sep,
+            mtable,
+            parent,
+            block;
         while (fenced[0]) {
-            var open = fenced[0].getAttribute('open'),
-                end = fenced[0].getAttribute('close'),
-                sep = fenced[0].getAttribute('separators'),
-                mtable = fenced[0].getElementsByTagName('mtable'),
-                parent = fenced[0].parentNode,
-                block = d.createElement('block');
-
+            block = d.createElement('block');
+            open = fenced[0].getAttribute('open');
+            (open === null) && (open = '(');
+            (open.split('').length === 1) && (open = open.charCodeAt());
+            close = fenced[0].getAttribute('close');
+            (close === null) && (close = ')');
+            (close.split('').length === 1) && (close = close.charCodeAt());
+            mtable = fenced[0].getElementsByTagName('mtable');
+            parent = fenced[0].parentNode;
+            sep = fenced[0].getAttribute('separators');
             if (sep) {
                 var s = sep.split(''),
                     slast,
@@ -737,58 +745,27 @@
                 for (; i !== lenfants - 1; i++) {
                     s[i] = s[i] || slast;
                     enfants[i].appendChild(d.createTextNode(s[i]));
-                    s[i] && (slast = s[i]);
+                    slast = s[i] && s[i];
                 }
             }
             block.innerHTML = fenced[0].innerHTML;
-
-            (open === null) && (open = '(');
-            (end === null) && (end = ')');
-
-
-            (open.split('').length === 1) && (open = open.charCodeAt());
-            (end.split('').length === 1) && (end = end.charCodeAt());
-            // console.log(mtable.length);
-            // var fenced2 = fenced[0].getElementsByTagName('mfenced'),
-            var monBool = mtable.length > 0 && (options.matriceLineaire || hardmat);
+            var monBool = mtable.length !== 0 && (options.matriceLineaire || hardmat);
 
             switch (open) {
                 case 40: // para (
-                    if (monBool) {
-                        open = mathBraille.caracMath.grandeparenthese2.open;
-                        // } else if (fenced2[0]) {
-                        //     open = mathBraille.caracMath.grandeparenthese1.open;
-                    } else {
-                        open = mathBraille.caracMath.parenthese.open;
-                    }
+                    open = monBool && mathBraille.caracMath.grandeparenthese2.open || mathBraille.caracMath.parenthese.open;
                     break;
                 case 91: //'[':
-                    if (monBool) {
-                        open = mathBraille.caracMath.grandcrochet2.open;
-                        // } else if (fenced2[0]) {
-                        //     open = mathBraille.caracMath.grandcrochet1.open;
-                    } else {
-                        open = mathBraille.caracMath.crochet.open;
-                    }
+                    open = monBool && mathBraille.caracMath.grandcrochet2.open || mathBraille.caracMath.crochet.open;
                     break;
                 case 93: //']':
-                    if (monBool) {
-                        open = mathBraille.caracMath.grandcrochet2.close;
-                        // } else if (fenced2[0]) {
-                        //     open = mathBraille.caracMath.grandcrochet1.close;
-                    } else {
-                        open = mathBraille.caracMath.crochet.close;
-                    }
+                    open = monBool && mathBraille.caracMath.grandcrochet2.close || mathBraille.caracMath.crochet.close;
                     break;
                 case 123: //'{':
                     open = mtable[0] && mathBraille.caracMath.grandeaccolade.open || mathBraille.caracMath.accolade.open;
                     break;
                 case 124: //'|':
-                    if (monBool) {
-                        open = mathBraille.caracMath.grandebarre.open;
-                    } else {
-                        open = mathBraille.caracMath.barre.open;
-                    }
+                    open = monBool && mathBraille.caracMath.grandebarre.open || mathBraille.caracMath.barre.open;
                     break;
                 case 8741:
                 case '||':
@@ -798,54 +775,32 @@
                     open = mathBraille.caracMath.crochetdouble.open;
                     break;
             }
-            switch (end) {
-                case 41:
-                    if (monBool) {
-                        end = mathBraille.caracMath.grandeparenthese2.close;
-                        // } else if (fenced2[0]) {
-                        //     end = mathBraille.caracMath.grandeparenthese1.close;
-                    } else {
-                        end = mathBraille.caracMath.parenthese.close;
-                    }
-
+            switch (close) {
+                case 41: // )
+                    close = monBool && mathBraille.caracMath.grandeparenthese2.close || mathBraille.caracMath.parenthese.close;
                     break;
                 case 93: //']':
-                    if (monBool) {
-                        end = mathBraille.caracMath.grandcrochet2.close;
-                        // } else if (fenced2[0]) {
-                        //     end = mathBraille.caracMath.grandcrochet1.close;
-                    } else {
-                        end = mathBraille.caracMath.crochet.close;
-                    }
+                    close = monBool && mathBraille.caracMath.grandcrochet2.close || mathBraille.caracMath.crochet.close;
                     break;
                 case 91: //'[':
-                    if (monBool) {
-                        end = mathBraille.caracMath.grandcrochet2.open;
-                        // } else if (fenced2[0]) {
-                        //     end = mathBraille.caracMath.grandcrochet1.open;
-                    } else {
-                        end = mathBraille.caracMath.crochet.open;
-                    }
+                    close = monBool && mathBraille.caracMath.grandcrochet2.open || mathBraille.caracMath.crochet.open;
                     break;
                 case 125: //'}':
-                    end = mtable[0] && mathBraille.caracMath.grandeaccolade.close || mathBraille.caracMath.accolade.close;
+                    close = mtable[0] && mathBraille.caracMath.grandeaccolade.close || mathBraille.caracMath.accolade.close;
                     break;
                 case 124: // '|':
-                    if (monBool) {
-                        end = mathBraille.caracMath.grandebarre.close;
-                    } else {
-                        end = mathBraille.caracMath.barre.close;
-                    }
+                    close = monBool && mathBraille.caracMath.grandebarre.close || mathBraille.caracMath.barre.close;
                     break;
                 case 8741:
                 case '||':
-                    end = mtable[0] && mathBraille.caracMath.grandedoublebarre.close || mathBraille.caracMath.doublebarre.close;
+                    close = mtable[0] && mathBraille.caracMath.grandedoublebarre.close || mathBraille.caracMath.doublebarre.close;
                     break;
                 case 10215: // crochet double fermé
-                    end = mathBraille.caracMath.crochetdouble.close;
+                    close = mathBraille.caracMath.crochetdouble.close;
                     break;
-            }(!options.matriceLineaire && !hardmat) && _matriceBlock(open, end, block);
-            parent.replaceChild(block.block(open, end), fenced[0]);
+            }
+            (!options.matriceLineaire && !hardmat) && _matriceBlock(open, close, block);
+            parent.replaceChild(block.block(open, close), fenced[0]);
         }
     }
 
