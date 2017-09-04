@@ -390,7 +390,7 @@
                 _mfrac(m);
                 _mroot(m);
                 _msqrt(m);
-                _mover(m,'mover',options);
+                _mover(m, 'mover', options);
                 _munder(m, options);
                 _msup(m);
                 _msub(m, options);
@@ -472,7 +472,7 @@
 
     function _pbBlocs(monEquation) {
         var zap = ['msub', 'msup'],
-            qui = ['cos', 'sin', 'lim', 'ch', 'sh', 'ln', 'log','Card','tan','arctan'],
+            qui = ['cos', 'sin', 'lim', 'ch', 'sh', 'ln', 'log', 'Card', 'tan', 'arctan'],
             mi = monEquation.getElementsByTagName('mi'),
             lmi = mi.length,
             i = 0;
@@ -672,17 +672,20 @@
 
     function _mmultiscripts(monEquation, options) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts'),
-            monbool = (multiscripts.length > 1) && true || false;
+            monbool = (multiscripts.length > 1) && true || false,
+            post1,
+            post2,
+            pre1,
+            pre2,
+            indice = mathBraille.caracMath.indice,
+            exposant = mathBraille.caracMath.exposant;
 
         while (multiscripts[0]) {
             var elt = multiscripts[0].children,
                 parent = multiscripts[0].parentNode,
                 df = d.createElement('block'),
-                base = elt[0],
-                post1,
-                post2,
-                pre1,
-                pre2;
+                base = elt[0];
+
             if (elt[1].tagName.toLowerCase() === 'mprescripts') {
                 pre1 = elt[2];
                 pre2 = elt[3];
@@ -694,27 +697,20 @@
                 pre1 = elt[4];
                 pre2 = elt[5];
             }
-            if (options.chimie) {
-                df.appendChild(base);
-                (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.point6 + mathBraille.caracMath.indice));
-                (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-                (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.point6 + mathBraille.caracMath.exposant));
-                (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
-                (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
-                (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-                (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
-                (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
-            } else {
-                (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
-                (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-                (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
-                (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
-                df.appendChild(base);
-                (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.indice));
-                (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-                (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(mathBraille.caracMath.exposant));
-                (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
-            }
+            indice = options.chimie && mathBraille.caracMath.point6 + indice || indice;
+            exposant = options.chimie && mathBraille.caracMath.point6 + exposant || exposant;
+
+            // écriture
+            options.chimie && df.appendChild(base);
+            (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(indice));
+            (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
+            (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(exposant));
+            (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
+            !options.chimie && df.appendChild(base);
+            (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(indice));
+            (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
+            (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(exposant));
+            (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
 
             df = monbool && df.block() || df;
             parent.replaceChild(df, multiscripts[0]);
@@ -914,8 +910,8 @@
                 sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
                 sep2 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.exposant)),
                 df = d.createElement('block');
-                
-             sep1 = (options&&options.chimie) && d.createElement('block').appendChild(d.createTextNode('')) || sep1;
+
+            sep1 = (options && options.chimie) && d.createElement('block').appendChild(d.createTextNode('')) || sep1;
             //  console.log(sep1);
             df.appendChild(elt[0]);
             (tagName === 'munderover') && df.appendChild(sep1.cloneNode());
@@ -1049,8 +1045,8 @@
         _mover(monEquation, 'munder', o);
     }
 
-    function _munderover(monEquation,o) {
-        _msubsup(monEquation,o, 'munderover');
+    function _munderover(monEquation, o) {
+        _msubsup(monEquation, o, 'munderover');
     }
 
     function _mfrac(monEquation) {
