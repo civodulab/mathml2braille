@@ -404,8 +404,6 @@
                 _mo(m);
                 _mi(m);
 
-                // _mmultiscripts(m);
-
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
                 maForm.innerHTML = m.innerHTML;

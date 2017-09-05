@@ -81,28 +81,28 @@
           'close': '-23456-'
         },
         'grandeparenthese1': { // imbrication
-          'open': '-5-236-',
-          'close': '-5-356-'
+          'open': '-5-12356-',
+          'close': '-5-23456-'
         },
         'grandeparenthese2': { // sur plusieurs lignes
-          'open': '-45-236-',
-          'close': '-45-356-'
+          'open': '-45-12356-',
+          'close': '-45-23456-'
         },
         'accolade': {
-          'open': '-46-236-',
-          'close': '-46-356-'
+          'open': '-46-12356-',
+          'close': '-46-23456-'
         },
         'grandeaccolade': { //plusieurs lignes
-          'open': '-456-236-',
-          'close': '-456-356-'
+          'open': '-456-12356-',
+          'close': '-456-23456-'
         },
         'barre': {
           'open': '-1256-',
           'close': '-1256-'
         },
         'grandebarre': { //plusieurs lignes
-          'open': '-456-123456-',
-          'close': '-456-123456-'
+          'open': '-6-1256-',
+          'close': '-6-1256-'
         },
         'doublebarre': {
           'open': '-1256-1256-',
@@ -128,8 +128,8 @@
           'open': '-46-12356-',
           'close': '-46-23456-'
         },
-        'indice': '-26-',
-        'exposant': '-4-',
+        'indice': '-56-',
+        'exposant': '-45-',
         'suscrit': '-4-4-',
         'souscrit': '-26-26-',
         'fraction': '-34-',
@@ -137,7 +137,7 @@
           'sepLigne': '-6-345-',
         },
         'racine': '-345-',
-        'majuscule': '-46-',
+        'majuscule': '-6-',
         'point5-': '-5-',
       },
       'caracDec': {
@@ -149,32 +149,32 @@
           94: '-45-25-', //angle
         },
         /* Alphabet majuscule */
-        65: '-46-1-', // A
-        66: '-46-12-', // B
-        67: '-46-14-', //...
-        68: '-46-145-',
-        69: '-46-15-',
-        70: '-46-124-',
-        71: '-46-1245-',
-        72: '-46-125-',
-        73: '-46-24-',
-        74: '-46-245-',
-        75: '-46-13-',
-        76: '-46-123-',
-        77: '-46-134-',
-        78: '-46-1345-',
-        79: '-46-135-',
-        80: '-46-1234-',
-        81: '-46-12345-',
-        82: '-46-1235-',
-        83: '-46-234-',
-        84: '-46-2345-',
-        85: '-46-136-',
-        86: '-46-1236-',
-        87: '-46-2456-',
-        88: '-46-1346-',
-        89: '-46-13456-',
-        90: '-46-1356-',
+        65: '-6-1-', // A
+        66: '-6-12-', // B
+        67: '-6-14-', //...
+        68: '-6-145-',
+        69: '-6-15-',
+        70: '-6-124-',
+        71: '-6-1245-',
+        72: '-6-125-',
+        73: '-6-24-',
+        74: '-6-245-',
+        75: '-6-13-',
+        76: '-6-123-',
+        77: '-6-134-',
+        78: '-6-1345-',
+        79: '-6-135-',
+        80: '-6-1234-',
+        81: '-6-12345-',
+        82: '-6-1235-',
+        83: '-6-234-',
+        84: '-6-2345-',
+        85: '-6-136-',
+        86: '-6-1236-',
+        87: '-6-2456-',
+        88: '-6-1346-',
+        89: '-6-13456-',
+        90: '-6-1356-',
         /* Alphabet minuscule */
         97: '-1-', // a
         98: '-12-', // b
@@ -203,23 +203,35 @@
         121: '-13456-',
         122: '-1356-',
         /* chiffres */
-        48: '-2-', // 1 
-        49: '-23-', // 2
-        50: '-25-', // 3
-        51: '-256-', // 4
-        52: '-26-', // 5
-        53: '-235-', // 6
-        54: '-2356-', // 7
-        55: '-236-', // 8
-        56: '-35-', // 9
-        57: '-356-', // 0
+        48: '-356-', //0
+        49: '-2-', // 1
+        50: '-23-', // 2
+        51: '-25-', // 3
+        52: '-256-', // 4
+        53: '-26-', // 5
+        54: '-235-', // 6
+        55: '-2356-', // 7
+        56: '-236-', // 8
+        57: '-35-', // 9
         /* fin chiffres */
-        44: '-46-', // ,
+        39: '-3-', // '
+        40: '-12356-', // (
+        41: '-23456-', // )  
+        58: '-25-', // :
+        59: '-23-', // ;
+        91: '-12356-', // [
+        93: '-23456-', // ]
+        123: '-46-12356-', // { accolade gauche
+        125: '-46-23456-', // { accolade droite
+        124: '-1256-', // |
+        8214: '-1256-1256-', // ||
+        44: '-6-', // ,
         45: '-36-', // -
+        46:'-46-', // .
         42: '-5-35-', // *
         43: '-346-', // +
-        61: '-2356-', // =
-        33: '-456-35-', // factoriel !
+        61: '-BLANK-46-13-BLANK-', // =
+        33: '-12346-', // factoriel !
         183: '-35-35-', // middle dot &#xB7;
         176: '-135-', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
         181: '-45-134-', //MICRO MU SYMBOL µ &micro; &‌#181; &‌#xB5;
@@ -520,58 +532,58 @@
         // UP RIGHT DIAGONAL ELLIPSIS ⋰ &‌#8944; &‌#x22F0;
         // DOWN RIGHT DIAGONAL ELLIPSIS ⋱ &‌#8945; &‌#x22F1;
         /* lettres grecques */
-        8721: '-46-45-234-', //CAPITAL SIGMA N-ARY SUMMATION ∑ &sum; &‌#8721; &‌#x2211;
-        8719: '-46-45-1234-', //CAPITAL PI N-ARY PRODUCT ∏ &prod; &‌#8719; &‌#x220F;
+        8721: '-46-6-234-', //CAPITAL SIGMA N-ARY SUMMATION ∑ &sum; &‌#8721; &‌#x2211;
+        8719: '-46-6-1234-', //CAPITAL PI N-ARY PRODUCT ∏ &prod; &‌#8719; &‌#x220F;
         //N-ARY COPRODUCT (upside down capital pi) ∐ — &‌#8720; &‌#x2210;
-        913: '-46-45-1-', //GREEK CAPITAL LETTER ALPHA Α &‌#913; &‌#x0391 &‌Alpha;
-        914: '-46-45-12-', //GREEK CAPITAL LETTER BETA Β &‌#914; &‌#x0392 &‌Beta;
-        915: '-46-45-1245-', //GREEK CAPITAL LETTER GAMMA Γ &‌#915; &‌#x0393 &‌Gamma;
-        916: '-46-45-145-', //GREEK CAPITAL LETTER DELTA Δ &‌#916; &‌#x0394 &‌Delta;
-        917: '-46-45-15-', //GREEK CAPITAL LETTER EPSILON Ε &‌#917; &‌#x0395 &‌Epsilon;
-        918: '-46-45-1356-', //GREEK CAPITAL LETTER ZETA Ζ &‌#918; &‌#x0396 &‌Zeta;
-        919: '-46-45-125-', //GREEK CAPITAL LETTER ETA Η &‌#919; &‌#x0397 &‌Eta;
-        920: '-46-45-245-', //GREEK CAPITAL LETTER THETA Θ &‌#920; &‌#x0398 &‌Theta;
-        921: '-46-45-24-', //GREEK CAPITAL LETTER IOTA Ι &‌#921; &‌#x0399 &‌Iota;
-        922: '-46-45-13-', //GREEK CAPITAL LETTER KAPPA Κ &‌#922; &‌#x039A &‌Kappa;
-        923: '-46-45-123-', //GREEK CAPITAL LETTER LAM(B)DA Λ &‌#923; &‌#x039B &‌Lambda;
-        924: '-46-45-134-', //GREEK CAPITAL LETTER MU Μ &‌#924; &‌#x039C &‌Mu;
-        925: '-46-45-1345-', //GREEK CAPITAL LETTER NU Ν &‌#925; &‌#x039D &‌Nu;
-        926: '-46-45-1346-', //GREEK CAPITAL LETTER XI Ξ &‌#926; &‌#x039E &‌Xi;
-        927: '-46-45-135-', //GREEK CAPITAL LETTER OMICRON Ο &‌#927; &‌#x039F &‌Omicron;
-        928: '-46-45-1234-', //GREEK CAPITAL LETTER PI Π &‌#928; &‌#x03A0 &‌Pi;
-        929: '-46-45-1235-', //GREEK CAPITAL LETTER RHO Ρ &‌#929; &‌#x03A1 &‌Rho;
-        931: '-46-45-234-', //GREEK CAPITAL LETTER SIGMA Σ &‌#931; &‌#x03A3 &‌Sigma;
-        932: '-46-45-2345-', //GREEK CAPITAL LETTER TAU Τ &‌#932; &‌#x03A4 &‌Tau;
-        933: '-46-45-136-', //GREEK CAPITAL LETTER UPSILON Υ &‌#933; &‌#x03A5 &‌Upsilon;
-        934: '-46-45-124-', //GREEK CAPITAL LETTER PHI Φ &‌#934; &‌#x03A6 &‌Phi;
-        935: '-46-45-12345-', //GREEK CAPITAL LETTER CHI Χ &‌#935; &‌#x03A7 &‌Chi;
-        936: '-46-45-13456-', //GREEK CAPITAL LETTER PSI Ψ &‌#936; &‌#x03A8 &‌Psi;
-        937: '-46-45-2456-', //GREEK CAPITAL LETTER OMEGA Ω &‌#937; &‌#x03A9 &‌Omega;
-        945: '-45-1-', //GREEK SMALL LETTER ALPHA α &‌#945; &‌#x03B1 &‌alpha;
-        946: '-45-12-', //GREEK SMALL LETTER BETA β &‌#946; &‌#x03B2 &‌beta;
-        947: '-45-1245-', //GREEK SMALL LETTER GAMMA γ &‌#947; &‌#x03B3 &‌gamma;
-        948: '-45-145-', //GREEK SMALL LETTER DELTA δ &‌#948; &‌#x03B4 &‌delta;
-        949: '-45-15-', //GREEK SMALL LETTER EPSILON ε &‌#949; &‌#x03B5 &‌epsilon;
-        950: '-45-1356-', //GREEK SMALL LETTER ZETA ζ &‌#950; &‌#x03B6 &‌zeta;
-        951: '-45-125-', //GREEK SMALL LETTER ETA η &‌#951; &‌#x03B7 &‌eta;
-        952: '-45-245-', //GREEK SMALL LETTER THETA θ &‌#952; &‌#x03B8 &‌theta;
-        953: '-45-24-', //GREEK SMALL LETTER IOTA ι &‌#953; &‌#x03B9 &‌iota;
-        954: '-45-13-', //GREEK SMALL LETTER KAPPA κ &‌#954; &‌#x03BA &‌kappa;
-        955: '-45-123-', //GREEK SMALL LETTER LAM(B)DA λ &‌#955; &‌#x03BB &‌lambda;
-        956: '-45-134-', //GREEK SMALL LETTER MU μ &‌#956; &‌#x03BC &‌mu;
-        957: '-45-1345-', //GREEK SMALL LETTER NU ν &‌#957; &‌#x03BD &‌nu;
-        958: '-45-1346-', //GREEK SMALL LETTER XI ξ &‌#958; &‌#x03BE &‌xi;
-        959: '-45-135-', //GREEK SMALL LETTER OMICRON ο &‌#959; &‌#x03BF &‌omicron;
-        960: '-45-1234-', //GREEK SMALL LETTER PI π &‌#960; &‌#x03C0 &‌pi;
-        961: '-45-1235-', //GREEK SMALL LETTER RHO ρ &‌#961; &‌#x03C1 &‌rho;
+        913: '-46-6-1-', //GREEK CAPITAL LETTER ALPHA Α &‌#913; &‌#x0391 &‌Alpha;
+        914: '-46-6-12-', //GREEK CAPITAL LETTER BETA Β &‌#914; &‌#x0392 &‌Beta;
+        915: '-46-6-1245-', //GREEK CAPITAL LETTER GAMMA Γ &‌#915; &‌#x0393 &‌Gamma;
+        916: '-46-6-145-', //GREEK CAPITAL LETTER DELTA Δ &‌#916; &‌#x0394 &‌Delta;
+        917: '-46-6-15-', //GREEK CAPITAL LETTER EPSILON Ε &‌#917; &‌#x0395 &‌Epsilon;
+        918: '-46-6-1356-', //GREEK CAPITAL LETTER ZETA Ζ &‌#918; &‌#x0396 &‌Zeta;
+        919: '-46-6-125-', //GREEK CAPITAL LETTER ETA Η &‌#919; &‌#x0397 &‌Eta;
+        920: '-46-6-245-', //GREEK CAPITAL LETTER THETA Θ &‌#920; &‌#x0398 &‌Theta;
+        921: '-46-6-24-', //GREEK CAPITAL LETTER IOTA Ι &‌#921; &‌#x0399 &‌Iota;
+        922: '-46-6-13-', //GREEK CAPITAL LETTER KAPPA Κ &‌#922; &‌#x039A &‌Kappa;
+        923: '-46-6-123-', //GREEK CAPITAL LETTER LAM(B)DA Λ &‌#923; &‌#x039B &‌Lambda;
+        924: '-46-6-134-', //GREEK CAPITAL LETTER MU Μ &‌#924; &‌#x039C &‌Mu;
+        925: '-46-6-1345-', //GREEK CAPITAL LETTER NU Ν &‌#925; &‌#x039D &‌Nu;
+        926: '-46-6-1346-', //GREEK CAPITAL LETTER XI Ξ &‌#926; &‌#x039E &‌Xi;
+        927: '-46-6-135-', //GREEK CAPITAL LETTER OMICRON Ο &‌#927; &‌#x039F &‌Omicron;
+        928: '-46-6-1234-', //GREEK CAPITAL LETTER PI Π &‌#928; &‌#x03A0 &‌Pi;
+        929: '-46-6-1235-', //GREEK CAPITAL LETTER RHO Ρ &‌#929; &‌#x03A1 &‌Rho;
+        931: '-46-6-234-', //GREEK CAPITAL LETTER SIGMA Σ &‌#931; &‌#x03A3 &‌Sigma;
+        932: '-46-6-2345-', //GREEK CAPITAL LETTER TAU Τ &‌#932; &‌#x03A4 &‌Tau;
+        933: '-46-6-136-', //GREEK CAPITAL LETTER UPSILON Υ &‌#933; &‌#x03A5 &‌Upsilon;
+        934: '-46-6-124-', //GREEK CAPITAL LETTER PHI Φ &‌#934; &‌#x03A6 &‌Phi;
+        935: '-46-6-12345-', //GREEK CAPITAL LETTER CHI Χ &‌#935; &‌#x03A7 &‌Chi;
+        936: '-46-6-13456-', //GREEK CAPITAL LETTER PSI Ψ &‌#936; &‌#x03A8 &‌Psi;
+        937: '-46-6-2456-', //GREEK CAPITAL LETTER OMEGA Ω &‌#937; &‌#x03A9 &‌Omega;
+        945: '-46-1-', //GREEK SMALL LETTER ALPHA α &‌#945; &‌#x03B1 &‌alpha;
+        946: '-46-12-', //GREEK SMALL LETTER BETA β &‌#946; &‌#x03B2 &‌beta;
+        947: '-46-1245-', //GREEK SMALL LETTER GAMMA γ &‌#947; &‌#x03B3 &‌gamma;
+        948: '-46-145-', //GREEK SMALL LETTER DELTA δ &‌#948; &‌#x03B4 &‌delta;
+        949: '-46-15-', //GREEK SMALL LETTER EPSILON ε &‌#949; &‌#x03B5 &‌epsilon;
+        950: '-46-1356-', //GREEK SMALL LETTER ZETA ζ &‌#950; &‌#x03B6 &‌zeta;
+        951: '-46-125-', //GREEK SMALL LETTER ETA η &‌#951; &‌#x03B7 &‌eta;
+        952: '-46-245-', //GREEK SMALL LETTER THETA θ &‌#952; &‌#x03B8 &‌theta;
+        953: '-46-24-', //GREEK SMALL LETTER IOTA ι &‌#953; &‌#x03B9 &‌iota;
+        954: '-46-13-', //GREEK SMALL LETTER KAPPA κ &‌#954; &‌#x03BA &‌kappa;
+        955: '-46-123-', //GREEK SMALL LETTER LAM(B)DA λ &‌#955; &‌#x03BB &‌lambda;
+        956: '-46-134-', //GREEK SMALL LETTER MU μ &‌#956; &‌#x03BC &‌mu;
+        957: '-46-1345-', //GREEK SMALL LETTER NU ν &‌#957; &‌#x03BD &‌nu;
+        958: '-46-1346-', //GREEK SMALL LETTER XI ξ &‌#958; &‌#x03BE &‌xi;
+        959: '-46-135-', //GREEK SMALL LETTER OMICRON ο &‌#959; &‌#x03BF &‌omicron;
+        960: '-46-1234-', //GREEK SMALL LETTER PI π &‌#960; &‌#x03C0 &‌pi;
+        961: '-46-1235-', //GREEK SMALL LETTER RHO ρ &‌#961; &‌#x03C1 &‌rho;
         //GREEK SMALL LETTER FINAL SIGMA ς &‌#962; &‌#x03C2  
-        963: '-45-234-', //GREEK SMALL LETTER SIGMA σ &‌#963; &‌#x03C3 &‌sigma;
-        964: '-45-2345-', //GREEK SMALL LETTER TAU τ &‌#964; &‌#x03C4 &‌tau;
-        965: '-45-136-', //GREEK SMALL LETTER UPSILON υ &‌#965; &‌#x03C5 &‌upsilon;
-        966: '-45-124-', //GREEK SMALL LETTER PHI φ &‌#966; &‌#x03C6 &‌phi;
-        967: '-45-12345-', //GREEK SMALL LETTER CHI χ &‌#967; &‌#x03C7 &‌chi;
-        968: '-45-13456-', //GREEK SMALL LETTER PSI ψ &‌#968; &‌#x03C8 &‌psi;
-        969: '-45-2456-', //GREEK SMALL LETTER OMEGA ω &‌#969; &‌#x03C9 &‌omega;
+        963: '-46-234-', //GREEK SMALL LETTER SIGMA σ &‌#963; &‌#x03C3 &‌sigma;
+        964: '-46-2345-', //GREEK SMALL LETTER TAU τ &‌#964; &‌#x03C4 &‌tau;
+        965: '-46-136-', //GREEK SMALL LETTER UPSILON υ &‌#965; &‌#x03C5 &‌upsilon;
+        966: '-46-124-', //GREEK SMALL LETTER PHI φ &‌#966; &‌#x03C6 &‌phi;
+        967: '-46-12345-', //GREEK SMALL LETTER CHI χ &‌#967; &‌#x03C7 &‌chi;
+        968: '-46-13456-', //GREEK SMALL LETTER PSI ψ &‌#968; &‌#x03C8 &‌psi;
+        969: '-46-2456-', //GREEK SMALL LETTER OMEGA ω &‌#969; &‌#x03C9 &‌omega;
         /* Flèches */
         8592: '-456-246-', // ← 8592 2190 &larr; LEFTWARDS ARROW
         8593: '-45-12456-', // ↑ 8593 2191 &uarr; UPWARDS ARROW

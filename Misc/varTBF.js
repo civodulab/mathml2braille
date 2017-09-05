@@ -169,7 +169,6 @@
                  8743: '-45-25-', // angle
                  94: '-45-25-', //angle
                  8744: '-456-45-25-', // angle vers le bas
-                 
              },
              /* Alphabet majuscule */
              65: '-46-1-',
