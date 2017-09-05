@@ -383,8 +383,10 @@
                 _tableSeul(m);
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
-                _pbBlocs(m); // cas particulier de blocs (limite, intégrale, etc.)
-                // _mn(m);
+                // résolution problèmes blocs
+                _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
+                _pbIntegrale(m);
+
                 _mmultiscripts(m, options);
 
                 _mfrac(m);
@@ -470,6 +472,31 @@
         return source;
     }
 
+    function _pbIntegrale(monEquation) {
+        var subsup=monEquation.getElementsByTagName('msubsup'),
+            lsubsup=subsup.length,
+            i=0;
+        for(;i!==lsubsup;i++){
+            var enfants=subsup[i].children,
+            next =subsup[i].nextElementSibling,
+            parent=subsup[i].parentNode;
+
+            if(enfants[0].textContent.charCodeAt()===8747&&next.tagName==='mn'){
+                parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open),subsup[i].nextSibling);
+                while(next&&next.textContent!=='d'){
+                    // bloc.appendChild(next);
+                    next=next.nextElementSibling;
+                }
+                if(next&&next.nextElementSibling.tagName==='mi'){
+                parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close),next);
+                
+                    console.log(monEquation.textContent.trimall());
+                }
+                // parent.insertBefore(bloc.block(),subsup[i].nextSibling);
+            }
+        }
+    }
+
     function _pbBlocs(monEquation) {
         var zap = ['msub', 'msup'],
             qui = ['cos', 'sin', 'lim', 'ch', 'sh', 'ln', 'log', 'Card', 'tan', 'arctan', 'arcsin', 'arccos', 'arccotan'],
@@ -503,6 +530,14 @@
                 last = first;
                 if ((first && first.tagName === 'mfenced') || (first && first.textContent.indexOf('(') !== -1)) continue;
 
+                if (parent.nextElementSibling.tagName === 'mfrac') {
+                     frac = parent.nextElementSibling;
+                    parent = parent.parentNode;
+                     bloc = d.createElement('mfrac');
+                    bloc.innerHTML = frac.innerHTML;
+                    parent.replaceChild(bloc.block(), frac);
+                    continue;
+                }
                 while (last && (last.tagName !== 'mo' && last.textContent.trimall().length === 1)) {
                     lastprevious = last;
                     last = last.nextElementSibling;
@@ -807,22 +842,24 @@
 
     function _matriceBlock(open, close, block) {
         var tbl = block.getElementsByTagName('mtable'),
-            l = tbl.length,
+            ltbl = tbl.length,
+            parent, txtNode,
+            tr, td, ltd, ltr,
+            j, k,
             i = 0;
-        for (; i !== l; i++) {
-            var parent = tbl[i].parentNode;
+        for (; i !== ltbl; i++) {
+            parent = tbl[i].parentNode;
             parent.insertBefore(d.createTextNode(braillemarqueMat), tbl[i]);
             close && parent.insertBefore(d.createTextNode(braillemarqueClose), tbl[i]);
-
-            var tr = tbl[i].getElementsByTagName('mtr'),
-                ltr = tr.length,
-                j = 0;
+            tr = tbl[i].getElementsByTagName('mtr');
+            ltr = tr.length;
+            j = 0;
             for (; j !== ltr; j++) {
-                var txtNode = close && (close + braillemarqueRetourLigne + open) || braillemarqueRetourLigne;
+                txtNode = close && (close + braillemarqueRetourLigne + open) || braillemarqueRetourLigne;
                 (j !== ltr - 1) && tbl[i].insertBefore(d.createTextNode(txtNode), tr[j].nextSibling);
-                var td = tr[j].getElementsByTagName('mtd'),
-                    ltd = td.length,
-                    k = 0;
+                td = tr[j].getElementsByTagName('mtd');
+                ltd = td.length;
+                k = 0;
                 for (; k !== ltd; k++) {
                     parent = td[k].parentNode;
                     (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
@@ -837,18 +874,20 @@
 
     function _matriceLineaire(monEquation) {
         var tbl = monEquation.getElementsByTagName('mtable'),
-            l = tbl.length,
+            ltbl = tbl.length,
+            tr, td, ltd, ltr,
+            j, k,
             i = 0;
-        for (; i !== l; i++) {
-            var tr = tbl[i].getElementsByTagName('mtr'),
-                ltr = tr.length,
-                j = 0;
+        for (; i !== ltbl; i++) {
+            tr = tbl[i].getElementsByTagName('mtr');
+            ltr = tr.length;
+            j = 0;
             for (; j !== ltr; j++) {
                 (j !== ltr - 1) && tr[j].appendChild(d.createTextNode(mathBraille.caracMath.matrice.sepLigne + mathBraille.caracMath.espaceInsecable));
             }
-            var td = tbl[i].getElementsByTagName('mtd'),
-                ltd = td.length,
-                k = 0;
+            td = tbl[i].getElementsByTagName('mtd');
+            ltd = td.length;
+            k = 0;
             for (; k !== ltd; k++) {
                 (td[k].textContent.trim().length === 0) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.matrice.caseVide));
                 (k !== ltd - 1) && td[k].appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
@@ -911,7 +950,7 @@
             monbool = false;
         while (mover[0]) {
             var tbl = mover[0].getElementsByTagName('mtable');
-            if (tbl.length > 0) {
+            if (tbl.length !== 0) {
                 _tableUnder(mover[0]);
             }
 
@@ -1019,23 +1058,23 @@
     function _msqrt(monEquation) {
         var racine = monEquation.getElementsByTagName('msqrt');
         while (racine[0]) {
-            var bloc = d.createElement('block'),
+            var bloc1 = d.createElement('block'),
                 parent = racine[0].parentNode,
                 block = d.createElement('block'),
                 enfants = block.children;
-            bloc.appendChild(d.createTextNode(mathBraille.caracMath.racine));
+            bloc1.appendChild(d.createTextNode(mathBraille.caracMath.racine));
             block.innerHTML = racine[0].innerHTML;
 
             if (enfants.length === 1) {
                 if (enfants[0].tagName.toLowerCase() === 'mrow' || enfants[0].tagName.toLowerCase() === 'mpadded') {
-                    enfants[0].children.length > 1 && bloc.appendChild(block.block()) || bloc.appendChild(block);
+                    enfants[0].children.length > 1 && bloc1.appendChild(block.block()) || bloc1.appendChild(block);
                 } else {
-                    bloc.appendChild(block);
+                    bloc1.appendChild(block);
                 }
             } else {
-                bloc.appendChild(block.block());
+                bloc1.appendChild(block.block());
             }
-            parent.replaceChild(bloc, racine[0]);
+            parent.replaceChild(bloc1, racine[0]);
         }
     }
 
@@ -1044,23 +1083,23 @@
     }
 
     function _retourChariotMatrice(monEquation) {
-        var txt = monEquation.textContent.split(''),
-            nbcar = txt.indexOf(marqueMat);
+        var txt, nbcar, close, idx, j, spc = "";
+        txt = monEquation.textContent.split('');
+        nbcar = txt.indexOf(marqueMat);
         nbcar !== -1 && txt.splice(nbcar, 1);
 
-        var close = txt.indexOf(marqueClose);
+        close = txt.indexOf(marqueClose);
         if (close !== -1) {
             txt.splice(close, 1);
             nbcar = (nbcar !== -1) && (nbcar - 1) || 0;
         } else {
             nbcar = (nbcar !== -1) && nbcar || 0;
         }
-        var idx = txt.indexOf(marqueRetourLigne),
-            spc = "",
-            j = 0;
+        j = 0;
         for (; j !== nbcar; j++) {
             spc += espace;
         }
+        idx = txt.indexOf(marqueRetourLigne);
         while (idx !== -1) {
             txt.splice(idx, 1, '<br/>' + spc);
             idx = txt.indexOf(marqueRetourLigne, idx + 1);
@@ -1073,36 +1112,36 @@
         var regex = RegExp(marqueRetourLigne, 'gi'),
             nbligne = monEquation.textContent.match(regex) && (monEquation.textContent.match(regex).length + 1);
         if (nbligne === null) return monEquation.textContent;
-        var mesTables = monEquation.textContent.split(marqueMat);
-        if (mesTables.length > 2) return 'Équation trop compliqué';
-        // console.log(mesTables.length);
         var txt = monEquation.textContent.split(''),
             lcell = [],
+            llcell,
             lcol = [],
+            llcol,
             posmarque = [],
             marque1 = txt.indexOf(marqueCell),
             marque2 = txt.indexOf(marqueCell, marque1 + 1),
-            i = 0,
-            j = 0;
+            i, j, l, spc;
 
         while (marque1 !== -1) {
-            var l = marque2 - marque1 - 1;
+            l = marque2 - marque1 - 1;
             lcell.push(l);
             posmarque.push(marque2);
             marque1 = txt.indexOf(marqueCell, marque2 + 1);
             marque2 = txt.indexOf(marqueCell, marque1 + 1);
         }
-        var llcell = lcell.length,
-            llcol = llcell / nbligne;
+        llcell = lcell.length;
+        llcol = llcell / nbligne;
         lcol.length = llcol;
         lcol.fill(0);
+        i = 0;
         for (; i !== llcell; i++) {
             (lcell[i] > lcol[i % llcol]) && (lcol[i % llcol] = lcell[i]);
         }
+        j = 0;
         for (; j !== llcell; j++) {
             marque2 = posmarque[j];
             l = lcol[j % llcol] - lcell[j];
-            var spc = "";
+            spc = "";
             if (l > 0) {
                 for (i = 1; i <= l; i++) {
                     spc += espace;

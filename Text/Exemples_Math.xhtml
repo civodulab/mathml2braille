@@ -4,7 +4,7 @@
 <html xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
-	<title>Formule mathématique</title>
+	<title>Formules mathématiques</title>
 	<link href="../Styles/global.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -656,7 +656,6 @@
 			</math><span class="mathbraille">⠰⠈⠞⠨⠁⠆⠰⠈⠞⠨⠃⠆</span>
 		</p>
 		<p class="courant">
-			<span>Chimie (à travailler)</span>
 			<span>O précédé de huit en indice et de seize en exposant</span>
 			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-chimie">
 				<mmultiscripts>
@@ -2753,7 +2752,106 @@
 				</mfenced>
 			</math><span class="mathbraille"></span>
 		</p>
-
+		<p class="courant">
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+				<mi>I</mi>
+				<mo>=</mo>
+				<mfrac>
+					<mn>1</mn>
+					<mn>2</mn>
+				</mfrac>
+				<mo>&#xD7;</mo>
+				<msubsup>
+					<mfenced open="[" close="]">
+						<mrow>
+							<mi>arctan</mi>
+							<mfrac>
+								<mi>t</mi>
+								<mn>2</mn>
+							</mfrac>
+						</mrow>
+					</mfenced>
+					<mn>0</mn>
+					<mrow>
+						<mo>+</mo>
+						<mo>&#x221E;</mo>
+					</mrow>
+				</msubsup>
+				<mo>+</mo>
+				<mfrac>
+					<mn>1</mn>
+					<mn>2</mn>
+				</mfrac>
+				<mo>&#xD7;</mo>
+				<msubsup>
+					<mfenced open="[" close="]">
+						<mrow>
+							<mi>arctan</mi>
+							<mfrac>
+								<mi>t</mi>
+								<mn>2</mn>
+							</mfrac>
+						</mrow>
+					</mfenced>
+					<mrow>
+						<mo>-</mo>
+						<mo>&#x221E;</mo>
+					</mrow>
+					<mn>0</mn>
+				</msubsup>
+			</math>
+			<span class="mathbraille"></span>
+		</p>
+		<p class="courant">
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+				<msubsup>
+					<mo>&#x222B;</mo>
+					<mi>a</mi>
+					<mi>b</mi>
+				</msubsup>
+				<mi>f</mi>
+				<mfenced>
+					<mi>x</mi>
+				</mfenced>
+				<mo>d</mo>
+				<mi>x</mi>
+				<mo>=</mo>
+				<msubsup>
+					<mo>&#x222B;</mo>
+					<mn>1</mn>
+					<mn>4</mn>
+				</msubsup>
+				<mn>3</mn>
+				<mo>d</mo>
+				<mi>x</mi>
+				<mo>=</mo>
+				<msubsup>
+					<mfenced open="[" close="]">
+						<mrow>
+							<mn>3</mn>
+							<mi>x</mi>
+						</mrow>
+					</mfenced>
+					<mn>1</mn>
+					<mn>4</mn>
+				</msubsup>
+				<mo>=</mo>
+				<mn>3</mn>
+				<mo>&#xD7;</mo>
+				<mfenced>
+					<mn>4</mn>
+				</mfenced>
+				<mo>-</mo>
+				<mn>3</mn>
+				<mo>&#xD7;</mo>
+				<mfenced>
+					<mn>1</mn>
+				</mfenced>
+				<mo>=</mo>
+				<mn>9</mn>
+			</math>
+			<span class="mathbraille">⠯⠢⠁⠈⠃⠋⠦⠭⠴⠙⠭⠶⠯⠢⠡⠈⠹⠰⠩⠆⠙⠭⠶⠷⠩⠭⠾⠢⠡⠈⠹⠶⠩⠔⠦⠹⠴⠤⠩⠔⠦⠡⠴⠶⠪</span>
+		</p>
 	</section>
 
 	<script type="text/javascript" src="../Misc/varTBA.js"></script>
@@ -2774,6 +2872,7 @@
 		// mathml2braille('.test',options3);
 		mathml2braille('.js-matrice-lineaire', options2);
 		// brailledirect('.js-brailleDirect');
+		mathml2braille('.js-chimie', options3);
 	</script>
 </body>
 
