@@ -24,8 +24,8 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
         ou
         mathml2braille('.class');
         ```
-    - matrice trop longue *maxCaracCell
-    
+    - matrice trop longue ***maxCaracCell***
+
         correspond "à peu près" au nombre limite de caractères dans la cellule avant de basculer en mode linéaire (10 par défaut)
         ```javascript
         mathml2braille('.class',{'maxCaracCell': 14});
@@ -45,7 +45,7 @@ Sortie navigateur
 
 - Les tables de caractères sont basées sur celles du logiciel [Duxbury DBT Win](http://www.duxburysystems.com/). Pour l'instant il n'y a que les tables française et américaine.
 ## Langues
-- Le choix de la table de caractères est basé sur la langue définie sur l'équation ou, par défaut, celle du document
+- Le choix de la table de caractères est basé sur la langue définie sur l'équation ou, par défaut, celle du document. Pour l'instant, le script est optimisé pour le français.
     ```html
     <math xmlns="http://www.w3.org/1998/Math/MathML" lang="en" xml:lang="en">
     ```
