@@ -25,6 +25,7 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
         mathml2braille('.class');
         ```
     - matrice trop longue *maxCaracCell
+    
         correspond "à peu près" au nombre limite de caractères dans la cellule avant de basculer en mode linéaire (10 par défaut)
         ```javascript
         mathml2braille('.class',{'maxCaracCell': 14});
