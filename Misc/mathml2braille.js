@@ -413,7 +413,8 @@
                 parent.insertBefore(maForm, mesFormules[i].nextSibling);
 
             }
-            stat(); // à supprimer à la fin
+            // FIXME: à supprimer à la fin
+            stat(); 
         },
         brailledirect = function (maClass) {
             var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
@@ -427,7 +428,7 @@
                 tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
             }
         };
-    /***** A supprimer à la fin **********/
+     //FIXME: A supprimer à la fin 
     function stat() {
         var converti = document.querySelectorAll('.js-mathmlConverti'),
             // braille = document.querySelectorAll('.mathbraille'),
