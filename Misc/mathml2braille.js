@@ -1092,11 +1092,16 @@
             // }
             // bloc = monbool && bloc.block() || bloc;
             if(mathBraille.caracMath.indicateurFraction){
+            var open=mathBraille.caracMath.indicateurFraction.simple.open,
+            close=mathBraille.caracMath.indicateurFraction.simple.close;
+            
+            parent.replaceChild(bloc.block(open,close), mfrac[0]);
                 console.log('frac-nemeth');
             }else{
+            parent.replaceChild(bloc, mfrac[0]);
                 console.log('frac-fr');
             }
-            parent.replaceChild(bloc, mfrac[0]);
+           
         }
     }
 
