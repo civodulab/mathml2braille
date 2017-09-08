@@ -8,6 +8,7 @@
 (function (w, d, undefined) {
     'use strict';
 
+
     String.prototype.trimall = function () {
         return this.replace(/\s*/gi, '');
     };
@@ -18,6 +19,7 @@
      * @param {array} maTable optionel
      * @returns {string}
      */
+
     String.prototype.braille = function (maTable) {
         // Source
         // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
@@ -414,7 +416,7 @@
 
             }
             // FIXME: à supprimer à la fin
-            stat(); 
+            stat();
         },
         brailledirect = function (maClass) {
             var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
@@ -428,7 +430,7 @@
                 tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
             }
         };
-     //FIXME: A supprimer à la fin 
+    //FIXME: A supprimer à la fin 
     function stat() {
         var converti = document.querySelectorAll('.js-mathmlConverti'),
             // braille = document.querySelectorAll('.mathbraille'),
@@ -472,23 +474,23 @@
     }
 
     function _pbIntegrale(monEquation) {
-        var subsup=monEquation.getElementsByTagName('msubsup'),
-            lsubsup=subsup.length,
-            i=0;
-        for(;i!==lsubsup;i++){
-            var enfants=subsup[i].children,
-            next =subsup[i].nextElementSibling,
-            parent=subsup[i].parentNode;
+        var subsup = monEquation.getElementsByTagName('msubsup'),
+            lsubsup = subsup.length,
+            i = 0;
+        for (; i !== lsubsup; i++) {
+            var enfants = subsup[i].children,
+                next = subsup[i].nextElementSibling,
+                parent = subsup[i].parentNode;
 
-            if(enfants[0].textContent.charCodeAt()===8747&&next.tagName==='mn'){
-                parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open),subsup[i].nextSibling);
-                while(next&&next.textContent!=='d'){
+            if (enfants[0].textContent.charCodeAt() === 8747 && next.tagName === 'mn') {
+                parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), subsup[i].nextSibling);
+                while (next && next.textContent !== 'd') {
                     // bloc.appendChild(next);
-                    next=next.nextElementSibling;
+                    next = next.nextElementSibling;
                 }
-                if(next&&next.nextElementSibling.tagName==='mi'){
-                parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close),next);
-                
+                if (next && next.nextElementSibling.tagName === 'mi') {
+                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), next);
+
                     console.log(monEquation.textContent.trimall());
                 }
                 // parent.insertBefore(bloc.block(),subsup[i].nextSibling);
@@ -530,9 +532,9 @@
                 if ((first && first.tagName === 'mfenced') || (first && first.textContent.indexOf('(') !== -1)) continue;
 
                 if (parent.nextElementSibling.tagName === 'mfrac') {
-                     frac = parent.nextElementSibling;
+                    frac = parent.nextElementSibling;
                     parent = parent.parentNode;
-                     bloc = d.createElement('mfrac');
+                    bloc = d.createElement('mfrac');
                     bloc.innerHTML = frac.innerHTML;
                     parent.replaceChild(bloc.block(), frac);
                     continue;
@@ -641,6 +643,7 @@
             }
         }
     }
+
 
     function _ajoutmfenced(monEquation) {
         var tbl = monEquation.getElementsByTagName('mtable'),
@@ -986,15 +989,17 @@
                         sep = (enfant1.textContent.trim() !== '|') && mathBraille.caracMath.indice || sep;
                         options.chimie && (sep = '');
                         break;
-                    case 'mfrac':
-                        if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
-                            boolEnfant1 = false;
-                        }
-                        if (enfant2.children.length === 2 && enfant2.children[0].textContent.trimall().length > 1) {
-                            boolEnfant2 = false;
-                        }
-                        sep = mathBraille.caracMath.fraction;
-                        break;
+                        // case 'mfrac':
+                        // var bevelled=mover[0].getAttribute('bevelled');
+
+                        //     if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
+                        //         boolEnfant1 = false;
+                        //     }
+                        //     if (enfant2.children.length === 2 && enfant2.children[0].textContent.trimall().length > 1) {
+                        //         boolEnfant2 = false;
+                        //     }
+                        //     sep = mathBraille.caracMath.fraction;
+                        //     break;
                     case 'mroot':
                         if (mover[0].nextElementSibling && mover[0].nextElementSibling.tagName !== 'mo') {
                             monbool = true;
@@ -1006,10 +1011,13 @@
                         break;
                 }
 
-
-                (enfant1.children.length > 1 && boolEnfant1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
+                (enfant1.children.length > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
                 bloc.appendChild(d.createTextNode(sep));
-                (enfant2.children.length > 1 && boolEnfant2) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+                (enfant2.children.length > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+
+                // (enfant1.children.length > 1 && boolEnfant1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
+                // bloc.appendChild(d.createTextNode(sep));
+                // (enfant2.children.length > 1 && boolEnfant2) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
             }
             bloc = monbool && bloc.block() || bloc;
             parent.replaceChild(bloc, mover[0]);
@@ -1043,7 +1051,53 @@
     }
 
     function _mfrac(monEquation) {
-        _mover(monEquation, 'mfrac');
+        // _mover(monEquation, 'mfrac');
+        var mfrac = monEquation.getElementsByTagName('mfrac');
+        while (mfrac[0]) {
+            // var tbl = mover[0].getElementsByTagName('mtable');
+            // if (tbl.length !== 0) {
+            //     _tableUnder(mover[0]);
+            // }
+
+            var bloc = d.createElement('block'),
+                parent = mfrac[0].parentNode,
+                elt = mfrac[0].children,
+                // carCode = String(elt[1].textContent.trim().charCodeAt()),
+                // myArray = Object.keys(mathBraille.caracDec.susouscrit),
+                sep = '';
+                
+            // if (myArray.indexOf(carCode) !== -1) {
+
+            //     bloc.appendChild(d.createTextNode(mathBraille.caracDec.susouscrit[carCode]));
+            //     bloc.appendChild(elt[0]);
+            // } else {
+                var enfant1 = elt[0],
+                    enfant2 = elt[1],
+                    boolEnfant1 = true,
+                    boolEnfant2 = true;
+
+                var bevelled = mfrac[0].getAttribute('bevelled');
+
+                if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
+                    boolEnfant1 = false;
+                }
+                if (enfant2.children.length === 2 && enfant2.children[0].textContent.trimall().length > 1) {
+                    boolEnfant2 = false;
+                }
+                sep = mathBraille.caracMath.fraction;
+
+                (enfant1.children.length > 1 && boolEnfant1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
+                bloc.appendChild(d.createTextNode(sep));
+                (enfant2.children.length > 1 && boolEnfant2) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+            // }
+            // bloc = monbool && bloc.block() || bloc;
+            if(mathBraille.caracMath.indicateurFraction){
+                console.log('frac-nemeth');
+            }else{
+                console.log('frac-fr');
+            }
+            parent.replaceChild(bloc, mfrac[0]);
+        }
     }
 
     function _msub(monEquation, o) {

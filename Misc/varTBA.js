@@ -72,9 +72,23 @@
     mathTBA = {
       'caracMath': {
         'espaceInsecable': 'BLANK',
+        'indicateurFraction' : {
+          'simple':{
+            'open': '-1456-',
+            'close':'-3456-'
+          },
+          'complexe':{
+            'open':'-6-1456-',
+            'close':'-6-3456-'
+          },
+          'hypercomplexe':{
+            'open':'-6-6-1456-',
+            'close':'-6-6-3456-'
+          }
+        },
         'blocks': {
-          'open': '-56-',
-          'close': '-23-'
+          'open': '',
+          'close': ''
         },
         'parenthese': {
           'open': '-12356-',
@@ -248,8 +262,8 @@
         247: '-25-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
         215: '-35-', //TIMES X × &times; &‌#215; &‌#x00D7;
         8722: '-36-', //MINUS − &minus; &‌#8722; &‌#x2212;
-        8725: '-34-', //DIVISION SLASH ∕ — &‌#8725; &‌#x2215;
-        8260: '-34-', //FRACTION SLASH ⁄ &frasl &‌#8260; &‌#x2044;
+        8725: '-456-34-', //DIVISION SLASH ∕ — &‌#8725; &‌#x2215;
+        8260: '-456-34-', //FRACTION SLASH ⁄ &frasl &‌#8260; &‌#x2044;
         8734: '-45-14-', //INFINITY ∞ &infin; &‌#8734; &‌#x221E;
         //ALEF INFINITY SYMBOL ℵ &alefsym; &‌#8501; &‌#x2135;
         //FUNCTION ITALIC F ƒ &fnof; &‌#402; &‌#x192;
