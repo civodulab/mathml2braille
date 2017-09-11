@@ -71,6 +71,7 @@
    mathTBA = {
      'caracMath': {
        'espaceInsecable': 'BLANK',
+       'indicateurNumerique':'3456',
        'indicateurFraction': {
          'simple': {
            'open': '-1456-',

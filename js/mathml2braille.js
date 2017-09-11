@@ -1267,6 +1267,22 @@
         return element !== marqueCell;
     }
 
+    function _indicateurNumerique(monEquation){
+        var txt=monEquation.textContent.split('');
+        var num=['⠴','⠂','⠆','⠒','⠲','⠢','⠖','⠶','⠦','⠔'];
+        if(num.indexOf(txt[0])!==-1){
+            txt.splice(0,0,mathBraille.caracMath.indicateurNumerique.braille());
+        }
+        var sp=txt.indexOf(mathBraille.caracMath.espaceInsecable.braille());
+        if(sp!==-1){
+            if(num.indexOf(txt[sp+1])!==-1){
+                txt.splice(sp+1,0,mathBraille.caracMath.indicateurNumerique.braille());
+            }
+        }
+        console.log(txt.indexOf(mathBraille.caracMath.espaceInsecable.braille()));
+        return txt.join('');
+        
+    }
     function _writeform(monEquation, o, hardmat) {
         monEquation.textContent = monEquation.textContent.trimall();
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
@@ -1277,7 +1293,8 @@
         monEquation.innerHTML = _retourChariotMatrice(monEquation);
 
         if (o.codeBrailleMath === 'nemeth') {
-
+            monEquation.innerHTML = _indicateurNumerique(monEquation);
+            
         }
 
 
