@@ -13,7 +13,7 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
     ```javascript
     mathml2braille('.class');
     ```
-- Option pour les matrices : (mode bloque par défaut)
+- Options pour les matrices : (mode bloque par défaut)
     - mode linéaire
         ```javascript
         mathml2braille('.class',{'matriceLineaire': true});
@@ -30,7 +30,7 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
         ```javascript
         mathml2braille('.class',{'maxCaracCell': 14});
         ```
-- Option pour la codification ***codeBrailleMath*** : (français par defaut)
+- Options pour la codification ***codeBrailleMath*** : (français par defaut)
     - code français
         ```javascript
         mathml2braille('.class',{'codeBrailleMath': 'fr'});
@@ -55,6 +55,10 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
 Sortie navigateur
     ```
     ⠰⠱⠖⠣⠱⠆⠌⠱⠳⠶⠫⠱
+    ```
+- codification ***fr***, ***nemeth*** ou ***ueb*** : (***fr*** par defaut)
+    ```javascript
+    brailledirect('.js-brailleDirect','nemeth');
     ```
 
 - Les tables de caractères sont basées sur celles du logiciel [Duxbury DBT Win](http://www.duxburysystems.com/). Pour l'instant il n'y a que les tables française et américaine.
