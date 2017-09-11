@@ -392,7 +392,7 @@
 
                 _mmultiscripts(m, options);
 
-                _mfrac(m);
+                _mfrac(m,options);
                 _mroot(m);
                 _msqrt(m);
                 _mover(m, 'mover', options);
@@ -1049,7 +1049,7 @@
         _msubsup(monEquation, o, 'munderover');
     }
 
-    function _mfrac(monEquation) {
+    function _mfrac(monEquation,o) {
         var mfrac = monEquation.getElementsByTagName('mfrac');
         while (mfrac[0]) {
 
@@ -1060,10 +1060,10 @@
                 enfant2 = elt[1],
                 boolEnfant1 = true,
                 boolEnfant2 = true,
-                sep = '';
-
-            console.log(_boolFracComplexity(mfrac[0]));
-
+                sep = '',
+                complexe = _boolFracComplexity(mfrac[0]);
+                console.log(complexe);
+            // console.log(mathBraille.caracMath.indicateurFraction[complexe].open);
             var bevelled = mfrac[0].getAttribute('bevelled');
 
             if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
@@ -1072,27 +1072,33 @@
             if (enfant2.children.length === 2 && enfant2.children[0].textContent.trimall().length > 1) {
                 boolEnfant2 = false;
             }
-            sep = (bevelled && mathBraille.caracMath.fractionOblique) && mathBraille.caracMath.fractionOblique || mathBraille.caracMath.fraction;
+            if(o.codeBrailleMath==='nemeth'){
+                sep = (bevelled) && mathBraille.caracMath.fraction[complexe].oblique || mathBraille.caracMath.fraction[complexe].horizontale;
+            }else if(o.codeBrailleMath==='fr'){
+                sep = mathBraille.caracMath.fraction;
+            }
+           
 
             (enfant1.children.length > 1 && boolEnfant1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
             bloc.appendChild(d.createTextNode(sep));
             (enfant2.children.length > 1 && boolEnfant2) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
-            if (mathBraille.caracMath.indicateurFraction) {
-                var open = mathBraille.caracMath.indicateurFraction.simple.open,
-                    close = mathBraille.caracMath.indicateurFraction.simple.close;
-
+            if (o.codeBrailleMath==='nemeth') {
+                var indicFrac = mathBraille.caracMath.indicateurFraction[complexe],
+                    open = indicFrac.open,
+                    close = indicFrac.close;
                 parent.replaceChild(bloc.block(open, close), mfrac[0]);
-                console.log('frac-nemeth');
-            } else {
+                // console.log('frac-nemeth');
+            } else if(o.codeBrailleMath==='fr'){
                 parent.replaceChild(bloc, mfrac[0]);
-                console.log('frac-fr');
+                // console.log('frac-fr');
             }
 
         }
     }
 
     /**
-     * 
+     * Détermine si la fraction est 
+     * simple, complexe ou hypercomplexe
      * @param {*} frac fraction
      * @return {num} 0 simple, 1 complexe, 2 hypercomplexe 
      */
@@ -1103,10 +1109,30 @@
             denom = denominateur.getElementsByTagName('mfrac'),
             lnum = num.length,
             ldenom = denom.length;
-        if (lnum > 0 || ldenom > 0) {
-            return num.length + '-' + denom.length + ' fraction complexe';
-        } else {
-            return num.length + '-' + denom.length + ' fraction simple';
+        if (lnum === 0 && ldenom === 0) {
+            return 'simple';
+        } else if (lnum > 0 || ldenom > 0) {
+            var comp = 'simple';
+
+            if (lnum > 0) {
+                for (var j = 0; j < lnum; j++) {
+                    if (_boolFracComplexity(num[j]) === 'simple') {
+                        comp = comp === 'simple' && 'complexe' || comp;
+                    } else {
+                        comp = 'hypercomplexe';
+                    }
+                }
+            }
+            if (ldenom > 0) {
+                for (j = 0; j < ldenom; j++) {
+                    if (_boolFracComplexity(denom[j]) === 'simple') {
+                        comp = comp === 'simple' && 'complexe' || comp;
+                    } else {
+                        comp = 'hypercomplexe';
+                    }
+                }
+            }
+            return comp;
         }
     }
 
@@ -1220,14 +1246,19 @@
         return element !== marqueCell;
     }
 
-    function _writeform(monEquation, options, hardmat) {
+    function _writeform(monEquation, o, hardmat) {
         monEquation.textContent = monEquation.textContent.trimall();
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
         monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
         monEquation.textContent = monEquation.textContent.braille();
-        (!options.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
+        (!o.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
         monEquation.innerHTML = _retourChariotMatrice(monEquation);
+
+        if(o.codeBrailleMath==='nemeth'){
+            
+        }
+
 
     }
 
