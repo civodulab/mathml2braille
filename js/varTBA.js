@@ -90,22 +90,22 @@
          }
        },
        'fraction': {
-          'simple': {
-            'oblique':'-456-34-',
-            'horizontale':'-34-'
-          },
-          'fractionnaire': {
-            'oblique':'-456-34-',
-            'horizontale':'-34-'
-          },
-          'complexe': {
-            'oblique':'-6-456-34-',
-            'horizontale':'-6-34-'
-          },
-          'hypercomplexe': {
-            // 'oblique':'-456-34-',
-            'horizontale':'-6-6-34-'
-          }
+         'simple': {
+           'oblique': '-456-34-',
+           'horizontale': '-34-'
+         },
+         'fractionnaire': {
+           'oblique': '-456-34-',
+           'horizontale': '-34-'
+         },
+         'complexe': {
+           'oblique': '-6-456-34-',
+           'horizontale': '-6-34-'
+         },
+         'hypercomplexe': {
+           // 'oblique':'-456-34-',
+           'horizontale': '-6-6-34-'
+         }
        },
        'blocks': {
          'open': '',
@@ -167,7 +167,7 @@
        'exposant': '-45-',
        'suscrit': '-4-4-',
        'souscrit': '-26-26-',
-      
+
        'matrice': {
          'sepLigne': '-6-345-',
        },
