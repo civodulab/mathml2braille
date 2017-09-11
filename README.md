@@ -30,6 +30,20 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
         ```javascript
         mathml2braille('.class',{'maxCaracCell': 14});
         ```
+- Option pour la codification ***codeBrailleMath*** : (français par defaut)
+    - code français
+        ```javascript
+        mathml2braille('.class',{'codeBrailleMath': 'fr'});
+        ```
+    - code Nemeth
+        ```javascript
+        mathml2braille('.class',{'codeBrailleMath': 'nemeth'});
+        ```
+    - code UEB (Unified English Braille)
+        ```javascript
+        mathml2braille('.class',{'codeBrailleMath': 'ueb'});
+        ```
+        
 ## Braille Direct
 - Transformer du texte en braille unicode
     ```html
@@ -44,12 +58,3 @@ Sortie navigateur
     ```
 
 - Les tables de caractères sont basées sur celles du logiciel [Duxbury DBT Win](http://www.duxburysystems.com/). Pour l'instant il n'y a que les tables française et américaine.
-## Langues
-- Le choix de la table de caractères est basé sur la langue définie sur l'équation ou, par défaut, celle du document. Pour l'instant, le script est optimisé pour le français.
-    ```html
-    <math xmlns="http://www.w3.org/1998/Math/MathML" lang="en" xml:lang="en">
-    ```
-    sinon
-    ```html
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
-    ```

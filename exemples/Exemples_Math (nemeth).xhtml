@@ -5,14 +5,15 @@
 
 <head>
 	<title>Formules mathématiques</title>
-	<link href="../Styles/global.css" rel="stylesheet" type="text/css" />
+	<link href="../css/global.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 	<section epub:type="subchapter">
 		<p id="stat"></p>
 		<h1>Exemples tirés du document PDF "<a href="https://nfb.org/images/nfb/documents/pdf/nemeth_1972.pdf">The Nemeth braille code for mathematics and science notation 1972 revision</a>"</h1>
-
+		<h2>Règle II - Signes et symboles numériques</h2>
+		<h3>§ 11. Virgule et signes décimaux</h3>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mn>1</mn>
@@ -29,6 +30,7 @@
 			</math>
 			<span class="mathbraille">⠼⠒⠨⠶⠖</span>
 		</p>
+		<h3>§ 12. Emploi de l'indicateur numérique</h3>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mn>1</mn>
@@ -41,24 +43,7 @@
 			</math>
 			<span class="mathbraille">⠼⠂⠬⠭⠬⠽⠀⠨⠅⠀⠼⠴</span>
 		</p>
-		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
-				<mfenced>
-					<mrow>
-						<mi>a</mi>
-						<mi>b</mi>
-					</mrow>
-				</mfenced>
-				<mo>+</mo>
-				<mfenced>
-					<mrow>
-						<mi>c</mi>
-						<mi>d</mi>
-					</mrow>
-				</mfenced>
-			</math>
-			<span class="mathbraille">⠷⠁⠃⠾⠬⠷⠉⠙⠾</span>
-		</p>
+
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mi>&#x3B1;</mi>
@@ -71,50 +56,7 @@
 			</math>
 			<span class="mathbraille">⠨⠠⠎</span>
 		</p>
-		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
-				<mfenced open="|" close="|">
-					<mtable>
-						<mtr>
-							<mtd>
-								<mi>a</mi>
-							</mtd>
-							<mtd>
-								<mi>b</mi>
-							</mtd>
-							<mtd>
-								<mi>c</mi>
-							</mtd>
-						</mtr>
-						<mtr>
-							<mtd>
-								<mi>d</mi>
-							</mtd>
-							<mtd>
-								<mi>e</mi>
-							</mtd>
-							<mtd>
-								<mi>f</mi>
-							</mtd>
-						</mtr>
-						<mtr>
-							<mtd>
-								<mi>g</mi>
-							</mtd>
-							<mtd>
-								<mi>h</mi>
-							</mtd>
-							<mtd>
-								<mi>i</mi>
-							</mtd>
-						</mtr>
-					</mtable>
-				</mfenced>
-			</math>
-			<span class="mathbraille">⠠⠳⠁⠀⠃⠀⠉⠠⠳<br/>
-				⠠⠳⠙⠀⠑⠀⠋⠠⠳<br/>
-				⠠⠳⠛⠀⠓⠀⠊⠠⠳</span>
-		</p>
+
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mfenced open="{" close="}">
@@ -152,6 +94,8 @@
 			</math>
 			<span class="mathbraille">⠭⠘⠤⠆</span>
 		</p>
+		<h2>Règle XII - Fractions</h2>
+		<h3>§ 65. Emploi des indicateurs de fraction simple</h3>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mfrac>
@@ -222,6 +166,8 @@
 			</math>
 			<span class="mathbraille">⠹⠁⠬⠃⠸⠌⠉⠬⠙⠼</span>
 		</p>
+		<h3>§ 66. Cas où les indicateurs de fraction simple ne sont pas utilisés
+		</h3>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
 				<mi>a</mi>
@@ -234,14 +180,121 @@
 			</math>
 			<span class="mathbraille">⠁⠬⠃⠸⠌⠉⠬⠙</span>
 		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<mfenced>
+					<mrow>
+						<mi>a</mi>
+						<mo>+</mo>
+						<mi>b</mi>
+					</mrow>
+				</mfenced>
+				<mo>/</mo>
+				<mfenced>
+					<mrow>
+						<mi>c</mi>
+						<mo>+</mo>
+						<mi>d</mi>
+					</mrow>
+				</mfenced>
+			</math>
+			<span class="mathbraille">⠷⠁⠬⠃⠾⠸⠌⠷⠉⠬⠙⠾</span>
+		</p>
+		<h3>§ 67. Nombres fractionnaires</h3>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<mn>4</mn>
+				<mfrac>
+					<mn>3</mn>
+					<mn>8</mn>
+				</mfrac>
+			</math><span class="mathbraille">⠼⠲⠸⠹⠒⠌⠦⠸⠼</span></p>
+		<h3>§ 69. Emploi des indicateurs de fraction complexe</h3>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<mfrac>
+					<mstyle displaystyle="true">
+						<mfrac>
+							<mn>3</mn>
+							<mn>8</mn>
+						</mfrac>
+					</mstyle>
+					<mn>5</mn>
+				</mfrac>
+			</math><span class="mathbraille">⠠⠹⠹⠒⠌⠦⠼⠠⠌⠢⠠⠼</span></p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<mfrac>
+					<mrow>
+						<mn>1</mn>
+						<mo>/</mo>
+						<mn>2</mn>
+					</mrow>
+					<mrow>
+						<mn>2</mn>
+						<mstyle displaystyle="true">
+							<mfrac>
+								<mn>2</mn>
+								<mn>3</mn>
+							</mfrac>
+						</mstyle>
+					</mrow>
+				</mfrac>
+			</math><span class="mathbraille">⠠⠹⠂⠸⠌⠆⠠⠌⠆⠸⠹⠆⠌⠒⠸⠼⠠⠼</span></p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<mfrac>
+					<mrow>
+						<mn>2</mn>
+						<mo>/</mo>
+						<mn>3</mn>
+					</mrow>
+					<mrow>
+						<mn>3</mn>
+						<mo>/</mo>
+						<mn>2</mn>
+					</mrow>
+				</mfrac>
+			</math>
+			<span class="mathbraille">⠠⠹⠆⠸⠌⠒⠠⠌⠒⠸⠌⠆⠠⠼</span>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+				<mfrac>
+					<mn>5</mn>
+					<mrow>
+						<mn>4</mn>
+						<mfrac>
+							<mn>3</mn>
+							<mn>8</mn>
+						</mfrac>
+					</mrow>
+				</mfrac>
+			</math>
+			<span class="mathbraille">⠠⠹⠢⠠⠌⠲⠸⠹⠒⠌⠦⠸⠼⠠⠼</span>
+		</p>
+		<p class="courant">
+				<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+					<mfrac>
+					<mrow>
+						<mn>3</mn>
+						<mo>/</mo>
+						<mn>4</mn>
+					</mrow>
+					<mn>5</mn>
+				</mfrac>
+			</math>
+			<span class="mathbraille">⠠⠹⠒⠸⠌⠲⠠⠌⠢⠠⠼</span>
+		</p>
 	</section>
-	<p class="js-brailleDirect">"</p>
-	<script type="text/javascript" src="../Misc/varTBA.js"></script>
-	<script type="text/javascript" src="../Misc/varTBF.js"></script>
-	<script type="text/javascript" src="../Misc/allVar.js"></script>
-	<script type="text/javascript" src="../Misc/mathml2braille.js"></script>
+	<p class="js-brailleDirect">",_</p>
+	<script type="text/javascript" src="../js/varTBA.js"></script>
+	<script type="text/javascript" src="../js/varTBF.js"></script>
+	<script type="text/javascript" src="../js/allVar.js"></script>
+	<script type="text/javascript" src="../js/mathml2braille.js"></script>
 	<script>
 		var options1 = {
+			'codeBrailleMath':'nemeth', // 3 options : "fr", "nemeth" et "ueb". "fr" par defaut
 			'maxCaracCell': 14 //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire (10 par défaut)
 		}
 		var options2 = {
@@ -252,9 +305,9 @@
 		}
 		mathml2braille('.js-math2braille', options1);
 		// mathml2braille('.test',options3);
-		mathml2braille('.js-matrice-lineaire', options2);
-		brailledirect('.js-brailleDirect');
-		mathml2braille('.js-chimie', options3);
+		// mathml2braille('.js-matrice-lineaire', options2);
+		brailledirect('.js-brailleDirect','nemeth');
+		// mathml2braille('.js-chimie', options3);
 	</script>
 </body>
 

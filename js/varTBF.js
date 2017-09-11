@@ -155,7 +155,7 @@
              'racine': '-345-',
              'majuscule': '-46-',
              'point5': '-5-',
-             'point6':'-6-',
+             'point6': '-6-',
          },
          'caracDec': {
              susouscrit: {
@@ -646,7 +646,7 @@
              ↲ 8626 21B2   DOWNWARDS ARROW WITH TIP LEFTWARDS
              ↳ 8627 21B3   DOWNWARDS ARROW WITH TIP RIGHTWARDS
              */
-             8628: '-46-156-',//↴ 8628 21B4   RIGHTWARDS ARROW WITH CORNER DOWNWARDS
+             8628: '-46-156-', //↴ 8628 21B4   RIGHTWARDS ARROW WITH CORNER DOWNWARDS
              /*↵ 8629 21B5 &crarr; DOWNWARDS ARROW WITH CORNER LEFTWARDS
              ↶ 8630 21B6   ANTICLOCKWISE TOP SEMICIRCLE ARROW
              ↷ 8631 21B7   CLOCKWISE TOP SEMICIRCLE ARROW
@@ -672,10 +672,10 @@
              ⇉ 8649 21C9   RIGHTWARDS PAIRED ARROWS
              ⇊ 8650 21CA   DOWNWARDS PAIRED ARROWS
              */
-            // ⇋ 8651 21CB   LEFTWARDS HARPOON OVER RIGHTWARDS HARPOON
-             
-            8652: '-456-12456-', // ⇌ 8652 21CC   RIGHTWARDS HARPOON OVER LEFTWARDS HARPOON
-             
+             // ⇋ 8651 21CB   LEFTWARDS HARPOON OVER RIGHTWARDS HARPOON
+
+             8652: '-456-12456-', // ⇌ 8652 21CC   RIGHTWARDS HARPOON OVER LEFTWARDS HARPOON
+
              8653: '-46-5-25-', // ⇍ 8653 21CD   LEFTWARDS DOUBLE ARROW WITH STROKE
              /*
              ⇎ 8654 21CE   LEFT RIGHT DOUBLE ARROW WITH STROKE
@@ -733,9 +733,9 @@
              ⇾ 8702 21FE   RIGHTWARDS OPEN-HEADED ARROW
              ⇿ 8703 21FF   LEFT RIGHT OPEN-HEADED ARROW
              */
-            9633:'-456-1456-', // □ alembertien
-            9651: '-46-45-145-', // White Up-Pointing Triangle △
-            10548:'-45-156-', // ⤴ Arrow Pointing Rightwards Then Curving Upwards
-            10549:'-46-156-', // ⤵ ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS
+             9633: '-456-1456-', // □ alembertien
+             9651: '-46-45-145-', // White Up-Pointing Triangle △
+             10548: '-45-156-', // ⤴ Arrow Pointing Rightwards Then Curving Upwards
+             10549: '-46-156-', // ⤵ ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS
          }
      };
