@@ -490,7 +490,7 @@
                 if (next && next.nextElementSibling.tagName === 'mi') {
                     parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), next);
 
-                    console.log(monEquation.textContent.trimall());
+                    // console.log(monEquation.textContent.trimall());
                 }
                 // parent.insertBefore(bloc.block(),subsup[i].nextSibling);
             }
@@ -624,7 +624,7 @@
     }
 
     function _superflus(monEquation) {
-        var mesTags = ['mpadded','mstyle'],
+        var mesTags = ['mpadded', 'mstyle'],
             l = mesTags.length,
             i = 0,
             df = d.createDocumentFragment(),
@@ -1060,10 +1060,10 @@
                 boolEnfant1 = true,
                 boolEnfant2 = true,
                 sep = '',
-                complexe = _boolFracComplexity(mfrac[0]);
-            console.log(complexe+' : '+monEquation.textContent.trimall());
-            // console.log(mathBraille.caracMath.indicateurFraction[complexe].open);
-            var bevelled = mfrac[0].getAttribute('bevelled');
+                complexe = (o.codeBrailleMath === 'nemeth') && _boolFracComplexity(mfrac[0]),
+                bevelled = mfrac[0].getAttribute('bevelled');
+
+            console.log(complexe + ' : ' + mfrac[0].textContent.trimall());
 
             if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
                 boolEnfant1 = false;
@@ -1108,52 +1108,57 @@
             denom = denominateur.getElementsByTagName('mfrac'),
             lnum = num.length,
             ldenom = denom.length;
-            var comp = 'simple';
-            
-        if(frac.previousElementSibling&&frac.previousElementSibling.tagName==='mn'){
-            return 'fractionnaire';
+        var comp = ['simple', 'complexe', 'hypercomplexe'];
+        var numcomp = 0;
+        if (frac.previousElementSibling && frac.previousElementSibling.tagName === 'mn') {
+            var parent=frac.parentElement.tagName;
+            if(parent!=='mfrac') return 'fractionnaire';
         }
-        if(numerateur.tagName==='mfrac'){
-            if(_boolFracComplexity(numerateur)==='simple'){
-                comp='complexe'
-            }else{
-                comp='hypercomplexe';
-            }
-        }
-        if(denominateur==='mfrac'){
-            if(_boolFracComplexity(denominateur)==='simple'){
-                comp='complexe'
-            }else{
-                comp='hypercomplexe';
-            }
-        }
-        if ((numerateur.tagName!=='mfrac'&&lnum === 0) && (denominateur.tagName!=='mfrac'&&ldenom === 0)) {
-            if(numerateur.textContent.indexOf('/')!==-1||denominateur.textContent.indexOf('/')!==-1){
+        if ((numerateur.tagName !== 'mfrac' && lnum === 0) && (denominateur.tagName !== 'mfrac' && ldenom === 0)) {
+            if (numerateur.textContent.indexOf('/') !== -1 || denominateur.textContent.indexOf('/') !== -1) {
                 return 'complexe';
             }
             return 'simple';
         }
+        console.log(numerateur.tagName);
+        numcomp = (numcomp < _testEnfants(denominateur)) && _testEnfants(denominateur) || numcomp;
+        numcomp = (numcomp < _testEnfants(numerateur)) && _testEnfants(numerateur) || numcomp;
 
-        if (lnum !== 0) {
-            for (var j = 0; j < lnum; j++) {
-                if (_boolFracComplexity(num[j]) === 'simple') {
-                    comp = comp === 'simple' && 'complexe' || comp;
+
+
+
+        return comp[numcomp];
+
+        function _testEnfants(elt) {
+            var comp = 0;
+
+            if (elt.tagName === 'mfrac') {
+                console.log(_boolFracComplexity(elt));
+                if (_boolFracComplexity(elt) === 'simple') {
+                    comp = 1;
                 } else {
-                    comp = 'hypercomplexe';
+                    comp = 2;
+                }
+            } else if (elt.tagName === 'msub' || elt.tagName === 'msup') {
+                comp = 0;
+            } else {
+                var eltenfant = elt.children;
+                for (var i = 0; i < eltenfant.length; i++) {
+
+                    // console.log(numenfant[i].tagName);
+                    if (eltenfant[i].tagName === 'mfrac') {
+                        if (_boolFracComplexity(eltenfant[i]) === 'simple' || _boolFracComplexity(eltenfant[i]) === 'fractionnaire') {
+                            comp = 1;
+                        } else {
+                            comp = 2;
+                        }
+                    }
                 }
             }
+            console.log(comp+' - '+elt.tagName);
+            
+            return comp;
         }
-        
-        if (ldenom !== 0) {
-            for (j = 0; j < ldenom; j++) {
-                if (_boolFracComplexity(denom[j]) === 'simple'||_boolFracComplexity(denom[j]) === 'fractionnaire') {
-                    comp = comp === 'simple' && 'complexe' || comp;
-                } else {
-                    comp = 'hypercomplexe';
-                }
-            }
-        }
-        return comp;
 
     }
 
@@ -1267,22 +1272,26 @@
         return element !== marqueCell;
     }
 
-    function _indicateurNumerique(monEquation){
-        var txt=monEquation.textContent.split('');
-        var num=['⠴','⠂','⠆','⠒','⠲','⠢','⠖','⠶','⠦','⠔'];
-        if(num.indexOf(txt[0])!==-1){
-            txt.splice(0,0,mathBraille.caracMath.indicateurNumerique.braille());
+    function _indicateurNumerique(monEquation) {
+        var txt = monEquation.textContent.split('');
+        var num = ['⠴', '⠂', '⠆', '⠒', '⠲', '⠢', '⠖', '⠶', '⠦', '⠔'];
+        if (num.indexOf(txt[0]) !== -1) {
+            txt.splice(0, 0, mathBraille.caracMath.indicateurNumerique.braille());
         }
-        var sp=txt.indexOf(mathBraille.caracMath.espaceInsecable.braille());
-        if(sp!==-1){
-            if(num.indexOf(txt[sp+1])!==-1){
-                txt.splice(sp+1,0,mathBraille.caracMath.indicateurNumerique.braille());
+        var elt = mathBraille.caracMath.espaceInsecable.braille(),
+            sp = txt.indexOf(elt);
+
+        while (sp !== -1) {
+            if (num.indexOf(txt[sp + 1]) !== -1) {
+                txt.splice(sp + 1, 0, mathBraille.caracMath.indicateurNumerique.braille());
             }
+            sp = txt.indexOf(elt, sp + 1);
         }
-        console.log(txt.indexOf(mathBraille.caracMath.espaceInsecable.braille()));
+        // console.log(txt.indexOf(mathBraille.caracMath.espaceInsecable.braille()));
         return txt.join('');
-        
+
     }
+
     function _writeform(monEquation, o, hardmat) {
         monEquation.textContent = monEquation.textContent.trimall();
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
@@ -1294,7 +1303,7 @@
 
         if (o.codeBrailleMath === 'nemeth') {
             monEquation.innerHTML = _indicateurNumerique(monEquation);
-            
+
         }
 
 
