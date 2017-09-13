@@ -397,7 +397,7 @@
                 _msqrt(m);
                 _mover(m, 'mover', options);
                 _munder(m, options);
-                _msup(m,options);
+                _msup(m, options);
                 _msub(m, options);
                 _msubsup(m, options);
                 _munderover(m);
@@ -1178,72 +1178,76 @@
                 (enfant1.children.length > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
                 bloc.appendChild(d.createTextNode(sep));
                 (enfant2.children.length > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
-                (nextsub!==0||nextsup!==0)&&bloc.appendChild(d.createTextNode(sep));
+                (nextsub !== 0 || nextsup !== 0) && bloc.appendChild(d.createTextNode(sep));
             }
             bloc = monbool && bloc.block() || bloc;
             parent.replaceChild(bloc, mover[0]);
         }
 
-      
+
     }
 
-    function _msup(monEquation,o) {
+    function _msup(monEquation, o) {
         var mover = monEquation.getElementsByTagName('msup'),
-        monbool = false;
-    while (mover[0]) {
-        // var tbl = mover[0].getElementsByTagName('mtable');
-        // if (tbl.length !== 0) {
-        //     _tableUnder(mover[0]);
-        // }
-console.log(_niveauIndiceExposant(mover[0]));
+            monbool = false;
+        while (mover[0]) {
+            // var tbl = mover[0].getElementsByTagName('mtable');
+            // if (tbl.length !== 0) {
+            //     _tableUnder(mover[0]);
+            // }
+            console.log(_niveauIndiceExposant(mover[0]));
 
-        var bloc = d.createElement('block'),
-            parent = mover[0].parentNode,
-            elt = mover[0].children,
-            carCode = String(elt[1].textContent.trim().charCodeAt()),
-            sep = '',
-            myArray = Object.keys(mathBraille.caracDec.susouscrit);
-        if (myArray.indexOf(carCode) !== -1) {
-            bloc.appendChild(d.createTextNode(mathBraille.caracDec.susouscrit[carCode]));
-            bloc.appendChild(elt[0]);
-        } else {
-            var enfant1 = elt[0],
-                enfant2 = elt[1];
+            var bloc = d.createElement('block'),
+                parent = mover[0].parentNode,
+                elt = mover[0].children,
+                carCode = String(elt[1].textContent.trim().charCodeAt()),
+                sep = '',
+                myArray = Object.keys(mathBraille.caracDec.susouscrit);
+            if (myArray.indexOf(carCode) !== -1) {
+                bloc.appendChild(d.createTextNode(mathBraille.caracDec.susouscrit[carCode]));
+                bloc.appendChild(elt[0]);
+            } else {
+                var enfant1 = elt[0],
+                    enfant2 = elt[1];
 
 
-            sep = mathBraille.caracMath.exposant;
+                sep = mathBraille.caracMath.exposant;
 
-            (enfant1.children.length > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
-            bloc.appendChild(d.createTextNode(sep));
-            (enfant2.children.length > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+                (enfant1.children.length > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
+                bloc.appendChild(d.createTextNode(sep));
+                (enfant2.children.length > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+            }
+            bloc = monbool && bloc.block() || bloc;
+            parent.replaceChild(bloc, mover[0]);
         }
-        bloc = monbool && bloc.block() || bloc;
-        parent.replaceChild(bloc, mover[0]);
-    }
     }
 
-function _niveauIndiceExposant(elt){
-    var enfant1=elt.children[1],
-    nextsup,
-    nextsub,
-    bool=true,
-    niveau=1;
-    while(bool){
-        nextsub=enfant1.getElementsByTagName('msub');
-        nextsup=enfant1.getElementsByTagName('msup');
-        if(nextsub[0]){
-            niveau++;
-            enfant1=nextsub[0].children[1];
-        }else if(nextsup[0]){
-            niveau++;
-            enfant1=nextsup[0].children[1];
-        }else{
-            bool=false;
+    function _niveauIndiceExposant(elt) {
+        var enfant1 = elt.children[1],
+            enfant0,
+            nextsup = enfant1.getElementsByTagName('msup'),
+            nextsub = enfant1.getElementsByTagName('msub'),
+            bool = true,
+            niveau = 4;
+        while (nextsub[0] || nextsup[0]) {
+            if (nextsub[0]) {
+                niveau++;
+                enfant0 = nextsub[0].children[0];
+                enfant1 = nextsub[0].children[1];
+
+            } else if (nextsup[0]) {
+                niveau++;
+                enfant0 = nextsup[0].children[0];
+                enfant1 = nextsup[0].children[1];
+            
+            }
+            nextsub = enfant1.getElementsByTagName('msub');
+            nextsup = enfant1.getElementsByTagName('msup');
+
+            // console.log(enfant1);
         }
-        console.log(enfant1);
+        return niveau;
     }
-    return niveau;
-}
 
     function _msqrt(monEquation) {
         var racine = monEquation.getElementsByTagName('msqrt');
