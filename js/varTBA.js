@@ -174,7 +174,7 @@
        },
        'racine': '-345-',
        'majuscule': '-6-',
-       'point5-': '-5-',
+       'point5': '-5-',
      },
      'caracDec': {
        susouscrit: {
