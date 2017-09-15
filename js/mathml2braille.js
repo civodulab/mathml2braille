@@ -9,6 +9,10 @@
     'use strict';
 
 
+    String.prototype.isNumeric = function () {
+        return !isNaN(parseFloat(this)) && isFinite(this);
+    }
+
     Object.prototype.hasParent = function (parentTagname) {
         parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
         var l = parentTagname.length,
@@ -30,7 +34,7 @@
             i = 0;
         for (; i !== l; i++) {
             var node = this.getElementsByTagName(parentTagname[i]);
-            if (node) return true;
+            if (node[0] || this.tagName === parentTagname[i]) return true;
         }
         return false;
     }
@@ -739,29 +743,27 @@
     function _mmultiscripts(monEquation, o) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts'),
             monbool = (multiscripts.length > 1),
-            boolparent,
+            boolparent = false,
             post1,
             post2,
             pre1,
             pre2,
             indice = mathBraille.caracMath.indice,
             exposant = mathBraille.caracMath.exposant,
+            baseNemethPrevious,
             baseNemeth = mathBraille.caracMath.point5;
-        var lmulti;
-        // var lmulti=0;
+
+        // var lmulti;
+        var lmulti = 0;
 
         while (multiscripts[0]) {
-            lmulti = multiscripts.length - 1;
-            // console.log(multiscripts[lmulti].hasChild('msup'));
-            // console.log(multiscripts[lmulti].hasChild('msub'));
-            // multiscripts[lmulti].hasChild('msup')&&_msupORmsub(monEquation,o,'exposant');
-            // multiscripts[lmulti].hasChild('msub')&&_msupORmsub(monEquation,o,'indice');
-            
+            // lmulti = multiscripts.length - 1;
+
             var elt = multiscripts[lmulti].children,
                 parent = multiscripts[lmulti].parentNode,
                 df = d.createElement('block'),
                 base = elt[0];
-            
+
             if (elt[1].tagName.toLowerCase() === 'mprescripts') {
                 pre1 = elt[2];
                 pre2 = elt[3];
@@ -775,27 +777,38 @@
             }
             indice = o.chimie && mathBraille.caracMath.point6 + indice || indice;
             exposant = o.chimie && mathBraille.caracMath.point6 + exposant || exposant;
+            boolparent = multiscripts[lmulti].hasChild(['mmultiscripts']);
+            multiscripts[lmulti].hasParent('msub') && (baseNemeth = indice);
+            multiscripts[lmulti].hasParent('msup') && (baseNemeth = exposant);
 
-            boolparent = multiscripts[lmulti].hasParent(['msup', 'msub', 'mmultiscripts']);
-            baseNemeth = boolparent && '' || baseNemeth;
             // écriture
             o.chimie && df.appendChild(base);
-            (pre1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(indice));
-            (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-            console.log(pre1);
-            pre1.hasChild(['musp','msub'])&&_msupORmsub(pre1, o, 'indice');
-            (pre2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(exposant));
-            (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
-            console.log(pre2.hasChild(['musp','msub']));
-            
-            pre2.hasChild(['musp','msub'])&&_msupORmsub(pre2, o, 'exposant');
-            // boolChild&&_msupORmsub(monEquation, o, 'exposant');
+
+            if (pre1.tagName.toLowerCase() !== 'none') {
+                df.appendChild(d.createTextNode(indice));
+                baseNemethPrevious = boolparent && indice || baseNemeth;
+                (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
+                pre1.hasChild(['msup', 'msub']) && _msupORmsub(pre1, o, 'indice');
+                console.log(pre1.hasChild(['msup', 'msub']));
+            }
+            if (pre2.tagName.toLowerCase() !== 'none') {
+                df.appendChild(d.createTextNode(exposant));
+                baseNemethPrevious = boolparent && exposant || baseNemeth;
+                (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
+                pre2.hasChild(['msup', 'msub']) && _msupORmsub(pre2, o, 'exposant');
+            }
             (o.codeBrailleMath === 'nemeth') && df.appendChild(d.createTextNode(baseNemeth));
             !o.chimie && df.appendChild(base);
-            (post1.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(indice));
-            (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-            (post2.tagName.toLowerCase() !== 'none') && df.appendChild(d.createTextNode(exposant));
-            (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+            if (post1.tagName.toLowerCase() !== 'none') {
+                df.appendChild(d.createTextNode(indice));
+                (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
+            }
+            if (post2.tagName.toLowerCase() !== 'none') {
+                df.appendChild(d.createTextNode(exposant));
+                (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+            }
+            baseNemeth = baseNemethPrevious;
+
             // console.log(monbool);
             df = monbool && df.block() || df;
             parent.replaceChild(df, multiscripts[lmulti]);
@@ -1196,9 +1209,9 @@
 
     }
 
-    function _msub(monEquation, o) {
-        _msup(monEquation, o, 'msub');
-    }
+    // function _msub(monEquation, o) {
+    //     _msup(monEquation, o, 'msub');
+    // }
 
     function _countParent(monEquation, tagname) {
         var nodeTag = monEquation.getElementsByTagName(tagname),
@@ -1212,15 +1225,21 @@
     }
 
     function _msupORmsub(monEquation, o, multi) {
-        var cpMsup = _countParent(monEquation, 'msup'),
-            cpMsub = _countParent(monEquation, 'msub'),
-            tagname = cpMsup < cpMsub && 'msup' || 'msub';
-        var mover = monEquation.getElementsByTagName(tagname);
+        var mover;
+        if (monEquation.tagName !== 'msub' && monEquation.tagName !== 'msup') {
+            var cpMsup = _countParent(monEquation, 'msup'),
+                cpMsub = _countParent(monEquation, 'msub'),
+                tagname = cpMsup < cpMsub && 'msup' || 'msub';
+            mover = monEquation.getElementsByTagName(tagname);
+        } else {
+            mover = [monEquation];
+        }
 
+        // console.log( monEquation.tagName+' '+tagname);
 
         switch (o.codeBrailleMath) {
             case 'nemeth':
-                mover[0] && _niveauIndiceExposant(mover[0], multi);
+                mover[0] && _niveauIndiceExposant(mover[0], o, multi);
                 break;
             case 'fr':
                 while (mover[0]) {
@@ -1247,22 +1266,24 @@
                     parent.replaceChild(bloc, mover[0]);
                 }
                 break;
-
         }
-
-
-
     }
 
-    function _niveauIndiceExposant(elt, multi) {
+    function _niveauIndiceExposant(elt,o, multi) {
         var enfant1 = elt.children[1],
             enfant0 = elt.children[0],
             previousIE = (elt.tagName === 'msup') && mathBraille.caracMath.exposant || mathBraille.caracMath.indice,
             bloc = d.createElement('bloc'),
-            parent = elt.parentNode;
+            parent = elt.parentNode,
+            boolNum;
         bloc.appendChild(enfant0);
         previousIE = multi && (mathBraille.caracMath[multi] + previousIE) || previousIE;
-        bloc.appendChild(d.createTextNode(previousIE));
+        boolNum = (enfant1.textContent.isNumeric() && elt.tagName === 'msub') && !enfant0.textContent.isNumeric();
+        
+        if(!boolNum) {
+            !o.chimie&&bloc.appendChild(d.createTextNode(previousIE));
+
+        }
         bloc.appendChild(enfant1);
         parent.replaceChild(bloc, elt);
 
@@ -1279,7 +1300,8 @@
             enfant0 = next[0].children[0];
             enfant1 = next[0].children[1];
             bloc.appendChild(enfant0);
-            bloc.appendChild(d.createTextNode(previousIE));
+            // boolNum=enfant1.textContent.isNumeric()&&elt.tagName==='msub';
+            !o.chimie&&bloc.appendChild(d.createTextNode(previousIE));
             bloc.appendChild(enfant1);
             parent.replaceChild(bloc, next[0]);
 
@@ -1290,7 +1312,7 @@
 
 
         }
-        console.log(previousIE);
+        // console.log(previousIE);
     }
 
     function _msqrt(monEquation) {

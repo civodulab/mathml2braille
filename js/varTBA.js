@@ -71,6 +71,10 @@
    mathTBA = {
      'caracMath': {
        'espaceInsecable': 'BLANK',
+       'separateurIndiceExposant':{
+         'virgule': '-246-',
+         'pointvirgule':'-456-246-'
+       },
        'indicateurNumerique':'3456',
        'indicateurFraction': {
          'simple': {
@@ -306,14 +310,14 @@
        //RIGHT FLOOR BRACKET ⌋ &rceil; &‌#8971; &‌#x230B;
        8853: '-46-235-', //CIRCLED PLUS (Direct Sum) ⊕ &oplus; &‌#8853; &‌#x2295;
        8855: '-46-35-', //CIRCLED TIMES (Vector Product) ⊗ &otimes; &‌#8855; &‌#x2297;
-       8747: '-12346-', //INTEGRAL ∫ &int; &‌#8747; &‌#x222B;
+       8747: '-2346-', //INTEGRAL ∫ &int; &‌#8747; &‌#x222B;
        8706: '-5-145-', //PARTIAL DIFFERENTIAL ∂ &part; &‌#8706; &‌#2202;
        8710: '-46-45-145-', //INCREMENT (Difference or capital Delta) Δ &Delta; &‌#8710; &‌#x2206;
        8711: '-46-1456-', //NABLA (Backward Difference, Grad or upside down triangle) ∇ &nabla; &‌#8711; &‌#x2207;
-       8748: '-12346-12346-', //DOUBLE INTEGRAL ∬ &‌#8748; &‌#x222C;
-       8749: '-12346-12346-12346-', //TRIPLE INTEGRAL ∭ &‌#8749; &‌#x222D;
-       10764: '-12346-12346-12346-12346-', //QUADRUPLE INTEGRAL ⨌ &‌#10764; &‌#x2A0C;
-       8750: '-46-12346-', //CONTOUR INTEGRAL ∮ &‌#8750; &‌#x222E;
+       8748: '-2346-2346-', //DOUBLE INTEGRAL ∬ &‌#8748; &‌#x222C;
+       8749: '-2346-2346-2346-', //TRIPLE INTEGRAL ∭ &‌#8749; &‌#x222D;
+       10764: '-2346-2346-2346-2346-', //QUADRUPLE INTEGRAL ⨌ &‌#10764; &‌#x2A0C;
+       8750: '-2346-6-1246-14-12456-', //CONTOUR INTEGRAL ∮ &‌#8750; &‌#x222E;
        8751: '-46-12346-12346-', //SURFACE INTEGRAL ∯ &‌#8751; &‌#x222F;
        8752: '-46-12346-12346-12346-', //VOLUME INTEGRAL ∰ &‌#8752; &‌#x2230;
        //CLOCKWISE INTEGRAL ∱ &‌#8753; &‌#x2231;
@@ -330,9 +334,9 @@
        8473: '-46-46-1234-', // PRIME NUMBERS (Doublestruck P) ℙ — &‌#8473; &‌#x2119;
        8474: '-46-46-12345-', // RATIONAL NUMBERS (Doublestruck Q) ℚ — &‌#8474; &‌#x211A;
        8484: '-46-46-1356-', // INTEGERS (Doublestruck Z) ℤ — &‌#8484; &‌#x2124;
-       8704: '-456-34-', // FOR ALL (Upside-down A) ∀ &forall;  &‌#8704; &‌#x2200;
+       8704: '-4-12346-', // FOR ALL (Upside-down A) ∀ &forall;  &‌#8704; &‌#x2200;
        8705: '-46-146-', // COMPLEMENT (Thin C) ∁ — &‌#8705; &‌#x2201;
-       8707: '-456-16-', // THERE EXISTS (Backwards E) ∃ &exist;  &‌#8707; &‌#x2203;
+       8707: '-4-123456-', // THERE EXISTS (Backwards E) ∃ &exist;  &‌#8707; &‌#x2203;
        8708: '-46-456-16-', // THERE DOES NOT EXIST (Backwards E with slash) ∄ — &‌#8708; &‌#x2204;
        8709: '-45-3456-', // EMPTY SET (O slash) ∅ &empty;  &‌#8709; &‌#x2205;
        // NOT SYMBOL (Corner) ¬ &not;  &‌#172; &‌#xAC;
@@ -407,8 +411,8 @@
        // RIGHT TACK ⊢ &‌#8866; &‌#x22A2;
        // LEFT TACK ⊣ &‌#8867; &‌#x22A3;
        // DOWN TACK ⊤ &‌#8868; &‌#x22A4;
-       // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
-       // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
+      8756:'-6-16-',  // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
+      8757:'-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
        // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
        // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
        8773: '-456-2356-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
@@ -622,16 +626,16 @@
        968: '-46-13456-', //GREEK SMALL LETTER PSI ψ &‌#968; &‌#x03C8 &‌psi;
        969: '-46-2456-', //GREEK SMALL LETTER OMEGA ω &‌#969; &‌#x03C9 &‌omega;
        /* Flèches */
-       8592: '-456-246-', // ← 8592 2190 &larr; LEFTWARDS ARROW
-       8593: '-45-12456-', // ↑ 8593 2191 &uarr; UPWARDS ARROW
-       8594: '-456-156-', // → 8594 2192 &rarr; RIGHTWARDS ARROW
-       8595: '-46-12456-', // ↓ 8595 2193 &darr; DOWNWARDS ARROW
-       8596: '-5-12456-', // ↔ 8596 2194 &harr; LEFT RIGHT ARROW
+       8592: '-1246-246-25-25-', // ← 8592 2190 &larr; LEFTWARDS ARROW
+       8593: '-1246-126-25-25-135-', // ↑ 8593 2191 &uarr; UPWARDS ARROW
+       8594: '-1246-25-25-135-', // → 8594 2192 &rarr; RIGHTWARDS ARROW
+       8595: '-1246-146-25-25-135-', // ↓ 8595 2193 &darr; DOWNWARDS ARROW
+       8596: '-1246-246-25-25-135-', // ↔ 8596 2194 &harr; LEFT RIGHT ARROW
        //↕ 8597 2195   UP DOWN ARROW
-       8598: '-45-246-', // ↖ 8598 2196   NORTH WEST ARROW
-       8599: '-45-156-', // ↗ 8599 2197   NORTH EAST ARROW
-       8600: '-46-156-', // ↘ 8600 2198   SOUTH EAST ARROW
-       8601: '-46-246-', // ↙ 8601 2199   SOUTH WEST ARROW
+       8598: '-1246-45-246-25-25-', // ↖ 8598 2196   NORTH WEST ARROW
+       8599: '-1246-45-25-25-135-', // ↗ 8599 2197   NORTH EAST ARROW
+       8600: '-1246-56-25-25-135-', // ↘ 8600 2198   SOUTH EAST ARROW
+       8601: '-1246-56-246-25-25-', // ↙ 8601 2199   SOUTH WEST ARROW
        /* ↚ 8602 219A   LEFTWARDS ARROW WITH STROKE
         ↛ 8603 219B   RIGHTWARDS ARROW WITH STROKE
         ↜ 8604 219C   LEFTWARDS WAVE ARROW
@@ -693,15 +697,16 @@
        ⇎ 8654 21CE   LEFT RIGHT DOUBLE ARROW WITH STROKE
        */
        8655: '-46-25-2-', // ⇏ 8655 21CF   RIGHTWARDS DOUBLE ARROW WITH STROKE
-       8656: '-5-25-', // ⇐ 8656 21D0 &lArr; LEFTWARDS DOUBLE ARROW
+       8656: '-1246-246-2356-2356-', // ⇐ 8656 21D0 &lArr; LEFTWARDS DOUBLE ARROW
        /*
        ⇑ 8657 21D1 &uArr; UPWARDS DOUBLE ARROW
        */
-       8658: '-25-2-', // ⇒ 8658 21D2 &rArr; RIGHTWARDS DOUBLE ARROW
+       8658: '-1246-2356-2356-135-', // ⇒ 8658 21D2 &rArr; RIGHTWARDS DOUBLE ARROW
        /*
        ⇓ 8659 21D3 &dArr; DOWNWARDS DOUBLE ARROW
-       ⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW
-       ⇕ 8661 21D5   UP DOWN DOUBLE ARROW
+       */
+       8660:'-1246-246-2356-2356-135-', //⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW
+       /*⇕ 8661 21D5   UP DOWN DOUBLE ARROW
        ⇖ 8662 21D6   NORTH WEST DOUBLE ARROW
        ⇗ 8663 21D7   NORTH EAST DOUBLE ARROW
        ⇘ 8664 21D8   SOUTH EAST DOUBLE ARROW
