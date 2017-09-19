@@ -32,7 +32,7 @@
 		</p>
 		<h3>§ 12. Emploi de l'indicateur numérique</h3>
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille test">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille ">
 				<mn>1</mn>
 				<mo>+</mo>
 				<mi>x</mi>
@@ -1126,7 +1126,7 @@
 		<p class="courant">
 			<span>x a un indice 1,2 ; l’indicateur d’indice n’est pas
 					requis parce que les conditions i à iv sont remplies</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
 				<msub>
 					<mi>x</mi>
 					<mrow>
@@ -1415,8 +1415,8 @@
 			'codeBrailleMath': 'nemeth',
 			'chimie': true, // false par défaut
 		}
-		mathml2braille('.js-math2braille', options1);
-		// mathml2braille('.test', options3);
+		// mathml2braille('.js-math2braille', options1);
+		mathml2braille('.test', options3);
 		// mathml2braille('.js-indice', options1);
 		brailledirect('.js-brailleDirect', 'nemeth');
 		// mathml2braille('.js-chimie', options3);
