@@ -1331,9 +1331,10 @@ function _espaceNemeth(monEquation){
             bloc = d.createElement('bloc'),
             parent = elt.parentNode,
             boolNum;
-        bloc.appendChild(enfant0);
+        
+            bloc.appendChild(enfant0);
         previousIE = multi && (mathBraille.caracMath[multi] + previousIE) || previousIE;
-        boolNum = (enfant1.textContent.isNumeric() && elt.tagName === 'msub') && !enfant0.textContent.isNumeric();
+        boolNum = (enfant1.textContent.trimall().isNumeric() && elt.tagName === 'msub') && !enfant0.textContent.trimall().isNumeric();
 
         if (!boolNum) {
             !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
