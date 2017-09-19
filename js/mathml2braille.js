@@ -416,6 +416,7 @@
                 _superflus(m);
                 _inutile(m);
                 _tableSeul(m);
+                options.codeBrailleMath==='nemeth'&&_espaceNemeth(m);
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
                 // résolution problèmes blocs
@@ -504,6 +505,27 @@
         }
         return source;
     }
+
+
+function _espaceNemeth(monEquation){
+    var bloc,
+    mo=monEquation.getElementsByTagName('mo'),
+        lmo=mo.length,
+        i=0;
+    while(i!==lmo){
+        var boolparent=mo[i].hasParent(['msub','msup']);
+        // var boolparent=false;
+        if(mo[i].textContent.charCodeAt()===160&&!boolparent){
+        var parent=mo[i].parentNode;
+            bloc=d.createElement('bloc');
+            bloc.appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+            parent.replaceChild(bloc,mo[i]);
+            lmo--;
+            i--;
+        }
+        i++;
+    }
+}
 
     function _pbIntegrale(monEquation) {
         var subsup = monEquation.getElementsByTagName('msubsup'),
@@ -789,7 +811,7 @@
                 baseNemethPrevious = boolparent && indice || baseNemeth;
                 (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
                 pre1.hasChild(['msup', 'msub']) && _msupORmsub(pre1, o, 'indice');
-                console.log(pre1.hasChild(['msup', 'msub']));
+                // console.log(pre1.hasChild(['msup', 'msub']));
             }
             if (pre2.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(exposant));
@@ -982,29 +1004,36 @@
         }
     }
 
-    function _mo(monEquation, tagName) {
-        tagName = tagName || 'mo';
+    function _majus(monEquation, tagName, o) {
         var mn = monEquation.getElementsByTagName(tagName),
             l = mn.length,
             i = 0;
         for (; i !== l; i++) {
             var num = mn[i].length > 1 && mn[i].textContent.trim().split('') || mn[i].textContent.split(''),
+                carac,
                 lnum = num.length,
                 j = 0;
             mn[i].textContent = '';
             for (; j < lnum; j++) {
-                var carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
+
+                carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
+
                 mn[i].textContent += carac;
             }
         }
     }
 
+    function _mo(monEquation, o) {
+        _majus(monEquation, 'mo', o);
+    }
+
+
     function _mn(monEquation) {
-        _mo(monEquation, 'mn');
+        _majus(monEquation, 'mn');
     }
 
     function _mi(monEquation) {
-        _mo(monEquation, 'mi');
+        _majus(monEquation, 'mi');
     }
 
     function _mover(monEquation, tagName, options) {
@@ -1224,6 +1253,34 @@
         return k === 0 && 10000 || k;
     }
 
+
+    function _virguleNemeth(msub) {
+        for (var i = 0; i < msub.length; i++) {
+            var mo = msub[i].getElementsByTagName('mo'),
+                bloc, parent,bool;
+            for (var j = 0; j < mo.length; j++) {
+                parent = mo[j].parentNode;
+                bloc = d.createElement('blocmo');
+                bool=(mo[j].nextElementSibling&&mo[j].nextElementSibling.textContent.charCodeAt()===160);
+                // console.log(bool);
+                switch (mo[j].textContent.charCodeAt()) {
+                    case 44:
+                        bool&&bloc.appendChild(d.createTextNode(mathBraille.caracMath.separateurIndiceExposant.virgule));
+                        bool&&parent.replaceChild(bloc, mo[j]);
+
+                        break;
+                    case 59:
+                        bool&&bloc.appendChild(d.createTextNode(mathBraille.caracMath.separateurIndiceExposant.pointvirgule));
+                        bool&&parent.replaceChild(bloc, mo[j]);
+                        break;
+
+                }
+
+            }
+
+        }
+    }
+
     function _msupORmsub(monEquation, o, multi) {
         var mover;
         if (monEquation.tagName !== 'msub' && monEquation.tagName !== 'msup') {
@@ -1234,11 +1291,9 @@
         } else {
             mover = [monEquation];
         }
-
-        // console.log( monEquation.tagName+' '+tagname);
-
         switch (o.codeBrailleMath) {
             case 'nemeth':
+                tagname === 'msub' && _virguleNemeth(mover);
                 mover[0] && _niveauIndiceExposant(mover[0], o, multi);
                 break;
             case 'fr':
@@ -1269,7 +1324,7 @@
         }
     }
 
-    function _niveauIndiceExposant(elt,o, multi) {
+    function _niveauIndiceExposant(elt, o, multi) {
         var enfant1 = elt.children[1],
             enfant0 = elt.children[0],
             previousIE = (elt.tagName === 'msup') && mathBraille.caracMath.exposant || mathBraille.caracMath.indice,
@@ -1279,9 +1334,9 @@
         bloc.appendChild(enfant0);
         previousIE = multi && (mathBraille.caracMath[multi] + previousIE) || previousIE;
         boolNum = (enfant1.textContent.isNumeric() && elt.tagName === 'msub') && !enfant0.textContent.isNumeric();
-        
-        if(!boolNum) {
-            !o.chimie&&bloc.appendChild(d.createTextNode(previousIE));
+
+        if (!boolNum) {
+            !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
 
         }
         bloc.appendChild(enfant1);
@@ -1301,7 +1356,7 @@
             enfant1 = next[0].children[1];
             bloc.appendChild(enfant0);
             // boolNum=enfant1.textContent.isNumeric()&&elt.tagName==='msub';
-            !o.chimie&&bloc.appendChild(d.createTextNode(previousIE));
+            !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
             bloc.appendChild(enfant1);
             parent.replaceChild(bloc, next[0]);
 
@@ -1423,9 +1478,8 @@
         if (num.indexOf(txt[0]) !== -1) {
             txt.splice(0, 0, mathBraille.caracMath.indicateurNumerique.braille());
         }
-        var elt = mathBraille.caracMath.espaceInsecable.braille(),
+        var elt = 'BLANK'.braille(),
             sp = txt.indexOf(elt);
-
         while (sp !== -1) {
             if (num.indexOf(txt[sp + 1]) !== -1) {
                 txt.splice(sp + 1, 0, mathBraille.caracMath.indicateurNumerique.braille());

@@ -70,7 +70,7 @@
    // -56- => dots56
    mathTBA = {
      'caracMath': {
-       'espaceInsecable': 'BLANK',
+       'espaceInsecable': '-BLANK-',
        'separateurIndiceExposant':{
          'virgule': '-246-',
          'pointvirgule':'-456-246-'
