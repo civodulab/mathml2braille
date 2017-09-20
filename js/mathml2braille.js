@@ -10,6 +10,7 @@
 
 
     String.prototype.isNumeric = function () {
+        if (Math.sign(this) === -1) return false;
         return !isNaN(parseFloat(this)) && isFinite(this);
     }
 
@@ -387,6 +388,7 @@
         mathml = function (clmath) {
             var options = {
                 'codeBrailleMath': 'fr',
+                'codeSysteme': 'SI',
                 'matriceLineaire': false,
                 'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
                 'chimie': false
@@ -416,7 +418,11 @@
                 _superflus(m);
                 _inutile(m);
                 _tableSeul(m);
-                options.codeBrailleMath==='nemeth'&&_espaceNemeth(m);
+                if (options.codeBrailleMath === 'nemeth') {
+                    _numDecimalNemeth(m, options);
+                    _espaceNemeth(m);
+                }
+
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
                 // résolution problèmes blocs
@@ -427,7 +433,7 @@
 
                 _mfrac(m, options);
                 _mroot(m);
-                _msqrt(m);
+                _msqrt(m, options);
                 _mover(m, 'mover', options);
                 _munder(m, options);
                 _msupORmsub(m, options);
@@ -506,26 +512,45 @@
         return source;
     }
 
-
-function _espaceNemeth(monEquation){
-    var bloc,
-    mo=monEquation.getElementsByTagName('mo'),
-        lmo=mo.length,
-        i=0;
-    while(i!==lmo){
-        var boolparent=mo[i].hasParent(['msub','msup']);
-        // var boolparent=false;
-        if(mo[i].textContent.charCodeAt()===160&&!boolparent){
-        var parent=mo[i].parentNode;
-            bloc=d.createElement('bloc');
-            bloc.appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
-            parent.replaceChild(bloc,mo[i]);
-            lmo--;
-            i--;
+    function _numDecimalNemeth(monEquation, o) {
+        var mo = monEquation.getElementsByTagName('mo'),
+            lmo = mo.length,
+            i = 0;
+        for (; i !== lmo; i++) {
+            var elt = mo[i];
+            if (elt.textContent.trim() === ',' && o.codeSysteme === 'SI') {
+                if (elt.previousElementSibling.tagName === 'mn' && elt.nextElementSibling.tagName === 'mn') {
+                    elt.textContent = '.';
+                } else if (elt.nextElementSibling.textContent.charCodeAt() !== 160) {
+                    var bloc = d.createElement('bloc'),
+                        parent = elt.parentNode;
+                    bloc.appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+                    parent.insertBefore(bloc, elt.nextSibling);
+                }
+            }
         }
-        i++;
     }
-}
+
+
+    function _espaceNemeth(monEquation) {
+        var bloc,
+            mo = monEquation.getElementsByTagName('mo'),
+            lmo = mo.length,
+            i = 0;
+        while (i !== lmo) {
+            var boolparent = mo[i].hasParent(['msub', 'msup']);
+            // var boolparent=false;
+            if (mo[i].textContent.charCodeAt() === 160 && !boolparent) {
+                var parent = mo[i].parentNode;
+                bloc = d.createElement('bloc');
+                bloc.appendChild(d.createTextNode(mathBraille.caracMath.espaceInsecable));
+                parent.replaceChild(bloc, mo[i]);
+                lmo--;
+                i--;
+            }
+            i++;
+        }
+    }
 
     function _pbIntegrale(monEquation) {
         var subsup = monEquation.getElementsByTagName('msubsup'),
@@ -545,7 +570,6 @@ function _espaceNemeth(monEquation){
                 if (next && next.nextElementSibling.tagName === 'mi') {
                     parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), next);
 
-                    // console.log(monEquation.textContent.trimall());
                 }
                 // parent.insertBefore(bloc.block(),subsup[i].nextSibling);
             }
@@ -607,7 +631,6 @@ function _espaceNemeth(monEquation){
                     parent.parentNode.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.close), lastprevious.nextSibling);
                 }
 
-                // console.log(first.textContent+' '+last.textContent);
             }
 
         }
@@ -811,23 +834,28 @@ function _espaceNemeth(monEquation){
                 baseNemethPrevious = boolparent && indice || baseNemeth;
                 (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
                 pre1.hasChild(['msup', 'msub']) && _msupORmsub(pre1, o, 'indice');
-                // console.log(pre1.hasChild(['msup', 'msub']));
             }
             if (pre2.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(exposant));
                 baseNemethPrevious = boolparent && exposant || baseNemeth;
                 (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
-                pre2.hasChild(['msup', 'msub']) && _msupORmsub(pre2, o, 'exposant');
+                console.log(pre2.tagName);
+                
+                pre2.hasChild(['msup', 'msub'])&& _msupORmsub(pre2, o, 'exposant');
+                
             }
             (o.codeBrailleMath === 'nemeth') && df.appendChild(d.createTextNode(baseNemeth));
             !o.chimie && df.appendChild(base);
             if (post1.tagName.toLowerCase() !== 'none') {
-                df.appendChild(d.createTextNode(indice));
+                !post1.textContent.trimall().isNumeric() && df.appendChild(d.createTextNode(indice));
                 (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
+                post1.hasChild(['msup', 'msub']) && _msupORmsub(post1, o, 'indice');
             }
             if (post2.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(exposant));
                 (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+                post2.hasChild(['msup', 'msub']) && _msupORmsub(post2, o, 'exposant');
+
             }
             baseNemeth = baseNemethPrevious;
 
@@ -980,25 +1008,30 @@ function _espaceNemeth(monEquation){
         }
     }
 
-    function _msubsup(monEquation, options, tagName) {
+    function _msubsup(monEquation, o, tagName) {
         tagName = tagName || 'msubsup';
-        var msubsup = monEquation.getElementsByTagName(tagName);
+        var msubsup = monEquation.getElementsByTagName(tagName),
+            indice = mathBraille.caracMath.indice,
+            exposant = mathBraille.caracMath.exposant;
         while (msubsup[0]) {
             var elt = msubsup[0].children,
                 parent = msubsup[0].parentNode,
-                sep1 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.indice)),
-                sep2 = d.createElement('block').appendChild(d.createTextNode(mathBraille.caracMath.exposant)),
+                sep1 = d.createElement('block').appendChild(d.createTextNode(indice)),
+                sep2 = d.createElement('block').appendChild(d.createTextNode(exposant)),
                 df = d.createElement('block');
 
-            sep1 = (options && options.chimie) && d.createElement('block').appendChild(d.createTextNode('')) || sep1;
+            sep1 = (o && o.chimie) && d.createElement('block').appendChild(d.createTextNode('')) || sep1;
             //  console.log(sep1);
             df.appendChild(elt[0]);
             (tagName === 'munderover') && df.appendChild(sep1.cloneNode());
             df.appendChild(sep1);
+            elt[0].hasChild(['msub','msup'])&&_msupORmsub(elt[0],o,'indice')
             (elt[0].children.length > 1) && df.appendChild(elt[0].block()) || df.appendChild(elt[0]);
             (tagName === 'munderover') && df.appendChild(sep2.cloneNode());
             df.appendChild(sep2);
+            elt[0].hasChild(['msub','msup'])&&_msupORmsub(elt[0],o,'exposant')
             (elt[0].children.length > 1) && df.appendChild(elt[0].block()) || df.appendChild(elt[0]);
+            
             parent.replaceChild(df, msubsup[0]);
 
         }
@@ -1255,27 +1288,37 @@ function _espaceNemeth(monEquation){
 
 
     function _virguleNemeth(msub) {
-        for (var i = 0; i < msub.length; i++) {
+        var lmsub = msub.length,
+            i = 0;
+        for (; i !== lmsub; i++) {
             var mo = msub[i].getElementsByTagName('mo'),
-                bloc, parent,bool;
-            for (var j = 0; j < mo.length; j++) {
-                parent = mo[j].parentNode;
+                lmo = mo.length,
+                j = 0,
+                bloc, parent, bool;
+            while (j !== lmo) {
+                var elt = mo[j],
+                    nextElt = elt.nextElementSibling;
+                parent = elt.parentNode;
                 bloc = d.createElement('blocmo');
-                bool=(mo[j].nextElementSibling&&mo[j].nextElementSibling.textContent.charCodeAt()===160);
-                // console.log(bool);
-                switch (mo[j].textContent.charCodeAt()) {
+                bool = (nextElt && (nextElt.textContent.charCodeAt() === 160 || nextElt.textContent === '-BLANK-'));
+                // console.log(nextElt&&nextElt.textContent);
+                switch (elt.textContent.charCodeAt()) {
                     case 44:
-                        bool&&bloc.appendChild(d.createTextNode(mathBraille.caracMath.separateurIndiceExposant.virgule));
-                        bool&&parent.replaceChild(bloc, mo[j]);
-
+                        bool && bloc.appendChild(d.createTextNode(mathBraille.caracMath.separateurIndiceExposant.virgule));
+                        bool && parent.replaceChild(bloc, elt);
+                        nextElt.textContent === '-BLANK-' && parent.removeChild(nextElt);
+                        lmo--;
+                        j--
                         break;
                     case 59:
-                        bool&&bloc.appendChild(d.createTextNode(mathBraille.caracMath.separateurIndiceExposant.pointvirgule));
-                        bool&&parent.replaceChild(bloc, mo[j]);
+                        bool && bloc.appendChild(d.createTextNode(mathBraille.caracMath.separateurIndiceExposant.pointvirgule));
+                        bool && parent.replaceChild(bloc, elt);
+                        lmo--;
+                        j--;
                         break;
 
                 }
-
+                j++;
             }
 
         }
@@ -1294,7 +1337,10 @@ function _espaceNemeth(monEquation){
         switch (o.codeBrailleMath) {
             case 'nemeth':
                 tagname === 'msub' && _virguleNemeth(mover);
-                mover[0] && _niveauIndiceExposant(mover[0], o, multi);
+                while (mover[0]&&mover[0].textContent.trimall()!=='') {
+                    _niveauIndiceExposant(mover[0], o, multi);
+                }
+
                 break;
             case 'fr':
                 while (mover[0]) {
@@ -1331,14 +1377,12 @@ function _espaceNemeth(monEquation){
             bloc = d.createElement('bloc'),
             parent = elt.parentNode,
             boolNum;
-        
-            bloc.appendChild(enfant0);
+
+        bloc.appendChild(enfant0);
         previousIE = multi && (mathBraille.caracMath[multi] + previousIE) || previousIE;
         boolNum = (enfant1.textContent.trimall().isNumeric() && elt.tagName === 'msub') && !enfant0.textContent.trimall().isNumeric();
-
         if (!boolNum) {
             !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
-
         }
         bloc.appendChild(enfant1);
         parent.replaceChild(bloc, elt);
@@ -1365,13 +1409,30 @@ function _espaceNemeth(monEquation){
             cpMsub = _countParent(bloc, 'msub');
             tagname = cpMsup < cpMsub && 'msup' || 'msub';
             next = bloc.getElementsByTagName(tagname);
-
-
         }
-        // console.log(previousIE);
     }
 
-    function _msqrt(monEquation) {
+    function _msqrt(monEquation, o) {
+        if (o.codeBrailleMath === 'nemeth') {
+            _msqrtNemeth(monEquation);
+        } else {
+            _msqrtFr(monEquation);
+        }
+    }
+
+    function _msqrtNemeth(monEquation) {
+        var racine = monEquation.getElementsByTagName('msqrt'),
+            radical = mathBraille.caracMath.racine,
+            fin = mathBraille.caracMath.finRacine;
+        while (racine[0]) {
+            var bloc = d.createElement('block'),
+                parent = racine[0].parentNode;
+            bloc.innerHTML = racine[0].innerHTML;
+            parent.replaceChild(bloc.block(radical, fin), racine[0]);
+        }
+    }
+
+    function _msqrtFr(monEquation) {
         var racine = monEquation.getElementsByTagName('msqrt');
         while (racine[0]) {
             var bloc1 = d.createElement('block'),
@@ -1487,7 +1548,6 @@ function _espaceNemeth(monEquation){
             }
             sp = txt.indexOf(elt, sp + 1);
         }
-        // console.log(txt.indexOf(mathBraille.caracMath.espaceInsecable.braille()));
         return txt.join('');
 
     }
