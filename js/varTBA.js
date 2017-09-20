@@ -177,6 +177,7 @@
          'sepLigne': '-6-345-',
        },
        'racine': '-345-',
+       'finRacine':'-12456-',
        'majuscule': '-6-',
        'point5': '-5-',
      },
