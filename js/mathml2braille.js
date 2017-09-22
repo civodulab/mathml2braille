@@ -424,7 +424,7 @@
                 // résolution problèmes blocs
                 _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
                 _pbIntegrale(m);
-                _newMrootBloc(m);
+
                 // TODO: mes fonctions
                 /*
                 NEW
@@ -432,21 +432,21 @@
                 */
                 _newMfracBloc(m);
                 _newMsqrtBloc(m);
+                _newMrootBloc(m);
 
                 /*
                 NEW réécriture
                 écriture de l'équation selon les nouvelles balises
                 */
                 _newMfracWrite(m);
-                // console.log(m.innerHTML);
-
                 _newMsqrtWrite(m);
-
+                _newMrootWrite(m);
+                
 
 
                 _mmultiscripts(m, options);
                 // _mfrac(m, options);
-                _mroot(m);
+                // _mroot(m);
                 // _msqrt(m, options);
                 _mover(m, 'mover', options);
                 _munder(m, options);
@@ -1485,20 +1485,20 @@
         var racine = eq.getElementsByTagName(tagName);
         while (racine[0]) {
             var parent = racine[0].parentNode,
-                k = _radicauxEmboites(racine[0]),
+                k = _radicauxEmboites(racine[0],tagName),
                 bloc = d.createElement(tagName+'-' + k);
             bloc.innerHTML = racine[0].innerHTML;
             parent.replaceChild(bloc, racine[0]);
         }
     }
 
-    function _radicauxEmboites(racine) {
+    function _radicauxEmboites(racine,tag) {
         var k = 0,
             tagName,
             parent = racine.parentNode;
         while (parent) {
             tagName = parent.tagName.split('-');
-            tagName[0] === 'msqrt' && k++;
+            tagName[0] === tag && k++;
             parent = parent.parentNode;
         }
         return k;
@@ -1585,8 +1585,12 @@
     //     }
     // }
 
+    
     function _newMrootBloc(eq){
         _newMsqrtBloc(eq,'mroot');
+    }
+    function _newMrootWrite(eq){
+
     }
     function _mroot(monEquation) {
         _mover(monEquation, 'mroot');
