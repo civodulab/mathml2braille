@@ -134,7 +134,7 @@
 			<span class="mathbraille">⠹⠁⠬⠃⠌⠉⠼</span>
 		</p>
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille test">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille ">
 				<mfrac>
 					<msup>
 						<mi>x</mi>
@@ -1317,7 +1317,7 @@
 		<p class="courant">
 			<span>(la virgule et l’espace sur la ligne de base, entre les
 					composantes en indice, ne peuvent pas être contractées)</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mstyle displaystyle="false">
 					<msub>
 						<mi>x</mi>
@@ -1402,7 +1402,7 @@
 		<h2>RÈGLE XV - RADICAUX</h2>
 		<h3>§ 105. Radicaux simples</h3>
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux test">
 				<msqrt>
 					<mn>2</mn>
 				</msqrt>
@@ -1410,7 +1410,7 @@
 			<span class="mathbraille">⠜⠆⠻</span>
 		</p>
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux ">
 				<msqrt>
 					<mi>x</mi>
 					<mo>+</mo>
@@ -1420,7 +1420,7 @@
 			<span class="mathbraille">⠜⠭⠬⠽⠻</span>
 		</p>
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux ">
 				<msqrt>
 					<msup>
 						<mi>x</mi>
@@ -1433,7 +1433,7 @@
 			<span class="mathbraille">⠜⠭⠘⠆⠐⠬⠂⠻</span>
 		</p>
 		<p class="courant">
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux ">
 				<msqrt>
 					<msup>
 						<mi>x</mi>
@@ -1448,7 +1448,38 @@
 			</math>
 			<span class="mathbraille">⠜⠭⠘⠆⠐⠬⠽⠘⠆⠐⠻</span>
 		</p>
-
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux test">
+				<msqrt>
+					<mi>x</mi>
+					<mo>+</mo>
+					<msqrt>
+						<mi>x</mi>
+						<mo>+</mo>
+						<mi>y</mi>
+					</msqrt>
+					<mo>+</mo>
+					<mi>z</mi>
+				</msqrt>
+			</math>
+			<span class="mathbraille">⠜⠭⠬⠨⠜⠭⠬⠽⠨⠻⠬⠵⠻</span>
+		</p>
+		<p class="courant">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-radicaux test">
+				<msqrt>
+					<mi>x</mi>
+					<mo>+</mo>
+					<msqrt>
+						<mi>y</mi>
+						<mo>+</mo>
+						<msqrt>
+							<mi>z</mi>
+						</msqrt>
+					</msqrt>
+				</msqrt>
+			</math>
+			<span class="mathbraille">⠜⠭⠬⠨⠜⠽⠬⠨⠨⠜⠵⠨⠨⠻⠨⠻⠻</span>
+		</p>
 	</section>
 	<p class="js-brailleDirect">"0123456., 789[]_</p>
 	<script type="text/javascript" src="../js/varTBA.js"></script>
@@ -1471,11 +1502,11 @@
 			'codeBrailleMath': 'nemeth',
 			'codeSysteme': 'SA'
 		};
-		// mathml2braille('.test', options1);
-		mathml2braille('.js-math2braille', options1);
-		brailledirect('.js-brailleDirect', 'nemeth');
-		mathml2braille('.js-chimie', options3);
-		mathml2braille('.js-SA', options4);
+		mathml2braille('.test', options1);
+		// mathml2braille('.js-math2braille', options1);
+		// brailledirect('.js-brailleDirect', 'nemeth');
+		// mathml2braille('.js-chimie', options3);
+		// mathml2braille('.js-SA', options4);
 	</script>
 </body>
 

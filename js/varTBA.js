@@ -178,6 +178,8 @@
        },
        'racine': '-345-',
        'finRacine':'-12456-',
+       'ordreRadical':'-46-',
+       'indiceRadical':'-126-',
        'majuscule': '-6-',
        'point5': '-5-',
      },
