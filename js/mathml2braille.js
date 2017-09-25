@@ -825,7 +825,7 @@
             }
             var j = 1;
             for (; j !== elts.length; j++) {
-                
+
                 console.log(elts[j].tagName);
             }
             console.log(eq.innerHTML);
