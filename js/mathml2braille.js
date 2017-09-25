@@ -57,263 +57,263 @@
         // Source
         // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
         var brailleUnicode = {
-            'BLANK': 10240,
-            1: 10241,
-            12: 10243,
-            123: 10247,
-            1234: 10255,
-            12345: 10271,
-            123456: 10303,
-            1234567: 10367,
-            12345678: 10495,
-            1234568: 10431,
-            123457: 10335,
-            1234578: 10463,
-            123458: 10399,
-            12346: 10287,
-            123467: 10351,
-            1234678: 10479,
-            123468: 10415,
-            12347: 10319,
-            123478: 10447,
-            12348: 10383,
-            1235: 10263,
-            12356: 10295,
-            123567: 10359,
-            1235678: 10487,
-            123568: 10423,
-            12357: 10327,
-            123578: 10455,
-            12358: 10391,
-            1236: 10279,
-            12367: 10343,
-            123678: 10471,
-            12368: 10407,
-            1237: 10311,
-            12378: 10439,
-            1238: 10375,
-            124: 10251,
-            1245: 10267,
-            12456: 10299,
-            124567: 10363,
-            1245678: 10491,
-            124568: 10427,
-            12457: 10331,
-            124578: 10459,
-            12458: 10395,
-            1246: 10283,
-            12467: 10347,
-            124678: 10475,
-            12468: 10411,
-            1247: 10315,
-            12478: 10443,
-            1248: 10379,
-            125: 10259,
-            1256: 10291,
-            12567: 10355,
-            125678: 10483,
-            12568: 10419,
-            1257: 10323,
-            12578: 10451,
-            1258: 10387,
-            126: 10275,
-            1267: 10339,
-            12678: 10467,
-            1268: 10403,
-            127: 10307,
-            1278: 10435,
-            128: 10371,
-            13: 10245,
-            134: 10253,
-            1345: 10269,
-            13456: 10301,
-            134567: 10365,
-            1345678: 10493,
-            134568: 10429,
-            13457: 10333,
-            134578: 10461,
-            13458: 10397,
-            1346: 10285,
-            13467: 10349,
-            134678: 10477,
-            13468: 10413,
-            1347: 10317,
-            13478: 10445,
-            1348: 10381,
-            135: 10261,
-            1356: 10293,
-            13567: 10357,
-            135678: 10485,
-            13568: 10421,
-            1357: 10325,
-            13578: 10453,
-            1358: 10389,
-            136: 10277,
-            1367: 10341,
-            13678: 10469,
-            1368: 10405,
-            137: 10309,
-            1378: 10437,
-            138: 10373,
-            14: 10249,
-            145: 10265,
-            1456: 10297,
-            14567: 10361,
-            145678: 10489,
-            14568: 10425,
-            1457: 10329,
-            14578: 10457,
-            1458: 10393,
-            146: 10281,
-            1467: 10345,
-            14678: 10473,
-            1468: 10409,
-            147: 10313,
-            1478: 10441,
-            148: 10377,
-            15: 10257,
-            156: 10289,
-            1567: 10353,
-            15678: 10481,
-            1568: 10417,
-            157: 10321,
-            1578: 10449,
-            158: 10385,
-            16: 10273,
-            167: 10337,
-            1678: 10465,
-            168: 10401,
-            17: 10305,
-            178: 10433,
-            18: 10369,
-            2: 10242,
-            23: 10246,
-            234: 10254,
-            2345: 10270,
-            23456: 10302,
-            234567: 10366,
-            2345678: 10494,
-            234568: 10430,
-            23457: 10334,
-            234578: 10462,
-            23458: 10398,
-            2346: 10286,
-            23467: 10350,
-            234678: 10478,
-            23468: 10414,
-            2347: 10318,
-            23478: 10446,
-            2348: 10382,
-            235: 10262,
-            2356: 10294,
-            23567: 10358,
-            235678: 10486,
-            23568: 10422,
-            2357: 10326,
-            23578: 10454,
-            2358: 10390,
-            236: 10278,
-            2367: 10342,
-            23678: 10470,
-            2368: 10406,
-            237: 10310,
-            2378: 10438,
-            238: 10374,
-            24: 10250,
-            245: 10266,
-            2456: 10298,
-            24567: 10362,
-            245678: 10490,
-            24568: 10426,
-            2457: 10330,
-            24578: 10458,
-            2458: 10394,
-            246: 10282,
-            2467: 10346,
-            24678: 10474,
-            2468: 10410,
-            247: 10314,
-            2478: 10442,
-            248: 10378,
-            25: 10258,
-            256: 10290,
-            2567: 10354,
-            25678: 10482,
-            2568: 10418,
-            257: 10322,
-            2578: 10450,
-            258: 10386,
-            26: 10274,
-            267: 10338,
-            2678: 10466,
-            268: 10402,
-            27: 10306,
-            278: 10434,
-            28: 10370,
-            3: 10244,
-            34: 10252,
-            345: 10268,
-            3456: 10300,
-            34567: 10364,
-            345678: 10492,
-            34568: 10428,
-            3457: 10332,
-            34578: 10460,
-            3458: 10396,
-            346: 10284,
-            3467: 10348,
-            34678: 10476,
-            3468: 10412,
-            347: 10316,
-            3478: 10444,
-            348: 10380,
-            35: 10260,
-            356: 10292,
-            3567: 10356,
-            35678: 10484,
-            3568: 10420,
-            357: 10324,
-            3578: 10452,
-            358: 10388,
-            36: 10276,
-            367: 10340,
-            3678: 10468,
-            368: 10404,
-            37: 10308,
-            378: 10436,
-            38: 10372,
-            4: 10248,
-            45: 10264,
-            456: 10296,
-            4567: 10360,
-            45678: 10488,
-            4568: 10424,
-            457: 10328,
-            4578: 10456,
-            458: 10392,
-            46: 10280,
-            467: 10344,
-            4678: 10472,
-            468: 10408,
-            47: 10312,
-            478: 10440,
-            48: 10376,
-            5: 10256,
-            56: 10288,
-            567: 10352,
-            5678: 10480,
-            568: 10416,
-            57: 10320,
-            578: 10448,
-            58: 10384,
-            6: 10272,
-            67: 10336,
-            678: 10464,
-            68: 10400,
-            7: 10304,
-            78: 10432,
-            8: 10368
-        },
+                'BLANK': 10240,
+                1: 10241,
+                12: 10243,
+                123: 10247,
+                1234: 10255,
+                12345: 10271,
+                123456: 10303,
+                1234567: 10367,
+                12345678: 10495,
+                1234568: 10431,
+                123457: 10335,
+                1234578: 10463,
+                123458: 10399,
+                12346: 10287,
+                123467: 10351,
+                1234678: 10479,
+                123468: 10415,
+                12347: 10319,
+                123478: 10447,
+                12348: 10383,
+                1235: 10263,
+                12356: 10295,
+                123567: 10359,
+                1235678: 10487,
+                123568: 10423,
+                12357: 10327,
+                123578: 10455,
+                12358: 10391,
+                1236: 10279,
+                12367: 10343,
+                123678: 10471,
+                12368: 10407,
+                1237: 10311,
+                12378: 10439,
+                1238: 10375,
+                124: 10251,
+                1245: 10267,
+                12456: 10299,
+                124567: 10363,
+                1245678: 10491,
+                124568: 10427,
+                12457: 10331,
+                124578: 10459,
+                12458: 10395,
+                1246: 10283,
+                12467: 10347,
+                124678: 10475,
+                12468: 10411,
+                1247: 10315,
+                12478: 10443,
+                1248: 10379,
+                125: 10259,
+                1256: 10291,
+                12567: 10355,
+                125678: 10483,
+                12568: 10419,
+                1257: 10323,
+                12578: 10451,
+                1258: 10387,
+                126: 10275,
+                1267: 10339,
+                12678: 10467,
+                1268: 10403,
+                127: 10307,
+                1278: 10435,
+                128: 10371,
+                13: 10245,
+                134: 10253,
+                1345: 10269,
+                13456: 10301,
+                134567: 10365,
+                1345678: 10493,
+                134568: 10429,
+                13457: 10333,
+                134578: 10461,
+                13458: 10397,
+                1346: 10285,
+                13467: 10349,
+                134678: 10477,
+                13468: 10413,
+                1347: 10317,
+                13478: 10445,
+                1348: 10381,
+                135: 10261,
+                1356: 10293,
+                13567: 10357,
+                135678: 10485,
+                13568: 10421,
+                1357: 10325,
+                13578: 10453,
+                1358: 10389,
+                136: 10277,
+                1367: 10341,
+                13678: 10469,
+                1368: 10405,
+                137: 10309,
+                1378: 10437,
+                138: 10373,
+                14: 10249,
+                145: 10265,
+                1456: 10297,
+                14567: 10361,
+                145678: 10489,
+                14568: 10425,
+                1457: 10329,
+                14578: 10457,
+                1458: 10393,
+                146: 10281,
+                1467: 10345,
+                14678: 10473,
+                1468: 10409,
+                147: 10313,
+                1478: 10441,
+                148: 10377,
+                15: 10257,
+                156: 10289,
+                1567: 10353,
+                15678: 10481,
+                1568: 10417,
+                157: 10321,
+                1578: 10449,
+                158: 10385,
+                16: 10273,
+                167: 10337,
+                1678: 10465,
+                168: 10401,
+                17: 10305,
+                178: 10433,
+                18: 10369,
+                2: 10242,
+                23: 10246,
+                234: 10254,
+                2345: 10270,
+                23456: 10302,
+                234567: 10366,
+                2345678: 10494,
+                234568: 10430,
+                23457: 10334,
+                234578: 10462,
+                23458: 10398,
+                2346: 10286,
+                23467: 10350,
+                234678: 10478,
+                23468: 10414,
+                2347: 10318,
+                23478: 10446,
+                2348: 10382,
+                235: 10262,
+                2356: 10294,
+                23567: 10358,
+                235678: 10486,
+                23568: 10422,
+                2357: 10326,
+                23578: 10454,
+                2358: 10390,
+                236: 10278,
+                2367: 10342,
+                23678: 10470,
+                2368: 10406,
+                237: 10310,
+                2378: 10438,
+                238: 10374,
+                24: 10250,
+                245: 10266,
+                2456: 10298,
+                24567: 10362,
+                245678: 10490,
+                24568: 10426,
+                2457: 10330,
+                24578: 10458,
+                2458: 10394,
+                246: 10282,
+                2467: 10346,
+                24678: 10474,
+                2468: 10410,
+                247: 10314,
+                2478: 10442,
+                248: 10378,
+                25: 10258,
+                256: 10290,
+                2567: 10354,
+                25678: 10482,
+                2568: 10418,
+                257: 10322,
+                2578: 10450,
+                258: 10386,
+                26: 10274,
+                267: 10338,
+                2678: 10466,
+                268: 10402,
+                27: 10306,
+                278: 10434,
+                28: 10370,
+                3: 10244,
+                34: 10252,
+                345: 10268,
+                3456: 10300,
+                34567: 10364,
+                345678: 10492,
+                34568: 10428,
+                3457: 10332,
+                34578: 10460,
+                3458: 10396,
+                346: 10284,
+                3467: 10348,
+                34678: 10476,
+                3468: 10412,
+                347: 10316,
+                3478: 10444,
+                348: 10380,
+                35: 10260,
+                356: 10292,
+                3567: 10356,
+                35678: 10484,
+                3568: 10420,
+                357: 10324,
+                3578: 10452,
+                358: 10388,
+                36: 10276,
+                367: 10340,
+                3678: 10468,
+                368: 10404,
+                37: 10308,
+                378: 10436,
+                38: 10372,
+                4: 10248,
+                45: 10264,
+                456: 10296,
+                4567: 10360,
+                45678: 10488,
+                4568: 10424,
+                457: 10328,
+                4578: 10456,
+                458: 10392,
+                46: 10280,
+                467: 10344,
+                4678: 10472,
+                468: 10408,
+                47: 10312,
+                478: 10440,
+                48: 10376,
+                5: 10256,
+                56: 10288,
+                567: 10352,
+                5678: 10480,
+                568: 10416,
+                57: 10320,
+                578: 10448,
+                58: 10384,
+                6: 10272,
+                67: 10336,
+                678: 10464,
+                68: 10400,
+                7: 10304,
+                78: 10432,
+                8: 10368
+            },
             tmpTable = maTable && maTable || brailleUnicode,
             txt = maTable && this.split('') || this.split('-'),
             l = txt.length,
@@ -343,12 +343,12 @@
             var node = n[i].tagName.toUpperCase();
             (node.indexOf(tag) !== -1) && a.push(n[i]);
         }
-        if (a.length === 0) {
-            return {};
-        } else {
-            return a;
-        }
-
+        // if (a.length === 0) {
+        //     return {};
+        // } else {
+        //     return a;
+        // }
+        return a;
     };
 
     /**
@@ -401,13 +401,10 @@
                 l = mesFormules.length,
                 i = 0;
             for (; i !== l; i++) {
-                // var langue = mesFormules[i].getAttribute('lang') || mesFormules[i].getAttribute('xml:lang') || langueDoc,
-                //     lg = langue.split('-')[0];
                 mathBraille = allVar[options.codeBrailleMath].mathBraille;
                 mesFormules[i].setAttribute('aria-hidden', true);
                 var parent = mesFormules[i].parentNode,
                     m = d.createElement('math'),
-                    // maForm = (parent.tagName !== 'body') && d.createElement(parent.tagName) || d.createElement('p');
                     maForm = d.createElement('span');
                 m.innerHTML = mesFormules[i].innerHTML;
                 _supprimeprefix(m);
@@ -433,7 +430,11 @@
                 _newMfracBloc(m);
                 _newMsqrtBloc(m);
                 _newMrootBloc(m);
+                _newMsupBloc(m);
+                _newMsubBloc(m);
+                _newMmultiscriptsBloc(m);
 
+                // console.log(m.innerHTML.trimall());
                 /*
                 NEW réécriture
                 écriture de l'équation selon les nouvelles balises
@@ -441,10 +442,10 @@
                 _newMfracWrite(m);
                 _newMsqrtWrite(m);
                 _newMrootWrite(m);
+                _newIndiceExposantWrite(m);
 
 
-
-                _mmultiscripts(m, options);
+                // _mmultiscripts(m, options);
                 // _mfrac(m, options);
                 // _mroot(m);
                 // _msqrt(m, options);
@@ -452,14 +453,13 @@
                 _munder(m, options);
                 _msubsup(m, options);
                 _munderover(m);
-                _msupORmsub(m, options);
+                // _msupORmsub(m, options);
                 // _msup(m, options);
                 // _msub(m, options);
                 // _msubsup(m, options);
                 // _munderover(m);
                 _mfenced(m, options, hardmat);
                 _mn(m);
-
                 _mo(m);
                 _mi(m);
 
@@ -801,6 +801,38 @@
 
 
     // TODO: multiscript
+
+    function _newMmultiscriptsBloc(eq) {
+        var multiscripts = eq.getElementsByTagName('mmultiscripts'),
+            lmultiscripts = multiscripts.length,
+            i = 0;
+        for (; i !== lmultiscripts; i++) {
+            var multi = multiscripts[i].children,
+                elts = [];
+            elts.push(multi[0]); //base
+
+            if (multi[1].tagName.toLowerCase() === 'mprescripts') {
+                elts.push(d.createElement('none')); //post1 indice
+                elts.push(d.createElement('none')); //post2 exposant
+                elts.push(multi[2]); //pre1 indice
+                elts.push(multi[3]); //pre2 exposant
+
+            } else {
+                elts.push(multi[1]); //post1 indice
+                elts.push(multi[2]); //post2 exposant
+                elts.push(multi[4]); //pre1 indice
+                elts.push(multi[5]); //pre2 exposant
+            }
+            var j = 1;
+            for (; j !== elts.length; j++) {
+                
+                console.log(elts[j].tagName);
+            }
+            console.log(eq.innerHTML);
+        }
+
+    }
+
     function _mmultiscripts(monEquation, o) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts'),
             monbool = (multiscripts.length > 1),
@@ -1116,13 +1148,13 @@
                         sep = mathBraille.caracMath.souscrit;
                         sep = options.chimie && mathBraille.caracMath.point6 + sep || sep;
                         break;
-                    // case 'msup':
-                    //     sep = mathBraille.caracMath.exposant;
-                    //     break;
-                    // case 'msub':
-                    //     sep = (enfant1.textContent.trim() !== '|') && mathBraille.caracMath.indice || sep;
-                    //     options.chimie && (sep = '');
-                    //     break;
+                        // case 'msup':
+                        //     sep = mathBraille.caracMath.exposant;
+                        //     break;
+                        // case 'msub':
+                        //     sep = (enfant1.textContent.trim() !== '|') && mathBraille.caracMath.indice || sep;
+                        //     options.chimie && (sep = '');
+                        //     break;
 
                     case 'mroot':
                         if (mover[0].nextElementSibling && mover[0].nextElementSibling.tagName !== 'mo') {
@@ -1389,6 +1421,80 @@
         }
     }
 
+    // TODO: Exposant indice
+
+    function _newMsupBloc(eq) {
+        var msup = eq.getElementsByTagName('msup');
+        while (msup[0]) {
+            var parent = msup[0].parentElement,
+                lvl = _newNiveauIndiceExposant(msup[0]),
+                bloc = d.createElement('msup-' + lvl);
+            bloc.innerHTML = msup[0].innerHTML;
+            parent.replaceChild(bloc, msup[0]);
+        }
+    }
+
+    function _newMsubBloc(eq) {
+        var msub = eq.getElementsByTagName('msub');
+        while (msub[0]) {
+            var parent = msub[0].parentElement,
+                lvl = _newNiveauIndiceExposant(msub[0]),
+                bloc = d.createElement('msub-' + lvl);
+            bloc.innerHTML = msub[0].innerHTML;
+            parent.replaceChild(bloc, msub[0]);
+        }
+    }
+
+    function _newNiveauIndiceExposant(elt) {
+        var parent = elt.parentElement,
+            tagElt = elt.tagName.split('-'),
+            tagName = parent.tagName.split('-'),
+            lvl = tagElt[0] === 'msup' && 'e' || 'i';
+        while (tagName[0] !== 'math') {
+            if (tagName[0] === 'msup') {
+                lvl += 'e';
+            } else if (tagName[0] === 'msub') {
+                lvl += 'i';
+            }
+            parent = parent.parentElement;
+            tagName = parent.tagName.split('-');
+        }
+        return lvl;
+    }
+
+    function _newIndiceExposantWrite(eq) {
+        var indExp = ['msup', 'msub'],
+            lindExp = indExp.length,
+            i = 0,
+            indice = mathBraille.caracMath.indice,
+            exposant = mathBraille.caracMath.exposant;
+        for (; i !== lindExp; i++) {
+            var ie = eq.getElementsByContainTagName(indExp[i]),
+                lie = ie.length,
+                j = lie - 1;
+            for (; j !== -1; j--) {
+                var tagName = ie[j].tagName.split('-'),
+                    enfants = ie[j].children,
+                    parent = enfants[1].parentNode;
+                if (tagName[1]) {
+                    var txt = tagName[1].split(''),
+                        bloc = (enfants[1].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && d.createElement(enfants[1].tagName) || d.createElement('bloc');
+                    bloc.innerHTML = enfants[1].innerHTML;
+                    bloc = bloc.children.length > 1 && bloc.block() || bloc;
+                    if (enfants[0].textContent.trim() !== '|') {
+                        for (var k = 0; k < txt.length; k++) {
+                            bloc = txt[k] === 'e' && bloc.block(exposant, '') || bloc;
+                            bloc = txt[k] === 'i' && bloc.block(indice, '') || bloc;
+                        }
+                    }
+                    parent.replaceChild(bloc, enfants[1]);
+                }
+            }
+        }
+    }
+
+
+
     function _msupORmsub(monEquation, o, multi) {
         var mover;
         if (monEquation.tagName !== 'msub' && monEquation.tagName !== 'msup') {
@@ -1403,7 +1509,6 @@
             case 'nemeth':
                 tagname === 'msub' && _virguleNemeth(mover);
                 while (mover[0] && mover[0].textContent.trimall() !== '') {
-
                     _niveauIndiceExposant(mover[0], o, multi);
                 }
                 break;
@@ -1498,7 +1603,7 @@
             parent = racine.parentNode;
         while (parent) {
             tagName = parent.tagName.split('-');
-            (tagName[0] === 'msqrt'||tagName[0] === 'mroot') && k++;
+            (tagName[0] === 'msqrt' || tagName[0] === 'mroot') && k++;
             parent = parent.parentNode;
         }
         return k;
@@ -1546,17 +1651,18 @@
     function _newMrootBloc(eq) {
         _newMsqrtBloc(eq, 'mroot');
     }
+
     function _newMrootWrite(eq) {
         var mroot = eq.getElementsByContainTagName('mroot'),
             lroot = mroot.length,
             i;
-            if (mroot[0]) {
-                i = lroot - 1;
-            } else {
-                i = -1;
-            }
-    
-            for (; i !== -1; i--) {
+        if (mroot[0]) {
+            i = lroot - 1;
+        } else {
+            i = -1;
+        }
+
+        for (; i !== -1; i--) {
             var elt = mroot[i],
                 tagName = elt.tagName.split('-'),
                 parent = elt.parentNode,
@@ -1569,40 +1675,43 @@
                 radical = mathBraille.caracMath.racine,
                 ordre = mathBraille.caracMath.ordreRadical && mathBraille.caracMath.ordreRadical.repeat(tagName[1]),
                 finRadical = mathBraille.caracMath.finRacine,
-                indiceRadical=mathBraille.caracMath.indiceRadical;
+                indiceRadical = mathBraille.caracMath.indiceRadical;
 
             bloccontenu.appendChild(enfant0);
-            console.log(enfant0.children.length);
-            
+            // console.log(enfant0.children.length);
+
             var child1 = enfant0.children;
             /******  français ******/
             if (elt.nextElementSibling && elt.nextElementSibling.tagName !== 'mo') {
+                monbool = true;
+            }
+            if (elt.previousElementSibling && elt.previousElementSibling.tagName !== 'mo') {
                 monbool = true;
             }
             if (child1.length === 1) {
                 if (child1[0].tagName.toLowerCase() === 'mrow' || child1[0].tagName.toLowerCase() === 'mpadded') {
                     bloccontenu = child1[0].children.length > 1 && bloccontenu.block() || bloccontenu;
                 }
-            } else if(child1.length >= 1) {
+            } else if (child1.length >= 1) {
                 bloccontenu = bloccontenu.block();
             }
             /******** fin fran *************/
-            console.log(monbool);
-            
+            // console.log(monbool);
+
             bloccontenu = finRadical && bloccontenu.block(radical, '') || bloccontenu.block(radical, '');
             bloc.appendChild(enfant1);
             bloc.appendChild(bloccontenu);
-            bloc = finRadical && bloc.block(ordre+indiceRadical, ordre + finRadical) || bloc.block(mathBraille.caracMath.exposant, '');
-            bloc=(!finRadical&&monbool)&&bloc.block()||bloc;
+            bloc = finRadical && bloc.block(ordre + indiceRadical, ordre + finRadical) || bloc.block(mathBraille.caracMath.exposant, '');
+            bloc = (!finRadical && monbool) && bloc.block() || bloc;
             parent.replaceChild(bloc, elt);
-            
+
         }
     }
 
 
-    function _mroot(monEquation) {
-        _mover(monEquation, 'mroot');
-    }
+    // function _mroot(monEquation) {
+    //     _mover(monEquation, 'mroot');
+    // }
 
     function _retourChariotMatrice(monEquation) {
         var txt, nbcar, close, idx, j, spc = "";
