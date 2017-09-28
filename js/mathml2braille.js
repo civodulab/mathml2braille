@@ -434,7 +434,7 @@
                 _newMsubBloc(m);
                 _newMmultiscriptsBloc(m);
 
-                // console.log(m.innerHTML.trimall());
+                console.log(m.innerHTML.trimall());
                 /*
                 NEW réécriture
                 écriture de l'équation selon les nouvelles balises
@@ -445,7 +445,7 @@
                 _newIndiceExposantWrite(m);
 
 
-                // _mmultiscripts(m, options);
+                _mmultiscripts(m, options);
                 // _mfrac(m, options);
                 // _mroot(m);
                 // _msqrt(m, options);
@@ -809,26 +809,27 @@
         for (; i !== lmultiscripts; i++) {
             var multi = multiscripts[i].children,
                 elts = [];
-            elts.push(multi[0]); //base
-
+                elts.push(multi[0]); //base
+                
             if (multi[1].tagName.toLowerCase() === 'mprescripts') {
                 elts.push(d.createElement('none')); //post1 indice
                 elts.push(d.createElement('none')); //post2 exposant
+                elts.push(multi[1]);
                 elts.push(multi[2]); //pre1 indice
                 elts.push(multi[3]); //pre2 exposant
 
             } else {
                 elts.push(multi[1]); //post1 indice
                 elts.push(multi[2]); //post2 exposant
+                elts.push(multi[3]);
                 elts.push(multi[4]); //pre1 indice
                 elts.push(multi[5]); //pre2 exposant
             }
-            var j = 1;
+            var j = 0;
+            multiscripts[i].innerHTML='';
             for (; j !== elts.length; j++) {
-
-                console.log(elts[j].tagName);
+                multiscripts[i].appendChild(elts[j]);
             }
-            console.log(eq.innerHTML);
         }
 
     }
@@ -881,14 +882,14 @@
                 df.appendChild(d.createTextNode(indice));
                 baseNemethPrevious = boolparent && indice || baseNemeth;
                 (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
-                pre1.hasChild(['msup', 'msub']) && _msupORmsub(pre1, o, 'indice');
+                // pre1.hasChild(['msup', 'msub']) && _msupORmsub(pre1, o, 'indice');
             }
             if (pre2.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(exposant));
                 baseNemethPrevious = boolparent && exposant || baseNemeth;
                 (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
 
-                pre2.hasChild(['msup', 'msub']) && _msupORmsub(pre2, o, 'exposant');
+                // pre2.hasChild(['msup', 'msub']) && _msupORmsub(pre2, o, 'exposant');
 
             }
             (o.codeBrailleMath === 'nemeth') && df.appendChild(d.createTextNode(baseNemeth));
@@ -896,12 +897,12 @@
             if (post1.tagName.toLowerCase() !== 'none') {
                 !post1.textContent.trimall().isNumeric() && df.appendChild(d.createTextNode(indice));
                 (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
-                post1.hasChild(['msup', 'msub']) && _msupORmsub(post1, o, 'indice');
+                // post1.hasChild(['msup', 'msub']) && _msupORmsub(post1, o, 'indice');
             }
             if (post2.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(exposant));
                 (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
-                post2.hasChild(['msup', 'msub']) && _msupORmsub(post2, o, 'exposant');
+                // post2.hasChild(['msup', 'msub']) && _msupORmsub(post2, o, 'exposant');
 
             }
             baseNemeth = baseNemethPrevious;
@@ -1455,11 +1456,26 @@
                 lvl += 'e';
             } else if (tagName[0] === 'msub') {
                 lvl += 'i';
+            }else if(tagName[0]==='mmultiscripts'){
+                var pos=_positionDansMultiscript(parent,elt);
+                if(pos===2||pos===5) lvl+='i';
+                if(pos===1||pos===4) lvl+='e';
+                console.log(pos);
             }
             parent = parent.parentElement;
             tagName = parent.tagName.split('-');
         }
         return lvl;
+    }
+
+    function _positionDansMultiscript(parent,elt){
+        var enfants=parent.children,
+        lenfants=enfants.lenght,
+        i=0;
+        for(;i!==lenfants;i++){
+            if(enfants[i]===elt) return i;
+        }
+        return -1;
     }
 
     function _newIndiceExposantWrite(eq) {

@@ -678,7 +678,7 @@
 		<h3>§ 78. Exposants et indices à gauche</h3>
 		<p class="courant">
 			<span>« n » a un exposant « x » à gauche</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mmultiscripts>
 					<mi>n</mi>
 					<mprescripts/>
@@ -730,7 +730,7 @@
 		<p class="courant">
 			<span>« 10 » a un exposant « 4 » ; cet exposant a un exposant
 					« moins » à gauche</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
 				<msup>
 					<mn>10</mn>
 					<mmultiscripts>
@@ -746,7 +746,7 @@
 		<p class="courant">
 			<span>« x » a un exposant « n » à gauche ; cet exposant a un
 					indice « a »</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
 				<mmultiscripts>
 					<mi>x</mi>
 					<mprescripts/>
@@ -796,7 +796,7 @@
 		<p class="courant">
 			<span>« x » a un indice « n » à gauche ; cet indice a un
 					exposant « a » à gauche</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mmultiscripts>
 					<mi>x</mi>
 					<mprescripts/>
@@ -814,7 +814,7 @@
 		<p class="courant">
 			<span>« n » a un indice « x » à gauche ; cet indice a un
 					indice « y »</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mmultiscripts>
 					<mi>n</mi>
 					<mprescripts/>
@@ -830,7 +830,7 @@
 		<p class="courant">
 			<span>« n » a un indice « x » à gauche ; cet indice a un
 					indice « y » à gauche</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mmultiscripts>
 					<mi>n</mi>
 					<mprescripts/>
@@ -1536,7 +1536,7 @@
 			<span class="mathbraille">⠜⠨⠣⠒⠜⠭⠨⠻⠻⠀⠨⠅⠀⠣⠒⠜⠨⠜⠭⠨⠻⠻</span>
 		</p>
 	</section>
-	<p class="js-brailleDirect">"0123456., 789[]_</p>
+	<p class="js-brailleDirect">ü*/@"abcdefghijklmnopqrstuvwxyz ê 0123456789</p>
 	<script type="text/javascript" src="../js/varTBA.js"></script>
 	<script type="text/javascript" src="../js/varTBF.js"></script>
 	<script type="text/javascript" src="../js/allVar.js"></script>
@@ -1557,9 +1557,9 @@
 			'codeBrailleMath': 'nemeth',
 			'codeSysteme': 'SA'
 		};
-		mathml2braille('.js-indice', options1);
+		mathml2braille('.test', options1);
 		// mathml2braille('.js-math2braille', options1);
-		// brailledirect('.js-brailleDirect', 'nemeth');
+		// brailledirect('.js-brailleDirect', 'fr');
 		// mathml2braille('.js-chimie', options3);
 		// mathml2braille('.js-SA', options4);
 	</script>
