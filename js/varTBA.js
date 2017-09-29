@@ -181,7 +181,7 @@
        'ordreRadical':'-46-',
        'indiceRadical':'-126-',
        'majuscule': '-6-',
-       'point5': '-5-',
+       'indicateurBase': '-5-',
      },
      'caracDec': {
        susouscrit: {

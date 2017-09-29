@@ -434,7 +434,6 @@
                 _newMsubBloc(m);
                 _newMmultiscriptsBloc(m);
 
-                console.log(m.innerHTML.trimall());
                 /*
                 NEW réécriture
                 écriture de l'équation selon les nouvelles balises
@@ -443,9 +442,9 @@
                 _newMsqrtWrite(m);
                 _newMrootWrite(m);
                 _newIndiceExposantWrite(m);
+                // _newMmultiscriptsWrite(m);
 
-
-                _mmultiscripts(m, options);
+                // _mmultiscripts(m, options);
                 // _mfrac(m, options);
                 // _mroot(m);
                 // _msqrt(m, options);
@@ -809,8 +808,9 @@
         for (; i !== lmultiscripts; i++) {
             var multi = multiscripts[i].children,
                 elts = [];
-                elts.push(multi[0]); //base
-                
+
+            elts.push(multi[0]); //base
+
             if (multi[1].tagName.toLowerCase() === 'mprescripts') {
                 elts.push(d.createElement('none')); //post1 indice
                 elts.push(d.createElement('none')); //post2 exposant
@@ -825,23 +825,44 @@
                 elts.push(multi[4]); //pre1 indice
                 elts.push(multi[5]); //pre2 exposant
             }
-            var j = 0;
-            multiscripts[i].innerHTML='';
-            for (; j !== elts.length; j++) {
-                multiscripts[i].appendChild(elts[j]);
+            for (var j = 0; j < elts.length; j++) {
+            multiscripts[i].appendChild(elts[j]); 
             }
+
+            var idlvl = (elts[1].tagName.toLowerCase() !== 'none') && _newNiveauIndiceExposant(elts[1]) || -1,
+                edlvl = (elts[2].tagName.toLowerCase() !== 'none') && _newNiveauIndiceExposant(elts[2]) || -1,
+                iglvl = (elts[4].tagName.toLowerCase() !== 'none') && _newNiveauIndiceExposant(elts[4]) || -1,
+                eglvl = (elts[5].tagName.toLowerCase() !== 'none') && _newNiveauIndiceExposant(elts[5]) || -1,
+                id = idlvl === -1 && d.createElement('bloc') || d.createElement('blocmsub-' + idlvl),
+                ed = edlvl === -1 && d.createElement('bloc') || d.createElement('blocmsup-' + edlvl),
+                ig = iglvl === -1 && d.createElement('bloc') || d.createElement('blocmsub-' + iglvl),
+                eg = eglvl === -1 && d.createElement('bloc') || d.createElement('blocmsup-' + eglvl);
+            multiscripts[i].innerHTML = '';
+            ig.appendChild(elts[4]);
+            multiscripts[i].appendChild(ig); // indice gauche
+            eg.appendChild(elts[5]);
+            multiscripts[i].appendChild(eg); // exposant gauche
+            multiscripts[i].appendChild(elts[0]); //base
+            id.appendChild(elts[1]);
+            multiscripts[i].appendChild(id); //indice droit
+            ed.appendChild(elts[2]);
+            multiscripts[i].appendChild(ed); //exposant droit
+
         }
+    }
+
+    function _newMmultiscriptsWrite(eq) {
+        var multiscripts = eq.getElementsByTagName('mmultiscripts');
+
 
     }
+
+
 
     function _mmultiscripts(monEquation, o) {
         var multiscripts = monEquation.getElementsByTagName('mmultiscripts'),
             monbool = (multiscripts.length > 1),
             boolparent = false,
-            post1,
-            post2,
-            pre1,
-            pre2,
             indice = mathBraille.caracMath.indice,
             exposant = mathBraille.caracMath.exposant,
             baseNemethPrevious,
@@ -856,19 +877,11 @@
             var elt = multiscripts[lmulti].children,
                 parent = multiscripts[lmulti].parentNode,
                 df = d.createElement('mmultiscripts-block'),
-                base = elt[0];
-
-            if (elt[1].tagName.toLowerCase() === 'mprescripts') {
-                pre1 = elt[2];
-                pre2 = elt[3];
-                post1 = d.createElement('none');
-                post2 = d.createElement('none');
-            } else {
-                post1 = elt[1];
-                post2 = elt[2];
-                pre1 = elt[4];
-                pre2 = elt[5];
-            }
+                base = elt[0],
+                post1 = elt[1].children[0],
+                post2 = elt[2].children[0],
+                pre1 = elt[4].children[0],
+                pre2 = elt[5].children[0];
             indice = o.chimie && mathBraille.caracMath.point6 + indice || indice;
             exposant = o.chimie && mathBraille.caracMath.point6 + exposant || exposant;
             boolparent = multiscripts[lmulti].hasChild(['mmultiscripts']);
@@ -895,12 +908,12 @@
             (o.codeBrailleMath === 'nemeth') && df.appendChild(d.createTextNode(baseNemeth));
             !o.chimie && df.appendChild(base);
             if (post1.tagName.toLowerCase() !== 'none') {
-                !post1.textContent.trimall().isNumeric() && df.appendChild(d.createTextNode(indice));
+                // !post1.textContent.trimall().isNumeric() && df.appendChild(d.createTextNode(indice));
                 (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
                 // post1.hasChild(['msup', 'msub']) && _msupORmsub(post1, o, 'indice');
             }
             if (post2.tagName.toLowerCase() !== 'none') {
-                df.appendChild(d.createTextNode(exposant));
+                // df.appendChild(d.createTextNode(exposant));
                 (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
                 // post2.hasChild(['msup', 'msub']) && _msupORmsub(post2, o, 'exposant');
 
@@ -1429,9 +1442,14 @@
         while (msup[0]) {
             var parent = msup[0].parentElement,
                 lvl = _newNiveauIndiceExposant(msup[0]),
-                bloc = d.createElement('msup-' + lvl);
+                bloc = d.createElement('msup-f'),
+                bloc2 = d.createElement('blocmsup-' + lvl);
             bloc.innerHTML = msup[0].innerHTML;
+            bloc2.appendChild(bloc.children[1]);
+
             parent.replaceChild(bloc, msup[0]);
+            bloc.appendChild(bloc2);
+
         }
     }
 
@@ -1440,9 +1458,12 @@
         while (msub[0]) {
             var parent = msub[0].parentElement,
                 lvl = _newNiveauIndiceExposant(msub[0]),
-                bloc = d.createElement('msub-' + lvl);
+                bloc = d.createElement('msub-f'),
+                bloc2 = d.createElement('blocmsub-' + lvl);
             bloc.innerHTML = msub[0].innerHTML;
+            bloc2.appendChild(bloc.children[1]);
             parent.replaceChild(bloc, msub[0]);
+            bloc.appendChild(bloc2);
         }
     }
 
@@ -1450,17 +1471,19 @@
         var parent = elt.parentElement,
             tagElt = elt.tagName.split('-'),
             tagName = parent.tagName.split('-'),
-            lvl = tagElt[0] === 'msup' && 'e' || 'i';
+            lvl = '';
+        lvl = tagElt[0] === 'msup' && 'e' || lvl;
+        lvl = tagElt[0] === 'msub' && 'i' || lvl;
+
         while (tagName[0] !== 'math') {
             if (tagName[0] === 'msup') {
                 lvl += 'e';
             } else if (tagName[0] === 'msub') {
                 lvl += 'i';
-            }else if(tagName[0]==='mmultiscripts'){
-                var pos=_positionDansMultiscript(parent,elt);
-                if(pos===2||pos===5) lvl+='i';
-                if(pos===1||pos===4) lvl+='e';
-                console.log(pos);
+            } else if (tagName[0] === 'mmultiscripts') {
+                    var pos = _positionDansMultiscript(elt);
+                    if (pos === 2 || pos === 5) lvl += 'e';
+                    if (pos === 1 || pos === 4) lvl += 'i';
             }
             parent = parent.parentElement;
             tagName = parent.tagName.split('-');
@@ -1468,42 +1491,59 @@
         return lvl;
     }
 
-    function _positionDansMultiscript(parent,elt){
-        var enfants=parent.children,
-        lenfants=enfants.lenght,
-        i=0;
-        for(;i!==lenfants;i++){
-            if(enfants[i]===elt) return i;
+    function _positionDansMultiscript(elt) {
+        var parent = elt.parentElement,
+            enfants = parent.children,
+            lenfants = enfants.length,
+            i = 0;
+        for (; i !== lenfants; i++) {
+            if (enfants[i] === elt) return i;
         }
         return -1;
     }
 
     function _newIndiceExposantWrite(eq) {
+        // console.log(eq.innerHTML);
+        
         var indExp = ['msup', 'msub'],
             lindExp = indExp.length,
             i = 0,
             indice = mathBraille.caracMath.indice,
-            exposant = mathBraille.caracMath.exposant;
+            exposant = mathBraille.caracMath.exposant,
+            indicateurBase=mathBraille.caracMath.indicateurBase&&mathBraille.caracMath.indicateurBase||'';
         for (; i !== lindExp; i++) {
-            var ie = eq.getElementsByContainTagName(indExp[i]),
+            var ie = eq.getElementsByContainTagName('bloc' + indExp[i]),
                 lie = ie.length,
                 j = lie - 1;
             for (; j !== -1; j--) {
-                var tagName = ie[j].tagName.split('-'),
-                    enfants = ie[j].children,
-                    parent = enfants[1].parentNode;
+                var elt = ie[j],
+                    tagName = elt.tagName.split('-'),
+                    parent = elt.parentNode;
                 if (tagName[1]) {
                     var txt = tagName[1].split(''),
-                        bloc = (enfants[1].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && d.createElement(enfants[1].tagName) || d.createElement('bloc');
-                    bloc.innerHTML = enfants[1].innerHTML;
-                    bloc = bloc.children.length > 1 && bloc.block() || bloc;
-                    if (enfants[0].textContent.trim() !== '|') {
+                        bloc = (elt.children[0].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && d.createElement(elt.tagName) || d.createElement('bloc');
+                    bloc.innerHTML = elt.innerHTML;
+
+                    bloc = bloc.children[0].children.length > 1 && bloc.block() || bloc;
+                    if (!(elt.previousElementSibling && elt.previousElementSibling.textContent.trim() === '|')) {
                         for (var k = 0; k < txt.length; k++) {
                             bloc = txt[k] === 'e' && bloc.block(exposant, '') || bloc;
                             bloc = txt[k] === 'i' && bloc.block(indice, '') || bloc;
                         }
                     }
-                    parent.replaceChild(bloc, enfants[1]);
+                    var nextElt=elt.nextElementSibling;
+                    
+                    while (nextElt&&nextElt.tagName.toLowerCase()==='bloc') {
+                        nextElt=nextElt.nextElementSibling;
+
+                    }
+                    var indicBaseDom=['mi','mo','mn'];
+                    // console.log(nextElt&&nextElt.tagName);
+                    if(nextElt&&indicBaseDom.indexOf(nextElt.tagName)!==-1){
+                        if(txt.length>1)indicateurBase=txt[0];
+                        bloc=bloc.block('',indicateurBase);
+                    }
+                    parent.replaceChild(bloc, elt);
                 }
             }
         }
@@ -1694,7 +1734,6 @@
                 indiceRadical = mathBraille.caracMath.indiceRadical;
 
             bloccontenu.appendChild(enfant0);
-            // console.log(enfant0.children.length);
 
             var child1 = enfant0.children;
             /******  français ******/
@@ -1712,7 +1751,6 @@
                 bloccontenu = bloccontenu.block();
             }
             /******** fin fran *************/
-            // console.log(monbool);
 
             bloccontenu = finRadical && bloccontenu.block(radical, '') || bloccontenu.block(radical, '');
             bloc.appendChild(enfant1);

@@ -308,7 +308,7 @@
 		</p>
 		<p class="courant">
 			<span>e exposant « x plus trois »</span>
-			<math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+			<math class="js-math2braille " xmlns="http://www.w3.org/1998/Math/MathML">
 				<msup>
 					<mi>e</mi>
 					<mrow>
@@ -618,7 +618,7 @@
 		<h3>9.5 Indices placés à gauche d'une quantité ou préfixes</h3>
 		<p class="courant">
 			<span>A indice supérieur t à gauche (transposée de A)</span>
-			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+			<math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille test">
 				<mmultiscripts>
 					<mi>A</mi>
 					<mprescripts/>
@@ -2869,10 +2869,9 @@
 		var options3 = {
 			'chimie': true, // false par défaut
 		}
+		// mathml2braille('.test',options1);
 		mathml2braille('.js-math2braille', options1);
-		// mathml2braille('.test',options3);
 		mathml2braille('.js-matrice-lineaire', options2);
-		// brailledirect('.js-brailleDirect');
 		mathml2braille('.js-chimie', options3);
 	</script>
 </body>
