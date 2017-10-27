@@ -523,7 +523,7 @@
 		</p>
 		<p class="courant">
 			<span>« n » a un indice « x » ; cet indice a un indice « y »</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
 				<msub>
 					<mi>n</mi>
 					<msub>
@@ -673,7 +673,7 @@
 		<h3>§ 78. Exposants et indices à gauche</h3>
 		<p class="courant">
 			<span>« n » a un exposant « x » à gauche</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mmultiscripts>
 					<mi>n</mi>
 					<mprescripts/>
@@ -722,7 +722,7 @@
 		<p class="courant">
 			<span>« 10 » a un exposant « 4 » ; cet exposant a un exposant « moins » à gauche</span>
 			<math xmlns="http://www.w3.org/1998/Math/MathML"
-			    class="js-math2braille js-indice test">
+			    class="js-math2braille js-indice ">
 				<msup>
 					<mn>10</mn>
 					<mmultiscripts>
@@ -753,8 +753,8 @@
 		</p>
 		<p class="courant">
 			<span>« x » a un exposant « n » à gauche ; cet exposant a un indice « a » à gauche</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML"
-			    class="js-math2braille js-indice ">
+			<math class="js-math2braille js-indice "
+			    xmlns="http://www.w3.org/1998/Math/MathML">
 				<mmultiscripts>
 					<mi>x</mi>
 					<mprescripts/>
@@ -763,7 +763,7 @@
 						<mi>n</mi>
 						<mprescripts/>
 						<mi>a</mi>
-						<none/> </mmultiscripts>
+						<none /> </mmultiscripts>
 				</mmultiscripts>
 			</math>
 			<span class="mathbraille">⠘⠰⠁⠘⠝⠐⠭</span>
@@ -1095,7 +1095,7 @@
 					</mrow>
 				</msub>
 				</math>
-				<span class="mathbraille">⠭⠰⠂⠀⠴⠴⠴⠴</span>
+				<span class="mathbraille">⠭⠂⠴⠀⠴⠴⠴</span>
 		</p>
 		<p class="courant">
 			<span>x a un indice 1,2 ; l’indicateur d’indice n’est pas requis parce que les conditions i à iv sont remplies</span>
@@ -1534,11 +1534,11 @@
 			'codeBrailleMath': 'nemeth',
 			'codeSysteme': 'SA'
 		};
-		mathml2braille('.test', options1);
-		// mathml2braille('.js-math2braille', options1);
-		// brailledirect('.js-brailleDirect', 'fr');
-		// mathml2braille('.js-chimie', options3);
-		// mathml2braille('.js-SA', options4);
+		// mathml2braille('.test', options1);
+		mathml2braille('.js-math2braille', options1);
+		brailledirect('.js-brailleDirect', 'fr');
+		mathml2braille('.js-chimie', options3);
+		mathml2braille('.js-SA', options4);
 	</script>
 </body>
 
