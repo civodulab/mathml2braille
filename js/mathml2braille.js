@@ -448,13 +448,13 @@
 
 
                 _newMsubsupBloc(m);
+                _newMunderover(m);
                 console.log(m.innerHTML);
 
                 _newMsupBloc(m);
-
                 _newMsubBloc(m);
 
-                _placementMultiscript(m);
+                _newPlacementMultiscript(m);
 
 
                 /*
@@ -479,7 +479,7 @@
                 _mover(m, 'mover', options);
                 _munder(m, options);
                 // _msubsup(m, options);
-                _munderover(m);
+                // _munderover(m);
                 // _msupORmsub(m, options);
                 // _msup(m, options);
                 // _msub(m, options);
@@ -896,7 +896,7 @@
         }
     }
 
-    function _placementMultiscript(eq) {
+    function _newPlacementMultiscript(eq) {
         var multiscripts = eq.getElementsByTagName('mmultiscripts');
         while (multiscripts[0]) {
             var parent = multiscripts[0].parentElement,
@@ -1133,12 +1133,13 @@
 
     // TODO: subsup
 
-    function _newMsubsupBloc(eq) {
-        var msubsup = eq.getElementsByTagName('msubsup'),
+    function _newMsubsupBloc(eq, tag) {
+        tag = tag && tag || 'msubsup';
+        var msubsup = eq.getElementsByTagName(tag),
             indicateurBase = mathBraille.caracMath.indicateurBase && mathBraille.caracMath.indicateurBase || '';
         while (msubsup[0]) {
             var parent = msubsup[0].parentNode,
-                bloc = d.createElement('msubsup-f'),
+                bloc = d.createElement(tag + '-f'),
                 lvlsub = _newNiveauIndiceExposant(msubsup[0].children[1]),
                 lvlsup = _newNiveauIndiceExposant(msubsup[0].children[2]),
                 blocsup = lvlsup === -1 && d.createElement('bloc') || d.createElement('blocsubsup-' + lvlsup),
@@ -1299,6 +1300,10 @@
 
     function _munder(monEquation, o) {
         _mover(monEquation, 'munder', o);
+    }
+
+    function _newMunderover(eq) {
+        _newMsubsupBloc(eq, 'underover')
     }
 
     function _munderover(monEquation, o) {
@@ -1613,9 +1618,9 @@
                     }
 
                     break;
+                case 'munderover':
                 case 'msubsup':
                     pos = _positionDansParent(enfant);
-                    console.log('msubsup : ' + pos + ' - elt:' + tagElt);
                     if (pos === 1) {
                         lvl += 'i';
                     } else if (pos === 2) {
