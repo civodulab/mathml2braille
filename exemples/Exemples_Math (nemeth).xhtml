@@ -874,7 +874,7 @@
 		<p class="courant">
 			<span>x prime indice 1 ; l’indicateur d’indice n’est pas requis parce que les conditions i à iv sont remplies</span>
 			<math xmlns="http://www.w3.org/1998/Math/MathML"
-			    class="js-math2braille js-indice">
+			    class="js-math2braille js-indice test">
 				<mi>x</mi>
 				<msub>
 					<mo>'</mo>
@@ -909,7 +909,7 @@
 		</p>
 		<p class="courant">
 			<span>x a un indice i ; cet indice a un indice 1 ; l’indicateur d’indice est requis parce que la condition ii n’est pas remplie</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<msub>
 					<mi>x</mi>
 					<msub>
@@ -1129,7 +1129,7 @@
 		</p>
 		<p class="courant">
 			<span>la sommation de zéro à n de a indice k ; l’indicateur d’indice n’est pas requis parce que les conditions i à iv sont remplies</span>
-			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice test">
+			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille js-indice ">
 				<mstyle displaystyle="false">
 					<munderover>
 						<mo>&#x2211;</mo>
@@ -1535,6 +1535,7 @@
 			'codeSysteme': 'SA'
 		};
 		// mathml2braille('.test', options1);
+		// mathml2braille('.test', options3);
 		mathml2braille('.js-math2braille', options1);
 		brailledirect('.js-brailleDirect', 'fr');
 		mathml2braille('.js-chimie', options3);

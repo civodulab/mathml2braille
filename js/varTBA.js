@@ -71,11 +71,11 @@
    mathTBA = {
      'caracMath': {
        'espaceInsecable': '-BLANK-',
-       'separateurIndiceExposant':{
+       'separateurIndiceExposant': {
          'virgule': '-246-',
-         'pointvirgule':'-456-246-'
+         'pointvirgule': '-456-246-'
        },
-       'indicateurNumerique':'3456',
+       'indicateurNumerique': '3456',
        'indicateurFraction': {
          'simple': {
            'open': '-1456-',
@@ -170,16 +170,16 @@
        },
        'indice': '-56-',
        'exposant': '-45-',
-       'suscrit': '-4-4-',
-       'souscrit': '-26-26-',
+       'suscrit': '-45-',
+       'souscrit': '-56-',
 
        'matrice': {
          'sepLigne': '-6-345-',
        },
        'racine': '-345-',
-       'finRacine':'-12456-',
-       'ordreRadical':'-46-',
-       'indiceRadical':'-126-',
+       'finRacine': '-12456-',
+       'ordreRadical': '-46-',
+       'indiceRadical': '-126-',
        'majuscule': '-6-',
        'indicateurBase': '-5-',
      },
@@ -414,8 +414,8 @@
        // RIGHT TACK ⊢ &‌#8866; &‌#x22A2;
        // LEFT TACK ⊣ &‌#8867; &‌#x22A3;
        // DOWN TACK ⊤ &‌#8868; &‌#x22A4;
-      8756:'-6-16-',  // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
-      8757:'-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
+       8756: '-6-16-', // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
+       8757: '-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
        // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
        // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
        8773: '-456-2356-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
@@ -708,7 +708,7 @@
        /*
        ⇓ 8659 21D3 &dArr; DOWNWARDS DOUBLE ARROW
        */
-       8660:'-1246-246-2356-2356-135-', //⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW
+       8660: '-1246-246-2356-2356-135-', //⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW
        /*⇕ 8661 21D5   UP DOWN DOUBLE ARROW
        ⇖ 8662 21D6   NORTH WEST DOUBLE ARROW
        ⇗ 8663 21D7   NORTH EAST DOUBLE ARROW
