@@ -27,6 +27,7 @@
         return false;
     }
 
+    
     Object.prototype.hasChild = function (parentTagname) {
         parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
         var l = parentTagname.length,
