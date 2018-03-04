@@ -13616,6 +13616,27 @@
     <div class="loading-indicator">
 
     </div>
+    <script type="text/javascript" src="../js/varTBUE.js"></script>
+    <script type="text/javascript" src="../js/allVar.js"></script>
+    <script type="text/javascript" src="../js/mathml2braille.js"></script>
+    <script>
+		var options1 = {
+			'codeBrailleMath': 'ue', // 3 options : "fr", "nemeth" et "ueb". "fr" par defaut
+			'maxCaracCell': 14 //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire (10 par défaut)
+		};
+		var options2 = {
+			'matriceLineaire': true, // false par défaut
+		};
+		var options3 = {
+			'codeBrailleMath': 'ue',
+			'chimie': true, // false par défaut
+		};
+	
+		// mathml2braille('.test', options1);
+		// mathml2braille('.test', options3);
+		mathml2braille('.js-math2braille', options1);
+		mathml2braille('.js-chimie', options3);
+	</script>
 </body>
 
 </html>
