@@ -117,33 +117,33 @@
          'close': ''
        },
        'parenthese': {
-         'open': '-12356-',
-         'close': '-23456-'
+         'open': '-5-126-',
+         'close': '-5-345-'
        },
        'grandeparenthese1': { // imbrication
-         'open': '-5-12356-',
-         'close': '-5-23456-'
-       },
+        'open': '-5-126-',
+        'close': '-5-345-'
+      },
        'grandeparenthese2': { // sur plusieurs lignes
-         'open': '-45-12356-',
-         'close': '-45-23456-'
-       },
+        'open': '-6-5-126-',
+        'close': '-6-5-345-'
+      },
        'accolade': {
-         'open': '-46-12356-',
-         'close': '-46-23456-'
-       },
+        'open': '-456-126-',
+        'close': '-456-345-'
+      },
        'grandeaccolade': { //plusieurs lignes
-         'open': '-456-12356-',
-         'close': '-456-23456-'
-       },
+        'open': '-6-456-126-',
+        'close': '-6-456-345-'
+      },
        'barre': {
-         'open': '-1256-',
-         'close': '-1256-'
-       },
+        'open': '-456-1256-',
+        'close': '-456-1256-'
+      },
        'grandebarre': { //plusieurs lignes
-         'open': '-6-1256-',
-         'close': '-6-1256-'
-       },
+        'open': '-6-456-1256-',
+        'close': '-6-456-1256-'
+      },
        'doublebarre': {
          'open': '-1256-1256-',
          'close': '-1256-1256-'
@@ -153,17 +153,17 @@
          'close': '-46-123456-'
        },
        'crochet': {
-         'open': '-4-12356-',
-         'close': '-4-23456-',
-       },
+        'open': '-46-126-',
+        'close': '-46-345-'
+      },
        'grandcrochet1': {
-         'open': '-5-12356-',
-         'close': '-5-23456-',
-       },
+        'open': '-46-126-',
+        'close': '-46-345-'
+      },
        'grandcrochet2': { // plusieurs lignes
-         'open': '-45-12356-',
-         'close': '-45-23456-',
-       },
+        'open': '-6-46-126-',
+        'close': '-6-46-345-'
+      },
        'crochetdouble': {
          'open': '-46-12356-',
          'close': '-46-23456-'
@@ -246,31 +246,31 @@
        121: '-13456-',
        122: '-1356-',
        /* chiffres */
-       48: '-356-', //0
-       49: '-2-', // 1
-       50: '-23-', // 2
-       51: '-25-', // 3
-       52: '-256-', // 4
-       53: '-26-', // 5
-       54: '-235-', // 6
-       55: '-2356-', // 7
-       56: '-236-', // 8
-       57: '-35-', // 9
+       48: '-245-', //0
+       49: '-1-', // 1
+       50: '-12-', // 2
+       51: '-14-', // 3
+       52: '-145-', // 4
+       53: '-15-', // 5
+       54: '-124-', // 6
+       55: '-1245-', // 7
+       56: '-125-', // 8
+       57: '-24-', // 9
        /* fin chiffres */
        39: '-2356-', // '
-       40: '-12356-', // (
-       41: '-23456-', // )  
+       40: '-5-126-', // (
+       41: '-5-345-', // )  
        58: '-25-', // :
        59: '-23-', // ;
-       91: '-12356-', // [
-       93: '-23456-', // ]
-       123: '-46-12356-', // { accolade gauche
-       125: '-46-23456-', // { accolade droite
-       124: '-1256-', // |
+       91: '-46-126-', // [
+       93: '-46-345-', // ]
+       123: '-456-126-', // { accolade gauche
+       125: '-456-345-', // { accolade droite
+       124: '-456-1256-', // |
        8214: '-1256-1256-', // ||
-       44: '-6-', // ,
+       44: '-2-', // ,
        45: '-5-36-', // -
-       46: '-46-', // .
+       46: '-256-', // .
        42: '-4-3456-', // *
        43: '-5-235-', // +
        47: '-456-34-', // /
@@ -417,13 +417,13 @@
        // DOWN TACK ⊤ &‌#8868; &‌#x22A4;
        8756: '-6-16-', // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
        8757: '-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
-       // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
+       8733: '-456-5-2356-',// PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
        // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
-       8773: '-456-2356-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
-       8776: '-5-2356-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
+       8773: '-5-456-35-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
+       8776: '-45-35-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
        8777: '-46-5-2356-', // NOT ALMOST EQUAL TO ≉ — &‌#8777; &‌#x2249;
        8764: '-45-2356-', // TILDE SIMILAR TO ∼ &sim; &‌#8764; &‌#x223C;
-       8801: '-2356-2356-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
+       8801: '-456-123456-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
        8802: '-46-2356-2356-', // NOT IDENTICAL TO ≢ — &‌#8802; &‌#x2262;
        // STRICTLY EQUIVALENT TO ≣ &‌#8803; &‌#x2263;
        // NOT IDENTICAL TO ≢ &‌#8802; &‌#x2262;
@@ -431,8 +431,8 @@
        // GREATER-THAN OVER EQUAL TO ≧ &‌#8807; &‌#x2267;
        // LESS-THAN BUT NOT EQUAL TO ≨ &‌#8808; &‌#x2268;
        // GREATER-THAN BUT NOT EQUAL TO ≩ &‌#8809; &‌#x2269;
-       8810: '-5-5-126-', // MUCH LESS-THAN ≪ &‌#8810; &‌#x226A;
-       8811: '-5-5-345-', // MUCH GREATER-THAN ≫ &‌#8811; &‌#x226B;
+       8810: '-46-4-126-', // MUCH LESS-THAN ≪ &‌#8810; &‌#x226A;
+       8811: '-46-4-345-', // MUCH GREATER-THAN ≫ &‌#8811; &‌#x226B;
        // BETWEEN ≬ &‌#8812; &‌#x226C;
        // NOT EQUIVALENT TO ≭ &‌#8813; &‌#x226D;
        // NOT LESS-THAN ≮ &‌#8814; &‌#x226E;
@@ -449,7 +449,7 @@
        // NEITHER GREATER-THAN NOR LESS-THAN ≹ &‌#8825; &‌#x2279;
        // NOT TILDE ≁ &‌#8769; &‌#x2241;
        // MINUS TILDE ≂ &‌#8770; &‌#x2242;
-       8771: '-5-2356-', // ASYMPTOTICALLY EQUAL TO ≃ &‌#8771; &‌#x2243;
+       8771: '-456-35-', // ASYMPTOTICALLY EQUAL TO ≃ &‌#8771; &‌#x2243;
        // NOT ASYMPTOTICALLY EQUAL TO ≄ &‌#8772; &‌#x2244;
        // APPROXIMATELY BUT NOT ACTUALLY EQUAL TO ≆ &‌#8774; &‌#x2246;
        // NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO ≇ &‌#8775; &‌#x2247;
@@ -462,7 +462,7 @@
        8728: '-456-3456-', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
        8729: '-35-35-', // BULLET OPERATOR ∙ &‌#8729; &‌#x2219;
        // PROPORTIONAL TO ∝ &‌#8733; &‌#x221D;
-       // RATIO ∶ &‌#8758; &‌#x2236;
+       8758:'-25-',// RATIO ∶ &‌#8758; &‌#x2236;
        // PROPORTION ∷ &‌#8759; &‌#x2237;
        // DOT MINUS ∸ &‌#8760; &‌#x2238 ;
        // EXCESS ∹ &‌#8761; &‌#x2239;
