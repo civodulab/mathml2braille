@@ -78,34 +78,34 @@
        'indicateurNumerique': '3456',
        'indicateurFraction': {
          'simple': {
-           'open': '-1456-',
-           'close': '-3456-'
+           'open': '',
+           'close': ''
          },
          'complexe': {
-           'open': '-6-1456-',
-           'close': '-6-3456-'
+           'open': '-12356-',
+           'close': '-23456-'
          },
          'hypercomplexe': {
            'open': '-6-6-1456-',
            'close': '-6-6-3456-'
          },
          'fractionnaire': {
-           'open': '-456-1456-',
-           'close': '-456-3456-'
+           'open': '',
+           'close': ''
          }
        },
        'fraction': {
          'simple': {
-           'oblique': '-456-34-',
-           'horizontale': '-34-'
+           'oblique': '-34-',
+           'horizontale': '-46-34-'
          },
          'fractionnaire': {
-           'oblique': '-456-34-',
-           'horizontale': '-34-'
+           'oblique': '-34-',
+           'horizontale': '-46-34-'
          },
          'complexe': {
            'oblique': '-6-456-34-',
-           'horizontale': '-6-34-'
+           'horizontale': '-46-34-'
          },
          'hypercomplexe': {
            // 'oblique':'-456-34-',
@@ -168,10 +168,10 @@
          'open': '-46-12356-',
          'close': '-46-23456-'
        },
-       'indice': '-56-',
-       'exposant': '-45-',
-       'suscrit': '-45-',
-       'souscrit': '-56-',
+       'indice': '-26-',
+       'exposant': '-35-',
+       'suscrit': '-35-',
+       'souscrit': '-26-',
 
        'matrice': {
          'sepLigne': '-6-345-',

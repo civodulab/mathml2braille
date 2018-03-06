@@ -43,16 +43,6 @@
         return this.replace(/\s*/gi, '');
     };
 
-    // String.prototype.majusculeBraille = function (carMaj) {
-    //     var regExp = /([A-Z])/g;
-
-    //     function upperToLower(match, offset) {
-    //         console.log(offset);
-    //         return carMaj + match.toLowerCase();
-    //     }
-    //     return this.replace(regExp, upperToLower);
-    // }
-
 
     /**
      * String Prototype braille
@@ -2041,6 +2031,7 @@
         return txt.join('');
 
     }
+   
 
     function _writeform(monEquation, o, hardmat) {
         monEquation.textContent = monEquation.textContent.trimall();
@@ -2053,7 +2044,6 @@
 
         if (o.codeBrailleMath === 'nemeth') {
             monEquation.innerHTML = _indicateurNumerique(monEquation);
-
         }
 
 
