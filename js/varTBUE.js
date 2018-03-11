@@ -281,15 +281,15 @@
        176: '-45-245-', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
        181: '-45-134-', //MICRO MU SYMBOL µ &micro; &‌#181; &‌#xB5;
        //PER MILLE (1/1000th) ‰ &permil; &‌#8240; &‌#2030;
-       60: '-4-126-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
-       62: '-4-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
-       8804: '-456-4-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
-       10877: '-456-4-126-', // LESS-THAN OR SLANTED EQUAL TO ⩽
-       10878: '-456-4-345-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
-       8805: '-456-4-345-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
+       60: '-BLANK-4-126-BLANK-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
+       62: '-BLANK-4-345-BLANK-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
+       8804: '-BLANK-456-4-126-BLANK-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
+       10877: '-BLANK-456-4-126-BLANK-', // LESS-THAN OR SLANTED EQUAL TO ⩽
+       10878: '-BLANK-456-4-345-BLANK-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
+       8805: '-BLANK-456-4-345-BLANK-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
 
        177: '-456-235-', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
-       8800: '-5-2356-4-156-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
+       8800: '-BLANK-5-2356-4-156-BLANK-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
        247: '-5-34-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
        215: '-5-236-', //TIMES X × &times; &‌#215; &‌#x00D7;
        8722: '-5-36-', //MINUS − &minus; &‌#8722; &‌#x2212;
