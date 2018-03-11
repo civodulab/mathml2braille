@@ -75,7 +75,7 @@
          'virgule': '-246-',
          'pointvirgule': '-456-246-'
        },
-       'indicateurNumerique': '3456',
+       'indicateurNumerique': '-3456-',
        'indicateurFraction': {
          'simple': {
            'open': '',

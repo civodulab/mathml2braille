@@ -452,7 +452,6 @@
                 NEW réécriture
                 écriture de l'équation selon les nouvelles balises
                 */
-                console.log(m.innerHTML);
 
                 _newMfracWrite(m);
                 _newMsqrtWrite(m);
@@ -477,7 +476,10 @@
                 // _msubsup(m, options);
                 // _munderover(m);
                 _mfenced(m, options, hardmat);
+                console.log(m.innerHTML);
+                
                 _mn(m, options);
+                
                 _mo(m);
 
                 _mi(m);
@@ -1211,17 +1213,26 @@
 
 
     function _mn(monEquation, o) {
-        _majus(monEquation, 'mn');
         if (o.codeBrailleMath === 'ueb') {
+            var moNum=[',','.'];
             var mn = monEquation.getElementsByTagName('mn'),
                 l = mn.length,
                 i = 0;
             for (; i !== l; i++) {
-                console.log(mn[i].previousElementSibling);
-                
+                var parent=mn[i].parentNode;
+                var moAvant=mn[i].previousElementSibling;
+                if(!moAvant){
+                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.indicateurNumerique),mn[i]);
+                }
+                else if(moAvant&&moNum.indexOf(moAvant.textContent.trim())===-1){
+                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.indicateurNumerique),mn[i]);
+                }
+               
             }
 
         }
+        _majus(monEquation, 'mn');
+       
     }
 
     function _mi(monEquation) {
