@@ -417,13 +417,13 @@
        // DOWN TACK ⊤ &‌#8868; &‌#x22A4;
        8756: '-6-16-', // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
        8757: '-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
-       8733: '-456-5-2356-',// PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
+       8733: '-BLANK-456-5-2356-BLANK-',// PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
        // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
-       8773: '-5-456-35-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
-       8776: '-45-35-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
+       8773: '-BLANK-5-456-35-BLANK-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
+       8776: '-BLANK-45-35-BLANK-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
        8777: '-46-5-2356-', // NOT ALMOST EQUAL TO ≉ — &‌#8777; &‌#x2249;
        8764: '-45-2356-', // TILDE SIMILAR TO ∼ &sim; &‌#8764; &‌#x223C;
-       8801: '-456-123456-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
+       8801: '-BLANK-456-123456-BLANK-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
        8802: '-46-2356-2356-', // NOT IDENTICAL TO ≢ — &‌#8802; &‌#x2262;
        // STRICTLY EQUIVALENT TO ≣ &‌#8803; &‌#x2263;
        // NOT IDENTICAL TO ≢ &‌#8802; &‌#x2262;
@@ -431,8 +431,8 @@
        // GREATER-THAN OVER EQUAL TO ≧ &‌#8807; &‌#x2267;
        // LESS-THAN BUT NOT EQUAL TO ≨ &‌#8808; &‌#x2268;
        // GREATER-THAN BUT NOT EQUAL TO ≩ &‌#8809; &‌#x2269;
-       8810: '-46-4-126-', // MUCH LESS-THAN ≪ &‌#8810; &‌#x226A;
-       8811: '-46-4-345-', // MUCH GREATER-THAN ≫ &‌#8811; &‌#x226B;
+       8810: '-BLANK-46-4-126-BLANK-', // MUCH LESS-THAN ≪ &‌#8810; &‌#x226A;
+       8811: '-BLANK-46-4-345-BLANK-', // MUCH GREATER-THAN ≫ &‌#8811; &‌#x226B;
        // BETWEEN ≬ &‌#8812; &‌#x226C;
        // NOT EQUIVALENT TO ≭ &‌#8813; &‌#x226D;
        // NOT LESS-THAN ≮ &‌#8814; &‌#x226E;
@@ -449,7 +449,7 @@
        // NEITHER GREATER-THAN NOR LESS-THAN ≹ &‌#8825; &‌#x2279;
        // NOT TILDE ≁ &‌#8769; &‌#x2241;
        // MINUS TILDE ≂ &‌#8770; &‌#x2242;
-       8771: '-456-35-', // ASYMPTOTICALLY EQUAL TO ≃ &‌#8771; &‌#x2243;
+       8771: '-BLANK-456-35-BLANK-', // ASYMPTOTICALLY EQUAL TO ≃ &‌#8771; &‌#x2243;
        // NOT ASYMPTOTICALLY EQUAL TO ≄ &‌#8772; &‌#x2244;
        // APPROXIMATELY BUT NOT ACTUALLY EQUAL TO ≆ &‌#8774; &‌#x2246;
        // NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO ≇ &‌#8775; &‌#x2247;
@@ -461,7 +461,6 @@
        8727: '-5-35-', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
        8728: '-456-3456-', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
        8729: '-35-35-', // BULLET OPERATOR ∙ &‌#8729; &‌#x2219;
-       // PROPORTIONAL TO ∝ &‌#8733; &‌#x221D;
        8758:'-25-',// RATIO ∶ &‌#8758; &‌#x2236;
        // PROPORTION ∷ &‌#8759; &‌#x2237;
        // DOT MINUS ∸ &‌#8760; &‌#x2238 ;

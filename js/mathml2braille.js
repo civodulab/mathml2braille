@@ -477,9 +477,9 @@
                 // _munderover(m);
                 _mfenced(m, options, hardmat);
                 console.log(m.innerHTML);
-                
+
                 _mn(m, options);
-                
+
                 _mo(m);
 
                 _mi(m);
@@ -849,6 +849,9 @@
         }
     }
 
+   
+
+
     function _newMmultiscriptsBloc(eq) {
         var multiscripts = eq.getElementsByTagName('mmultiscripts'),
             lmultiscripts = multiscripts.length,
@@ -1214,25 +1217,25 @@
 
     function _mn(monEquation, o) {
         if (o.codeBrailleMath === 'ueb') {
-            var moNum=[',','.'];
+            var moNum = [',', '.'];
             var mn = monEquation.getElementsByTagName('mn'),
                 l = mn.length,
                 i = 0;
             for (; i !== l; i++) {
-                var parent=mn[i].parentNode;
-                var moAvant=mn[i].previousElementSibling;
-                if(!moAvant){
-                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.indicateurNumerique),mn[i]);
+                var parent = mn[i].parentNode;
+                var moAvant = mn[i].previousElementSibling;
+                if (!moAvant) {
+                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.indicateurNumerique), mn[i]);
                 }
-                else if(moAvant&&moNum.indexOf(moAvant.textContent.trim())===-1){
-                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.indicateurNumerique),mn[i]);
+                else if (moAvant && moNum.indexOf(moAvant.textContent.trim()) === -1) {
+                    parent.insertBefore(d.createTextNode(mathBraille.caracMath.indicateurNumerique), mn[i]);
                 }
-               
+
             }
 
         }
         _majus(monEquation, 'mn');
-       
+
     }
 
     function _mi(monEquation) {
@@ -1327,57 +1330,8 @@
         _newMsubsupBloc(eq, 'munderover')
     }
 
-    function _munderover(monEquation, o) {
-        _msubsup(monEquation, o, 'munderover');
-    }
 
 
-
-    function _mfrac(monEquation, o) {
-        var mfrac = monEquation.getElementsByTagName('mfrac');
-        while (mfrac[0]) {
-
-            var bloc = d.createElement('mfrac-bloc'),
-                parent = mfrac[0].parentNode,
-                elt = mfrac[0].children,
-                enfant1 = elt[0],
-                enfant2 = elt[1],
-                boolEnfant1 = true,
-                boolEnfant2 = true,
-                sep = '',
-                complexe = (o.codeBrailleMath === 'nemeth') && _boolFracComplexity(mfrac[0]),
-                bevelled = mfrac[0].getAttribute('bevelled');
-
-
-            if (enfant1.children.length === 2 && enfant1.children[0].textContent.trimall().length > 1) {
-                boolEnfant1 = false;
-            }
-            if (enfant2.children.length === 2 && enfant2.children[0].textContent.trimall().length > 1) {
-                boolEnfant2 = false;
-            }
-            if (o.codeBrailleMath === 'nemeth') {
-                sep = (bevelled) && mathBraille.caracMath.fraction[complexe].oblique || mathBraille.caracMath.fraction[complexe].horizontale;
-            } else if (o.codeBrailleMath === 'fr') {
-                sep = mathBraille.caracMath.fraction;
-            }
-
-
-            (enfant1.children.length > 1 && boolEnfant1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
-            bloc.appendChild(d.createTextNode(sep));
-            (enfant2.children.length > 1 && boolEnfant2) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
-            if (o.codeBrailleMath === 'nemeth') {
-                var indicFrac = mathBraille.caracMath.indicateurFraction[complexe],
-                    open = indicFrac.open,
-                    close = indicFrac.close;
-                parent.replaceChild(bloc.block(open, close), mfrac[0]);
-                // 'frac-nemeth';
-            } else if (o.codeBrailleMath === 'fr') {
-                parent.replaceChild(bloc, mfrac[0]);
-                // 'frac-fr';
-            }
-
-        }
-    }
 
     //**** TODO: Fraction */
 
@@ -1501,9 +1455,7 @@
 
     }
 
-    // function _msub(monEquation, o) {
-    //     _msup(monEquation, o, 'msub');
-    // }
+
 
     /****** Fin Fraction */
 
