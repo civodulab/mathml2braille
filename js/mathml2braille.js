@@ -1634,7 +1634,7 @@
     }
 
     function _newIndiceExposantWrite(eq, o) {
-
+        // console.log('eq', eq.innerHTML);
         var indExp = ['msup', 'msub'],
             indice = mathBraille.caracMath.indice,
             exposant = mathBraille.caracMath.exposant,
@@ -1642,11 +1642,13 @@
         var ie = eq.getElementsByContainTagName(['blocsubsup', 'blocmulti', 'blocIndiceNum', 'blocunderover']),
             lie = ie.length,
             j = lie - 1;
+
         for (; j !== -1; j--) {
             var elt = ie[j],
                 tagName = elt.tagName.split('-'),
                 parent = elt.parentNode;
             if (tagName[1] && (!(tagName[0] === 'blocIndiceNum') || o.codeBrailleMath === 'fr')) {
+                var boolFrChimie = o.chimie && o.codeBrailleMath === 'fr' && !elt.hasParent(['mmultiscripts-f', 'mmultiscripts']);
                 var txt = tagName[1].split(''),
                     bloc = (elt.children[0].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && d.createElement(elt.tagName) || d.createElement('bloc');
                 bloc.innerHTML = elt.innerHTML;
@@ -1654,8 +1656,9 @@
                     exposant = mathBraille.caracMath.suscrit;
                     indice = mathBraille.caracMath.souscrit;
                 } else {
-                    indice = mathBraille.caracMath.indice;
+                    indice = !boolFrChimie && mathBraille.caracMath.indice || '';
                     exposant = mathBraille.caracMath.exposant;
+
                 }
                 bloc = bloc.children[0].children.length > 1 && bloc.block() || bloc;
                 if (!(elt.previousElementSibling && elt.previousElementSibling.textContent.trim() === '|')) {
