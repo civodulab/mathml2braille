@@ -1,6 +1,6 @@
  // table américaine basée sur DBTWin
  // Utilisée pour le braille direct
- var TBAdbt = {
+ var TBUEdbt = {
      ' ': 'BLANK',
      'a': 1,
      'b': 12,
@@ -68,44 +68,44 @@
 
    // mathématiques américain
    // -56- => dots56
-   mathTBA = {
+   mathTBUE = {
      'caracMath': {
        'espaceInsecable': '-BLANK-',
        'separateurIndiceExposant': {
          'virgule': '-246-',
          'pointvirgule': '-456-246-'
        },
-       'indicateurNumerique': '3456',
+       'indicateurNumerique': '-3456-',
        'indicateurFraction': {
          'simple': {
-           'open': '-1456-',
-           'close': '-3456-'
+           'open': '',
+           'close': ''
          },
          'complexe': {
-           'open': '-6-1456-',
-           'close': '-6-3456-'
+           'open': '-12356-',
+           'close': '-23456-'
          },
          'hypercomplexe': {
            'open': '-6-6-1456-',
            'close': '-6-6-3456-'
          },
          'fractionnaire': {
-           'open': '-456-1456-',
-           'close': '-456-3456-'
+           'open': '',
+           'close': ''
          }
        },
        'fraction': {
          'simple': {
-           'oblique': '-456-34-',
-           'horizontale': '-34-'
+           'oblique': '-34-',
+           'horizontale': '-46-34-'
          },
          'fractionnaire': {
-           'oblique': '-456-34-',
-           'horizontale': '-34-'
+           'oblique': '-34-',
+           'horizontale': '-46-34-'
          },
          'complexe': {
            'oblique': '-6-456-34-',
-           'horizontale': '-6-34-'
+           'horizontale': '-46-34-'
          },
          'hypercomplexe': {
            // 'oblique':'-456-34-',
@@ -117,33 +117,33 @@
          'close': ''
        },
        'parenthese': {
-         'open': '-12356-',
-         'close': '-23456-'
+         'open': '-5-126-',
+         'close': '-5-345-'
        },
        'grandeparenthese1': { // imbrication
-         'open': '-5-12356-',
-         'close': '-5-23456-'
-       },
+        'open': '-5-126-',
+        'close': '-5-345-'
+      },
        'grandeparenthese2': { // sur plusieurs lignes
-         'open': '-45-12356-',
-         'close': '-45-23456-'
-       },
+        'open': '-6-5-126-',
+        'close': '-6-5-345-'
+      },
        'accolade': {
-         'open': '-46-12356-',
-         'close': '-46-23456-'
-       },
+        'open': '-456-126-',
+        'close': '-456-345-'
+      },
        'grandeaccolade': { //plusieurs lignes
-         'open': '-456-12356-',
-         'close': '-456-23456-'
-       },
+        'open': '-6-456-126-',
+        'close': '-6-456-345-'
+      },
        'barre': {
-         'open': '-1256-',
-         'close': '-1256-'
-       },
+        'open': '-456-1256-',
+        'close': '-456-1256-'
+      },
        'grandebarre': { //plusieurs lignes
-         'open': '-6-1256-',
-         'close': '-6-1256-'
-       },
+        'open': '-6-456-1256-',
+        'close': '-6-456-1256-'
+      },
        'doublebarre': {
          'open': '-1256-1256-',
          'close': '-1256-1256-'
@@ -153,25 +153,25 @@
          'close': '-46-123456-'
        },
        'crochet': {
-         'open': '-4-12356-',
-         'close': '-4-23456-',
-       },
+        'open': '-46-126-',
+        'close': '-46-345-'
+      },
        'grandcrochet1': {
-         'open': '-5-12356-',
-         'close': '-5-23456-',
-       },
+        'open': '-46-126-',
+        'close': '-46-345-'
+      },
        'grandcrochet2': { // plusieurs lignes
-         'open': '-45-12356-',
-         'close': '-45-23456-',
-       },
+        'open': '-6-46-126-',
+        'close': '-6-46-345-'
+      },
        'crochetdouble': {
          'open': '-46-12356-',
          'close': '-46-23456-'
        },
-       'indice': '-56-',
-       'exposant': '-45-',
-       'suscrit': '-45-',
-       'souscrit': '-56-',
+       'indice': '-26-',
+       'exposant': '-35-',
+       'suscrit': '-35-',
+       'souscrit': '-26-',
 
        'matrice': {
          'sepLigne': '-6-345-',
@@ -246,60 +246,61 @@
        121: '-13456-',
        122: '-1356-',
        /* chiffres */
-       48: '-356-', //0
-       49: '-2-', // 1
-       50: '-23-', // 2
-       51: '-25-', // 3
-       52: '-256-', // 4
-       53: '-26-', // 5
-       54: '-235-', // 6
-       55: '-2356-', // 7
-       56: '-236-', // 8
-       57: '-35-', // 9
+       48: '-245-', //0
+       49: '-1-', // 1
+       50: '-12-', // 2
+       51: '-14-', // 3
+       52: '-145-', // 4
+       53: '-15-', // 5
+       54: '-124-', // 6
+       55: '-1245-', // 7
+       56: '-125-', // 8
+       57: '-24-', // 9
        /* fin chiffres */
-       39: '-3-', // '
-       40: '-12356-', // (
-       41: '-23456-', // )  
+       39: '-2356-', // '
+       40: '-5-126-', // (
+       41: '-5-345-', // )  
        58: '-25-', // :
        59: '-23-', // ;
-       91: '-12356-', // [
-       93: '-23456-', // ]
-       123: '-46-12356-', // { accolade gauche
-       125: '-46-23456-', // { accolade droite
-       124: '-1256-', // |
+       91: '-46-126-', // [
+       93: '-46-345-', // ]
+       123: '-456-126-', // { accolade gauche
+       125: '-456-345-', // { accolade droite
+       124: '-456-1256-', // |
        8214: '-1256-1256-', // ||
-       44: '-6-', // ,
-       45: '-36-', // -
-       46: '-46-', // .
+       44: '-2-', // ,
+       45: '-5-36-', // -
+       46: '-256-', // .
        42: '-4-3456-', // *
-       43: '-346-', // +
+       43: '-5-235-', // +
        47: '-456-34-', // /
-       61: '-BLANK-46-13-BLANK-', // =
+       37: '-46-356-', // %
+       61: '-BLANK-5-2356-BLANK-', // =
        33: '-12346-', // factoriel !
-       183: '-35-35-', // middle dot &#xB7;
-       176: '-135-', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
+       183: '-5-256-', // middle dot &#xB7;
+       176: '-45-245-', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
        181: '-45-134-', //MICRO MU SYMBOL µ &micro; &‌#181; &‌#xB5;
        //PER MILLE (1/1000th) ‰ &permil; &‌#8240; &‌#2030;
-       60: '-5-126-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
-       62: '-5-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
-       8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
-       10877: '-45-126-', // LESS-THAN OR SLANTED EQUAL TO ⩽
-       10878: '-45-345-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
-       8805: '-45-345-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
+       60: '-BLANK-4-126-BLANK-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
+       62: '-BLANK-4-345-BLANK-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
+       8804: '-BLANK-456-4-126-BLANK-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
+       10877: '-BLANK-456-4-126-BLANK-', // LESS-THAN OR SLANTED EQUAL TO ⩽
+       10878: '-BLANK-456-4-345-BLANK-', // GREATER-THAN OR SLANTED EQUAL TO ⩾
+       8805: '-BLANK-456-4-345-BLANK-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
 
-       177: '-235-36-', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
-       8800: '-235-2356-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
-       247: '-25-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
-       215: '-35-', //TIMES X × &times; &‌#215; &‌#x00D7;
-       8722: '-36-', //MINUS − &minus; &‌#8722; &‌#x2212;
+       177: '-456-235-', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
+       8800: '-BLANK-5-2356-4-156-BLANK-', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
+       247: '-5-34-', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
+       215: '-5-236-', //TIMES X × &times; &‌#215; &‌#x00D7;
+       8722: '-5-36-', //MINUS − &minus; &‌#8722; &‌#x2212;
        8725: '-456-34-', //DIVISION SLASH ∕ — &‌#8725; &‌#x2215;
        8260: '-456-34-', //FRACTION SLASH ⁄ &frasl &‌#8260; &‌#x2044;
        8734: '-45-14-', //INFINITY ∞ &infin; &‌#8734; &‌#x221E;
        //ALEF INFINITY SYMBOL ℵ &alefsym; &‌#8501; &‌#x2135;
        //FUNCTION ITALIC F ƒ &fnof; &‌#402; &‌#x192;
-       8242: '-3-', //PRIME (single quote) ′ &prime; &‌#8242; &‌#x2032;
-       8243: '-3-3-', //DOUBLE PRIME (double quote) ″ &Prime; &‌#8243; &‌#x2033;
-       8244: '-3-3-3-', //TRIPLE PRIME (triple quote) ‴ — &‌#8244; &‌#x2034;
+       8242: '-2356-', //PRIME (single quote) ′ &prime; &‌#8242; &‌#x2032;
+       8243: '-2356-2356-', //DOUBLE PRIME (double quote) ″ &Prime; &‌#8243; &‌#x2033;
+       8244: '-2356-2356-2356-', //TRIPLE PRIME (triple quote) ‴ — &‌#8244; &‌#x2034;
        //THEREFORE (Triangular Dots) ∴ &there4; &‌#8756; &‌#x2234;
        8901: '-35-', //DOT OPERATOR ⋅ &sdot; &‌#8901; &‌#x22C5;
        //SUPERSCRIPT TWO ¹ &sup1; &‌#185; &‌#xB9;
@@ -416,13 +417,13 @@
        // DOWN TACK ⊤ &‌#8868; &‌#x22A4;
        8756: '-6-16-', // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
        8757: '-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
-       // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
+       8733: '-BLANK-456-5-2356-BLANK-',// PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
        // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
-       8773: '-456-2356-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
-       8776: '-5-2356-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
+       8773: '-BLANK-5-456-35-BLANK-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
+       8776: '-BLANK-45-35-BLANK-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
        8777: '-46-5-2356-', // NOT ALMOST EQUAL TO ≉ — &‌#8777; &‌#x2249;
        8764: '-45-2356-', // TILDE SIMILAR TO ∼ &sim; &‌#8764; &‌#x223C;
-       8801: '-2356-2356-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
+       8801: '-BLANK-456-123456-BLANK-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
        8802: '-46-2356-2356-', // NOT IDENTICAL TO ≢ — &‌#8802; &‌#x2262;
        // STRICTLY EQUIVALENT TO ≣ &‌#8803; &‌#x2263;
        // NOT IDENTICAL TO ≢ &‌#8802; &‌#x2262;
@@ -430,8 +431,8 @@
        // GREATER-THAN OVER EQUAL TO ≧ &‌#8807; &‌#x2267;
        // LESS-THAN BUT NOT EQUAL TO ≨ &‌#8808; &‌#x2268;
        // GREATER-THAN BUT NOT EQUAL TO ≩ &‌#8809; &‌#x2269;
-       8810: '-5-5-126-', // MUCH LESS-THAN ≪ &‌#8810; &‌#x226A;
-       8811: '-5-5-345-', // MUCH GREATER-THAN ≫ &‌#8811; &‌#x226B;
+       8810: '-BLANK-46-4-126-BLANK-', // MUCH LESS-THAN ≪ &‌#8810; &‌#x226A;
+       8811: '-BLANK-46-4-345-BLANK-', // MUCH GREATER-THAN ≫ &‌#8811; &‌#x226B;
        // BETWEEN ≬ &‌#8812; &‌#x226C;
        // NOT EQUIVALENT TO ≭ &‌#8813; &‌#x226D;
        // NOT LESS-THAN ≮ &‌#8814; &‌#x226E;
@@ -448,20 +449,19 @@
        // NEITHER GREATER-THAN NOR LESS-THAN ≹ &‌#8825; &‌#x2279;
        // NOT TILDE ≁ &‌#8769; &‌#x2241;
        // MINUS TILDE ≂ &‌#8770; &‌#x2242;
-       8771: '-5-2356-', // ASYMPTOTICALLY EQUAL TO ≃ &‌#8771; &‌#x2243;
+       8771: '-BLANK-456-35-BLANK-', // ASYMPTOTICALLY EQUAL TO ≃ &‌#8771; &‌#x2243;
        // NOT ASYMPTOTICALLY EQUAL TO ≄ &‌#8772; &‌#x2244;
        // APPROXIMATELY BUT NOT ACTUALLY EQUAL TO ≆ &‌#8774; &‌#x2246;
        // NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO ≇ &‌#8775; &‌#x2247;
        8778: '-456-5-2356-', // ALMOST EQUAL OR EQUAL TO ≊ &‌#8778; &‌#x224A;
        // TRIPLE TILDE ≋ &‌#8779; &‌#x224B;
        // ALL EQUAL TO ≌ &‌#8780; &‌#x224C;
-       8723: '-36-235-', // MINUS-OR-PLUS SIGN ∓ &‌#8723; &‌#x2213;
+       8723: '-456-36-', // MINUS-OR-PLUS SIGN ∓ &‌#8723; &‌#x2213;
        // DOT PLUS ∔ &‌#8724; &‌#x2214;
        8727: '-5-35-', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
        8728: '-456-3456-', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
        8729: '-35-35-', // BULLET OPERATOR ∙ &‌#8729; &‌#x2219;
-       // PROPORTIONAL TO ∝ &‌#8733; &‌#x221D;
-       // RATIO ∶ &‌#8758; &‌#x2236;
+       8758:'-25-',// RATIO ∶ &‌#8758; &‌#x2236;
        // PROPORTION ∷ &‌#8759; &‌#x2237;
        // DOT MINUS ∸ &‌#8760; &‌#x2238 ;
        // EXCESS ∹ &‌#8761; &‌#x2239;
