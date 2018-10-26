@@ -4,38 +4,435 @@
 
 <head>
     <title>Formules mathématiques</title>
-    <link href="../css/global.css" rel="stylesheet" type="text/css" /> </head>
+    <link href="../css/global.css" rel="stylesheet" type="text/css" />
+</head>
 
 <body>
     <section epub:type="subchapter">
         <p id="stat"></p>
         <h1>Exemples tirés du document PDF " <a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h1>
-        <h2>6. Notations ensemblistes</h2>
-
-        <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
-            <mstyle displaystyle="true" scriptlevel="0">
-              <mrow class="MJX-TeXAtom-ORD">
-                <msubsup>
-                  <mo>&#x222B;<!-- ∫ --></mo>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mi>x</mi>
-                    <mo>=</mo>
+        <h2>Mes Exemples</h2>
+        <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+                <mstyle displaystyle="true">
+                    <mrow class="MJX-TeXAtom-ORD">
+                        <mrow>
+                            <mo>(</mo>
+                            <mtable rowspacing="4pt" columnspacing="1em">
+                                <mtr>
+                                    <mtd>
+                                        <msub>
+                                            <mi>a</mi>
+                                            <mrow class="MJX-TeXAtom-ORD">
+                                                <mn>11</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mtd>
+                                    <mtd>
+                                        <msub>
+                                            <mi>a</mi>
+                                            <mrow class="MJX-TeXAtom-ORD">
+                                                <mn>12</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mtd>
+                                </mtr>
+                                <mtr>
+                                    <mtd>
+                                        <msub>
+                                            <mi>a</mi>
+                                            <mrow class="MJX-TeXAtom-ORD">
+                                                <mn>21</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mtd>
+                                    <mtd>
+                                        <msub>
+                                            <mi>a</mi>
+                                            <mrow class="MJX-TeXAtom-ORD">
+                                                <mn>22</mn>
+                                            </mrow>
+                                        </msub>
+                                    </mtd>
+                                </mtr>
+                            </mtable>
+                            <mo>)</mo>
+                        </mrow>
+                    </mrow>
+                </mstyle>
+            </math><span class="mathbraille">⠦⠁⠢⠡⠡⠀⠁⠢⠡⠣⠴<br />
+                ⠦⠁⠢⠣⠡⠀⠁⠢⠣⠣⠴</span></p>
+        <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+                <mstyle displaystyle="true">
+                    <mrow class="MJX-TeXAtom-ORD">
+                        <munder>
+                            <mo>&#x2211;
+                                <!-- ∑ -->
+                            </mo>
+                            <mrow class="MJX-TeXAtom-ORD">
+                                <mtable rowspacing="0.1em" columnspacing="0em 0em 0em 0em">
+                                    <mtr>
+                                        <mtd>
+                                            <mn>0</mn>
+                                            <mo>&#x2264;
+                                                <!-- ≤ -->
+                                            </mo>
+                                            <mi>i</mi>
+                                            <mo>&#x2264;
+                                                <!-- ≤ -->
+                                            </mo>
+                                            <mi>m</mi>
+                                        </mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd>
+                                            <mn>0</mn>
+                                            <mo>&#x003C;
+                                                <!-- < -->
+                                            </mo>
+                                            <mi>j</mi>
+                                            <mo>&#x003C;
+                                                <!-- < -->
+                                            </mo>
+                                            <mi>n</mi>
+                                        </mtd>
+                                    </mtr>
+                                </mtable>
+                            </mrow>
+                        </munder>
+                        <mi>P</mi>
+                        <mo stretchy="false">(</mo>
+                        <mi>i</mi>
+                        <mo>,</mo>
+                        <mi>j</mi>
+                        <mo stretchy="false">)</mo>
+                    </mrow>
+                </mstyle>
+            </math><span class="mathbraille">⠨⠘⠎⠢⠢⠰⠼⠘⠣⠊⠘⠣⠍⠂⠼⠐⠣⠚⠐⠣⠝⠆⠨⠏⠦⠊⠂⠚⠴</span></p>
+        <p class="courant"> <span>Wiris</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+                <mfenced>
+                    <mtable>
+                        <mtr>
+                            <mtd>
+                                <mi>U</mi>
+                                <mfenced>
+                                    <mi>t</mi>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>
+                                <mi>V</mi>
+                                <mfenced>
+                                    <mi>t</mi>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>
+                                <mi>W</mi>
+                                <mfenced>
+                                    <mi>t</mi>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </mfenced>
+                <mo>=</mo>
+                <mfenced>
+                    <mtable>
+                        <mtr>
+                            <mtd>
+                                <mn>1</mn>
+                            </mtd>
+                            <mtd>
+                                <mn>0</mn>
+                            </mtd>
+                            <mtd>
+                                <mn>0</mn>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>
+                                <mn>0</mn>
+                            </mtd>
+                            <mtd>
+                                <mi>cos</mi>
+                                <mfenced>
+                                    <mrow>
+                                        <mi>R</mi>
+                                        <mi>t</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                            <mtd>
+                                <mo>-</mo>
+                                <mi>sin</mi>
+                                <mfenced>
+                                    <mrow>
+                                        <mi>R</mi>
+                                        <mi>t</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>
+                                <mn>0</mn>
+                            </mtd>
+                            <mtd>
+                                <mi>sin</mi>
+                                <mfenced>
+                                    <mrow>
+                                        <mi>R</mi>
+                                        <mi>t</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                            <mtd>
+                                <mi>cos</mi>
+                                <mfenced>
+                                    <mrow>
+                                        <mi>R</mi>
+                                        <mi>t</mi>
+                                    </mrow>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </mfenced>
+                <mfenced>
+                    <mtable>
+                        <mtr>
+                            <mtd>
+                                <mi>U</mi>
+                                <mfenced>
+                                    <mn>0</mn>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>
+                                <mi>V</mi>
+                                <mfenced>
+                                    <mn>0</mn>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                        <mtr>
+                            <mtd>
+                                <mi>W</mi>
+                                <mfenced>
+                                    <mn>0</mn>
+                                </mfenced>
+                            </mtd>
+                        </mtr>
+                    </mtable>
+                </mfenced>
+            </math> <span class="mathbraille"></span> </p>
+        <p class="courant"> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+                <mi>I</mi>
+                <mo>=</mo>
+                <mfrac>
                     <mn>1</mn>
-                  </mrow>
-                  <mrow class="MJX-TeXAtom-ORD">
-                    <mi>n</mi>
-                  </mrow>
+                    <mn>2</mn>
+                </mfrac>
+                <mo>&#xD7;</mo>
+                <msubsup>
+                    <mfenced open="[" close="]">
+                        <mrow>
+                            <mi>arctan</mi>
+                            <mfrac>
+                                <mi>t</mi>
+                                <mn>2</mn>
+                            </mfrac>
+                        </mrow>
+                    </mfenced>
+                    <mn>0</mn>
+                    <mrow>
+                        <mo>+</mo>
+                        <mo>&#x221E;</mo>
+                    </mrow>
                 </msubsup>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mi>x</mi>
-                </mrow>
-                <mspace width="thickmathspace" />
-                <mi>d</mi>
+                <mo>+</mo>
+                <mfrac>
+                    <mn>1</mn>
+                    <mn>2</mn>
+                </mfrac>
+                <mo>&#xD7;</mo>
+                <msubsup>
+                    <mfenced open="[" close="]">
+                        <mrow>
+                            <mi>arctan</mi>
+                            <mfrac>
+                                <mi>t</mi>
+                                <mn>2</mn>
+                            </mfrac>
+                        </mrow>
+                    </mfenced>
+                    <mrow>
+                        <mo>-</mo>
+                        <mo>&#x221E;</mo>
+                    </mrow>
+                    <mn>0</mn>
+                </msubsup>
+            </math> <span class="mathbraille"></span> </p>
+        <p class="courant"> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+                <msubsup>
+                    <mo>&#x222B;</mo>
+                    <mi>a</mi>
+                    <mi>b</mi>
+                </msubsup>
+                <mi>f</mi>
+                <mfenced>
+                    <mi>x</mi>
+                </mfenced>
+                <mo>d</mo>
                 <mi>x</mi>
-              </mrow>
-            </mstyle>
-          </math>
+                <mo>=</mo>
+                <msubsup>
+                    <mo>&#x222B;</mo>
+                    <mn>1</mn>
+                    <mn>4</mn>
+                </msubsup>
+                <mn>3</mn>
+                <mo>d</mo>
+                <mi>x</mi>
+                <mo>=</mo>
+                <msubsup>
+                    <mfenced open="[" close="]">
+                        <mrow>
+                            <mn>3</mn>
+                            <mi>x</mi>
+                        </mrow>
+                    </mfenced>
+                    <mn>1</mn>
+                    <mn>4</mn>
+                </msubsup>
+                <mo>=</mo>
+                <mn>3</mn>
+                <mo>&#xD7;</mo>
+                <mfenced>
+                    <mn>4</mn>
+                </mfenced>
+                <mo>-</mo>
+                <mn>3</mn>
+                <mo>&#xD7;</mo>
+                <mfenced>
+                    <mn>1</mn>
+                </mfenced>
+                <mo>=</mo>
+                <mn>9</mn>
+            </math> <span class="mathbraille">⠯⠢⠁⠈⠃⠋⠦⠭⠴⠙⠭⠶⠯⠢⠡⠈⠹⠰⠩⠆⠙⠭⠶⠷⠩⠭⠾⠢⠡⠈⠹⠶⠩⠔⠦⠹⠴⠤⠩⠔⠦⠡⠴⠶⠪</span> </p>
 
+        <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+                <mstyle displaystyle="true">
+                    <mrow class="MJX-TeXAtom-ORD">
+                        <msup>
+                            <mrow>
+                                <mo>(</mo>
+                                <msup>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>x</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mrow class="MJX-TeXAtom-ORD">
+                                        <mn>2</mn>
+                                    </mrow>
+                                </msup>
+                                <mo>)</mo>
+                            </mrow>
+                            <mn>2</mn>
+                        </msup>
+                    </mrow>
+                </mstyle>
+            </math><span class="mathbraille">⠦⠦⠭⠴⠈⠣⠴⠈⠣</span>
+        </p>
+
+        <p class="courant">
+            <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+                <mstyle displaystyle="true" scriptlevel="0">
+                    <mrow class="MJX-TeXAtom-ORD">
+                        <msup>
+                            <mrow>
+                                <mo>(</mo>
+                                <mrow>
+                                    <munderover>
+                                        <mo>&#x2211;
+                                            <!-- ∑ -->
+                                        </mo>
+                                        <mrow class="MJX-TeXAtom-ORD">
+                                            <mi>k</mi>
+                                            <mo>=</mo>
+                                            <mn>1</mn>
+                                        </mrow>
+                                        <mi>n</mi>
+                                    </munderover>
+                                    <msub>
+                                        <mi>a</mi>
+                                        <mi>k</mi>
+                                    </msub>
+                                    <msub>
+                                        <mi>b</mi>
+                                        <mi>k</mi>
+                                    </msub>
+                                </mrow>
+                                <mo>)</mo>
+                            </mrow>
+                            <mn>2</mn>
+                        </msup>
+                        <mo>&#x2264;
+                            <!-- ≤ -->
+                        </mo>
+                        <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                                <munderover>
+                                    <mo>&#x2211;
+                                        <!-- ∑ -->
+                                    </mo>
+                                    <mrow class="MJX-TeXAtom-ORD">
+                                        <mi>k</mi>
+                                        <mo>=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mi>n</mi>
+                                </munderover>
+                                <msubsup>
+                                    <mi>a</mi>
+                                    <mi>k</mi>
+                                    <mn>2</mn>
+                                </msubsup>
+                            </mrow>
+                            <mo>)</mo>
+                        </mrow>
+                        <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                                <munderover>
+                                    <mo>&#x2211;
+                                        <!-- ∑ -->
+                                    </mo>
+                                    <mrow class="MJX-TeXAtom-ORD">
+                                        <mi>k</mi>
+                                        <mo>=</mo>
+                                        <mn>1</mn>
+                                    </mrow>
+                                    <mi>n</mi>
+                                </munderover>
+                                <msubsup>
+                                    <mi>b</mi>
+                                    <mi>k</mi>
+                                    <mn>2</mn>
+                                </msubsup>
+                            </mrow>
+                            <mo>)</mo>
+                        </mrow>
+                    </mrow>
+                </mstyle>
+            </math><span class="mathbraille">⠦⠨⠘⠎⠢⠢⠰⠅⠶⠡⠆⠈⠈⠝⠁⠢⠅⠃⠢⠅⠴⠈⠣⠘⠣⠦⠨⠘⠎⠢⠢⠰⠅⠶⠡⠆⠈⠈⠝⠁⠢⠅⠈⠣⠴⠦⠨⠘⠎⠢⠢⠰⠅⠶⠡⠆⠈⠈⠝⠃⠢⠅⠈⠣⠴</span>
+        </p>
+        <h2>6. Notations ensemblistes</h2>
 
         <p class="courant"> <span>E égale l'ensemble d'éléments a, b, c et d</span> <span>Sans "separators"</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>E</mi>
@@ -250,7 +647,7 @@
                         <mi>d</mi>
                     </mrow>
                 </mfrac>
-                </math> <span class="mathbraille">⠁⠌⠃⠖⠉⠌⠙⠶⠰⠁⠙⠖⠃⠉⠆⠌⠃⠙</span> <span class="mathbraille2">⠁⠌⠃⠖⠉⠌⠙⠶⠰⠁⠙⠖⠃⠉⠆⠌⠰⠃⠙⠆</span> </p>
+            </math> <span class="mathbraille">⠁⠌⠃⠖⠉⠌⠙⠶⠰⠁⠙⠖⠃⠉⠆⠌⠃⠙</span> <span class="mathbraille2">⠁⠌⠃⠖⠉⠌⠙⠶⠰⠁⠙⠖⠃⠉⠆⠌⠰⠃⠙⠆</span> </p>
         <p class="courant"> <span>cardinal de E égale cinq</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>Card</mi>
                 <mi>E</mi>
@@ -486,36 +883,37 @@
         <p class="courant"> <span>A indice supérieur t à gauche (transposée de A)</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille ">
                 <mmultiscripts>
                     <mi>A</mi>
-                    <mprescripts/>
-                    <none/>
+                    <mprescripts />
+                    <none />
                     <mi>t</mi>
                 </mmultiscripts>
             </math> <span class="mathbraille">⠈⠞⠨⠁</span> </p>
         <p class="courant"> <span>w indice inférieur deux à gauche</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mmultiscripts>
                     <mi>w</mi>
-                    <mprescripts/>
+                    <mprescripts />
                     <mn>2</mn>
-                    <none/> </mmultiscripts>
+                    <none />
+                </mmultiscripts>
             </math> <span class="mathbraille">⠢⠣⠺</span> </p>
         <p class="courant"> <span>«&#160;A indice supérieur t à gauche&#160;» «&#160;B indice supérieur t à gauche&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille test">
                 <mmultiscripts>
                     <mi>A</mi>
-                    <mprescripts/>
-                    <none/>
+                    <mprescripts />
+                    <none />
                     <mi>t</mi>
                 </mmultiscripts>
                 <mmultiscripts>
                     <mi>B</mi>
-                    <mprescripts/>
-                    <none/>
+                    <mprescripts />
+                    <none />
                     <mi>t</mi>
                 </mmultiscripts>
             </math> <span class="mathbraille">⠰⠈⠞⠨⠁⠆⠰⠈⠞⠨⠃⠆</span> </p>
         <p class="courant"> <span>O précédé de huit en indice et de seize en exposant</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-chimie">
                 <mmultiscripts>
                     <mi mathvariant="normal">O</mi>
-                    <mprescripts/>
+                    <mprescripts />
                     <mn>8</mn>
                     <mn>16</mn>
                 </mmultiscripts>
@@ -588,7 +986,7 @@
                         <mi>b</mi>
                     </mrow>
                 </msqrt>
-                </math> <span class="mathbraille">⠈⠫⠜⠰⠦⠁⠖⠃⠴⠈⠩⠆⠶⠜⠰⠁⠖⠃⠆</span> </p>
+            </math> <span class="mathbraille">⠈⠫⠜⠰⠦⠁⠖⠃⠴⠈⠩⠆⠶⠜⠰⠁⠖⠃⠆</span> </p>
         <p class="courant"> <span>racine cubique de «&#160;a plus racine carrée de "a plus b"&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mroot>
                     <mrow>
@@ -640,7 +1038,7 @@
                     </mtr>
                 </mtable>
             </math> <span class="mathbraille">⠋⠒⠀⠨⠨⠗⠸⠱⠨⠨⠗
-                <br/>⠭⠐⠱⠽⠶⠡⠌⠭</span> </p>
+                <br />⠭⠐⠱⠽⠶⠡⠌⠭</span> </p>
         <p class="courant"> <span>Wiris avec "table"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mtable>
                     <mtr>
@@ -667,7 +1065,7 @@
                     </mtr>
                 </mtable>
             </math> <span class="mathbraille">⠋⠒⠀⠨⠨⠗⠸⠱⠨⠨⠗
-                <br/>⠭⠐⠱⠽⠶⠡⠌⠭</span> </p>
+                <br />⠭⠐⠱⠽⠶⠡⠌⠭</span> </p>
         <h2>12. Signes suscrits, signes souscrits, géométrie</h2>
         <h3>12.1 Signes suscrits</h3>
         <p class="courant"> <span>vecteur v</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -941,7 +1339,7 @@
                 <mo>=</mo>
                 <mn>3</mn>
             </math> <span class="mathbraille">⠨⠊⠶⠿⠡⠀⠼⠿
-                <br/> ⠀⠀⠀⠿⠣⠀⠩⠿⠶⠩</span> </p>
+                <br /> ⠀⠀⠀⠿⠣⠀⠩⠿⠶⠩</span> </p>
         <p class="courant"> <span>J égale la matrice «&#160;1, case vide, case vide, 4 ; 2, 3, 5, 6; -7, 8, case vide, 9&#160;»</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
                 <mi>J</mi>
                 <mo>=</mo>
@@ -951,8 +1349,8 @@
                             <mtd>
                                 <mn>1</mn>
                             </mtd>
-                            <mtd/>
-                            <mtd/>
+                            <mtd />
+                            <mtd />
                             <mtd>
                                 <mn>4</mn>
                             </mtd>
@@ -979,7 +1377,7 @@
                             <mtd>
                                 <mn>8</mn>
                             </mtd>
-                            <mtd/>
+                            <mtd />
                             <mtd>
                                 <mn>9</mn>
                             </mtd>
@@ -987,8 +1385,8 @@
                     </mtable>
                 </mfenced>
             </math> <span class="mathbraille">⠨⠚⠶⠦⠡⠀⠀⠐⠂⠀⠐⠂⠀⠹⠴
-                <br/> ⠀⠀⠀⠦⠣⠀⠀⠩⠀⠀⠱⠀⠀⠫⠴
-                <br/> ⠀⠀⠀⠦⠤⠻⠀⠳⠀⠀⠐⠂⠀⠪⠴</span> </p>
+                <br /> ⠀⠀⠀⠦⠣⠀⠀⠩⠀⠀⠱⠀⠀⠫⠴
+                <br /> ⠀⠀⠀⠦⠤⠻⠀⠳⠀⠀⠐⠂⠀⠪⠴</span> </p>
         <p class="courant"> <span>Linéaire</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-lineaire">
                 <mi>J</mi>
                 <mo>=</mo>
@@ -998,8 +1396,8 @@
                             <mtd>
                                 <mn>1</mn>
                             </mtd>
-                            <mtd/>
-                            <mtd/>
+                            <mtd />
+                            <mtd />
                             <mtd>
                                 <mn>4</mn>
                             </mtd>
@@ -1026,7 +1424,7 @@
                             <mtd>
                                 <mn>8</mn>
                             </mtd>
-                            <mtd/>
+                            <mtd />
                             <mtd>
                                 <mn>9</mn>
                             </mtd>
@@ -1113,10 +1511,10 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠨⠅⠶⠘⠷⠡⠀⠰⠭⠈⠣⠖⠩⠭⠤⠪⠆⠌⠰⠫⠭⠈⠩⠤⠭⠈⠣⠖⠡⠆⠀⠠⠜⠀⠰⠭⠖⠩⠆⠌⠰⠽⠖⠱⠆⠀⠛⠦⠭⠴⠘⠾</span> <span class="mathbraille2">⠨⠅⠶⠷⠡⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⠭⠈⠣⠖⠩⠭⠤⠪⠆⠌⠰⠫⠭⠈⠩⠤⠭⠈⠣⠖⠡⠆⠾
-                <br/> ⠀⠀⠀⠷⠰⠭⠖⠩⠆⠌⠰⠽⠖⠱⠆⠀⠛⠦⠭⠴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠾</span> </p>
+                <br /> ⠀⠀⠀⠷⠰⠭⠖⠩⠆⠌⠰⠽⠖⠱⠆⠀⠛⠦⠭⠴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠾</span> </p>
         <h3>13.4 Systèmes</h3>
         <p class="courant"> <span>Le système d'équations «&#160;deux x plus trois y égale cinq&#160;» et «&#160;trois x moins sept y égale huit&#160;»
-                </span> <span>avec "mfenced"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+            </span> <span>avec "mfenced"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mfenced open="{" close="">
                     <mtable columnalign="left">
                         <mtr>
@@ -1144,7 +1542,7 @@
                     </mtable>
                 </mfenced>
             </math> <span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱
-                <br/> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
+                <br /> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
         <p class="courant"> <span>MathType (sans "mfenced")</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mrow>
                     <mrow>
@@ -1182,7 +1580,7 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱
-                <br/> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
+                <br /> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
         <p class="courant"> <span>Linéaire</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-matrice-lineaire">
                 <mfenced open="{" close="">
                     <mtable columnalign="left">
@@ -1354,7 +1752,7 @@
                     <mo>&#x2212;</mo>
                     <mi>&#x221E;</mi>
                 </mrow>
-                </math> <span class="mathbraille">⠇⠊⠍⠢⠢⠰⠭⠸⠱⠹⠂⠭⠐⠜⠹⠆⠋⠦⠭⠴⠶⠤⠘⠉</span> </p>
+            </math> <span class="mathbraille">⠇⠊⠍⠢⠢⠰⠭⠸⠱⠹⠂⠭⠐⠜⠹⠆⠋⠦⠭⠴⠶⠤⠘⠉</span> </p>
         <p class="courant "> <span>Wiris avec "mtable"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mrow>
                     <munder>
@@ -1544,7 +1942,7 @@
                         <mn>7</mn>
                     </mrow>
                 </mfrac>
-                </math> <span class="mathbraille">⠇⠕⠛⠢⠻⠰⠭⠆⠶⠇⠝⠰⠭⠆⠌⠇⠝⠰⠻⠆</span> </p>
+            </math> <span class="mathbraille">⠇⠕⠛⠢⠻⠰⠭⠆⠶⠇⠝⠰⠭⠆⠌⠇⠝⠰⠻⠆</span> </p>
         <p class="courant"> <span>logarithme en base sept de x égale logarithme népérien de x divisé par logarithme népérien de sept </span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
                 <msub>
                     <mi>log</mi>
@@ -1568,7 +1966,7 @@
                         </mfenced>
                     </mrow>
                 </mfrac>
-                </math> <span class="mathbraille">⠇⠕⠛⠢⠻⠦⠭⠴⠶⠇⠝⠦⠭⠴⠌⠇⠝⠦⠻⠴</span> </p>
+            </math> <span class="mathbraille">⠇⠕⠛⠢⠻⠦⠭⠴⠶⠇⠝⠦⠭⠴⠌⠇⠝⠦⠻⠴</span> </p>
         <h3>14.6 Trigonométrie</h3>
         <p class="courant"> <span>cosinus (a plus b) égale cosinus a cosinus b moins sinus a sinus b</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille ">
                 <mi>cos</mi>
@@ -1845,7 +2243,7 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠨⠊⠶⠸⠦⠭⠶⠰⠁⠖⠃⠆⠌⠽
-                <br/> ⠀⠀⠀⠀⠀⠩⠭⠶⠽⠤⠱⠀⠀⠀</span> </p>
+                <br /> ⠀⠀⠀⠀⠀⠩⠭⠶⠽⠤⠱⠀⠀⠀</span> </p>
         <p class="courant"> <span>Non linéaire</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille ">
                 <mi>I</mi>
                 <mo>=</mo>
@@ -1878,7 +2276,7 @@
                     </mtable>
                 </mfenced>
             </math> <span class="mathbraille">⠨⠊⠶⠸⠦⠭⠶⠰⠁⠖⠃⠆⠌⠽
-                <br/> ⠀⠀⠀⠀⠀⠩⠭⠶⠽⠤⠱⠀⠀⠀</span> </p>
+                <br /> ⠀⠀⠀⠀⠀⠩⠭⠶⠽⠤⠱⠀⠀⠀</span> </p>
         <p class="courant"> <span>Linéaire</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-lineaire">
                 <mi>I</mi>
                 <mo>=</mo>
@@ -1983,8 +2381,8 @@
                     </mrow>
                 </mfenced>
             </math> <span class="mathbraille">⠦⠁⠢⠡⠡⠀⠀⠀⠲⠲⠲⠀⠁⠢⠰⠡⠝⠆⠴
-                <br/> ⠦⠲⠲⠲⠀⠀⠀⠀⠲⠲⠲⠀⠲⠲⠲⠀⠀⠀⠴
-                <br/> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span> </p>
+                <br /> ⠦⠲⠲⠲⠀⠀⠀⠀⠲⠲⠲⠀⠲⠲⠲⠀⠀⠀⠴
+                <br /> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span> </p>
         <p class="courant"> <span>Sans "mfenced"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mrow>
                     <mrow>
@@ -2061,8 +2459,8 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠦⠁⠢⠡⠡⠀⠀⠀⠲⠲⠲⠀⠁⠢⠰⠡⠝⠆⠴
-                <br/> ⠦⠲⠲⠲⠀⠀⠀⠀⠲⠲⠲⠀⠲⠲⠲⠀⠀⠀⠴
-                <br/> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span> </p>
+                <br /> ⠦⠲⠲⠲⠀⠀⠀⠀⠲⠲⠲⠀⠲⠲⠲⠀⠀⠀⠴
+                <br /> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span> </p>
         <p class="courant"> <span>MathType</span> <span>Sans "mfenced"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mrow>
                     <mrow>
@@ -2214,221 +2612,6 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille"></span> </p>
-        <p class="courant"> <span>Wiris</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
-                <mfenced>
-                    <mtable>
-                        <mtr>
-                            <mtd>
-                                <mi>U</mi>
-                                <mfenced>
-                                    <mi>t</mi>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                        <mtr>
-                            <mtd>
-                                <mi>V</mi>
-                                <mfenced>
-                                    <mi>t</mi>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                        <mtr>
-                            <mtd>
-                                <mi>W</mi>
-                                <mfenced>
-                                    <mi>t</mi>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                    </mtable>
-                </mfenced>
-                <mo>=</mo>
-                <mfenced>
-                    <mtable>
-                        <mtr>
-                            <mtd>
-                                <mn>1</mn>
-                            </mtd>
-                            <mtd>
-                                <mn>0</mn>
-                            </mtd>
-                            <mtd>
-                                <mn>0</mn>
-                            </mtd>
-                        </mtr>
-                        <mtr>
-                            <mtd>
-                                <mn>0</mn>
-                            </mtd>
-                            <mtd>
-                                <mi>cos</mi>
-                                <mfenced>
-                                    <mrow>
-                                        <mi>R</mi>
-                                        <mi>t</mi>
-                                    </mrow>
-                                </mfenced>
-                            </mtd>
-                            <mtd>
-                                <mo>-</mo>
-                                <mi>sin</mi>
-                                <mfenced>
-                                    <mrow>
-                                        <mi>R</mi>
-                                        <mi>t</mi>
-                                    </mrow>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                        <mtr>
-                            <mtd>
-                                <mn>0</mn>
-                            </mtd>
-                            <mtd>
-                                <mi>sin</mi>
-                                <mfenced>
-                                    <mrow>
-                                        <mi>R</mi>
-                                        <mi>t</mi>
-                                    </mrow>
-                                </mfenced>
-                            </mtd>
-                            <mtd>
-                                <mi>cos</mi>
-                                <mfenced>
-                                    <mrow>
-                                        <mi>R</mi>
-                                        <mi>t</mi>
-                                    </mrow>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                    </mtable>
-                </mfenced>
-                <mfenced>
-                    <mtable>
-                        <mtr>
-                            <mtd>
-                                <mi>U</mi>
-                                <mfenced>
-                                    <mn>0</mn>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                        <mtr>
-                            <mtd>
-                                <mi>V</mi>
-                                <mfenced>
-                                    <mn>0</mn>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                        <mtr>
-                            <mtd>
-                                <mi>W</mi>
-                                <mfenced>
-                                    <mn>0</mn>
-                                </mfenced>
-                            </mtd>
-                        </mtr>
-                    </mtable>
-                </mfenced>
-            </math> <span class="mathbraille"></span> </p>
-        <p class="courant"> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
-                <mi>I</mi>
-                <mo>=</mo>
-                <mfrac>
-                    <mn>1</mn>
-                    <mn>2</mn>
-                </mfrac>
-                <mo>&#xD7;</mo>
-                <msubsup>
-                    <mfenced open="[" close="]">
-                        <mrow>
-                            <mi>arctan</mi>
-                            <mfrac>
-                                <mi>t</mi>
-                                <mn>2</mn>
-                            </mfrac>
-                        </mrow>
-                    </mfenced>
-                    <mn>0</mn>
-                    <mrow>
-                        <mo>+</mo>
-                        <mo>&#x221E;</mo>
-                    </mrow>
-                </msubsup>
-                <mo>+</mo>
-                <mfrac>
-                    <mn>1</mn>
-                    <mn>2</mn>
-                </mfrac>
-                <mo>&#xD7;</mo>
-                <msubsup>
-                    <mfenced open="[" close="]">
-                        <mrow>
-                            <mi>arctan</mi>
-                            <mfrac>
-                                <mi>t</mi>
-                                <mn>2</mn>
-                            </mfrac>
-                        </mrow>
-                    </mfenced>
-                    <mrow>
-                        <mo>-</mo>
-                        <mo>&#x221E;</mo>
-                    </mrow>
-                    <mn>0</mn>
-                </msubsup>
-            </math> <span class="mathbraille"></span> </p>
-        <p class="courant"> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
-                <msubsup>
-                    <mo>&#x222B;</mo>
-                    <mi>a</mi>
-                    <mi>b</mi>
-                </msubsup>
-                <mi>f</mi>
-                <mfenced>
-                    <mi>x</mi>
-                </mfenced>
-                <mo>d</mo>
-                <mi>x</mi>
-                <mo>=</mo>
-                <msubsup>
-                    <mo>&#x222B;</mo>
-                    <mn>1</mn>
-                    <mn>4</mn>
-                </msubsup>
-                <mn>3</mn>
-                <mo>d</mo>
-                <mi>x</mi>
-                <mo>=</mo>
-                <msubsup>
-                    <mfenced open="[" close="]">
-                        <mrow>
-                            <mn>3</mn>
-                            <mi>x</mi>
-                        </mrow>
-                    </mfenced>
-                    <mn>1</mn>
-                    <mn>4</mn>
-                </msubsup>
-                <mo>=</mo>
-                <mn>3</mn>
-                <mo>&#xD7;</mo>
-                <mfenced>
-                    <mn>4</mn>
-                </mfenced>
-                <mo>-</mo>
-                <mn>3</mn>
-                <mo>&#xD7;</mo>
-                <mfenced>
-                    <mn>1</mn>
-                </mfenced>
-                <mo>=</mo>
-                <mn>9</mn>
-            </math> <span class="mathbraille">⠯⠢⠁⠈⠃⠋⠦⠭⠴⠙⠭⠶⠯⠢⠡⠈⠹⠰⠩⠆⠙⠭⠶⠷⠩⠭⠾⠢⠡⠈⠹⠶⠩⠔⠦⠹⠴⠤⠩⠔⠦⠡⠴⠶⠪</span> </p>
     </section>
     <script type="text/javascript" src="../js/varTBA.js"></script>
     <script type="text/javascript" src="../js/varTBUE.js"></script>

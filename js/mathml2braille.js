@@ -39,6 +39,13 @@
         return false;
     }
 
+
+    Object.prototype.nbChildrens = function () {
+        return this.querySelectorAll('*').length;
+    }
+
+
+
     String.prototype.trimall = function () {
         return this.replace(/\s*/gi, '');
     };
@@ -414,6 +421,7 @@
                 _superflus(m);
                 _inutile(m);
                 _tableSeul(m);
+                _mspace(m);
                 if (options.codeBrailleMath === 'nemeth') {
                     _numDecimalNemeth(m, options);
                     _espaceNemeth(m);
@@ -483,7 +491,7 @@
                 _mo(m);
 
                 _mi(m);
-
+                _mtext(m);
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
                 maForm.innerHTML = m.innerHTML;
@@ -538,6 +546,16 @@
         d.getElementById('stat').innerHTML = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
     }
     /************************************/
+    function _mspace(monEquation) {
+        var space = monEquation.getElementsByTagName('mspace');
+        while (space[0]) {
+            var parent = space[0].parentNode;
+            var mtext = d.createElement('mi');
+            mtext.textContent = ' ';
+            parent.replaceChild(mtext, space[0]);
+        }
+    }
+
 
     function _extendDefaults(source, properties) {
         var property;
@@ -739,7 +757,7 @@
     }
 
     function _superflus(monEquation) {
-        var mesTags = ['mpadded', 'mstyle'],
+        var mesTags = ['mstyle'],
             l = mesTags.length,
             i = 0,
             df = d.createDocumentFragment(),
@@ -809,6 +827,31 @@
     }
 
     function _boolMfenced(table) {
+        var parent = table.parentElement;
+        var previousParent = parent.previousElementSibling;
+        var para = ['(', '{', '['];
+        var eltAvant = table.previousElementSibling;
+        // console.log(eltAvant);
+
+        while (parent.tagName.toLowerCase() !== 'math') {
+            if (parent.tagName.toLowerCase() === 'mfenced') {
+                return true;
+            } else if (!eltAvant) {
+                if (previousParent && (para.indexOf(previousParent.textContent) === -1)) {
+                    return true;
+                }
+            } else if (eltAvant && (para.indexOf(eltAvant.textContent) === -1)) {
+                return true;
+            } else if (previousParent && (para.indexOf(previousParent.textContent) === -1)) {
+                return true;
+            }
+            parent = parent.parentNode;
+
+        }
+        return false;
+    }
+
+    function _boolMfenced_old(table) {
         var parent = table.parentNode;
         while (parent.tagName.toLowerCase() !== 'math') {
             if (parent.tagName.toLowerCase() === 'mfenced') {
@@ -819,7 +862,6 @@
         }
         return false;
     }
-
 
     // TODO: multiscript
 
@@ -966,13 +1008,13 @@
             if (pre1.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(indice));
                 baseNemethPrevious = boolparent && indice || baseNemeth;
-                (pre1.children.length > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
+                (pre1.nbChildrens() > 1) && df.appendChild(pre1.block()) || df.appendChild(pre1);
                 // pre1.hasChild(['msup', 'msub']) && _msupORmsub(pre1, o, 'indice');
             }
             if (pre2.tagName.toLowerCase() !== 'none') {
                 df.appendChild(d.createTextNode(exposant));
                 baseNemethPrevious = boolparent && exposant || baseNemeth;
-                (pre2.children.length > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
+                (pre2.nbChildrens() > 1) && df.appendChild(pre2.block()) || df.appendChild(pre2);
 
                 // pre2.hasChild(['msup', 'msub']) && _msupORmsub(pre2, o, 'exposant');
 
@@ -981,12 +1023,12 @@
             !o.chimie && df.appendChild(base);
             if (post1.tagName.toLowerCase() !== 'none') {
                 // !post1.textContent.trimall().isNumeric() && df.appendChild(d.createTextNode(indice));
-                (post1.children.length > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
+                (post1.nbChildrens() > 1) && df.appendChild(post1.block()) || df.appendChild(post1);
                 // post1.hasChild(['msup', 'msub']) && _msupORmsub(post1, o, 'indice');
             }
             if (post2.tagName.toLowerCase() !== 'none') {
                 // df.appendChild(d.createTextNode(exposant));
-                (post2.children.length > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
+                (post2.nbChildrens() > 1) && df.appendChild(post2.block()) || df.appendChild(post2);
                 // post2.hasChild(['msup', 'msub']) && _msupORmsub(post2, o, 'exposant');
 
             }
@@ -1219,6 +1261,9 @@
         _majus(monEquation, 'mo');
     }
 
+    function _mtext(monEquation) {
+        _majus(monEquation, 'mtext');
+    }
 
     function _mn(monEquation, o) {
         if (o.codeBrailleMath === 'ueb') {
@@ -1247,6 +1292,7 @@
     }
 
     function _mover(monEquation, tagName, options) {
+
         tagName = tagName || 'mover';
         var mover = monEquation.getElementsByTagName(tagName),
             monbool = false;
@@ -1255,13 +1301,13 @@
             if (tbl.length !== 0) {
                 _tableUnder(mover[0]);
             }
-
             var bloc = d.createElement(tagName + 'bloc'),
                 parent = mover[0].parentNode,
                 elt = mover[0].children,
                 carCode = String(elt[1].textContent.trim().charCodeAt()),
                 sep = '',
                 myArray = Object.keys(mathBraille.caracDec.susouscrit);
+
             if (myArray.indexOf(carCode) !== -1) {
                 if (tagName === 'munder') {
                     bloc.appendChild(d.createTextNode(mathBraille.caracMath.majuscule));
@@ -1299,9 +1345,9 @@
                         break;
                 }
 
-                (enfant1.children.length > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
+                (enfant1.nbChildrens() > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
                 bloc.appendChild(d.createTextNode(sep));
-                (enfant2.children.length > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+                (enfant2.nbChildrens() > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
             }
             bloc = monbool && bloc.block() || bloc;
             parent.replaceChild(bloc, mover[0]);
@@ -1318,11 +1364,12 @@
         for (; j !== ltr; j++) {
             (j !== ltr - 1) && tr[j].appendChild(d.createTextNode('-2-'));
         }
+        var parent = tbl[0].parentNode;
         while (tr[0]) {
             bloc.appendChild(tr[0]);
         }
 
-        under.replaceChild(bloc, tbl[0]);
+        parent.replaceChild(bloc, tbl[0]);
         return under;
     }
 
@@ -1383,8 +1430,8 @@
             blocSep.appendChild(d.createTextNode(sep));
             blocSep = (mnamebloc.indexOf(enfant1.tagName.split('-')[0]) !== -1) && blocSep.block(indicateurBase, '') || blocSep;
 
-            enfant1 = (enfant1.children.length > 1 && !boolEnfant1) && enfant1.block() || enfant1;
-            enfant2 = (enfant2.children.length > 1 && !boolEnfant2) && enfant2.block() || enfant2;
+            enfant1 = (enfant1.nbChildrens() > 1 && !boolEnfant1) && enfant1.block() || enfant1;
+            enfant2 = (enfant2.nbChildrens() > 1 && !boolEnfant2) && enfant2.block() || enfant2;
 
             bloc.appendChild(enfant1);
             bloc.appendChild(blocSep);
@@ -1535,7 +1582,6 @@
         var funcTrue = ['log', 'sin', 'cos', 'arcsin', 'CO'];
         var funcFalse = ['∫'];
         if (funcFalse.indexOf(elt1.textContent.trimall()) !== -1) return false;
-        console.log(elt2.hasChild('has child : ' ['msub', 'msup', 'msubsup', 'mmultiscripts', 'blocIndiceNum']));
         if (elt2.hasChild(['msub', 'msup', 'msubsup', 'mmultiscripts', 'blocIndiceNum'])) return false;
         if (elt1.textContent.trimall().split('').length > 1 && funcTrue.indexOf(elt1.textContent.trimall()) === -1) {
             return false;
@@ -1660,12 +1706,14 @@
                     exposant = mathBraille.caracMath.exposant;
 
                 }
-                bloc = bloc.children[0].children.length > 1 && bloc.block() || bloc;
+                bloc = bloc.children[0].nbChildrens() > 1 && bloc.block() || bloc;
                 if (!(elt.previousElementSibling && elt.previousElementSibling.textContent.trim() === '|')) {
                     for (var k = 0; k < txt.length; k++) {
-
                         bloc = (txt[k] === 'e') && bloc.block(exposant, '') || bloc;
                         bloc = (txt[k] === 'i') && bloc.block(indice, '') || bloc;
+                        if (o.codeBrailleMath === 'fr') {
+                            break;
+                        }
                     }
                 }
                 var nextElt = elt.nextElementSibling;
@@ -1737,9 +1785,9 @@
 
                     }
 
-                    (enfant1.children.length > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
+                    (enfant1.nbChildrens() > 1) && bloc.appendChild(enfant1.block()) || bloc.appendChild(enfant1);
                     bloc.appendChild(d.createTextNode(sep));
-                    (enfant2.children.length > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
+                    (enfant2.nbChildrens() > 1) && bloc.appendChild(enfant2.block()) || bloc.appendChild(enfant2);
                     parent.replaceChild(bloc, mover[0]);
                 }
                 break;
@@ -1840,7 +1888,7 @@
             // // français
             if (enfants.length === 1) {
                 if (enfants[0].tagName.toLowerCase() === 'mrow' || enfants[0].tagName.toLowerCase() === 'mpadded') {
-                    bloc = enfants[0].children.length > 1 && bloc.block() || bloc;
+                    bloc = enfants[0].nbChildrens() > 1 && bloc.block() || bloc;
                 }
             } else {
                 bloc = bloc.block();
@@ -1895,7 +1943,7 @@
             }
             if (child1.length === 1) {
                 if (child1[0].tagName.toLowerCase() === 'mrow' || child1[0].tagName.toLowerCase() === 'mpadded') {
-                    bloccontenu = child1[0].children.length > 1 && bloccontenu.block() || bloccontenu;
+                    bloccontenu = child1[0].nbChildrens() > 1 && bloccontenu.block() || bloccontenu;
                 }
             } else if (child1.length >= 1) {
                 bloccontenu = bloccontenu.block();
