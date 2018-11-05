@@ -30,6 +30,15 @@ Convertit les équations mathML, ou du texte (braille direct), en braille Unicod
         ```javascript
         mathml2braille('.class',{'maxCaracCell': 14});
         ```
+  
+- Option   ***coupureFormule***
+
+    correspond aux nombres de caractères où la formule sera coupée (0 par défaut -> pas de coupure)
+
+    ```javascript
+    mathml2braille('.class',{'coupureFormule': 14});
+    ```
+
 - Options pour la codification ***codeBrailleMath*** : (français par defaut)
     - code français
         ```javascript

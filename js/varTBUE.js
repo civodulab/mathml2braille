@@ -70,6 +70,7 @@
    // -56- => dots56
    mathTBUE = {
      'caracMath': {
+       'coupureFormule': '5',
        'espaceInsecable': '-BLANK-',
        'separateurIndiceExposant': {
          'virgule': '-246-',
@@ -121,29 +122,29 @@
          'close': '-5-345-'
        },
        'grandeparenthese1': { // imbrication
-        'open': '-5-126-',
-        'close': '-5-345-'
-      },
+         'open': '-5-126-',
+         'close': '-5-345-'
+       },
        'grandeparenthese2': { // sur plusieurs lignes
-        'open': '-6-5-126-',
-        'close': '-6-5-345-'
-      },
+         'open': '-6-5-126-',
+         'close': '-6-5-345-'
+       },
        'accolade': {
-        'open': '-456-126-',
-        'close': '-456-345-'
-      },
+         'open': '-456-126-',
+         'close': '-456-345-'
+       },
        'grandeaccolade': { //plusieurs lignes
-        'open': '-6-456-126-',
-        'close': '-6-456-345-'
-      },
+         'open': '-6-456-126-',
+         'close': '-6-456-345-'
+       },
        'barre': {
-        'open': '-456-1256-',
-        'close': '-456-1256-'
-      },
+         'open': '-456-1256-',
+         'close': '-456-1256-'
+       },
        'grandebarre': { //plusieurs lignes
-        'open': '-6-456-1256-',
-        'close': '-6-456-1256-'
-      },
+         'open': '-6-456-1256-',
+         'close': '-6-456-1256-'
+       },
        'doublebarre': {
          'open': '-1256-1256-',
          'close': '-1256-1256-'
@@ -153,17 +154,17 @@
          'close': '-46-123456-'
        },
        'crochet': {
-        'open': '-46-126-',
-        'close': '-46-345-'
-      },
+         'open': '-46-126-',
+         'close': '-46-345-'
+       },
        'grandcrochet1': {
-        'open': '-46-126-',
-        'close': '-46-345-'
-      },
+         'open': '-46-126-',
+         'close': '-46-345-'
+       },
        'grandcrochet2': { // plusieurs lignes
-        'open': '-6-46-126-',
-        'close': '-6-46-345-'
-      },
+         'open': '-6-46-126-',
+         'close': '-6-46-345-'
+       },
        'crochetdouble': {
          'open': '-46-12356-',
          'close': '-46-23456-'
@@ -417,7 +418,7 @@
        // DOWN TACK ⊤ &‌#8868; &‌#x22A4;
        8756: '-6-16-', // THEREFORE (Triangular Dots) Entity Code = &there4; ∴ &‌#8756; &‌#x2234;
        8757: '-4-34-', // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
-       8733: '-BLANK-456-5-2356-BLANK-',// PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
+       8733: '-BLANK-456-5-2356-BLANK-', // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
        // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
        8773: '-BLANK-5-456-35-BLANK-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
        8776: '-BLANK-45-35-BLANK-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
@@ -461,7 +462,7 @@
        8727: '-5-35-', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
        8728: '-456-3456-', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
        8729: '-35-35-', // BULLET OPERATOR ∙ &‌#8729; &‌#x2219;
-       8758:'-25-',// RATIO ∶ &‌#8758; &‌#x2236;
+       8758: '-25-', // RATIO ∶ &‌#8758; &‌#x2236;
        // PROPORTION ∷ &‌#8759; &‌#x2237;
        // DOT MINUS ∸ &‌#8760; &‌#x2238 ;
        // EXCESS ∹ &‌#8761; &‌#x2239;

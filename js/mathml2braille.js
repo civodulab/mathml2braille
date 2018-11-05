@@ -393,6 +393,7 @@
         /* fin variables matrice */
         mathml = function (clmath) {
             var options = {
+                'coupureFormule': 0,
                 'codeBrailleMath': 'fr',
                 'codeSysteme': 'SI',
                 'matriceLineaire': false,
@@ -527,7 +528,9 @@
             var parent = converti[i].parentElement,
                 math2 = parent.querySelector('.mathbraille2'),
                 math = parent.querySelector('.mathbraille'),
-                txt = converti[i].textContent.trimall();
+                txt = converti[i].innerHTML.replace(/⠐(<br[^>]+\/>|<br[^>]+><\/br>)/g, '');
+            txt = txt.replace(/(<br[^>]+\/>|<br[^>]+><\/br>)/g, '');
+
             if (math.textContent !== '') {
                 if (txt === math.textContent.trimall()) {
                     parent.classList.add('good');
@@ -1680,7 +1683,6 @@
     }
 
     function _newIndiceExposantWrite(eq, o) {
-        // console.log('eq', eq.innerHTML);
         var indExp = ['msup', 'msub'],
             indice = mathBraille.caracMath.indice,
             exposant = mathBraille.caracMath.exposant,
@@ -2071,8 +2073,20 @@
         if (o.codeBrailleMath === 'nemeth') {
             monEquation.innerHTML = _indicateurNumerique(monEquation);
         }
+        monEquation.innerHTML = (o.coupureFormule !== 0) && _coupureFormule(monEquation, o.coupureFormule) || monEquation.innerHTML;
+    }
 
 
+    function _coupureFormule(monEquation, long) {
+        if (monEquation.innerHTML.indexOf('<br') !== -1) {
+            return monEquation.innerHTML;
+        }
+
+        var maFormule = monEquation.textContent.split('');
+        maFormule.forEach((c, i) => {
+            (i % long === 0 && i !== 0) && maFormule.splice(i - 1, 0, mathBraille.caracMath.coupureFormule.braille() + '<br />')
+        });
+        return maFormule.join('');
     }
 
     w.mathml2braille = mathml;

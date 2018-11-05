@@ -86,6 +86,7 @@
      // mathématiques français
      mathTBF = {
          'caracMath': {
+             'coupureFormule': '5',
              'espaceInsecable': '-BLANK-',
              'blocks': {
                  'open': '-56-',
