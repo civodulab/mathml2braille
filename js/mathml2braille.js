@@ -1515,7 +1515,7 @@
         var nodeTag = monEquation.getElementsByTagName(tagname),
             parent = nodeTag[0] && nodeTag[0].parentElement,
             k = 0;
-        while (parent && parent.tagname !== 'math') {
+        while (parent && parent.tagname.toLowerCase() !== 'math') {
             k++;
             parent = parent.parentElement;
         }
@@ -1623,9 +1623,9 @@
             enfant = elt,
             lvl = '';
 
-        while (tagName[0] !== 'math') {
+        while (tagName[0].toLowerCase() !== 'math') {
 
-            switch (tagName[0]) {
+            switch (tagName[0].toLowerCase()) {
                 case 'msup':
                     lvl += 'e';
                     break;
