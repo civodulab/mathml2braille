@@ -1711,8 +1711,8 @@
                 bloc = bloc.children[0].nbChildrens() > 1 && bloc.block() || bloc;
                 if (!(elt.previousElementSibling && elt.previousElementSibling.textContent.trim() === '|')) {
                     for (var k = 0; k < txt.length; k++) {
-                        bloc = (txt[k] === 'e') && bloc.block(exposant, '') || bloc;
-                        bloc = (txt[k] === 'i') && bloc.block(indice, '') || bloc;
+                        bloc = (txt[k].toLowerCase() === 'e') && bloc.block(exposant, '') || bloc;
+                        bloc = (txt[k].toLowerCase() === 'i') && bloc.block(indice, '') || bloc;
                         if (o.codeBrailleMath === 'fr') {
                             break;
                         }
