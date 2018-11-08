@@ -11,7 +11,11 @@
         if (Math.sign(this) === -1) return false;
         return !isNaN(parseFloat(this)) && isFinite(this);
     }
-
+    String.prototype.trimCar = function (car) {
+        let deb = new RegExp('^' + car);
+        let fin = new RegExp(car + '$');
+        return this.replace(deb, '').replace(fin, '');
+    }
     Object.prototype.hasParent = function (parentTagname) {
         parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
         var l = parentTagname.length,
@@ -61,6 +65,7 @@
     String.prototype.braille = function (maTable) {
         // Source
         // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
+        let maString = this.trimCar('-');
         var brailleUnicode = {
                 'BLANK': 10240,
                 1: 10241,
@@ -320,7 +325,7 @@
                 8: 10368
             },
             tmpTable = maTable && maTable || brailleUnicode,
-            txt = maTable && this.split('') || this.split('-'),
+            txt = maTable && maString.split('') || maString.split('-'),
             l = txt.length,
             i = 0;
         for (; i !== l; i++) {
@@ -385,10 +390,10 @@
         braillemarqueMat = '-1234567-',
         braillemarqueClose = '-1278-',
         braillemarqueRetourLigne = '-12345678-',
-        marqueCell = braillemarqueCell.substring(1, braillemarqueCell.length - 1).braille(),
-        marqueMat = braillemarqueMat.substring(1, braillemarqueMat.length - 1).braille(),
-        marqueClose = braillemarqueClose.substring(1, braillemarqueClose.length - 1).braille(),
-        marqueRetourLigne = braillemarqueRetourLigne.substring(1, braillemarqueRetourLigne.length - 1).braille(),
+        marqueCell = braillemarqueCell.braille(),
+        marqueMat = braillemarqueMat.braille(),
+        marqueClose = braillemarqueClose.braille(),
+        marqueRetourLigne = braillemarqueRetourLigne.braille(),
         espace = String.fromCharCode(10240),
         /* fin variables matrice */
         mathml = function (clmath) {
@@ -430,6 +435,8 @@
 
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
+                console.log(m.innerHTML);
+
                 // résolution problèmes blocs
                 _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
                 _pbIntegrale(m);
@@ -493,6 +500,7 @@
 
                 _mi(m);
                 _mtext(m);
+
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
                 maForm.innerHTML = m.innerHTML;
@@ -665,7 +673,7 @@
                 }
                 first = parent.nextElementSibling;
                 last = first;
-                if ((first && first.tagName === 'mfenced') || (first && first.textContent.indexOf('(') !== -1)) continue;
+                if ((first && first.tagName === 'mfenced') || (first && first.textContent.indexOf('(') !== -1) || (first && first.nbChildrens() > 1)) continue;
 
                 if (parent.nextElementSibling.tagName === 'mfrac') {
                     frac = parent.nextElementSibling;
@@ -780,6 +788,36 @@
 
 
     function _ajoutmfenced(monEquation) {
+
+        var mo = monEquation.querySelectorAll('mo');
+        const paraOpen = ['(', '[', '{'];
+        const paraClose = [')', ']', '}'];
+        mo.forEach(m => {
+            let fenced = d.createElement('mfenced');
+            let parent = m.parentNode;
+            let fermeture;
+            let i = paraOpen.indexOf(m.textContent);
+
+            if (m.textContent === '{' && (m.nextElementSibling.tagName === 'mtable' || m.nextElementSibling.hasChild('mtable'))) {
+                fenced.setAttribute('open', paraOpen[i]);
+                fenced.setAttribute('close', '');
+                fenced.appendChild(m.nextElementSibling);
+                parent.replaceChild(fenced, m);
+            } else if (i !== -1) {
+                fenced.setAttribute('open', paraOpen[i]);
+                fenced.setAttribute('close', paraClose[i]);
+                while (m.nextElementSibling && m.nextElementSibling.textContent !== paraClose[i]) {
+                    fenced.appendChild(m.nextElementSibling);
+                }
+                fermeture = m.nextElementSibling;
+                fermeture && parent.removeChild(fermeture);
+                fermeture && parent.replaceChild(fenced, m);
+            }
+        })
+
+    }
+
+    function _ajoutmfenced_old(monEquation) {
         var tbl = monEquation.getElementsByTagName('mtable'),
             ltbl = tbl.length,
             i = 0,
@@ -790,6 +828,7 @@
             parent;
         for (; i !== ltbl; i++) {
             boolfenced = _boolMfenced(tbl[i]);
+
             if (!boolfenced) { //recherche parenthèse
                 parent = tbl[i].parentNode;
 
@@ -2064,7 +2103,7 @@
     function _writeform(monEquation, o, hardmat) {
         monEquation.textContent = monEquation.textContent.trimall();
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
-        monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
+        // monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
         monEquation.textContent = monEquation.textContent.braille();
         (!o.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
