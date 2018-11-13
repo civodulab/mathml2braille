@@ -435,7 +435,6 @@
 
                 var hardmat = _boolHardMatrice(m, options);
                 _ajoutmfenced(m);
-                console.log(m.innerHTML);
 
                 // résolution problèmes blocs
                 _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
@@ -492,7 +491,7 @@
                 // _msubsup(m, options);
                 // _munderover(m);
                 _mfenced(m, options, hardmat);
-                // console.log(m.innerHTML);
+                console.log(m.innerHTML);
 
                 _mn(m, options);
 
@@ -790,28 +789,23 @@
     function _ajoutmfenced(monEquation) {
 
         var mo = monEquation.querySelectorAll('mo');
-        const paraOpen = ['(', '[', '{'];
-        const paraClose = [')', ']', '}'];
+        const paraOpen = ['(', '[', '{', '|', '‖'];
+        const paraClose = [')', ']', '}', '|', '‖'];
         mo.forEach(m => {
             let fenced = d.createElement('mfenced');
             let parent = m.parentNode;
             let fermeture;
             let i = paraOpen.indexOf(m.textContent);
 
-            if (m.textContent === '{' && (m.nextElementSibling.tagName === 'mtable' || m.nextElementSibling.hasChild('mtable'))) {
+            if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName === 'mtable' || m.nextElementSibling.hasChild('mtable'))) {
                 fenced.setAttribute('open', paraOpen[i]);
                 fenced.setAttribute('close', '');
                 fenced.appendChild(m.nextElementSibling);
-                parent.replaceChild(fenced, m);
-            } else if (i !== -1) {
-                fenced.setAttribute('open', paraOpen[i]);
-                fenced.setAttribute('close', paraClose[i]);
-                while (m.nextElementSibling && m.nextElementSibling.textContent !== paraClose[i]) {
-                    fenced.appendChild(m.nextElementSibling);
+                if (m.nextElementSibling && m.nextElementSibling.textContent === paraClose[i]) {
+                    fenced.setAttribute('close', paraClose[i]);
+                    parent.removeChild(m.nextElementSibling);
                 }
-                fermeture = m.nextElementSibling;
-                fermeture && parent.removeChild(fermeture);
-                fermeture && parent.replaceChild(fenced, m);
+                parent.replaceChild(fenced, m);
             }
         })
 
@@ -1126,14 +1120,16 @@
                     open = monBool && mathBraille.caracMath.grandcrochet2.close || mathBraille.caracMath.crochet.close;
                     break;
                 case 123: //'{':
-                    open = mtable[0] && mathBraille.caracMath.grandeaccolade.open || mathBraille.caracMath.accolade.open;
+                    open = monBool && (mathBraille.caracMath.grandeaccolade.open) || ((close !== '') && mathBraille.caracMath.accolade.open || mathBraille.caracMath.grandeaccolade.open);
                     break;
+                case 8739:
                 case 124: //'|':
                     open = monBool && mathBraille.caracMath.grandebarre.open || mathBraille.caracMath.barre.open;
                     break;
+                case 8214:
                 case 8741:
                 case '||':
-                    open = mtable[0] && mathBraille.caracMath.grandedoublebarre.open || mathBraille.caracMath.doublebarre.open;
+                    open = monBool && mathBraille.caracMath.grandedoublebarre.open || mathBraille.caracMath.doublebarre.open;
                     break;
                 case 10214: // crochet double ouvert
                     open = mathBraille.caracMath.crochetdouble.open;
@@ -1150,14 +1146,15 @@
                     close = monBool && mathBraille.caracMath.grandcrochet2.open || mathBraille.caracMath.crochet.open;
                     break;
                 case 125: //'}':
-                    close = mtable[0] && mathBraille.caracMath.grandeaccolade.close || mathBraille.caracMath.accolade.close;
+                    close = monBool && mathBraille.caracMath.grandeaccolade.close || mathBraille.caracMath.accolade.close;
                     break;
                 case 124: // '|':
                     close = monBool && mathBraille.caracMath.grandebarre.close || mathBraille.caracMath.barre.close;
                     break;
+                case 8214:
                 case 8741:
                 case '||':
-                    close = mtable[0] && mathBraille.caracMath.grandedoublebarre.close || mathBraille.caracMath.doublebarre.close;
+                    close = monBool && mathBraille.caracMath.grandedoublebarre.close || mathBraille.caracMath.doublebarre.close;
                     break;
                 case 10215: // crochet double fermé
                     close = mathBraille.caracMath.crochetdouble.close;
@@ -2010,12 +2007,18 @@
         var txt, nbcar, close, idx, j, spc = "";
         txt = monEquation.textContent.split('');
         nbcar = txt.indexOf(marqueMat);
-        nbcar !== -1 && txt.splice(nbcar, 1);
 
+        let paraBool = monEquation.textContent.indexOf(marqueRetourLigne + mathBraille.caracMath.parenthese.open.braille()) === -1 && monEquation.textContent.indexOf(marqueRetourLigne + mathBraille.caracMath.crochet.open.braille()) == -1 && monEquation.textContent.indexOf(marqueRetourLigne + mathBraille.caracMath.barre.open.braille()) == -1;
+
+        nbcar !== -1 && txt.splice(nbcar, 1);
         close = txt.indexOf(marqueClose);
         if (close !== -1) {
             txt.splice(close, 1);
-            nbcar = (nbcar !== -1) && (nbcar - 1) || 0;
+            if (paraBool) {
+                nbcar = (nbcar !== -1) && (nbcar - 2) || 0;
+            } else {
+                nbcar = (nbcar !== -1) && (nbcar - 1) || 0;
+            }
         } else {
             nbcar = (nbcar !== -1) && nbcar || 0;
         }
@@ -2103,7 +2106,6 @@
     function _writeform(monEquation, o, hardmat) {
         monEquation.textContent = monEquation.textContent.trimall();
         monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
-        // monEquation.textContent = monEquation.textContent.substring(1, monEquation.textContent.length - 1);
 
         monEquation.textContent = monEquation.textContent.braille();
         (!o.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));

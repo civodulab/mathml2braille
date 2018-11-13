@@ -382,7 +382,7 @@
              // ANGLE Entity Code = &ang; ∠ &‌#8736; &‌#x2220;
              // MEASURED ANGLE ∡ &‌#8737; &‌#x2221;
              // SPHERICAL ANGLE ∢ &‌#8738; &‌#x2222;
-             // DIVIDES ∣ &‌#8739; &‌#x2223;
+             8739: '-123456-', // DIVIDES ∣ &‌#8739; &‌#x2223;
              // DOES NOT DIVIDE ∤ &‌#8740; &‌#x2224;
              8741: '-456-1256-', //PARALLEL TO ∥ &‌#8741; &‌#x2225;
              8742: '-46-456-1256-', //NOT PARALLEL TO ∦ &‌#8742; &‌#x2226;

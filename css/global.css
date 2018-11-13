@@ -1,3 +1,10 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: "braille";
+    src: url("../font/LouisLouis.ttf") format("TrueType");
+}
+
 h1 {
     font-size: 2em;
     margin-top: 1em;
@@ -34,12 +41,18 @@ math {
     display: block;
 }
 
+.js-mathmlConverti,
+.mathbraille {
+    font-family: 'braille';
+}
+
 .js-brailleDirect {
     margin-top: 0;
 }
 
 .mathbraille::after {
     content: "\0000A0(bonne écriture)";
+    font-family: 'Courier New', Courier, monospace
 }
 
 .bad::before {
