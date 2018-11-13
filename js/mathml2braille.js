@@ -23,8 +23,8 @@
             i = 0;
         for (; i !== l; i++) {
             parent = this.parentNode;
-            while (parent && parent.tagName !== 'math') {
-                if (parent.tagName === parentTagname[i]) return true;
+            while (parent && parent.tagName.toLowerCase() !== 'math') {
+                if (parent.tagName.toLowerCase() === parentTagname[i]) return true;
                 parent = parent.parentNode;
             }
         }
@@ -38,7 +38,7 @@
             i = 0;
         for (; i !== l; i++) {
             var node = this.getElementsByTagName(parentTagname[i]);
-            if (node[0] || this.tagName === parentTagname[i]) return true;
+            if (node[0] || this.tagName.toLowerCase() === parentTagname[i]) return true;
         }
         return false;
     }
@@ -584,7 +584,7 @@
         for (; i !== lmo; i++) {
             var elt = mo[i];
             if (elt.textContent.trim() === ',' && o.codeSysteme === 'SI') {
-                if (elt.previousElementSibling.tagName === 'mn' && elt.nextElementSibling.tagName === 'mn') {
+                if (elt.previousElementSibling.tagName.toLowerCase() === 'mn' && elt.nextElementSibling.tagName.toLowerCase() === 'mn') {
                     elt.textContent = '.';
                 } else if (elt.nextElementSibling.textContent.charCodeAt() !== 160) {
                     var bloc = d.createElement('space-bloc'),
@@ -626,7 +626,7 @@
                 next = subsup[i].nextElementSibling,
                 parent = subsup[i].parentNode;
 
-            if (enfants[0].textContent.charCodeAt() === 8747 && next.tagName === 'mn') {
+            if (enfants[0].textContent.charCodeAt() === 8747 && next.tagName.toLowerCase() === 'mn') {
                 parent.insertBefore(d.createTextNode(mathBraille.caracMath.blocks.open), subsup[i].nextSibling);
                 while (next && next.textContent !== 'd') {
                     // bloc.appendChild(next);
@@ -655,10 +655,10 @@
                 lastprevious;
             if (qui.indexOf(txt) !== -1) {
                 if (txt === 'lim') {
-                    while (parent.tagName !== 'munder') {
+                    while (parent.tagName.toLowerCase() !== 'munder') {
                         parent = parent.parentNode;
                     }
-                    if (parent.nextElementSibling.tagName === 'mfrac') {
+                    if (parent.nextElementSibling.tagName.toLowerCase() === 'mfrac') {
                         var frac = parent.nextElementSibling;
                         parent = parent.parentNode;
                         var bloc = d.createElement('mfrac');
@@ -667,14 +667,14 @@
                     }
                     continue;
 
-                } else if (zap.indexOf(parent.tagName) === -1) {
+                } else if (zap.indexOf(parent.tagName.toLowerCase()) === -1) {
                     parent = mi[i];
                 }
                 first = parent.nextElementSibling;
                 last = first;
-                if ((first && first.tagName === 'mfenced') || (first && first.textContent.indexOf('(') !== -1) || (first && first.nbChildrens() > 1)) continue;
+                if ((first && first.tagName.toLowerCase() === 'mfenced') || (first && first.textContent.indexOf('(') !== -1) || (first && first.nbChildrens() > 1)) continue;
 
-                if (parent.nextElementSibling.tagName === 'mfrac') {
+                if (parent.nextElementSibling.tagName.toLowerCase() === 'mfrac') {
                     frac = parent.nextElementSibling;
                     parent = parent.parentNode;
                     bloc = d.createElement('mfrac');
@@ -682,7 +682,7 @@
                     parent.replaceChild(bloc.block(), frac);
                     continue;
                 }
-                while (last && (last.tagName !== 'mo' && last.textContent.trimall().length === 1)) {
+                while (last && (last.tagName.toLowerCase() !== 'mo' && last.textContent.trimall().length === 1)) {
                     lastprevious = last;
                     last = last.nextElementSibling;
                 }
@@ -797,7 +797,7 @@
             let fermeture;
             let i = paraOpen.indexOf(m.textContent);
 
-            if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName === 'mtable' || m.nextElementSibling.hasChild('mtable'))) {
+            if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mtable' || m.nextElementSibling.hasChild('mtable'))) {
                 fenced.setAttribute('open', paraOpen[i]);
                 fenced.setAttribute('close', '');
                 fenced.appendChild(m.nextElementSibling);
@@ -841,14 +841,14 @@
                     fenced.appendChild(parent.children[0]);
                     parent.appendChild(fenced);
                 } else if (parent.children.length === 2) {
-                    if (parent.children[0].tagName === 'mo') {
+                    if (parent.children[0].tagName.toLowerCase() === 'mo') {
                         open = parent.children[0].textContent;
                         fenced.setAttribute('open', open);
                         fenced.setAttribute('close', '');
                         parent.removeChild(parent.children[0]);
                         fenced.appendChild(parent.children[0]);
                         parent.appendChild(fenced);
-                    } else if (parent.children[1].tagName === 'mo') {
+                    } else if (parent.children[1].tagName.toLowerCase() === 'mo') {
                         close = parent.children[1].textContent;
                         fenced.setAttribute('open', '');
                         fenced.setAttribute('close', close);
@@ -941,7 +941,7 @@
             for (var k = 0; k !== elts.length; k++) {
 
                 var lvl = _newNiveauIndiceExposant(elts[k]),
-                    id = d.createElement(elts[k].tagName);
+                    id = d.createElement(elts[k].tagName.toLowerCase());
                 id.innerHTML = elts[k].innerHTML;
 
                 if (lvl !== -1) {
@@ -1348,7 +1348,7 @@
                 myArray = Object.keys(mathBraille.caracDec.susouscrit);
 
             if (myArray.indexOf(carCode) !== -1) {
-                if (tagName === 'munder') {
+                if (tagName.toLowerCase() === 'munder') {
                     bloc.appendChild(d.createTextNode(mathBraille.caracMath.majuscule));
                 }
                 bloc.appendChild(d.createTextNode(mathBraille.caracDec.susouscrit[carCode]));
@@ -1356,7 +1356,7 @@
             } else {
                 var enfant1 = elt[0],
                     enfant2 = elt[1];
-                switch (tagName) {
+                switch (tagName.toLowerCase()) {
                     case 'mover':
                         sep = mathBraille.caracMath.suscrit;
                         options.chimie && (sep = '');
@@ -1374,7 +1374,7 @@
                         //     break;
 
                     case 'mroot':
-                        if (mover[0].nextElementSibling && mover[0].nextElementSibling.tagName !== 'mo') {
+                        if (mover[0].nextElementSibling && mover[0].nextElementSibling.tagName.toLowerCase() !== 'mo') {
                             monbool = true;
                         }
                         sep = mathBraille.caracMath.racine;
@@ -1497,11 +1497,11 @@
             ldenom = denom.length;
         var comp = ['simple', 'complexe', 'hypercomplexe'];
         var numcomp = 0;
-        if (frac.previousElementSibling && frac.previousElementSibling.tagName === 'mn') {
+        if (frac.previousElementSibling && frac.previousElementSibling.tagName.toLowerCase() === 'mn') {
             var parent = frac.parentElement.tagName;
             if (parent !== 'mfrac') return 'fractionnaire';
         }
-        if ((numerateur.tagName !== 'mfrac' && lnum === 0) && (denominateur.tagName !== 'mfrac' && ldenom === 0)) {
+        if ((numerateur.tagName.toLowerCase() !== 'mfrac' && lnum === 0) && (denominateur.tagName.toLowerCase() !== 'mfrac' && ldenom === 0)) {
             if (numerateur.textContent.indexOf('/') !== -1 || denominateur.textContent.indexOf('/') !== -1) {
                 return 'complexe';
             }
@@ -1518,19 +1518,19 @@
         function _testEnfants(elt) {
             var comp = 0;
 
-            if (elt.tagName === 'mfrac') {
+            if (elt.tagName.toLowerCase() === 'mfrac') {
                 if (_boolFracComplexity(elt) === 'simple') {
                     comp = 1;
                 } else {
                     comp = 2;
                 }
-            } else if (elt.tagName === 'msub' || elt.tagName === 'msup') {
+            } else if (elt.tagName.toLowerCase() === 'msub' || elt.tagName.toLowerCase() === 'msup') {
                 comp = 0;
             } else {
                 var eltenfant = elt.children;
                 for (var i = 0; i < eltenfant.length; i++) {
 
-                    if (eltenfant[i].tagName === 'mfrac') {
+                    if (eltenfant[i].tagName.toLowerCase() === 'mfrac') {
                         if (_boolFracComplexity(eltenfant[i]) === 'simple' || _boolFracComplexity(eltenfant[i]) === 'fractionnaire') {
                             comp = 1;
                         } else {
@@ -1729,12 +1729,12 @@
 
         for (; j !== -1; j--) {
             var elt = ie[j],
-                tagName = elt.tagName.split('-'),
+                tagName = elt.tagName.toLowerCase().split('-'),
                 parent = elt.parentNode;
             if (tagName[1] && (!(tagName[0] === 'blocIndiceNum') || o.codeBrailleMath === 'fr')) {
                 var boolFrChimie = o.chimie && o.codeBrailleMath === 'fr' && !elt.hasParent(['mmultiscripts-f', 'mmultiscripts']);
                 var txt = tagName[1].split(''),
-                    bloc = (elt.children[0].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && d.createElement(elt.tagName) || d.createElement('bloc');
+                    bloc = (elt.children[0].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && d.createElement(elt.tagName.toLowerCase()) || d.createElement('bloc');
                 bloc.innerHTML = elt.innerHTML;
                 if ((tagName[0] === 'blocunderover')) {
                     exposant = mathBraille.caracMath.suscrit;
@@ -1761,7 +1761,7 @@
 
                 }
                 var indicBaseDom = ['mi', 'mo', 'mn'];
-                if (nextElt && indicBaseDom.indexOf(nextElt.tagName) !== -1) {
+                if (nextElt && indicBaseDom.indexOf(nextElt.tagName.toLowerCase()) !== -1) {
                     if (txt.length > 1) indicateurBase = txt[0];
                     bloc = bloc.block('', indicateurBase);
                 }
@@ -1789,7 +1789,7 @@
 
     function _msupORmsub(monEquation, o, multi) {
         var mover;
-        if (monEquation.tagName !== 'msub' && monEquation.tagName !== 'msup') {
+        if (monEquation.tagName.toLowerCase() !== 'msub' && monEquation.tagName.toLowerCase() !== 'msup') {
             var cpMsup = _countParent(monEquation, 'msup'),
                 cpMsub = _countParent(monEquation, 'msub'),
                 tagname = cpMsup < cpMsub && 'msup' || 'msub';
@@ -1812,7 +1812,7 @@
                         sep = '',
                         enfant1 = elt[0],
                         enfant2 = elt[1];
-                    switch (tagname) {
+                    switch (tagName.toLowerCase()) {
                         case 'msub':
                             sep = (enfant1.textContent.trim() !== '|') && mathBraille.caracMath.indice || sep;
                             o.chimie && (sep = '');
@@ -1835,15 +1835,15 @@
     function _niveauIndiceExposant(elt, o, multi) {
         var enfant1 = elt.children[1],
             enfant0 = elt.children[0],
-            previousIE = (elt.tagName === 'msup') && mathBraille.caracMath.exposant || mathBraille.caracMath.indice,
-            bloc = d.createElement(elt.tagName + '-bloc'),
+            previousIE = (elt.tagName.toLowerCase() === 'msup') && mathBraille.caracMath.exposant || mathBraille.caracMath.indice,
+            bloc = d.createElement(elt.tagName.toLowerCase() + '-bloc'),
             parent = elt.parentNode,
             boolNum,
-            boolIndicNiveau = (elt.nextElementSibling && elt.nextElementSibling.tagName === 'mo');
+            boolIndicNiveau = (elt.nextElementSibling && elt.nextElementSibling.tagName.toLowerCase() === 'mo');
 
         bloc.appendChild(enfant0);
         previousIE = multi && (mathBraille.caracMath[multi] + previousIE) || previousIE;
-        boolNum = (enfant1.textContent.trimall().isNumeric() && elt.tagName === 'msub') && !enfant0.textContent.trimall().isNumeric();
+        boolNum = (enfant1.textContent.trimall().isNumeric() && elt.tagName.toLowerCase() === 'msub') && !enfant0.textContent.trimall().isNumeric();
         if (!boolNum) {
             !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
         }
@@ -1858,9 +1858,9 @@
 
 
         while (next[0]) {
-            previousIE += tagname === 'msub' && mathBraille.caracMath.indice || mathBraille.caracMath.exposant;
+            previousIE += tagName.toLowerCase() === 'msub' && mathBraille.caracMath.indice || mathBraille.caracMath.exposant;
             parent = next[0].parentNode;
-            bloc = d.createElement(tagname + '-bloc');
+            bloc = d.createElement(tagName.toLowerCase() + '-bloc');
             enfant0 = next[0].children[0];
             enfant1 = next[0].children[1];
             bloc.appendChild(enfant0);
@@ -1894,7 +1894,7 @@
             tagName,
             parent = racine.parentNode;
         while (parent) {
-            tagName = parent.tagName.split('-');
+            tagName = parent.tagName.toLowerCase().split('-');
             (tagName[0] === 'msqrt' || tagName[0] === 'mroot') && k++;
             parent = parent.parentNode;
         }
@@ -1914,7 +1914,7 @@
 
         for (; i !== -1; i--) {
             var elt = racine[i],
-                tagName = elt.tagName.split('-'),
+                tagName = elt.tagName.toLowerCase().split('-'),
                 parent = elt.parentNode,
                 bloc = d.createElement('bloc'),
                 enfants = elt.children,
@@ -1956,7 +1956,7 @@
 
         for (; i !== -1; i--) {
             var elt = mroot[i],
-                tagName = elt.tagName.split('-'),
+                tagName = elt.tagName.toLowerCase().split('-'),
                 parent = elt.parentNode,
                 bloc = d.createElement('bloc'),
                 bloccontenu = d.createElement('bloc'),
@@ -1973,10 +1973,10 @@
 
             var child1 = enfant0.children;
             /******  français ******/
-            if (elt.nextElementSibling && elt.nextElementSibling.tagName !== 'mo') {
+            if (elt.nextElementSibling && elt.nextElementSibling.tagName.toLowerCase() !== 'mo') {
                 monbool = true;
             }
-            if (elt.previousElementSibling && elt.previousElementSibling.tagName !== 'mo') {
+            if (elt.previousElementSibling && elt.previousElementSibling.tagName.toLowerCase() !== 'mo') {
                 monbool = true;
             }
             if (child1.length === 1) {
