@@ -183,6 +183,8 @@
        'indiceRadical': '-126-',
        'majuscule': '-6-',
        'indicateurBase': '-5-',
+       'majusculeronde': '-46-5-'
+
      },
      'caracDec': {
        susouscrit: {

@@ -1280,8 +1280,12 @@
         var mn = monEquation.getElementsByTagName(tagName),
             l = mn.length,
             i = 0;
+
         for (; i !== l; i++) {
-            // mn[i].textContent.trimall().majusculeBraille(mathBraille.caracMath.majuscule)
+            let scriptBool = mn[i].getAttribute('mathvariant') && mn[i].getAttribute('mathvariant') === 'script';
+            if (scriptBool) {
+                mn[i].textContent = mn[i].textContent.toLowerCase();
+            }
             var num = mn[i].textContent.length > 1 && mn[i].textContent.trim().split('') || mn[i].textContent.split(''),
                 carac = '',
                 lnum = num.length,
@@ -1291,7 +1295,7 @@
 
                 carac = mathBraille.caracDec[num[j].charCodeAt()] || num[j];
 
-                mn[i].textContent += carac;
+                mn[i].textContent += scriptBool && mathBraille.caracMath.majusculeronde + carac || carac;
             }
         }
     }

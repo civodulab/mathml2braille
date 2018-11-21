@@ -157,6 +157,7 @@
              'majuscule': '-46-',
              'point5': '-5-',
              'point6': '-6-',
+             'majusculeronde': '-46-5-'
          },
          'caracDec': {
              susouscrit: {
