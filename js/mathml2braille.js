@@ -468,6 +468,10 @@
                 // mover /munder  chimie
                 options.chimie && _moverChimie(m);
                 options.chimie && _munderChimie(m);
+
+                // munderover sur flèche
+                options.chimie && _munderoverChimie(m);
+
                 if (options.codeBrailleMath === 'nemeth') {
                     _numDecimalNemeth(m, options);
                     _espaceNemeth(m);
@@ -494,6 +498,7 @@
 
 
                 _newMsubsupBloc(m);
+
                 _newMunderover(m);
                 // console.log(m.innerHTML);
 
@@ -524,8 +529,8 @@
 
                 _mo(m, options);
 
-                _mi(m,options);
-                _mtext(m,options);
+                _mi(m, options);
+                _mtext(m, options);
 
                 (options.matriceLineaire || hardmat) && _matriceLineaire(m);
                 _writeform(m, options, hardmat);
@@ -548,7 +553,29 @@
             }
         };
 
+    function _munderoverChimie(monEquation) {
+        var munderover = monEquation.getElementsByTagName('munderover'),
+            i = 0,
+            l = munderover.length;
+        for (; i < l; i++) {
+            let parent = munderover[i].parentNode;
+            let elt = munderover[i].children;
+            if (elt[0].textContent.trim().charCodeAt() === 8652) {
+                let mfenced = d.createElement('mfenced');
+                let mrow = d.createElement('mrow');
+                mfenced.appendChild(elt[2]);
+                mfenced.appendChild(d.createTextNode('-23-'));
+                mfenced.appendChild(elt[1]);
+                mrow.appendChild(elt[0]);
+                mrow.appendChild(mfenced);
 
+                parent.replaceChild(mrow, munderover[i]);
+            }
+
+
+            // <mo>&#x21CC;</mo>
+        }
+    }
 
     function _moverChimie(monEquation) {
         var mover = monEquation.getElementsByTagName('mover'),
@@ -556,12 +583,30 @@
             l = mover.length;
         for (; i < l; i++) {
             let elt = mover[i].children;
-            if (elt[1].tagName.toLowerCase() === 'mi') {
+            let parent=mover[i].parentNode;
+
+            if (elt[0].textContent.trim().charCodeAt() === 8652) {
+                let mfenced = d.createElement('mfenced');
+                let mrow = d.createElement('mrow');
+                mfenced.appendChild(elt[1]);
+                mfenced.appendChild(d.createTextNode('-23-'));
+                mfenced.appendChild(d.createTextNode('-5-2-'));
+                mrow.appendChild(elt[0]);
+                mrow.appendChild(mfenced);
+                parent.replaceChild(mrow, mover[i]);
+            }
+            else if (elt[1].tagName.toLowerCase() === 'mi') {
                 let mfenced = d.createElement('mfenced'),
                     mi = d.createElement('mi');
                 mi.innerHTML = elt[1].innerHTML;
                 mfenced.appendChild(mi);
                 mover[i].replaceChild(mfenced, elt[1]);
+            }else{
+                let mrow = d.createElement('mrow');
+                mrow.appendChild(elt[0]);
+                mrow.appendChild(elt[0]);
+                parent.replaceChild(mrow, mover[i]);
+
             }
         }
     }
@@ -571,13 +616,13 @@
             i = 0,
             l = mover.length;
         for (; i < l; i++) {
-           let elt=mover[i].children;
+            let elt = mover[i].children;
             if (elt[1].tagName.toLowerCase() === 'mo') {
 
                 let parent = mover[i].parentNode;
                 let mrow = d.createElement('mrow');
                 mrow.innerHTML = mover[i].innerHTML;
-                parent.replaceChild(mrow,mover[i]);
+                parent.replaceChild(mrow, mover[i]);
             }
         }
     }
@@ -1141,17 +1186,17 @@
                 mn[i].textContent = '';
                 for (; j < lnum; j++) {
                     let moncar;
-                    if(o.chimie){
-                        if(mathBraille.caracDec[num[j].charCodeAt()]&&mathBraille.caracDec[num[j].charCodeAt()].chimie){
-                            moncar=mathBraille.caracDec[num[j].charCodeAt()].chimie;
-                        }else{
-                            moncar=mathBraille.caracDec[num[j].charCodeAt()];
+                    if (o.chimie) {
+                        if (mathBraille.caracDec[num[j].charCodeAt()] && mathBraille.caracDec[num[j].charCodeAt()].chimie) {
+                            moncar = mathBraille.caracDec[num[j].charCodeAt()].chimie;
+                        } else {
+                            moncar = mathBraille.caracDec[num[j].charCodeAt()];
                         }
-                    }else{
-                        if(mathBraille.caracDec[num[j].charCodeAt()]&&mathBraille.caracDec[num[j].charCodeAt()].math){
-                            moncar=mathBraille.caracDec[num[j].charCodeAt()].math;
-                        }else{
-                            moncar=mathBraille.caracDec[num[j].charCodeAt()];
+                    } else {
+                        if (mathBraille.caracDec[num[j].charCodeAt()] && mathBraille.caracDec[num[j].charCodeAt()].math) {
+                            moncar = mathBraille.caracDec[num[j].charCodeAt()].math;
+                        } else {
+                            moncar = mathBraille.caracDec[num[j].charCodeAt()];
                         }
                     }
                     carac = moncar || num[j];
@@ -1166,8 +1211,8 @@
         _majus(monEquation, 'mo', o);
     }
 
-    function _mtext(monEquation,o) {
-        _majus(monEquation, 'mtext',o);
+    function _mtext(monEquation, o) {
+        _majus(monEquation, 'mtext', o);
     }
 
     function _mn(monEquation, o) {
@@ -1188,12 +1233,12 @@
             }
 
         }
-        _majus(monEquation, 'mn',o);
+        _majus(monEquation, 'mn', o);
 
     }
 
-    function _mi(monEquation,o) {
-        _majus(monEquation, 'mi',o);
+    function _mi(monEquation, o) {
+        _majus(monEquation, 'mi', o);
     }
 
     function _mover(monEquation, tagName, options) {
