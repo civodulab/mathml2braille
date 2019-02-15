@@ -2,7 +2,7 @@
  * mathml2braille
  * Convertit les équations mathML en Braille Unicode
  * @author Ludovic BAL <ludo.bal62@gmail.com>
- * @version 1.0
+ * @version 2.0
  * 
  */
 
