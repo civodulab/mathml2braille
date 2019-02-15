@@ -9,8 +9,25 @@
 
 <body>
     <section epub:type="subchapter">
-        <p id="stat"></p>
-
+        <form id="monForm" action="">
+            <fieldset id="fstat">
+                <legend>Stats</legend>
+                <p id="stat"></p>
+            </fieldset>
+            <fieldset>
+                <legend>Options</legend>
+                <fieldset>
+                    <legend>Matrice</legend>
+                    <input type="radio" name="linear" id="matLin" value="true" /><label for="matLin">Linéaire</label>
+                    <input type="radio" name="linear" id="notMatLin" checked="checked" value="false" /><label for="notMatLin">Non linéaire</label>
+                </fieldset>
+                <fieldset>
+                    <legend>Coupure de formule</legend>
+                    <input type="text" name="coupure" id="coupure" maxlength="2" size="4" value="0" /><label for="coupure"> Entrer le nombre de caractères où la formule sera coupée (0 pour ne rien faire)</label>
+                </fieldset>
+                <input type="submit" value="Valider" />
+            </fieldset>
+        </form>
         <h1>Exemples tirés du document PDF " <a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h1>
 
         <h2>Mes Exemples</h2>

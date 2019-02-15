@@ -1,5 +1,5 @@
 stat();
-
+option();
 
 function stat() {
     var converti = document.querySelectorAll('.js-mathmlConverti'),
@@ -32,5 +32,37 @@ function stat() {
 
     }
     pourcent = Math.round(100 * g / (b + g));
-    document.getElementById('stat').innerHTML = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
+    if(pourcent===100){
+        document.getElementById('fstat').classList.add('good');
+    }else{
+        document.getElementById('fstat').classList.add('bad');
+    }
+    document.getElementById('stat').textContent = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
+}
+
+function option() {
+    let monForm = document.getElementById('monForm');
+    monForm.addEventListener('submit', function (evt) {
+        evt.preventDefault();
+        let coupeForm = document.getElementById('coupure').value;
+        let matLin = monForm["linear"].value === 'true' && true || false;
+        document.querySelectorAll(".js-mathmlConverti").forEach(e => e.parentNode.removeChild(e));
+        var options1 = {
+            'coupureFormule': coupeForm,
+            'matriceLineaire': matLin,
+            'chimie': false
+        }
+        var options2 = {
+            'coupureFormule': coupeForm,
+            'matriceLineaire': matLin,
+
+            'chimie': true
+        }
+
+        // mathml2braille(options1);
+        mathml2braille('.js-math2braille', options1);
+        mathml2braille('.js-matrice-lineaire', options1);
+        mathml2braille('.js-chimie', options2);
+    })
+
 }

@@ -583,7 +583,7 @@
             l = mover.length;
         for (; i < l; i++) {
             let elt = mover[i].children;
-            let parent=mover[i].parentNode;
+            let parent = mover[i].parentNode;
 
             if (elt[0].textContent.trim().charCodeAt() === 8652) {
                 let mfenced = d.createElement('mfenced');
@@ -594,14 +594,13 @@
                 mrow.appendChild(elt[0]);
                 mrow.appendChild(mfenced);
                 parent.replaceChild(mrow, mover[i]);
-            }
-            else if (elt[1].tagName.toLowerCase() === 'mi') {
+            } else if (elt[1].tagName.toLowerCase() === 'mi') {
                 let mfenced = d.createElement('mfenced'),
                     mi = d.createElement('mi');
                 mi.innerHTML = elt[1].innerHTML;
                 mfenced.appendChild(mi);
                 mover[i].replaceChild(mfenced, elt[1]);
-            }else{
+            } else {
                 let mrow = d.createElement('mrow');
                 mrow.appendChild(elt[0]);
                 mrow.appendChild(elt[0]);
@@ -1994,12 +1993,25 @@
         if (monEquation.innerHTML.indexOf('<br') !== -1) {
             return monEquation.innerHTML;
         }
-
-        var maFormule = monEquation.textContent.split('');
-        maFormule.forEach((c, i) => {
-            (i % long === 0 && i !== 0) && maFormule.splice(i - 1, 0, mathBraille.caracMath.coupureFormule.braille() + '<br />')
-        });
-        return maFormule.join('');
+        long=parseInt(long);
+        let texte = monEquation.textContent;
+        let texteCoupe = '';
+        let textePlus = '';
+        let cesure = mathBraille.caracMath.coupureFormule.braille() + '<br />';
+        if ((long !== 0) || (long - 1 > 0)) {
+            let nbSplit = Math.floor(texte.length / long)+1;
+            for (let i = 0; i < nbSplit; i++) {
+                console.log(i,nbSplit,i*(long-1), i*(long - 1)+long - 1);
+                textePlus = texte.slice(i*(long-1), i*(long - 1)+long - 1);
+                texteCoupe = (i !== nbSplit-1) && (texteCoupe + textePlus + cesure)||(texteCoupe + textePlus) ;
+            }
+        }
+        // var maFormule = monEquation.textContent.split('');
+        // maFormule.forEach((c, i) => {
+        //     (i % long === 0 && i !== 0) && maFormule.splice(i - 1, 0, mathBraille.caracMath.coupureFormule.braille() + '<br />')
+        // });
+        // return maFormule.join('');
+        return texteCoupe;
     }
 
     w.mathml2braille = mathml;

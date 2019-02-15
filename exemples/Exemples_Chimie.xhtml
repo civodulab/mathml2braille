@@ -9,9 +9,25 @@
 
 <body>
 	<section epub:type="subchapter">
-		<p id="stat"></p>
-
-
+			<form id="monForm" action="">
+					<fieldset id="fstat">
+						<legend>Stats</legend>
+						<p id="stat"></p>
+					</fieldset>
+					<fieldset>
+						<legend>Options</legend>
+						<fieldset>
+							<legend>Matrice</legend>
+							<input type="radio" name="linear" id="matLin" value="true" /><label for="matLin">Linéaire</label>
+							<input type="radio" name="linear" id="notMatLin" checked="checked" value="false" /><label for="notMatLin">Non linéaire</label>
+						</fieldset>
+						<fieldset>
+							<legend>Coupure de formule</legend>
+							<input type="text" name="coupure" id="coupure" maxlength="2" size="4" value="0" /><label for="coupure"> Entrer le nombre de caractères où la formule sera coupée (0 pour ne rien faire)</label>
+						</fieldset>
+						<input type="submit" value="Valider" />
+					</fieldset>
+				</form>
 
 		<p>Chimie - Exemples tirés du pdf "
 			<a href="https://www.avh.asso.fr/sites/default/files/braille_chimie_2008_v2_21_oct_09_0.pdf">Notation braille dans le domaine de la chimie</a>"</p>
@@ -91,7 +107,7 @@
 			</math>
 			<span class="mathbraille">⠨⠓⠤⠨⠓</span>
 		</p>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<mtext>O</mtext>
@@ -103,7 +119,7 @@
 				</mstyle>
 			</math><span class="mathbraille">⠨⠕⠶⠨⠕</span>
 		</p>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<mtext>N</mtext>
@@ -180,7 +196,7 @@
 			<span class="mathbraille">⠦⠨⠉⠥⠈⠰⠣⠖⠆⠠⠆⠨⠎⠨⠕⠹⠈⠰⠣⠤⠆⠴</span>
 		</p>
 		<h2>3) Moment dipolaire</h2>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<msubsup>
@@ -415,7 +431,7 @@
 			<span class="mathbraille">⠨⠓⠣⠨⠎⠦⠛⠴⠖⠨⠉⠇⠣⠦⠛⠴⠸⠱⠣⠨⠓⠨⠉⠇⠦⠛⠴⠖⠨⠎⠦⠎⠴⠨⠱</span>
 		</p>
 		<h2>5) Le signe « réaction réversible » ou « équilibre chimique »</h2>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<msub>
@@ -462,7 +478,7 @@
 					</mrow>
 				</mstyle>
 			</math><span class="mathbraille">⠨⠝⠣⠦⠛⠴⠖⠩⠨⠓⠣⠦⠛⠴⠸⠻⠣⠨⠝⠨⠓⠩⠦⠛⠴</span></p>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<mn>2</mn>
@@ -513,7 +529,7 @@
 				</mstyle>
 			</math><span class="mathbraille">⠣⠨⠓⠣⠨⠕⠸⠻⠦⠡⠆⠣⠴⠨⠓⠩⠨⠕⠈⠰⠖⠆⠖⠨⠕⠨⠓⠈⠤</span>
 			<span class="mathbraille2">⠣⠨⠓⠣⠨⠕⠸⠻⠦⠦⠡⠴⠆⠦⠣⠴⠴⠨⠓⠩⠨⠕⠈⠰⠖⠆⠖⠨⠕⠨⠓⠈⠤</span></p>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<mtext>R</mtext>
@@ -593,7 +609,7 @@
 					</mrow>
 				</mstyle>
 			</math><span class="mathbraille">⠨⠗⠤⠨⠉⠨⠕⠤⠨⠕⠤⠨⠓⠖⠨⠗⠄⠤⠨⠕⠨⠓⠸⠻⠦⠑⠎⠞⠿⠗⠊⠋⠊⠉⠁⠞⠊⠕⠝⠆⠓⠽⠙⠗⠕⠇⠽⠎⠑⠴⠨⠗⠤⠨⠉⠨⠕⠤⠨⠕⠤⠨⠗⠄⠖⠨⠓⠣⠨⠕</span></p>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
 						<mtext>A</mtext>
@@ -611,134 +627,140 @@
 				</mstyle>
 			</math><span class="mathbraille">⠨⠁⠸⠻⠦⠓⠘⠝⠆⠐⠂⠴⠨⠃</span></p>
 		<h1>IV. Quelques notations</h1>
-		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
-			<mstyle displaystyle="true">
-			  <mrow class="MJX-TeXAtom-ORD">
-				<msubsup>
-				  <mtext>Cu</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-		  
-				  </mrow>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mn>2</mn>
-					<mo>+</mo>
-				  </mrow>
-				</msubsup>
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo>/</mo>
-				</mrow>
-				<mtext>Cu</mtext>
-			  </mrow>
-			</mstyle>
-		  </math><span class="mathbraille">⠨⠉⠥⠈⠰⠣⠖⠆⠌⠨⠉⠥</span></p>
-		  <p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
-			<mstyle displaystyle="true">
-			  <mrow class="MJX-TeXAtom-ORD">
-				<msubsup>
-				  <mtext>Fe</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-		  
-				  </mrow>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mn>3</mn>
-					<mo>+</mo>
-				  </mrow>
-				</msubsup>
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo>/</mo>
-				</mrow>
-				<msubsup>
-				  <mtext>Fe</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-		  
-				  </mrow>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mn>2</mn>
-					<mo>+</mo>
-				  </mrow>
-				</msubsup>
-			  </mrow>
-			</mstyle>
-		  </math><span class="mathbraille">⠨⠋⠑⠈⠰⠩⠖⠆⠌⠨⠋⠑⠈⠰⠣⠖⠆</span></p>
-		  <p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
-			<mstyle displaystyle="true">
-			  <mrow class="MJX-TeXAtom-ORD">
-				<msub>
-				  <mtext>H</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mn>3</mn>
-				  </mrow>
-				
-				</msub>
-				<msup>
-				  <mtext>O</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mo>+</mo>
-				  </mrow>
-				</msup>
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo>/</mo>
-				</mrow>
-				<msub>
-				  <mtext>H</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mn>2</mn>
-				  </mrow>
-				</msub>
-				<mtext>O</mtext>
-			  </mrow>
-			</mstyle>
-		  </math><span class="mathbraille">⠨⠓⠩⠨⠕⠈⠖⠌⠨⠓⠣⠨⠕</span></p>
-		  <p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML">
-			<mstyle displaystyle="true">
-			  <mrow class="MJX-TeXAtom-ORD">
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo stretchy="false">(</mo>
-				  <msub>
-					<mtext>CH</mtext>
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
+				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
-					  <mn>3</mn>
+						<msubsup>
+							<mtext>Cu</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+
+							</mrow>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mn>2</mn>
+								<mo>+</mo>
+							</mrow>
+						</msubsup>
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo>/</mo>
+						</mrow>
+						<mtext>Cu</mtext>
 					</mrow>
-				  </msub>
-				  <mo stretchy="false">)</mo>
-				</mrow>
-				<mn>2</mn>
-				<mtext>C</mtext>
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo>=</mo>
-				</mrow>
-				<mtext>O</mtext>
-				<mo stretchy="false">&#x27F7;<!-- ⟷ --></mo>
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo stretchy="false">(</mo>
-				  <msub>
-					<mtext>CH</mtext>
+				</mstyle>
+			</math><span class="mathbraille">⠨⠉⠥⠈⠰⠣⠖⠆⠌⠨⠉⠥</span></p>
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
+				<mstyle displaystyle="true">
 					<mrow class="MJX-TeXAtom-ORD">
-					  <mn>3</mn>
+						<msubsup>
+							<mtext>Fe</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+
+							</mrow>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mn>3</mn>
+								<mo>+</mo>
+							</mrow>
+						</msubsup>
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo>/</mo>
+						</mrow>
+						<msubsup>
+							<mtext>Fe</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+
+							</mrow>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mn>2</mn>
+								<mo>+</mo>
+							</mrow>
+						</msubsup>
 					</mrow>
-				  </msub>
-				  <mo stretchy="false">)</mo>
-				</mrow>
-				<mn>2</mn>
-				<msup>
-				  <mtext>C</mtext>
-				
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mo>+</mo>
-				  </mrow>
-				</msup>
-				<mrow class="MJX-TeXAtom-ORD">
-				  <mo>&#x2212;<!-- − --></mo>
-				</mrow>
-				<msup>
-				  <mtext>O</mtext>
-				  <mrow class="MJX-TeXAtom-ORD">
-					<mo>&#x2212;<!-- − --></mo>
-				  </mrow>
-				</msup>
-			  </mrow>
-			</mstyle>
-		  </math><span class="mathbraille">⠦⠨⠉⠨⠓⠩⠴⠣⠨⠉⠶⠨⠕⠐⠻⠦⠨⠉⠨⠓⠩⠴⠣⠨⠉⠈⠖⠤⠨⠕⠈⠤</span></p>
+				</mstyle>
+			</math><span class="mathbraille">⠨⠋⠑⠈⠰⠩⠖⠆⠌⠨⠋⠑⠈⠰⠣⠖⠆</span></p>
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
+				<mstyle displaystyle="true">
+					<mrow class="MJX-TeXAtom-ORD">
+						<msub>
+							<mtext>H</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mn>3</mn>
+							</mrow>
+
+						</msub>
+						<msup>
+							<mtext>O</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mo>+</mo>
+							</mrow>
+						</msup>
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo>/</mo>
+						</mrow>
+						<msub>
+							<mtext>H</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mn>2</mn>
+							</mrow>
+						</msub>
+						<mtext>O</mtext>
+					</mrow>
+				</mstyle>
+			</math><span class="mathbraille">⠨⠓⠩⠨⠕⠈⠖⠌⠨⠓⠣⠨⠕</span></p>
+		<p class="courant"><math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
+				<mstyle displaystyle="true">
+					<mrow class="MJX-TeXAtom-ORD">
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo stretchy="false">(</mo>
+							<msub>
+								<mtext>CH</mtext>
+								<mrow class="MJX-TeXAtom-ORD">
+									<mn>3</mn>
+								</mrow>
+							</msub>
+							<mo stretchy="false">)</mo>
+						</mrow>
+						<mn>2</mn>
+						<mtext>C</mtext>
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo>=</mo>
+						</mrow>
+						<mtext>O</mtext>
+						<mo stretchy="false">&#x27F7;
+							<!-- ⟷ -->
+						</mo>
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo stretchy="false">(</mo>
+							<msub>
+								<mtext>CH</mtext>
+								<mrow class="MJX-TeXAtom-ORD">
+									<mn>3</mn>
+								</mrow>
+							</msub>
+							<mo stretchy="false">)</mo>
+						</mrow>
+						<mn>2</mn>
+						<msup>
+							<mtext>C</mtext>
+
+							<mrow class="MJX-TeXAtom-ORD">
+								<mo>+</mo>
+							</mrow>
+						</msup>
+						<mrow class="MJX-TeXAtom-ORD">
+							<mo>&#x2212;
+								<!-- − -->
+							</mo>
+						</mrow>
+						<msup>
+							<mtext>O</mtext>
+							<mrow class="MJX-TeXAtom-ORD">
+								<mo>&#x2212;
+									<!-- − -->
+								</mo>
+							</mrow>
+						</msup>
+					</mrow>
+				</mstyle>
+			</math><span class="mathbraille">⠦⠨⠉⠨⠓⠩⠴⠣⠨⠉⠶⠨⠕⠐⠻⠦⠨⠉⠨⠓⠩⠴⠣⠨⠉⠈⠖⠤⠨⠕⠈⠤</span></p>
 		<h1>Autres Exemples</h1>
 		<p class="courant">
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
@@ -773,11 +795,10 @@
 	<script type="text/javascript" src="../js/varTBUE.min.js"></script>
 	<script type="text/javascript" src="../js/varTBF.min.js"></script>
 	<script type="text/javascript" src="../js/allVar.js"></script>
-	<script type="text/javascript" src="../js/mathml2braille.min.js"></script>
+	<script type="text/javascript" src="../js/mathml2braille.js"></script>
 	<script>
 		var options3 = {
 			'chimie': true, // false par défaut
-			'coupureFormule': 30
 		}
 		mathml2braille(options3);
 		// mathml2braille('.test', options3);
