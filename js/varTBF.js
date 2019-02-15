@@ -157,6 +157,7 @@
              'majuscule': '-46-',
              'point5': '-5-',
              'point6': '-6-',
+             'majusculeronde': '-46-5-'
          },
          'caracDec': {
              susouscrit: {
@@ -164,6 +165,7 @@
                  175: '-456-25-', //barre
                  95: '-456-25-', //barre mathtype qui met un _
                  732: '-5-456-25-', //tilde
+                 126: '-5-456-25-', //tilde'
                  9180: '-4-25', //arc
                  8994: '-4-25-', //arc
                  8995: '-4-4-25-', // arc smile
@@ -243,6 +245,7 @@
              58: '-25-', // :
              59: '-23-', // ;
              45: '-36-', // -
+             46: '-35-35-', //point multiplicatif
              42: '-5-35-', // *
              43: '-235-', // +
              47: '-34-', // /
@@ -258,9 +261,15 @@
              183: '-35-35-', // middle dot &#xB7;
              176: '-135-', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
              181: '-45-134-', //MICRO MU SYMBOL µ &micro; &‌#181; &‌#xB5;
+             233: '-123456-', // é
              //PER MILLE (1/1000th) ‰ &permil; &‌#8240; &‌#2030;
              60: '-5-126-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
              62: '-5-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
+
+             8290: '-35-', //invisible time
+             8292: '-35-', //invisible time
+             8289: '', // function application
+
              8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
              8805: '-45-345-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
              10877: '-45-126-', // LESS-THAN OR SLANTED EQUAL TO ⩽
@@ -315,6 +324,7 @@
              8473: '-46-46-1234-', // PRIME NUMBERS (Doublestruck P) ℙ — &‌#8473; &‌#x2119;
              8474: '-46-46-12345-', // RATIONAL NUMBERS (Doublestruck Q) ℚ — &‌#8474; &‌#x211A;
              8484: '-46-46-1356-', // INTEGERS (Doublestruck Z) ℤ — &‌#8484; &‌#x2124;
+             8518: '', //double struck small ⅆ
              8704: '-456-34-', // FOR ALL (Upside-down A) ∀ &forall;  &‌#8704; &‌#x2200;
              8705: '-46-146-', // COMPLEMENT (Thin C) ∁ — &‌#8705; &‌#x2201;
              8707: '-456-16-', // THERE EXISTS (Backwards E) ∃ &exist;  &‌#8707; &‌#x2203;
@@ -382,7 +392,7 @@
              // ANGLE Entity Code = &ang; ∠ &‌#8736; &‌#x2220;
              // MEASURED ANGLE ∡ &‌#8737; &‌#x2221;
              // SPHERICAL ANGLE ∢ &‌#8738; &‌#x2222;
-             // DIVIDES ∣ &‌#8739; &‌#x2223;
+             8739: '-123456-', // DIVIDES ∣ &‌#8739; &‌#x2223;
              // DOES NOT DIVIDE ∤ &‌#8740; &‌#x2224;
              8741: '-456-1256-', //PARALLEL TO ∥ &‌#8741; &‌#x2225;
              8742: '-46-456-1256-', //NOT PARALLEL TO ∦ &‌#8742; &‌#x2226;
@@ -400,7 +410,10 @@
              8776: '-5-2356-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
              8777: '-46-5-2356-', // NOT ALMOST EQUAL TO ≉ — &‌#8777; &‌#x2249;
              8764: '-45-2356-', // TILDE SIMILAR TO ∼ &sim; &‌#8764; &‌#x223C;
-             8801: '-2356-2356-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
+             8801: {
+                 'math': '-2356-2356-', // IDENTICAL TO (three lines) ≡ &equiv; &‌#8801; &‌#x2261;
+                 'chimie': '123456'
+             },
              8802: '-46-2356-2356-', // NOT IDENTICAL TO ≢ — &‌#8802; &‌#x2262;
              // STRICTLY EQUIVALENT TO ≣ &‌#8803; &‌#x2263;
              // NOT IDENTICAL TO ≢ &‌#8802; &‌#x2262;
@@ -738,5 +751,6 @@
              9651: '-46-45-145-', // White Up-Pointing Triangle △
              10548: '-45-156-', // ⤴ Arrow Pointing Rightwards Then Curving Upwards
              10549: '-46-156-', // ⤵ ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS
+             10231: '-5-12456-', // ⟷
          }
      };
