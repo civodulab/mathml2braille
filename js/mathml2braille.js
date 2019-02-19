@@ -2,7 +2,7 @@
  * mathml2braille
  * Convertit les équations mathML en Braille Unicode
  * @author Ludovic BAL <ludo.bal62@gmail.com>
- * @version 1.0
+ * @version 2.0
  * 
  */
 
@@ -433,6 +433,7 @@
         /* fin variables matrice */
         mathml = function (clmath) {
             let options = {
+                'remplaceFormule': false,
                 'coupureFormule': 0,
                 'codeBrailleMath': 'fr',
                 'codeSysteme': 'SI',
@@ -464,7 +465,7 @@
                 _inutile(m);
                 _tableSeul(m);
                 _mspace(m);
-
+                _espace(m)
                 // mover /munder  chimie
                 options.chimie && _moverChimie(m);
                 options.chimie && _munderChimie(m);
@@ -537,9 +538,13 @@
                 maForm.innerHTML = m.innerHTML;
                 maForm.classList.add('js-mathmlConverti');
                 //  maForm.appendChild(m);
-
                 parent.insertBefore(maForm, mesFormules[i].nextSibling);
-
+                if (options.remplaceFormule) {
+                    mesFormules[i].setAttribute('style','display:none');
+                } else {
+                    mesFormules[i].removeAttribute('style');
+                }
+               
             }
         },
         brailledirect = function (maClass, codeBrailleMath) {
@@ -635,6 +640,13 @@
             mtext.textContent = ' ';
             parent.replaceChild(mtext, space[0]);
         }
+    }
+
+    function _espace(monEquation) {
+        var mtext = monEquation.querySelectorAll('mtext');
+        mtext.forEach(t => {
+            (t.textContent.charCodeAt() === 160) && (t.textContent = ' ');
+        });
     }
 
 
@@ -1993,24 +2005,19 @@
         if (monEquation.innerHTML.indexOf('<br') !== -1) {
             return monEquation.innerHTML;
         }
-        long=parseInt(long);
+        long = parseInt(long);
         let texte = monEquation.textContent;
         let texteCoupe = '';
         let textePlus = '';
         let cesure = mathBraille.caracMath.coupureFormule.braille() + '<br />';
         if ((long !== 0) || (long - 1 > 0)) {
-            let nbSplit = Math.floor(texte.length / long)+1;
+            let nbSplit = Math.floor(texte.length / long) + 1;
             for (let i = 0; i < nbSplit; i++) {
-                console.log(i,nbSplit,i*(long-1), i*(long - 1)+long - 1);
-                textePlus = texte.slice(i*(long-1), i*(long - 1)+long - 1);
-                texteCoupe = (i !== nbSplit-1) && (texteCoupe + textePlus + cesure)||(texteCoupe + textePlus) ;
+                textePlus = texte.slice(i * (long - 1), i * (long - 1) + long - 1);
+                texteCoupe = (i !== nbSplit - 1) && (texteCoupe + textePlus + cesure) || (texteCoupe + textePlus);
             }
         }
-        // var maFormule = monEquation.textContent.split('');
-        // maFormule.forEach((c, i) => {
-        //     (i % long === 0 && i !== 0) && maFormule.splice(i - 1, 0, mathBraille.caracMath.coupureFormule.braille() + '<br />')
-        // });
-        // return maFormule.join('');
+      
         return texteCoupe;
     }
 

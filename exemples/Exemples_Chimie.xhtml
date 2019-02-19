@@ -9,26 +9,7 @@
 
 <body>
 	<section epub:type="subchapter">
-			<form id="monForm" action="">
-					<fieldset id="fstat">
-						<legend>Stats</legend>
-						<p id="stat"></p>
-					</fieldset>
-					<fieldset>
-						<legend>Options</legend>
-						<fieldset>
-							<legend>Matrice</legend>
-							<input type="radio" name="linear" id="matLin" value="true" /><label for="matLin">Linéaire</label>
-							<input type="radio" name="linear" id="notMatLin" checked="checked" value="false" /><label for="notMatLin">Non linéaire</label>
-						</fieldset>
-						<fieldset>
-							<legend>Coupure de formule</legend>
-							<input type="text" name="coupure" id="coupure" maxlength="2" size="4" value="0" /><label for="coupure"> Entrer le nombre de caractères où la formule sera coupée (0 pour ne rien faire)</label>
-						</fieldset>
-						<input type="submit" value="Valider" />
-					</fieldset>
-				</form>
-
+		
 		<p>Chimie - Exemples tirés du pdf "
 			<a href="https://www.avh.asso.fr/sites/default/files/braille_chimie_2008_v2_21_oct_09_0.pdf">Notation braille dans le domaine de la chimie</a>"</p>
 
@@ -795,7 +776,7 @@
 	<script type="text/javascript" src="../js/varTBUE.min.js"></script>
 	<script type="text/javascript" src="../js/varTBF.min.js"></script>
 	<script type="text/javascript" src="../js/allVar.js"></script>
-	<script type="text/javascript" src="../js/mathml2braille.js"></script>
+	<script type="text/javascript" src="../js/mathml2braille.min.js"></script>
 	<script>
 		var options3 = {
 			'chimie': true, // false par défaut
