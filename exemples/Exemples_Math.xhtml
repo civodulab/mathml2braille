@@ -72,7 +72,7 @@
                     </mrow>
                 </mstyle>
             </math><span class="mathbraille">⠿⠭⠿⠶⠸⠦⠖⠭⠀⠎⠊⠀⠭⠘⠜⠼<br /> ⠀⠀⠀⠀⠀⠀⠤⠭⠀⠎⠊⠝⠕⠝⠀⠀</span></p>
-        <p class="courant"><math class="js-math2braille test" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="true" scriptlevel="0">
                     <mrow class="MJX-TeXAtom-ORD">
                         <mover>
@@ -2755,7 +2755,7 @@
     <script type="text/javascript" src="../js/varTBUE.min.js"></script>
     <script type="text/javascript" src="../js/varTBF.min.js"></script>
     <script type="text/javascript" src="../js/allVar.js"></script>
-    <script type="text/javascript" src="../js/mathml2braille.min.js"></script>
+    <script type="text/javascript" src="../js/mathml2braille.js"></script>
     <script>
         var options1 = {
             'maxCaracCell': 14, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire (10 par défaut)
@@ -2767,10 +2767,11 @@
         var options3 = {
             'chimie': true, // false par défaut
         }
-        // mathml2braille(options1);
+        // mathml2braille('.test',options1);
         mathml2braille('.js-math2braille', options1);
         mathml2braille('.js-matrice-lineaire', options2);
         mathml2braille('.js-chimie', options3);
+
     </script>
     <script type="text/javascript" src="../js/stat.js"></script>
     <script></script>

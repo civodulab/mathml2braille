@@ -391,16 +391,13 @@
     }
 
 
-
-
     /**
-     * block
-     * 
-     * @param {string} openBloc 
-     * @param {string} endBloc 
-     * @returns {string}
+     * @description encadre l'élément avec les caractères openBloc et endBloc
+     * @param {dom} element
+     * @param {string} openBloc
+     * @param {string} endBloc
+     * @returns fragment dom
      */
-
     function block(element, openBloc, endBloc) {
         (openBloc === undefined) && (openBloc = mathBraille.caracMath.blocks.open);
         (endBloc === undefined) && (endBloc = mathBraille.caracMath.blocks.close);
@@ -419,6 +416,7 @@
 
 
     // var langueDoc = d.getElementsByTagName('html')[0].getAttribute('lang') || d.getElementsByTagName('html')[0].getAttribute('xml:lang') || 'fr',
+
     var mathBraille = {},
         /* variables pour les matrices */
         braillemarqueCell = '-124578-',
@@ -429,9 +427,11 @@
         marqueMat = braillemarqueMat.braille(),
         marqueClose = braillemarqueClose.braille(),
         marqueRetourLigne = braillemarqueRetourLigne.braille(),
-        espace = String.fromCharCode(10240),
-        /* fin variables matrice */
-        mathml = function (clmath) {
+        espace = String.fromCharCode(10240);
+    /* fin variables matrice */
+
+
+    var mathml2braille = function (clmath) {
             let options = {
                 'remplaceFormule': false,
                 'coupureFormule': 0,
@@ -443,17 +443,21 @@
             };
             if (clmath && typeof clmath === 'object') {
                 arguments[1] = clmath;
-                clmath = undefined;
+                clmath = 'math';
             }
-
             if (arguments[1] && typeof arguments[1] === "object") {
                 options = _extendDefaults(options, arguments[1]);
             }
-            var mesFormules = clmath && d.querySelectorAll(clmath) || getElementsByContainTagName(d, 'math'),
+            if (!arguments[0]) {
+                clmath='math';
+            }
+
+            var mesFormules = clmath && d.querySelectorAll(clmath),
                 l = mesFormules.length,
                 i = 0;
             for (; i !== l; i++) {
                 mathBraille = allVar[options.codeBrailleMath].mathBraille;
+
                 mesFormules[i].setAttribute('aria-hidden', true);
                 var parent = mesFormules[i].parentNode,
                     m = d.createElement('math'),
@@ -540,11 +544,11 @@
                 //  maForm.appendChild(m);
                 parent.insertBefore(maForm, mesFormules[i].nextSibling);
                 if (options.remplaceFormule) {
-                    mesFormules[i].setAttribute('style','display:none');
+                    mesFormules[i].setAttribute('style', 'display:none');
                 } else {
                     mesFormules[i].removeAttribute('style');
                 }
-               
+
             }
         },
         brailledirect = function (maClass, codeBrailleMath) {
@@ -1985,7 +1989,11 @@
 
         monEquation.textContent = monEquation.textContent.braille();
         monEquation.textContent = _petitsSoucis(monEquation);
+        console.log(monEquation.innerHTML);
+
         (!o.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
+        console.log(monEquation.innerHTML);
+
         monEquation.innerHTML = _retourChariotMatrice(monEquation);
 
         if (o.codeBrailleMath === 'nemeth') {
@@ -2017,11 +2025,11 @@
                 texteCoupe = (i !== nbSplit - 1) && (texteCoupe + textePlus + cesure) || (texteCoupe + textePlus);
             }
         }
-      
+
         return texteCoupe;
     }
 
-    w.mathml2braille = mathml;
+    w.mathml2braille = mathml2braille;
     w.brailledirect = brailledirect;
 
 }(window, document));

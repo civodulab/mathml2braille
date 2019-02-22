@@ -131,7 +131,7 @@ function _createForm() {
     input.setAttribute('size', '4');
     input.setAttribute('value', '0');
     label = document.createElement('label');
-    label.textContent = 'Entrer le nombre de caractères où la formule sera coupée(0 pour ne rien faire)';
+    label.textContent = 'Entrer le nombre de caractères où la formule sera coupée (0 pour ne rien faire)';
     label.setAttribute('for', 'coupure');
     fieldset2.appendChild(input);
     fieldset2.appendChild(label);
