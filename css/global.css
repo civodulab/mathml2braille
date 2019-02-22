@@ -116,3 +116,9 @@ fieldset legend{
     /* height: 1.2em; */
     vertical-align:middle
 }
+.ecriture_auto::before{
+    content: "Écriture automatique : ";
+}
+.ecriture_auto{
+    font-style: italic
+}

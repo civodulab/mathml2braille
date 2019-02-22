@@ -9,6 +9,136 @@
 
 (function (w, d, undefined) {
     'use strict';
+
+    var mathml2braille = function (clmath) {
+        let options = {
+            'remplaceFormule': false,
+            'coupureFormule': 0,
+            'codeBrailleMath': 'fr',
+            'codeSysteme': 'SI',
+            'matriceLineaire': false,
+            'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+            'chimie': false
+        };
+        if (clmath && typeof clmath === 'object') {
+            arguments[1] = clmath;
+            clmath = undefined;
+        }
+
+        if (arguments[1] && typeof arguments[1] === "object") {
+            options = _extendDefaults(options, arguments[1]);
+        }
+        var mesFormules = clmath && d.querySelectorAll(clmath) || getElementsByContainTagName(d, 'math'),
+            l = mesFormules.length,
+            i = 0;
+        this._formules=mesFormules;
+        for (; i !== l; i++) {
+            mathBraille = allVar[options.codeBrailleMath].mathBraille;
+            mesFormules[i].setAttribute('aria-hidden', true);
+            var parent = mesFormules[i].parentNode,
+                m = d.createElement('math'),
+                maForm = d.createElement('span');
+            m.innerHTML = mesFormules[i].innerHTML;
+            _supprimeprefix(m);
+            _superflus(m);
+
+            _inutile(m);
+            _tableSeul(m);
+            _mspace(m);
+            _espace(m)
+            // mover /munder  chimie
+            options.chimie && _moverChimie(m);
+            options.chimie && _munderChimie(m);
+
+            // munderover sur flèche
+            options.chimie && _munderoverChimie(m);
+
+            if (options.codeBrailleMath === 'nemeth') {
+                _numDecimalNemeth(m, options);
+                _espaceNemeth(m);
+            }
+
+            var hardmat = _boolHardMatrice(m, options);
+            _ajoutmfenced(m);
+
+            // résolution problèmes blocs
+            _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
+            _pbIntegrale(m);
+
+            // Note: mes fonctions
+            /*
+            NEW
+            ajout de balises descriptives                
+            */
+            _newMfracBloc(m);
+            _newMsqrtBloc(m);
+            _newMrootBloc(m);
+
+            _reecritureMultiscripts(m);
+            _newMmultiscriptsBloc(m);
+
+
+            _newMsubsupBloc(m);
+
+            _newMunderover(m);
+            // console.log(m.innerHTML);
+
+            _newMsupBloc(m);
+            _newMsubBloc(m);
+
+            _newPlacementMultiscript(m, options);
+
+
+            /*
+            NEW réécriture
+            écriture de l'équation selon les nouvelles balises
+            */
+
+            _newMfracWrite(m);
+            _newMsqrtWrite(m);
+            _newMrootWrite(m);
+            _newIndiceExposantWrite(m, options);
+
+            _newBlocBase(m);
+
+
+            _mover(m, 'mover', options);
+            _munder(m, options);
+            _mfenced(m, options, hardmat);
+
+            _mn(m, options);
+
+            _mo(m, options);
+
+            _mi(m, options);
+            _mtext(m, options);
+
+            (options.matriceLineaire || hardmat) && _matriceLineaire(m);
+            _writeform(m, options, hardmat);
+            maForm.innerHTML = m.innerHTML;
+            maForm.classList.add('js-mathmlConverti');
+            //  maForm.appendChild(m);
+            parent.insertBefore(maForm, mesFormules[i].nextSibling);
+            if (options.remplaceFormule) {
+                mesFormules[i].setAttribute('style', 'display:none');
+            } else {
+                mesFormules[i].removeAttribute('style');
+            }
+
+        }
+    },
+    brailledirect = function (maClass, codeBrailleMath) {
+        codeBrailleMath = codeBrailleMath && codeBrailleMath || 'fr';
+        var tbf6 = d.querySelectorAll(maClass),
+            l = tbf6.length,
+            i = 0;
+        for (; i !== l; i++) {
+            var maTable = allVar[codeBrailleMath].TBdbt;
+            tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
+        }
+    };
+
+
     String.prototype.isNumeric = function () {
         if (Math.sign(this) === -1) return false;
         let n = this.replace(/\./g, '').replace(',', '.').replace(/\n|\r|\t|\s/g, '');
@@ -429,134 +559,9 @@
         marqueMat = braillemarqueMat.braille(),
         marqueClose = braillemarqueClose.braille(),
         marqueRetourLigne = braillemarqueRetourLigne.braille(),
-        espace = String.fromCharCode(10240),
-        /* fin variables matrice */
-        mathml = function (clmath) {
-            let options = {
-                'remplaceFormule': false,
-                'coupureFormule': 0,
-                'codeBrailleMath': 'fr',
-                'codeSysteme': 'SI',
-                'matriceLineaire': false,
-                'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
-                'chimie': false
-            };
-            if (clmath && typeof clmath === 'object') {
-                arguments[1] = clmath;
-                clmath = undefined;
-            }
-
-            if (arguments[1] && typeof arguments[1] === "object") {
-                options = _extendDefaults(options, arguments[1]);
-            }
-            var mesFormules = clmath && d.querySelectorAll(clmath) || getElementsByContainTagName(d, 'math'),
-                l = mesFormules.length,
-                i = 0;
-            for (; i !== l; i++) {
-                mathBraille = allVar[options.codeBrailleMath].mathBraille;
-                mesFormules[i].setAttribute('aria-hidden', true);
-                var parent = mesFormules[i].parentNode,
-                    m = d.createElement('math'),
-                    maForm = d.createElement('span');
-                m.innerHTML = mesFormules[i].innerHTML;
-                _supprimeprefix(m);
-                _superflus(m);
-
-                _inutile(m);
-                _tableSeul(m);
-                _mspace(m);
-                _espace(m)
-                // mover /munder  chimie
-                options.chimie && _moverChimie(m);
-                options.chimie && _munderChimie(m);
-
-                // munderover sur flèche
-                options.chimie && _munderoverChimie(m);
-
-                if (options.codeBrailleMath === 'nemeth') {
-                    _numDecimalNemeth(m, options);
-                    _espaceNemeth(m);
-                }
-
-                var hardmat = _boolHardMatrice(m, options);
-                _ajoutmfenced(m);
-
-                // résolution problèmes blocs
-                _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
-                _pbIntegrale(m);
-
-                // Note: mes fonctions
-                /*
-                NEW
-                ajout de balises descriptives                
-                */
-                _newMfracBloc(m);
-                _newMsqrtBloc(m);
-                _newMrootBloc(m);
-
-                _reecritureMultiscripts(m);
-                _newMmultiscriptsBloc(m);
-
-
-                _newMsubsupBloc(m);
-
-                _newMunderover(m);
-                // console.log(m.innerHTML);
-
-                _newMsupBloc(m);
-                _newMsubBloc(m);
-
-                _newPlacementMultiscript(m, options);
-
-
-                /*
-                NEW réécriture
-                écriture de l'équation selon les nouvelles balises
-                */
-
-                _newMfracWrite(m);
-                _newMsqrtWrite(m);
-                _newMrootWrite(m);
-                _newIndiceExposantWrite(m, options);
-
-                _newBlocBase(m);
-
-
-                _mover(m, 'mover', options);
-                _munder(m, options);
-                _mfenced(m, options, hardmat);
-
-                _mn(m, options);
-
-                _mo(m, options);
-
-                _mi(m, options);
-                _mtext(m, options);
-
-                (options.matriceLineaire || hardmat) && _matriceLineaire(m);
-                _writeform(m, options, hardmat);
-                maForm.innerHTML = m.innerHTML;
-                maForm.classList.add('js-mathmlConverti');
-                //  maForm.appendChild(m);
-                parent.insertBefore(maForm, mesFormules[i].nextSibling);
-                if (options.remplaceFormule) {
-                    mesFormules[i].setAttribute('style','display:none');
-                } else {
-                    mesFormules[i].removeAttribute('style');
-                }
-               
-            }
-        },
-        brailledirect = function (maClass, codeBrailleMath) {
-            codeBrailleMath = codeBrailleMath && codeBrailleMath || 'fr';
-            var tbf6 = d.querySelectorAll(maClass),
-                l = tbf6.length,
-                i = 0;
-            for (; i !== l; i++) {
-                var maTable = allVar[codeBrailleMath].TBdbt;
-                tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
-            }
-        };
+        espace = String.fromCharCode(10240);
+    /* fin variables matrice */
+    
 
     function _munderoverChimie(monEquation) {
         var munderover = monEquation.getElementsByTagName('munderover'),
@@ -2017,11 +2022,11 @@
                 texteCoupe = (i !== nbSplit - 1) && (texteCoupe + textePlus + cesure) || (texteCoupe + textePlus);
             }
         }
-      
+
         return texteCoupe;
     }
 
-    w.mathml2braille = mathml;
+    w.mathml2braille = mathml2braille;
     w.brailledirect = brailledirect;
 
 }(window, document));

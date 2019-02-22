@@ -9,7 +9,7 @@
 
 <body>
     <section epub:type="subchapter">
-      
+
         <h1>Exemples tirés du document PDF " <a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h1>
 
         <h2>Mes Exemples</h2>
@@ -866,7 +866,7 @@
                 </mrow>
             </math> <span class="mathbraille">⠨⠩⠢⠨⠑⠨⠋</span> </p>
         <h2>7. Divisions, fractions</h2>
-        <p class="courant"> <span>deux tiers égalent quatre sixièmes</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span>deux tiers égalent quatre sixièmes</span> <math class="js-math2braille  js-mathml2text" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mfrac>
                     <mn>2</mn>
                     <mn>3</mn>
@@ -2755,7 +2755,9 @@
     <script type="text/javascript" src="../js/varTBUE.min.js"></script>
     <script type="text/javascript" src="../js/varTBF.min.js"></script>
     <script type="text/javascript" src="../js/allVar.js"></script>
-    <script type="text/javascript" src="../js/mathml2braille.min.js"></script>
+    <script type="text/javascript" src="../js/mathml2braille.js"></script>
+    <script type="text/javascript" src="../js/mathml2text.js"></script>
+   
     <script>
         var options1 = {
             'maxCaracCell': 14, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire (10 par défaut)
@@ -2768,9 +2770,10 @@
             'chimie': true, // false par défaut
         }
         // mathml2braille(options1);
-        mathml2braille('.js-math2braille', options1);
-        mathml2braille('.js-matrice-lineaire', options2);
-        mathml2braille('.js-chimie', options3);
+     var math1 = new  mathml2braille('.js-math2braille',options1);
+     math1.mathml2text();
+      var math2= new  mathml2braille('.js-matrice-lineaire', options2);
+       var chi1= new mathml2braille('.js-chimie', options3);
     </script>
     <script type="text/javascript" src="../js/stat.js"></script>
     <script></script>
