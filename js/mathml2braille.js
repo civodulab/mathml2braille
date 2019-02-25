@@ -7,8 +7,10 @@
  */
 
 
-(function (w, d, undefined) {
+var mathml2braille = (function(w, d,undefined) {
+    // body
     'use strict';
+
 
     var mathml2braille = function (clmath) {
         let options = {
@@ -39,6 +41,7 @@
                 m = d.createElement('math'),
                 maForm = d.createElement('span');
             m.innerHTML = mesFormules[i].innerHTML;
+            // TODO: mes fonctions
             _supprimeprefix(m);
             _superflus(m);
 
@@ -65,7 +68,6 @@
             _pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
             _pbIntegrale(m);
 
-            // Note: mes fonctions
             /*
             NEW
             ajout de balises descriptives                
@@ -117,7 +119,6 @@
             _writeform(m, options, hardmat);
             maForm.innerHTML = m.innerHTML;
             maForm.classList.add('js-mathmlConverti');
-            //  maForm.appendChild(m);
             parent.insertBefore(maForm, mesFormules[i].nextSibling);
             if (options.remplaceFormule) {
                 mesFormules[i].setAttribute('style', 'display:none');
@@ -137,7 +138,6 @@
             tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
         }
     };
-
 
     String.prototype.isNumeric = function () {
         if (Math.sign(this) === -1) return false;
@@ -559,7 +559,8 @@
         marqueRetourLigne = braillemarqueRetourLigne.braille(),
         espace = String.fromCharCode(10240);
     /* fin variables matrice */
-    
+
+
 
     function _munderoverChimie(monEquation) {
         var munderover = monEquation.getElementsByTagName('munderover'),
@@ -1968,7 +1969,9 @@
         return texteCoupe;
     }
 
-    w.mathml2braille = mathml2braille;
-    w.brailledirect = brailledirect;
+    return mathml2braille
+    // w.mathml2braille = mathml2braille;
+    // w.brailledirect = brailledirect;
 
-}(window, document));
+})(window, document);
+
