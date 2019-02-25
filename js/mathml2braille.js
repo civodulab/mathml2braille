@@ -182,9 +182,9 @@
     /**
      * Savoir si un element contient un node
      *
-     * @param {*} element
-     * @param {*} parentTagname
-     * @returns {boolean}
+     * @param {HTMLElement} element
+     * @param {string} parentTagname
+     * @returns {boolean} true ou false
      */
     function hasChild(element, parentTagname) {
         parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
@@ -1928,10 +1928,10 @@
 
         monEquation.textContent = monEquation.textContent.braille();
         monEquation.textContent = _petitsSoucis(monEquation);
-        console.log(monEquation.innerHTML);
+        // console.log(monEquation.innerHTML);
 
         (!o.matriceLineaire && !hardmat) && (monEquation.innerHTML = _calculEspaceMTD(monEquation));
-        console.log(monEquation.innerHTML);
+        // console.log(monEquation.innerHTML);
 
         monEquation.innerHTML = _retourChariotMatrice(monEquation);
 
