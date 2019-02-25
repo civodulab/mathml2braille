@@ -1699,51 +1699,6 @@
         }
     }
 
-
-    function _niveauIndiceExposant(elt, o, multi) {
-        var enfant1 = elt.children[1],
-            enfant0 = elt.children[0],
-            previousIE = (elt.tagName.toLowerCase() === 'msup') && mathBraille.caracMath.exposant || mathBraille.caracMath.indice,
-            bloc = d.createElement(elt.tagName.toLowerCase() + '-bloc'),
-            parent = elt.parentNode,
-            boolNum,
-            boolIndicNiveau = (elt.nextElementSibling && elt.nextElementSibling.tagName.toLowerCase() === 'mo');
-
-        bloc.appendChild(enfant0);
-        previousIE = multi && (mathBraille.caracMath[multi] + previousIE) || previousIE;
-        boolNum = (enfant1.textContent.trimall().isNumeric() && elt.tagName.toLowerCase() === 'msub') && !enfant0.textContent.trimall().isNumeric();
-        if (!boolNum) {
-            !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
-        }
-        bloc.appendChild(enfant1);
-        boolIndicNiveau && bloc.appendChild(d.createTextNode('-5-'))
-        parent.replaceChild(bloc, elt);
-
-        var cpMsup = _countParent(bloc, 'msup'),
-            cpMsub = _countParent(bloc, 'msub'),
-            tagname = cpMsup < cpMsub && 'msup' || 'msub',
-            next = bloc.getElementsByTagName(tagname);
-
-
-        while (next[0]) {
-            previousIE += tagName.toLowerCase() === 'msub' && mathBraille.caracMath.indice || mathBraille.caracMath.exposant;
-            parent = next[0].parentNode;
-            bloc = d.createElement(tagName.toLowerCase() + '-bloc');
-            enfant0 = next[0].children[0];
-            enfant1 = next[0].children[1];
-            bloc.appendChild(enfant0);
-            // boolNum=enfant1.textContent.isNumeric()&&elt.tagName==='msub';
-            !o.chimie && bloc.appendChild(d.createTextNode(previousIE));
-            bloc.appendChild(enfant1);
-            parent.replaceChild(bloc, next[0]);
-
-            cpMsup = _countParent(bloc, 'msup');
-            cpMsub = _countParent(bloc, 'msub');
-            tagname = cpMsup < cpMsub && 'msup' || 'msub';
-            next = bloc.getElementsByTagName(tagname);
-        }
-    }
-
     /** TODO: Radicaux */
     function _newMsqrtBloc(eq, tagName) {
         tagName = tagName || 'msqrt';
