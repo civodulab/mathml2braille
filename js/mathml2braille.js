@@ -1975,5 +1975,3 @@ var mathml2braille = (function(w, d,undefined) {
 
 })(window, document);
 
-
-}(window, document));
