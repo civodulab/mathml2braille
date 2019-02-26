@@ -1,8 +1,34 @@
 /**
  * mathml2text
  */
+
+// (function (exports) {
+//     var PASSWORD = 'gloubiboulga';
+
+//     var User = function (firstName, lastName) {
+//         this.firstName = firstName;
+//         this.lastName = lastName;
+//         this.isAuthenticated = false;
+//     };
+//     exports.User = User;
+
+//     User.prototype.toString = function () {
+//         return this.firstName + ' ' + this.lastName;
+//     };
+
+//     User.prototype.authenticate = function (password) {
+//         if (password == PASSWORD) {
+//             this.isAuthenticated = true;
+//         }
+//     };
+// })(this);
+
+
+
+
+
 ;
-(function (window, document) {
+(function(window, document) {
     'use strict';
 
     const texte = {
@@ -10,10 +36,11 @@
         'msup': '%1 exposant %2',
         'msub': '%1 indice %2',
         'msqrt': 'racine carré de %1',
+        'msubsup': '%1 indice %2 exposant %3',
+        'mroot': 'racine %2ème de %1',
         'integrale1': 'intégrale de %1 à %2',
-        'limite1': 'limite quand %1 tend vers %2 de',
-        'limite2': 'limite quand %1 tend vers %2, %3, de',
-
+        'limite1': '%1 quand %2 de',
+        'limite2': '%1 quand %2, %3, de',
     }
 
     let mesPosTexte = {};
@@ -44,6 +71,7 @@
         '=': 'égale',
         '≠': 'différent de',
         '×': 'fois',
+        '*': 'étoile',
         '+': 'plus',
         '−': 'moins',
         '-': 'moins',
@@ -52,36 +80,62 @@
         '∞': 'l\'infini',
         '∉': 'n\'appartient pas à',
         '⊂': 'est inclus dans',
+        '⊆': 'est inclus au sens large dans',
         '⊄': 'n\'est pas inclus dans',
         '∩': 'inter',
-        '∅': 'ensemble vide',
+        '∅': 'l\'ensemble vide',
         ',': 'virgule',
         '∘': 'rond',
-        '>': 'strictement supérieur à'
+        '>': 'strictement supérieur à',
+        '⩽': 'inférieur ou égale à',
+        '≤': 'inférieur ou égale à',
+        '→': 'tend vers',
+        '∂': 'd rond',
+        'ℝ': 'grand r',
+        '↦': 'a pour image',
+        '±': 'plus ou moins'
 
     };
-
+    let mesFonctions = {};
     /**
      *  mathml2text constructor
      */
-    mathml2braille.prototype.mathml2text = function () {
+
+    mathml2braille.prototype.mathml2text = function() {
+        mesFonctions = this._mesFonctions;
 
         let mesFormules = this._formules;
         mesFormules.forEach(form => {
             let formClone = form.cloneNode(true);
+
+            let mesRoot = formClone.querySelectorAll('mroot');
+            let i = mesRoot.length;
+            while (i--) {
+                render._mroot(mesRoot[i]);
+            }
+
             let mesFrac = formClone.querySelectorAll('mfrac');
-            mesFrac.forEach(elt => {
-                render._mfrac(elt);
-            });
+            i = mesFrac.length;
+            while (i--) {
+                render._mfrac(mesFrac[i]);
+            }
 
             let mesSup = formClone.querySelectorAll('msup');
-            mesSup.forEach(elt => {
-                render._msup(elt);
-            });
+            i = mesSup.length;
+            while (i--) {
+                render._msup(mesSup[i]);
+            }
+
             let mesSub = formClone.querySelectorAll('msub');
             mesSub.forEach(elt => {
                 render._msub(elt);
             });
+
+            let mesSubSup = formClone.querySelectorAll('msubsup');
+            i = mesSubSup.length;
+            while (i--) {
+                render._msubsup(mesSubSup[i]);
+            }
 
             let mesUnder = formClone.querySelectorAll('munder');
             mesUnder.forEach(elt => {
@@ -93,6 +147,8 @@
                 render._msqrt(elt);
             });
             render._writeForm(form, formClone);
+
+
         });
 
     }
@@ -105,40 +161,49 @@
          * @param {string} clmath 
          * @return {dom} toutes les formules
          */
-        get_formule: function (clmath) {
+        get_formule: function(clmath) {
             return document.querySelectorAll(clmath);
         },
         /**
          * 
-         * @param {dom} mfrac 
-         * @return {dom} la phrase
+         * @param {HTMLElement} mfrac 
+         * @return {HTMLElement} la phrase
          */
-        _mfrac: function (mfrac) {
+        _mfrac: function(mfrac) {
             render._writeText(mfrac);
-
         },
-        _msup: function (msup) {
+        _msup: function(msup) {
             render._writeText(msup);
 
         },
-        _msub: function (msub) {
-           
+        _msub: function(msub) {
+
             render._writeText(msub);
 
         },
-        _msqrt: function (msub) {
+        _msubsup: function(msubsup) {
+
+            render._writeText(msubsup);
+
+        },
+        _msqrt: function(msub) {
             render._writeText(msub);
 
         },
-        _mfenced: function (mfenced) {
-
+        _mroot: function(mroot) {
+            render._writeText(mroot);
         },
-        _munder:function(munder){
+        _munder: function(munder) {
             let enfant = munder.children;
+
             switch (enfant[0].textContent.trim().toLowerCase()) {
                 case 'lim':
-                    // console.log(hasChild(enfant[1], 'mtable'));
-
+                    if (mesFonctions.hasChild(munder, 'mtable')) {
+                        rewrite._limite(munder);
+                        render._writeText(munder, 'limite2');
+                    } else {
+                        render._writeText(munder, 'limite1');
+                    }
                     break;
 
                 default:
@@ -147,9 +212,9 @@
         },
         /**
          * écrit le texte avec "const texte"
-         * @param {dom} elt 
+         * @param {HTMLElement} elt 
          */
-        _writeText: function (elt) {
+        _writeText: function(elt) {
             let eltTagName = arguments[1] && arguments[1] || elt.tagName;
             let parent = elt.parentNode;
             let enfant = elt.children;
@@ -159,27 +224,59 @@
 
             mesValues.forEach((t, i) => {
                 row.appendChild(document.createTextNode(t));
-                (i !== mesValues.length - 1) && row.appendChild(enfant[mesPos[i].name].cloneNode(true));
+                if (i !== mesValues.length - 1) {
+                    let monEnfant = enfant[mesPos[i].name];
+                    if (monEnfant.children.length > 1) {
+                        monEnfant = render._writeGuillemet(monEnfant);
+                    }
+                    row.appendChild(monEnfant.cloneNode(true));
+                }
+
             });
             parent.replaceChild(row, elt);
         },
         /**
          * 
-         * @param {*} form 
-         * @param {*} formClone 
+         * @param {HTMLCollection} form 
+         * @param {HTMLCollection} formClone 
          */
-        _writeForm: function (form, formClone) {
+        _writeForm: function(form, formClone) {
             let span = document.createElement('span');
             span.classList.add('ecriture_auto');
             let txt = formClone.textContent;
+            // txt=txt.replace(/(\n)*/g,' ');
+            txt = txt.replace(/\s+/g, ' ');
             Object.keys(dico).forEach(d => {
                 txt = txt.replace(new RegExp('\\' + d, 'g'), dico[d]);
             });
 
             span.textContent = txt;
-            return form.parentNode.insertBefore(span, form);
+            form.parentNode.insertBefore(span, form);
+        },
+        /**
+         * 
+         * @param {HTMLElement} elt 
+         */
+        _writeGuillemet: function(elt) {
+
+            return mesFonctions.block(elt.cloneNode(true), '«', '»');
         }
-    }
+    };
+
+    var rewrite = {
+        _limite: function(munder) {
+            let df = document.createDocumentFragment();
+            let mtable = munder.querySelector('mtable');
+            let mrow1 = document.createElement('mrow');
+            mrow1.appendChild(munder.querySelector('mtr'));
+            let mrow2 = document.createElement('mrow');
+            mrow2.appendChild(munder.querySelector('mtr'));
+            df.appendChild(mrow1);
+            df.appendChild(mrow2);
+            munder.replaceChild(df, mtable);
+        }
+    };
+
 
     //  window.mathml2text = mathml2text;
 })(window, document);
