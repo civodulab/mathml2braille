@@ -1,6 +1,7 @@
 _createForm();
 stat();
 option();
+stat_texte();
 
 function stat() {
     var converti = document.querySelectorAll('.js-mathmlConverti'),
@@ -41,9 +42,36 @@ function stat() {
     document.getElementById('stat').textContent = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
 }
 
+function stat_texte() {
+    let texteauto = document.querySelectorAll('.ecriture_auto');
+    let g = 0;
+    let b = 0;
+    texteauto.forEach(elt => {
+        let parent = elt.parentElement;
+        let bontexte = parent.querySelector('.texte_equation');
+       
+        if (bontexte) {
+            if (bontexte.textContent.trim() === elt.textContent.trim()) {
+                elt.classList.add('good');
+                g++;
+            } else {
+                elt.classList.add('bad');
+                b++
+            }
+        }
+    });
+    let pourcent = Math.round(100 * g / (b + g));
+    if (pourcent === 100) {
+        document.getElementById('fstat_texte').classList.add('good');
+    } else {
+        document.getElementById('fstat_texte').classList.add('bad');
+    }
+    document.getElementById('stat_texte').textContent = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
+}
+
 function option() {
     let monForm = document.getElementById('monForm');
-    monForm.addEventListener('submit', function (evt) {
+    monForm.addEventListener('submit', function(evt) {
         evt.preventDefault();
         let coupeForm = document.getElementById('coupure').value;
         let matLin = monForm["linear"].checked;
@@ -65,11 +93,11 @@ function option() {
             'coupureFormule': coupeForm,
             'matriceLineaire': matLin,
             'remplaceFormule': remplaceFormule,
-			'codeBrailleMath': 'nemeth',
-			'codeSysteme': 'SA'
-		};
-	
-		mathml2braille('.js-SA', options4);
+            'codeBrailleMath': 'nemeth',
+            'codeSysteme': 'SA'
+        };
+
+        mathml2braille('.js-SA', options4);
         // mathml2braille(options1);
         mathml2braille('.js-math2braille', options1);
         mathml2braille('.js-matrice-lineaire', options1);
@@ -82,13 +110,22 @@ function _createForm() {
     let monForm = document.createElement('form');
     monForm.setAttribute('id', 'monForm');
     //Stats
-
     let fieldset = document.createElement('fieldset');
     fieldset.setAttribute('id', 'fstat');
     let legend = document.createElement('legend');
-    legend.textContent = 'Stats';
+    legend.textContent = 'Stats équations';
     let p = document.createElement('p');
     p.setAttribute('id', 'stat');
+    fieldset.appendChild(legend);
+    fieldset.appendChild(p);
+    monForm.appendChild(fieldset);
+    //Stats texte
+    fieldset = document.createElement('fieldset');
+    fieldset.setAttribute('id', 'fstat_texte');
+    legend = document.createElement('legend');
+    legend.textContent = 'Stats textes';
+    p = document.createElement('p');
+    p.setAttribute('id', 'stat_texte');
     fieldset.appendChild(legend);
     fieldset.appendChild(p);
     monForm.appendChild(fieldset);

@@ -120,5 +120,9 @@ fieldset legend{
     content: "Écriture automatique : ";
 }
 .ecriture_auto{
-    font-style: italic
+    font-style: italic;
+    border: none!important;
+}
+.texte_equation{
+    /* background-color: rgb(121, 201, 255); */
 }
