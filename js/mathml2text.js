@@ -28,7 +28,7 @@
 
 
 ;
-(function (window, document) {
+(function(window, document) {
     'use strict';
 
     const texte = {
@@ -80,28 +80,28 @@
         '∞': 'l\'infini',
         '∉': 'n\'appartient pas à',
         '⊂': 'est inclus dans',
-        '⊆':'est inclus au sens large dans',
+        '⊆': 'est inclus au sens large dans',
         '⊄': 'n\'est pas inclus dans',
         '∩': 'inter',
-        '∅': 'ensemble vide',
+        '∅': 'l\'ensemble vide',
         ',': 'virgule',
         '∘': 'rond',
         '>': 'strictement supérieur à',
-        '⩽':'inférieur ou égale à',
-        '≤':'inférieur ou égale à',
+        '⩽': 'inférieur ou égale à',
+        '≤': 'inférieur ou égale à',
         '→': 'tend vers',
         '∂': 'd rond',
         'ℝ': 'grand r',
         '↦': 'a pour image',
-        '±':'plus ou moins'
+        '±': 'plus ou moins'
 
     };
     let mesFonctions = {};
     /**
      *  mathml2text constructor
      */
-    
-    mathml2braille.prototype.mathml2text = function () {
+
+    mathml2braille.prototype.mathml2text = function() {
         mesFonctions = this._mesFonctions;
 
         let mesFormules = this._formules;
@@ -161,7 +161,7 @@
          * @param {string} clmath 
          * @return {dom} toutes les formules
          */
-        get_formule: function (clmath) {
+        get_formule: function(clmath) {
             return document.querySelectorAll(clmath);
         },
         /**
@@ -169,31 +169,31 @@
          * @param {HTMLElement} mfrac 
          * @return {HTMLElement} la phrase
          */
-        _mfrac: function (mfrac) {
+        _mfrac: function(mfrac) {
             render._writeText(mfrac);
         },
-        _msup: function (msup) {
+        _msup: function(msup) {
             render._writeText(msup);
 
         },
-        _msub: function (msub) {
+        _msub: function(msub) {
 
             render._writeText(msub);
 
         },
-        _msubsup: function (msubsup) {
+        _msubsup: function(msubsup) {
 
             render._writeText(msubsup);
 
         },
-        _msqrt: function (msub) {
+        _msqrt: function(msub) {
             render._writeText(msub);
 
         },
-        _mroot: function (mroot) {
+        _mroot: function(mroot) {
             render._writeText(mroot);
         },
-        _munder: function (munder) {
+        _munder: function(munder) {
             let enfant = munder.children;
 
             switch (enfant[0].textContent.trim().toLowerCase()) {
@@ -214,7 +214,7 @@
          * écrit le texte avec "const texte"
          * @param {HTMLElement} elt 
          */
-        _writeText: function (elt) {
+        _writeText: function(elt) {
             let eltTagName = arguments[1] && arguments[1] || elt.tagName;
             let parent = elt.parentNode;
             let enfant = elt.children;
@@ -224,14 +224,14 @@
 
             mesValues.forEach((t, i) => {
                 row.appendChild(document.createTextNode(t));
-                if(i !== mesValues.length - 1){
-                    let monEnfant=enfant[mesPos[i].name];
-                    if(monEnfant.children.length>1){
-                      monEnfant=  render._writeGuillemet(monEnfant);
+                if (i !== mesValues.length - 1) {
+                    let monEnfant = enfant[mesPos[i].name];
+                    if (monEnfant.children.length > 1) {
+                        monEnfant = render._writeGuillemet(monEnfant);
                     }
                     row.appendChild(monEnfant.cloneNode(true));
                 }
-               
+
             });
             parent.replaceChild(row, elt);
         },
@@ -240,12 +240,12 @@
          * @param {HTMLCollection} form 
          * @param {HTMLCollection} formClone 
          */
-        _writeForm: function (form, formClone) {
+        _writeForm: function(form, formClone) {
             let span = document.createElement('span');
             span.classList.add('ecriture_auto');
             let txt = formClone.textContent;
             // txt=txt.replace(/(\n)*/g,' ');
-            txt=txt.replace(/\s+/g,' ');
+            txt = txt.replace(/\s+/g, ' ');
             Object.keys(dico).forEach(d => {
                 txt = txt.replace(new RegExp('\\' + d, 'g'), dico[d]);
             });
@@ -257,14 +257,14 @@
          * 
          * @param {HTMLElement} elt 
          */
-        _writeGuillemet: function (elt) {
-            
-          return mesFonctions.block(elt.cloneNode(true),'«','»');
+        _writeGuillemet: function(elt) {
+
+            return mesFonctions.block(elt.cloneNode(true), '«', '»');
         }
     };
 
     var rewrite = {
-        _limite: function (munder) {
+        _limite: function(munder) {
             let df = document.createDocumentFragment();
             let mtable = munder.querySelector('mtable');
             let mrow1 = document.createElement('mrow');
