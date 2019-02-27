@@ -78,9 +78,10 @@
         '÷': 'divisé par',
         '∪': 'union',
         '∞': 'l\'infini',
+        '∈': 'appartient à',
         '∉': 'n\'appartient pas à',
         '⊂': 'est inclus dans',
-        '⊆': 'est inclus au sens large dans',
+        '⊆': 'est inclus (au sens large) dans',
         '⊄': 'n\'est pas inclus dans',
         '∩': 'inter',
         '∅': 'l\'ensemble vide',
@@ -107,9 +108,15 @@
         let mesFormules = this._formules;
         mesFormules.forEach(form => {
             let formClone = form.cloneNode(true);
+            let i=0;
 
+            let mesSqrt = formClone.querySelectorAll('msqrt');
+            i=mesSqrt.length;
+            while(i--){
+                render._msqrt(mesSqrt[i]);
+            }
             let mesRoot = formClone.querySelectorAll('mroot');
-            let i = mesRoot.length;
+            i = mesRoot.length;
             while (i--) {
                 render._mroot(mesRoot[i]);
             }
@@ -142,10 +149,8 @@
                 render._munder(elt);
             });
 
-            let mesSqrt = formClone.querySelectorAll('msqrt');
-            mesSqrt.forEach(elt => {
-                render._msqrt(elt);
-            });
+           
+            
             render._writeForm(form, formClone);
 
 
@@ -186,8 +191,19 @@
             render._writeText(msubsup);
 
         },
-        _msqrt: function(msub) {
-            render._writeText(msub);
+        _msqrt: function(msqrt) {
+            let enfant=msqrt.children;
+            if(enfant.length>1){
+                let row=document.createElement('mrow');
+                while(enfant[0]){
+                    row.appendChild(document.createTextNode('\n'));
+                    row.appendChild(enfant[0]);
+                    row.appendChild(document.createTextNode('\n'));
+                }
+                msqrt.appendChild(row);
+            }
+
+            render._writeText(msqrt);
 
         },
         _mroot: function(mroot) {
@@ -264,6 +280,10 @@
     };
 
     var rewrite = {
+        /**
+         * récrit la limite quand une table est dans munder
+         * @param {HTMLElement} munder 
+         */
         _limite: function(munder) {
             let df = document.createDocumentFragment();
             let mtable = munder.querySelector('mtable');
@@ -275,6 +295,7 @@
             df.appendChild(mrow2);
             munder.replaceChild(df, mtable);
         }
+      
     };
 
 

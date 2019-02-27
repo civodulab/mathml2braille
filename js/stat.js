@@ -51,7 +51,9 @@ function stat_texte() {
         let bontexte = parent.querySelector('.texte_equation');
        
         if (bontexte) {
-            if (bontexte.textContent.trim() === elt.textContent.trim()) {
+            let bontxt=bontexte.textContent.trim().replace(/\s/g,' ');
+            
+            if (bontxt === elt.textContent.trim()) {
                 elt.classList.add('good');
                 g++;
             } else {
@@ -89,6 +91,11 @@ function option() {
             'remplaceFormule': remplaceFormule,
             'chimie': true
         }
+        var options3={
+            'coupureFormule': coupeForm,
+            'matriceLineaire': true,
+            'remplaceFormule': remplaceFormule
+        }
         var options4 = {
             'coupureFormule': coupeForm,
             'matriceLineaire': matLin,
@@ -97,11 +104,10 @@ function option() {
             'codeSysteme': 'SA'
         };
 
-        mathml2braille('.js-SA', options4);
-        // mathml2braille(options1);
-        mathml2braille('.js-math2braille', options1);
-        mathml2braille('.js-matrice-lineaire', options1);
-        mathml2braille('.js-chimie', options2);
+    //    new mathml2braille('.js-SA', options4);
+      new  mathml2braille('.js-math2braille', options1);
+      new  mathml2braille('.js-matrice-lineaire', options3);
+      new  mathml2braille('.js-chimie', options2);
     })
 
 }
