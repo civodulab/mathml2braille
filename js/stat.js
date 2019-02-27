@@ -49,10 +49,10 @@ function stat_texte() {
     texteauto.forEach(elt => {
         let parent = elt.parentElement;
         let bontexte = parent.querySelector('.texte_equation');
-       
+
         if (bontexte) {
-            let bontxt=bontexte.textContent.trim().replace(/\s/g,' ');
-            
+            let bontxt = bontexte.textContent.trim().replace(/\s/g, ' ');
+
             if (bontxt === elt.textContent.trim()) {
                 elt.classList.add('good');
                 g++;
@@ -91,7 +91,7 @@ function option() {
             'remplaceFormule': remplaceFormule,
             'chimie': true
         }
-        var options3={
+        var options3 = {
             'coupureFormule': coupeForm,
             'matriceLineaire': true,
             'remplaceFormule': remplaceFormule
@@ -104,10 +104,10 @@ function option() {
             'codeSysteme': 'SA'
         };
 
-    //    new mathml2braille('.js-SA', options4);
-      new  mathml2braille('.js-math2braille', options1);
-      new  mathml2braille('.js-matrice-lineaire', options3);
-      new  mathml2braille('.js-chimie', options2);
+        //    new mathml2braille('.js-SA', options4);
+        new Mathml2braille('.js-math2braille', options1);
+        new Mathml2braille('.js-matrice-lineaire', options3);
+        new Mathml2braille('.js-chimie', options2);
     })
 
 }

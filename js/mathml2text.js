@@ -28,7 +28,7 @@
 
 
 ;
-(function(window, document) {
+(function() {
     'use strict';
 
     const texte = {
@@ -98,21 +98,30 @@
 
     };
     let mesFonctions = {};
+    let writeEq = {};
     /**
      *  mathml2text constructor
      */
 
-    mathml2braille.prototype.mathml2text = function() {
+    Mathml2braille.prototype.mathml2text = function() {
         mesFonctions = this._mesFonctions;
+        writeEq = this._writeEq;
 
         let mesFormules = this._formules;
         mesFormules.forEach(form => {
             let formClone = form.cloneNode(true);
-            let i=0;
+            let i = 0;
+            writeEq._ajoutmfenced(formClone);
+
+            let mesFenced = formClone.querySelectorAll('mfenced');
+            i = mesFenced.length;
+            while (i--) {
+                render._mfenced(mesFenced[i]);
+            }
 
             let mesSqrt = formClone.querySelectorAll('msqrt');
-            i=mesSqrt.length;
-            while(i--){
+            i = mesSqrt.length;
+            while (i--) {
                 render._msqrt(mesSqrt[i]);
             }
             let mesRoot = formClone.querySelectorAll('mroot');
@@ -149,16 +158,14 @@
                 render._munder(elt);
             });
 
-           
-            
+
+
             render._writeForm(form, formClone);
 
 
         });
 
     }
-
-
 
 
     var render = {
@@ -168,6 +175,14 @@
          */
         get_formule: function(clmath) {
             return document.querySelectorAll(clmath);
+        },
+        _mfenced: function(mfenced) {
+            let open = mfenced.getAttribute('open');
+            let close = mfenced.getAttribute('close');
+            let row=document.createElement('mrow');
+            let parent=mfenced.parentNode;
+            row.appendChild(mesFonctions.block(mfenced.cloneNode(true), open, close));
+            parent.replaceChild(row,mfenced);
         },
         /**
          * 
@@ -192,10 +207,10 @@
 
         },
         _msqrt: function(msqrt) {
-            let enfant=msqrt.children;
-            if(enfant.length>1){
-                let row=document.createElement('mrow');
-                while(enfant[0]){
+            let enfant = msqrt.children;
+            if (enfant.length > 1) {
+                let row = document.createElement('mrow');
+                while (enfant[0]) {
                     row.appendChild(document.createTextNode('\n'));
                     row.appendChild(enfant[0]);
                     row.appendChild(document.createTextNode('\n'));
@@ -295,9 +310,7 @@
             df.appendChild(mrow2);
             munder.replaceChild(df, mtable);
         }
-      
+
     };
 
-
-    //  window.mathml2text = mathml2text;
-})(window, document);
+})();
