@@ -2,60 +2,75 @@
  * mathml2text
  */
 
-// (function (exports) {
-//     var PASSWORD = 'gloubiboulga';
-
-//     var User = function (firstName, lastName) {
-//         this.firstName = firstName;
-//         this.lastName = lastName;
-//         this.isAuthenticated = false;
-//     };
-//     exports.User = User;
-
-//     User.prototype.toString = function () {
-//         return this.firstName + ' ' + this.lastName;
-//     };
-
-//     User.prototype.authenticate = function (password) {
-//         if (password == PASSWORD) {
-//             this.isAuthenticated = true;
-//         }
-//     };
-// })(this);
-
-
-
-
-
 ;
 (function() {
     'use strict';
+    const miTexte = {
+        'ln': 'logarithme népérien de',
+        'arccos': 'arc cosinus',
+        'arcsin': 'arc sinus',
+        'arctan': 'arc tangente',
+        'cos': 'cosinus',
+        'sin': 'sinus',
+        'tan': 'tangente',
+        'ch': 'cosinus hyperbolique',
+        'sh': 'sinus hyperbolique',
+        'th': 'tangente hyperbolique'
+    }
 
+    const varsansup = [
+        8477, //DOUBLE-STRUCK REAL NUMBER (Doublestruck R) ℝ — &‌#8477; &‌#x211D;
+        8450, //COMPLEX NUMBERS (Doublestruck C) ℂ — &‌#8450; &‌#x2102;
+        8469, //NATURAL NUMBERS (Doublestruck N) ℕ — &‌#8469; &‌#x2115;
+        8473, // PRIME NUMBERS (Doublestruck P) ℙ — &‌#8473; &‌#x2119;
+        8474, // RATIONAL NUMBERS (Doublestruck Q) ℚ — &‌#8474; &‌#x211A;
+        8484
+    ];
+    // elts.push(multi[1]); //post1 indice
+    // elts.push(multi[2]); //post2 exposant
+    // elts.push(multi[3]);
+    // elts.push(multi[4]); //pre1 indice
+    // elts.push(multi[5]); //pre2 exposant
     const texte = {
+        'mmultiscripts':'%1 indice inférieur %5 à gauche indice supérieur %6 à gauche indice %2 exposant %3',
         'mfrac': '%1 divisé par %2',
         'msup': '%1 exposant %2',
+        'msup_sans': '%1 %2',
+        'carre': '%1 au carré',
+        'cube': '%1 au cube',
         'msub': '%1 indice %2',
         'msqrt': 'racine carré de %1',
         'msubsup': '%1 indice %2 exposant %3',
+        'msubsup_sans': '%1 %2 %3',
+        'msubsup2': '%1 indice %2 au carré',
+        'msubsup3': '%1 indice %2 au cube',
         'mroot': 'racine %2ème de %1',
+        'mroot3': 'racine cubique de %1',
         'integrale1': 'intégrale de %1 à %2',
-        'limite1': '%1 quand %2 de',
-        'limite2': '%1 quand %2, %3, de',
+        'limite1': 'limite quand %2 de',
+        'limite2': 'limite quand %2, %3, de',
+        'somme': 'somme pour %2 à %3 de',
+        'produit': 'produit pour %2 à %3 de',
+        'log_base': 'logarithme en base %2 de'
     }
 
     let mesPosTexte = {};
     Object.keys(texte).forEach(k => {
         let montexte = texte[k];
+        let regex = new RegExp('%([0-9])', 'g');
         let tsplit = montexte.split(/%[0-9]/);
         // position des %[0-9]
         let mesPos = [];
-        let i;
-        for (i = 1; i !== tsplit.length; i++) {
+        var array1;
+        while ((array1 = regex.exec(montexte)) !== null) {
             mesPos.push({
-                name: i - 1,
-                pos: montexte.indexOf('%' + i),
+                name: array1[1] - 1,
+                pos: montexte.indexOf(array1[0]),
             });
+            regex.lastIndex;
+
         }
+
         mesPos.sort((a, b) => a.pos - b.pos);
         mesPosTexte[k] = {
             value: tsplit,
@@ -64,38 +79,12 @@
 
     });
 
-    const dico = {
+
+
+    const casPart = {
         "'''": 'tierce',
         "''": 'seconde',
         "'": 'prime',
-        '=': 'égale',
-        '≠': 'différent de',
-        '×': 'fois',
-        '*': 'étoile',
-        '+': 'plus',
-        '−': 'moins',
-        '-': 'moins',
-        '÷': 'divisé par',
-        '∪': 'union',
-        '∞': 'l\'infini',
-        '∈': 'appartient à',
-        '∉': 'n\'appartient pas à',
-        '⊂': 'est inclus dans',
-        '⊆': 'est inclus (au sens large) dans',
-        '⊄': 'n\'est pas inclus dans',
-        '∩': 'inter',
-        '∅': 'l\'ensemble vide',
-        ',': 'virgule',
-        '∘': 'rond',
-        '>': 'strictement supérieur à',
-        '⩽': 'inférieur ou égale à',
-        '≤': 'inférieur ou égale à',
-        '→': 'tend vers',
-        '∂': 'd rond',
-        'ℝ': 'grand r',
-        '↦': 'a pour image',
-        '±': 'plus ou moins'
-
     };
     let mesFonctions = {};
     let writeEq = {};
@@ -111,12 +100,20 @@
         mesFormules.forEach(form => {
             let formClone = form.cloneNode(true);
             let i = 0;
+            rewrite._miTexte(formClone);
             writeEq._ajoutmfenced(formClone);
+            writeEq._reecritureMultiscripts(formClone);
 
             let mesFenced = formClone.querySelectorAll('mfenced');
             i = mesFenced.length;
             while (i--) {
                 render._mfenced(mesFenced[i]);
+            }
+
+            let mesMultiscripts = formClone.querySelectorAll('mmultiscripts');
+            i = mesMultiscripts.length;
+            while (i--) {
+                render._mmultiscripts(mesMultiscripts[i]);
             }
 
             let mesSqrt = formClone.querySelectorAll('msqrt');
@@ -158,6 +155,11 @@
                 render._munder(elt);
             });
 
+            let mesUnderOver = formClone.querySelectorAll('munderover');
+            i = mesUnderOver.length;
+            while (i--) {
+                render._munderover(mesUnderOver[i]);
+            }
 
 
             render._writeForm(form, formClone);
@@ -176,13 +178,25 @@
         get_formule: function(clmath) {
             return document.querySelectorAll(clmath);
         },
+        _munderover: function(munderover) {
+            switch (munderover.children[0].textContent.trim()) {
+                case '∑':
+                    render._writeText(munderover, 'somme');
+                    break;
+                case '∏':
+                    render._writeText(munderover, 'produit');
+                    break;
+                default:
+                    break;
+            }
+        },
         _mfenced: function(mfenced) {
-            let open = mfenced.getAttribute('open');
-            let close = mfenced.getAttribute('close');
-            let row=document.createElement('mrow');
-            let parent=mfenced.parentNode;
+            let open = mfenced.getAttribute('open') || '(';
+            let close = mfenced.getAttribute('close') || ')';
+            let row = document.createElement('mrow');
+            let parent = mfenced.parentNode;
             row.appendChild(mesFonctions.block(mfenced.cloneNode(true), open, close));
-            parent.replaceChild(row,mfenced);
+            parent.replaceChild(row, mfenced);
         },
         /**
          * 
@@ -193,18 +207,59 @@
             render._writeText(mfrac);
         },
         _msup: function(msup) {
-            render._writeText(msup);
+
+            if (varsansup.indexOf(msup.children[0].textContent.trim().charCodeAt()) !== -1) {
+                render._writeText(msup, 'msup_sans');
+            } else {
+
+                switch (msup.children[1].textContent.trim()) {
+                    case '2':
+                        render._writeText(msup, 'carre');
+                        break;
+                    case '3':
+                        render._writeText(msup, 'cube');
+                        break;
+                    default:
+                        render._writeText(msup);
+                        break;
+                }
+            }
+
 
         },
         _msub: function(msub) {
+            switch (msub.children[0].textContent.trim()) {
+                case 'log':
+                    render._writeText(msub, 'log_base');
 
-            render._writeText(msub);
+                    break;
+
+                default:
+                    render._writeText(msub);
+
+                    break;
+            }
 
         },
         _msubsup: function(msubsup) {
-
-            render._writeText(msubsup);
-
+            if (varsansup.indexOf(msubsup.children[0].textContent.trim().charCodeAt()) !== -1) {
+                render._writeText(msubsup, 'msubsup_sans');
+            } else {
+                switch (msubsup.children[2].textContent.trim()) {
+                    case '2':
+                        render._writeText(msubsup, 'msubsup2');
+                        break;
+                    case '3':
+                        render._writeText(msubsup, 'msubsup3');
+                        break;
+                    default:
+                        render._writeText(msubsup);
+                        break;
+                }
+            }
+        },
+        _mmultiscripts: function(mmultiscripts) {
+            render._writeText(mmultiscripts);
         },
         _msqrt: function(msqrt) {
             let enfant = msqrt.children;
@@ -222,12 +277,20 @@
 
         },
         _mroot: function(mroot) {
-            render._writeText(mroot);
+
+            switch (mroot.children[1].textContent.trim()) {
+                case '3':
+                    render._writeText(mroot, 'mroot3');
+                    break;
+
+                default:
+                    render._writeText(mroot);
+                    break;
+            }
         },
         _munder: function(munder) {
-            let enfant = munder.children;
 
-            switch (enfant[0].textContent.trim().toLowerCase()) {
+            switch (munder.children[0].textContent.trim().toLowerCase()) {
                 case 'lim':
                     if (mesFonctions.hasChild(munder, 'mtable')) {
                         rewrite._limite(munder);
@@ -262,8 +325,10 @@
                     }
                     row.appendChild(monEnfant.cloneNode(true));
                 }
-
             });
+            if (parent.children.length > 1) {
+                row = render._writeGuillemet(row);
+            }
             parent.replaceChild(row, elt);
         },
         /**
@@ -277,10 +342,12 @@
             let txt = formClone.textContent;
             // txt=txt.replace(/(\n)*/g,' ');
             txt = txt.replace(/\s+/g, ' ');
-            Object.keys(dico).forEach(d => {
-                txt = txt.replace(new RegExp('\\' + d, 'g'), dico[d]);
+            Object.keys(casPart).forEach(d => {
+                txt = txt.replace(new RegExp('\\' + d, 'g'), casPart[d]);
             });
-
+            Object.keys(txtMathFR).forEach(d => {
+                txt = txt.replace(new RegExp('\\' + String.fromCharCode(d), 'g'), txtMathFR[d]);
+            });
             span.textContent = txt;
             form.parentNode.insertBefore(span, form);
         },
@@ -289,7 +356,6 @@
          * @param {HTMLElement} elt 
          */
         _writeGuillemet: function(elt) {
-
             return mesFonctions.block(elt.cloneNode(true), '«', '»');
         }
     };
@@ -309,6 +375,21 @@
             df.appendChild(mrow1);
             df.appendChild(mrow2);
             munder.replaceChild(df, mtable);
+        },
+        _miTexte: function(form) {
+            let mesMi = form.querySelectorAll('mi');
+            let i = mesMi.length;
+            while (i--) {
+                let txt = mesMi[i].textContent.trim();
+                mesMi[i].textContent = miTexte[txt] && miTexte[txt] || mesMi[i].textContent;
+            }
+        },
+        /**
+         * recherche les fonctions et les récrit
+         * @param {HTMLCollection} form 
+         */
+        _fonctions: function(form) {
+
         }
 
     };

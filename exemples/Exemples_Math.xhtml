@@ -1038,7 +1038,7 @@
                 </msub>
             </math> <span class="mathbraille">⠥⠢⠰⠝⠖⠡⠆</span> </p>
         <h3>9.3 Indice supérieur exposant</h3>
-        <p class="courant"> <span class="texte_equation">x exposant 2</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">x au carré</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <msup>
                     <mi>x</mi>
                     <mn>2</mn>
@@ -1065,13 +1065,13 @@
                     </mrow>
                 </msup>
             </math> <span class="mathbraille">⠁⠈⠤⠱⠂⠩</span> <span class="mathbraille2">⠁⠈⠰⠤⠱⠂⠩⠆</span> </p>
-        <p class="courant"> <span class="texte_equation">a exposant pi</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">a exposant ‌pi</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <msup>
                     <mi>a</mi>
                     <mi mathvariant="normal">&#x3C0;</mi>
                 </msup>
             </math> <span class="mathbraille">⠁⠈⠘⠏</span> </p>
-        <p class="courant"> <span class="texte_equation">«&#160;5 exposant 2&#160;» «&#160;racine carrée de 3&#160;» différent de 5 exposant «&#160;2
+        <p class="courant"> <span class="texte_equation">«&#160;5 au carré&#160;» «&#160;racine carrée de 3&#160;» différent de 5 exposant «&#160;2
                 racine carrée de 3&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <msup>
                     <mn>5</mn>
@@ -1161,7 +1161,7 @@
                     </mrow>
                 </msubsup>
             </math> <span class="mathbraille">⠁⠄⠄⠢⠰⠍⠖⠝⠆⠈⠰⠏⠖⠟⠆</span> </p>
-        <p class="courant"> <span class="texte_equation">grand r indice plus exposant étoile</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">grand r plus étoile</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <msubsup>
                     <mi mathvariant="normal">&#x211D;</mi>
                     <mo>+</mo>
@@ -1169,7 +1169,7 @@
                 </msubsup>
             </math> <span class="mathbraille">⠨⠨⠗⠢⠖⠈⠐⠔</span> </p>
         <h3>9.5 Indices placés à gauche d'une quantité ou préfixes</h3>
-        <p class="courant"> <span class="texte_equation">A indice supérieur t à gauche (transposée de A)</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille ">
+        <p class="courant"> <span class="texte_equation">A indice supérieur t à gauche (transposée de A)</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille test">
                 <mmultiscripts>
                     <mi>A</mi>
                     <mprescripts />
@@ -1177,7 +1177,7 @@
                     <mi>t</mi>
                 </mmultiscripts>
             </math> <span class="mathbraille">⠈⠞⠨⠁</span> </p>
-        <p class="courant"> <span class="texte_equation">w indice inférieur 2 à gauche</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">w indice inférieur 2 à gauche</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille test">
                 <mmultiscripts>
                     <mi>w</mi>
                     <mprescripts />
@@ -2757,6 +2757,7 @@
     <script type="text/javascript" src="../js/varTBF.min.js"></script>
     <script type="text/javascript" src="../js/allVar.js"></script>
     <script type="text/javascript" src="../js/mathml2braille.js"></script>
+    <script type="text/javascript" src="../js/varTextFR.js"></script>
     <script type="text/javascript" src="../js/mathml2text.js"></script>
 
     <script>
@@ -2770,12 +2771,12 @@
     var options3 = {
         'chimie': true, // false par défaut
     }
-    //    var test = new Mathml2braille('.test', options1);
-    //    test.mathml2text();
-    var math1 = new Mathml2braille('.js-math2braille', options1);
-    math1.mathml2text();
-    var math2 = new Mathml2braille('.js-matrice-lineaire', options2);
-    var chi1 = new Mathml2braille('.js-chimie', options3);
+       var test = new Mathml2braille('.test', options1);
+       test.mathml2text();
+    // var math1 = new Mathml2braille('.js-math2braille', options1);
+    // math1.mathml2text();
+    // var math2 = new Mathml2braille('.js-matrice-lineaire', options2);
+    // var chi1 = new Mathml2braille('.js-chimie', options3);
 
     </script>
     <script type="text/javascript" src="../js/stat.js"></script>

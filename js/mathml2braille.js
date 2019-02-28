@@ -10,6 +10,7 @@
     // body
     'use strict';
 
+
     let mesFonctions = {
         /**
          * Savoir si un element a comme parent un node
@@ -854,6 +855,10 @@
                 }
             }
         },
+        /**
+         * Ajoute mfenced si mtable 
+         * @param {HTMLCollection} monEquation 
+         */
         _ajoutmfenced: function(monEquation) {
 
                 let mo = monEquation.querySelectorAll('mo');
