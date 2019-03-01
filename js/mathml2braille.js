@@ -104,9 +104,20 @@
             blocFermeture.appendChild(document.createTextNode(endBloc));
 
             df.appendChild(blocOuverture);
+            df.appendChild(document.createTextNode('\n'));
             df.appendChild(element);
+            df.appendChild(document.createTextNode('\n'));
             df.appendChild(blocFermeture);
             return df;
+        },
+        _extendDefaults: function(source, properties) {
+            var property;
+            for (property in properties) {
+                if (properties.hasOwnProperty(property)) {
+                    source[property] = properties[property];
+                }
+            }
+            return source;
         }
 
     }
@@ -122,16 +133,18 @@
     let hardmat;
     let mathml2braille = function(clmath) {
             this._mesFonctions = mesFonctions;
-            this._writeEq=writeEq;
-            if (clmath && typeof clmath === 'object') {
-                arguments[1] = clmath;
-                clmath = undefined;
-            }
+            this._writeEq = writeEq;
 
-            if (arguments[1] && typeof arguments[1] === "object") {
-                options = writeEq._extendDefaults(options, arguments[1]);
+            if (!clmath) {
+                clmath = 'math';
+            } else if (typeof clmath === 'object') {
+                options = mesFonctions._extendDefaults(options, clmath);
+                clmath = 'math';
+            } else if (arguments[1] && typeof arguments[1] === "object") {
+                options = mesFonctions._extendDefaults(options, arguments[1]);
             }
-            var mesFormules = clmath && document.querySelectorAll(clmath) || mesFonctions.getElementsByContainTagName(d, 'math'),
+           
+            var mesFormules = clmath && document.querySelectorAll(clmath) ,
                 l = mesFormules.length,
                 i = 0;
             this._formules = mesFormules;
@@ -650,15 +663,7 @@
                 (t.textContent.charCodeAt() === 160) && (t.textContent = ' ');
             });
         },
-        _extendDefaults: function(source, properties) {
-            var property;
-            for (property in properties) {
-                if (properties.hasOwnProperty(property)) {
-                    source[property] = properties[property];
-                }
-            }
-            return source;
-        },
+
         _numDecimalNemeth: function(monEquation) {
             var mo = monEquation.getElementsByTagName('mo'),
                 lmo = mo.length,
@@ -1162,6 +1167,7 @@
                 i = 0;
             for (; i !== l; i++) {
                 let scriptBool = mn[i].getAttribute('mathvariant') && (mn[i].getAttribute('mathvariant') === 'script');
+                let doubleStruckBool=mn[i].getAttribute('mathvariant') && (mn[i].getAttribute('mathvariant') === 'double-struck');
                 if (scriptBool) {
                     mn[i].textContent = mn[i].textContent.toLowerCase();
                 }
@@ -1191,7 +1197,9 @@
                             }
                         }
                         carac = moncar || num[j];
-                        mn[i].textContent += scriptBool && mathBraille.caracMath.majusculeronde + carac || carac;
+                        carac= scriptBool && mathBraille.caracMath.majusculeronde + carac || carac;
+                        carac= doubleStruckBool && mathBraille.caracMath.majuscule + carac || carac;
+                        mn[i].textContent += carac;
                     }
                 }
 

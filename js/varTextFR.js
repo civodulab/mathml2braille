@@ -5,8 +5,8 @@
     //   40: '(', // (
     //   41: ')', // )  
       44: 'virgule', // ,
-      58: 'tel que', // :
       59: 'point virgule', // ;
+      58: 'tel que', // :
       45: 'moins', // -
       46: 'multiplié par', //point multiplicatif
       42: 'étoile', // *
@@ -63,7 +63,7 @@
       //RIGHT FLOOR BRACKET ⌋ &rceil; &‌#8971; &‌#x230B;
       8853: '-46-235-', //CIRCLED PLUS (Direct Sum) ⊕ &oplus; &‌#8853; &‌#x2295;
       8855: '-46-35-', //CIRCLED TIMES (Vector Product) ⊗ &otimes; &‌#8855; &‌#x2297;
-      8747: '-12346-', //INTEGRAL ∫ &int; &‌#8747; &‌#x222B;
+      8747: 'intégrale', //INTEGRAL ∫ &int; &‌#8747; &‌#x222B;
       8706: 'd rond', //PARTIAL DIFFERENTIAL ∂ &part; &‌#8706; &‌#2202;
       8710: 'delta majuscule', //INCREMENT (Difference or capital Delta) Δ &Delta; &‌#8710; &‌#x2206;
       8711: 'nabla', //NABLA (Backward Difference, Grad or upside down triangle) ∇ &nabla; &‌#8711; &‌#x2207;
@@ -87,16 +87,16 @@
       8473: 'grand p', // PRIME NUMBERS (Doublestruck P) ℙ — &‌#8473; &‌#x2119;
       8474: 'grand q', // RATIONAL NUMBERS (Doublestruck Q) ℚ — &‌#8474; &‌#x211A;
       8484: 'grand z', // INTEGERS (Doublestruck Z) ℤ — &‌#8484; &‌#x2124;
-      8518: '', //double struck small ⅆ
-      8704: 'quelque soit', // FOR ALL (Upside-down A) ∀ &forall;  &‌#8704; &‌#x2200;
-      8705: 'complémentaire', // COMPLEMENT (Thin C) ∁ — &‌#8705; &‌#x2201;
+      // 8518: '', //double struck small ⅆ
+      8704: 'pour tout', // FOR ALL (Upside-down A) ∀ &forall;  &‌#8704; &‌#x2200;
+      8705: 'complémentaire de', // COMPLEMENT (Thin C) ∁ — &‌#8705; &‌#x2201;
       8707: 'il existe', // THERE EXISTS (Backwards E) ∃ &exist;  &‌#8707; &‌#x2203;
       8708: 'il n\'existe pas', // THERE DOES NOT EXIST (Backwards E with slash) ∄ — &‌#8708; &‌#x2204;
       8709: 'l\'ensemble vide', // EMPTY SET (O slash) ∅ &empty;  &‌#8709; &‌#x2205;
       // NOT SYMBOL (Corner) ¬ &not;  &‌#172; &‌#xAC;
       // TILDE (Alternate Not Symbol) ˜ &tilde;  — —
-      8743: '-45-35-', // LOGICAL AND (Wedge or Upside down V Symbol) ∧ &and;  &‌#8743; &‌#x2227;
-      8744: '-45-26-', // LOGICAL OR (V Symbol) ∨ &or;  &‌#8744; &‌#x2228;
+      8743: 'ete', // LOGICAL AND (Wedge or Upside down V Symbol) ∧ &and;  &‌#8743; &‌#x2227;
+      8744: 'et/ou', // LOGICAL OR (V Symbol) ∨ &or;  &‌#8744; &‌#x2228;
       // XOR ⊻ — &‌#8891; &‌#x22BB;
       // NAND ⊼ — &‌#8892; &‌#x22BC;
       // NOR ⊽ — &‌#8893; &‌#x22BD;
@@ -109,9 +109,9 @@
       8716: '-46-45-34-', // DOES NOT CONTAIN AS MEMBER ∌ — &‌#8716; &‌#x220C;
       8717: '-46-45-16-', // SMALL CONTAINS AS MEMBER ∍ — &‌#8717; &‌#x220D;
       // SET MINUS ∖ — &‌#8726; &‌#x2216;
-      8834: 'est inclus dans', //SUBSET OF (Sideways U with cap to left) ⊂ &sub;  &‌#8834; &‌#x2282;
-      8835: '-5-16-', // SUPERSET OF (Sideways U with cap to right) ⊃ &sup;  &‌#8835; &‌#x2283;
-      8836: 'n\'est pas inclus dans', //NOT A SUBSET OF (Subset with Slash) ⊄ &nsub;  &‌#8836; &‌#x2284;
+      8834: 'inclus dans', //SUBSET OF (Sideways U with cap to left) ⊂ &sub;  &‌#8834; &‌#x2282;
+      8835: 'contient', // SUPERSET OF (Sideways U with cap to right) ⊃ &sup;  &‌#8835; &‌#x2283;
+      8836: 'non inclus dans', //NOT A SUBSET OF (Subset with Slash) ⊄ &nsub;  &‌#8836; &‌#x2284;
       8837: '', // NOT A SUPERSET OF (Superset with slash) ⊅ — &‌#8837; &‌#x2285;
       8838: 'est inclus (au sens large) dans', // SUBSET OF OR EQUAL TO (Subset with line below) ⊆ &sube;  &‌#8838; &‌#x2286;
       // SUPERSET OF OR EQUAL TO (Superset with line below) ⊇ &supe;  &‌#8839; &‌#x2287;
@@ -170,7 +170,7 @@
       // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
       // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
       8773: '-456-2356-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
-      8776: '-5-2356-', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
+      8776: 'est approximativement égal à', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
       8777: '-46-5-2356-', // NOT ALMOST EQUAL TO ≉ — &‌#8777; &‌#x2249;
       8764: '-45-2356-', // TILDE SIMILAR TO ∼ &sim; &‌#8764; &‌#x223C;
       8801: {
@@ -211,7 +211,7 @@
       // ALL EQUAL TO ≌ &‌#8780; &‌#x224C;
       8723: '-36-235-', // MINUS-OR-PLUS SIGN ∓ &‌#8723; &‌#x2213;
       // DOT PLUS ∔ &‌#8724; &‌#x2214;
-      8727: '-5-35-', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
+      8727: 'étoile', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
       8728: '-456-3456-', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
       8729: '-35-35-', // BULLET OPERATOR ∙ &‌#8729; &‌#x2219;
       // PROPORTIONAL TO ∝ &‌#8733; &‌#x221D;
@@ -463,10 +463,10 @@
       ⇑ 8657 21D1 &uArr; UPWARDS DOUBLE ARROW
       */
       8658: '-25-2-', // ⇒ 8658 21D2 &rArr; RIGHTWARDS DOUBLE ARROW
-      /*
-      ⇓ 8659 21D3 &dArr; DOWNWARDS DOUBLE ARROW
-      ⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW
-      ⇕ 8661 21D5   UP DOWN DOUBLE ARROW
+     
+      // ⇓ 8659 21D3 &dArr; DOWNWARDS DOUBLE ARROW
+      8660: 'est équivalent à', //⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW
+     /*⇕ 8661 21D5   UP DOWN DOUBLE ARROW
       ⇖ 8662 21D6   NORTH WEST DOUBLE ARROW
       ⇗ 8663 21D7   NORTH EAST DOUBLE ARROW
       ⇘ 8664 21D8   SOUTH EAST DOUBLE ARROW
