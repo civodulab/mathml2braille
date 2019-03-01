@@ -503,7 +503,7 @@
          * récrit le caractère double-struck
          * @param {HTMLElement} mi 
          */
-        _doubleStruck:function(mi){
+        _doubleStruck: function(mi) {
             // 8477: 'grand r', //DOUBLE-STRUCK REAL NUMBER (Doublestruck R) ℝ — &‌#8477; &‌#x211D;
             // 8450: 'grand c', //COMPLEX NUMBERS (Doublestruck C) ℂ — &‌#8450; &‌#x2102;
             // 8469: 'grand n', //NATURAL NUMBERS (Doublestruck N) ℕ — &‌#8469; &‌#x2115;
@@ -512,9 +512,23 @@
             // 8484: 'grand z', // INTEGERS (Doublestruck Z) ℤ — &‌#8484; &‌#x2124;
             switch (mi.textContent) {
                 case 'R':
-                    mi.textContent=String.fromCharCode(8477);
+                    mi.textContent = String.fromCharCode(8477);
                     break;
-            
+                case 'C':
+                    mi.textContent = String.fromCharCode(8450);
+                    break;
+                case 'N':
+                    mi.textContent = String.fromCharCode(8469);
+                    break;
+                case 'P':
+                    mi.textContent = String.fromCharCode(8473);
+                    break;
+                case 'Q':
+                    mi.textContent = String.fromCharCode(8474);
+                    break;
+                case 'Z':
+                    mi.textContent = String.fromCharCode(8484);
+                    break;
                 default:
                     break;
             }
@@ -564,8 +578,8 @@
             let mesMi = form.querySelectorAll('mi');
             let i = mesMi.length;
             while (i--) {
-                let boolDoubleStruck=mesMi[i].getAttribute('mathvariant')&&(mesMi[i].getAttribute('mathvariant')==='double-struck');
-                if(boolDoubleStruck){
+                let boolDoubleStruck = mesMi[i].getAttribute('mathvariant') && (mesMi[i].getAttribute('mathvariant') === 'double-struck');
+                if (boolDoubleStruck) {
                     rewrite._doubleStruck(mesMi[i]);
                 }
                 let txt = mesMi[i].textContent.trim();
