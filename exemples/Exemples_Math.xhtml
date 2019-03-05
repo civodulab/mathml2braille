@@ -13,6 +13,22 @@
         <h1>Exemples tirés du document PDF " <a href="https://www.avh.asso.fr/sites/default/files/notation_mathematique_braille2_0.pdf">Notation mathématique braille</a>"</h1>
 
         <h2>Mes Exemples</h2>
+        <p class="courant"><span class="texte_equation">l'intervalle «&#160;a ; b&#160;» fermé à gauche et ouvert à droite</span><span class="texte_equation2">l'intervalle «&#160;a point virgule b&#160;» fermé à gauche et ouvert à droite</span>
+            <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille test">
+                <mfenced open="[" close="[" separators=";">
+                    <mi>a</mi>
+                    <mi>b</mi>
+                </mfenced>
+            </math><span class="mathbraille">⠷⠁⠆⠃⠷</span>
+        </p>
+        <p class="courant"><span class="texte_equation">l'intervalle «&#160;a ; b&#160;» ouvert à gauche et fermé à droite</span><span class="texte_equation2">l'intervalle «&#160;a point virgule b&#160;» ouvert à gauche et fermé à droite</span>
+            <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+                <mfenced open="]" close="]" separators=";">
+                    <mi>a</mi>
+                    <mi>b</mi>
+                </mfenced>
+            </math><span class="mathbraille">⠾⠁⠆⠃⠾</span>
+        </p>
         <p class="courant"><span class="texte_equation">pour tout x réel, x au carré est positif ou nul</span>
             <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
                 <mstyle displaystyle="true">
@@ -92,13 +108,9 @@
             <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="true" scriptlevel="0">
                     <mrow class="MJX-TeXAtom-ORD">
-                        <mrow class="MJX-TeXAtom-ORD">
-                            <mo stretchy="false">|</mo>
-                        </mrow>
-                        <mi>x</mi>
-                        <mrow class="MJX-TeXAtom-ORD">
-                            <mo stretchy="false">|</mo>
-                        </mrow>
+                        <mfenced open='|' close='|'>
+                            <mi>x</mi>
+                        </mfenced>
                         <mo>=</mo>
                         <mrow>
                             <mo>{</mo>
@@ -138,7 +150,9 @@
                         </mrow>
                     </mrow>
                 </mstyle>
-            </math><span class="mathbraille">⠿⠭⠿⠶⠸⠦⠖⠭⠀⠎⠊⠀⠭⠘⠜⠼<br /> ⠀⠀⠀⠀⠀⠀⠤⠭⠀⠎⠊⠝⠕⠝⠀⠀</span></p>
+            </math><span class="mathbraille">⠿⠭⠿⠶⠸⠦⠖⠭⠀⠎⠊⠀⠭⠘⠜⠼<br /> ⠀⠀⠀⠀⠀⠀⠤⠭⠀⠎⠊⠝⠕⠝⠀⠀</span>
+            <span class="mathbraille2">⠿⠭⠿⠶⠸⠦⠖⠭⠀⠀⠎⠊⠀⠭⠘⠜⠼⠀⠠⠜⠀⠤⠭⠀⠀⠎⠊⠝⠕⠝</span>
+        </p>
         <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="true" scriptlevel="0">
                     <mrow class="MJX-TeXAtom-ORD">
@@ -168,7 +182,7 @@
                     </mrow>
                 </mstyle>
             </math><span class="mathbraille">⠨⠐⠁⠨⠐⠃⠨⠐⠉</span></p>
-        <p class="courant"> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <math class="js-math2braille test" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="true">
                     <mrow class="MJX-TeXAtom-ORD">
                         <mrow>
@@ -215,8 +229,9 @@
                         </mrow>
                     </mrow>
                 </mstyle>
-            </math><span class="mathbraille">⠨⠦⠁⠢⠡⠡⠀⠁⠢⠡⠣⠨⠴<br />⠨⠦⠁⠢⠣⠡⠀⠁⠢⠣⠣⠨⠴</span></p>
-        <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+            </math><span class="mathbraille">⠨⠦⠁⠢⠡⠡⠀⠁⠢⠡⠣⠨⠴<br />⠨⠦⠁⠢⠣⠡⠀⠁⠢⠣⠣⠨⠴</span>
+            <span class="mathbraille2">⠸⠦⠁⠢⠡⠡⠀⠁⠢⠡⠣⠀⠠⠜⠀⠁⠢⠣⠡⠀⠁⠢⠣⠣⠸⠴</span></p>
+        <p class="courant"><math class="js-math2braille test" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="true">
                     <mrow class="MJX-TeXAtom-ORD">
                         <mrow>
@@ -264,7 +279,7 @@
                     </mrow>
                 </mstyle>
             </math><span class="mathbraille">⠦⠁⠢⠡⠡⠀⠁⠢⠡⠣⠴<br />
-                ⠦⠁⠢⠣⠡⠀⠁⠢⠣⠣⠴</span>
+                ⠦⠁⠢⠣⠡⠀⠁⠢⠣⠣⠴</span><span class="mathbraille2">⠘⠦⠁⠢⠡⠡⠀⠁⠢⠡⠣⠀⠠⠜⠀⠁⠢⠣⠡⠀⠁⠢⠣⠣⠘⠴</span>
         </p>
         <p class="courant"><math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mstyle displaystyle="true">
@@ -789,8 +804,17 @@
             </math><span class="mathbraille">⠦⠨⠘⠎⠢⠢⠰⠅⠶⠡⠆⠈⠈⠝⠁⠢⠅⠃⠢⠅⠴⠈⠣⠘⠣⠦⠨⠘⠎⠢⠢⠰⠅⠶⠡⠆⠈⠈⠝⠁⠢⠅⠈⠣⠴⠦⠨⠘⠎⠢⠢⠰⠅⠶⠡⠆⠈⠈⠝⠃⠢⠅⠈⠣⠴</span>
         </p>
         <h2>6. Notations ensemblistes</h2>
-
-        <p class="courant"> <span class="texte_equation">E égale l'ensemble d'éléments a, b, c et d</span> <span>Sans "separators"</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"><span class="texte_equation">E égale l'ensemble d'éléments a, b, c et d</span> <span>Avec "mfenced" et "separators"</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+                <mi>E</mi>
+                <mo>=</mo>
+                <mfenced open="{" close="}" separators=",">
+                    <mi>a</mi>
+                    <mi>b</mi>
+                    <mi>c</mi>
+                    <mi>d</mi>
+                </mfenced>
+            </math> <span class="mathbraille">⠨⠑⠶⠨⠦⠁⠂⠃⠂⠉⠂⠙⠨⠴</span> </p>
+        <p class="courant"> <span>Sans "separators"</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>E</mi>
                 <mo>=</mo>
                 <mfenced open="{" close="}">
@@ -824,18 +848,33 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠨⠑⠶⠨⠦⠁⠂⠃⠂⠉⠂⠙⠨⠴</span> </p>
-        <p class="courant"> <span class="texte_equation">Avec "separators"</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
-                <mi>E</mi>
+
+        <p class="courant"><span class="texte_equation">grand r étoile égale l'intervalle ouvert «&#160;moins l'infini , 0&#160;» union l'intervalle ouvert «&#160;0 , plus l'infini&#160;»</span>
+            <span class="texte_equation2">grand r étoile égale l'intervalle ouvert «&#160;moins l'infini virgule 0&#160;» union l'intervalle ouvert «&#160;0 virgule plus l'infini&#160;»</span> <span class="texte_equation">Avec "mfenced" et "separators"</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+                <msup>
+                    <mi mathvariant="normal">&#x211D;</mi>
+                    <mo>*</mo>
+                </msup>
                 <mo>=</mo>
-                <mfenced open="{" close="}" separators=",">
-                    <mi>a</mi>
-                    <mi>b</mi>
-                    <mi>c</mi>
-                    <mi>d</mi>
+                <mfenced open="]" close="[" separators=",">
+                    <mrow>
+                        <mo>-</mo>
+                        <mo>&#x221E;</mo>
+                    </mrow>
+
+                    <mn>0</mn>
                 </mfenced>
-            </math> <span class="mathbraille">⠨⠑⠶⠨⠦⠁⠂⠃⠂⠉⠂⠙⠨⠴</span> </p>
-        <p class="courant"> <span class="texte_equation">«&#160;grand r étoile&#160;» égale intervalle ouvert «&#160;moins l'infini, 0&#160;» union intervalle ouvert
-                «&#160;0, plus l'infini&#160;»</span> <span>Sans "mfenced"</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
+                <mo>&#x222A;</mo>
+                <mfenced open="]" close="[" separators=",">
+                    <mn>0</mn>
+                    <mrow>
+                        <mo>+</mo>
+                        <mo>&#x221E;</mo>
+                    </mrow>
+
+                </mfenced>
+            </math> <span class="mathbraille">⠨⠨⠗⠈⠐⠔⠶⠾⠤⠘⠉⠂⠼⠷⠸⠖⠾⠼⠂⠖⠘⠉⠷</span> </p>
+        <p class="courant"> <span>Sans "mfenced"</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
                 <msup>
                     <mi mathvariant="normal">&#x211D;</mi>
                     <mo>*</mo>
@@ -855,46 +894,18 @@
                 <mo>&#x221E;</mo>
                 <mo>[</mo>
             </math> <span class="mathbraille">⠨⠨⠗⠈⠐⠔⠶⠾⠤⠘⠉⠂⠼⠷⠸⠖⠾⠼⠂⠖⠘⠉⠷</span> </p>
-        <p class="courant"> <span class="texte_equation">Avec "mfenced"</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
-                <msup>
-                    <mi mathvariant="normal">&#x211D;</mi>
-                    <mo>*</mo>
-                </msup>
-                <mo>=</mo>
-                <mfenced open="]" close="[">
-                    <mrow>
-                        <mo>-</mo>
-                        <mo>&#x221E;</mo>
-                        <mo>,</mo>
-                        <mn>0</mn>
-                    </mrow>
-                </mfenced>
-                <mo>&#x222A;</mo>
-                <mfenced open="]" close="[">
-                    <mrow>
-                        <mn>0</mn>
-                        <mo>,</mo>
-                        <mo>+</mo>
-                        <mo>&#x221E;</mo>
-                    </mrow>
-                </mfenced>
-            </math> <span class="mathbraille">⠨⠨⠗⠈⠐⠔⠶⠾⠤⠘⠉⠂⠼⠷⠸⠖⠾⠼⠂⠖⠘⠉⠷</span> </p>
-        <p class="courant"> <span class="texte_equation">x appartient à (est élément de) l'intervalle fermé «&#160;0 virgule 1 ; 2 virgule 3&#160;»</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+
+        <p class="courant"> <span class="texte_equation">x élément de l'intervalle fermé «&#160;0 virgule 1 point virgule 2 virgule 3&#160;»</span>
+            <span class="texte_equation2">x élément de l'intervalle fermé «&#160;0,1 ; 2,3&#160;»</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>x</mi>
                 <mo>&#x2208;</mo>
-                <mfenced open="[" close="]">
-                    <mrow>
-                        <mn>0</mn>
-                        <mo>,</mo>
-                        <mn>1</mn>
-                        <mo>;</mo>
-                        <mn>2</mn>
-                        <mo>,</mo>
-                        <mn>3</mn>
-                    </mrow>
+                <mfenced open="[" close="]" separators=";">
+                    <mn>0,1</mn>
+                    <mn>2,3</mn>
                 </mfenced>
             </math> <span class="mathbraille">⠭⠘⠡⠷⠼⠂⠡⠆⠣⠂⠩⠾</span> </p>
-        <p class="courant"> <span class="texte_equation">x n'appartient pas à «&#160;grand r plus&#160;»</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">x n'appartient pas à «&#160;grand r plus&#160;»</span>
+            <span class="texte_equation2">x n'appartient pas à grand r plus</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>x</mi>
                 <mo>&#x2209;</mo>
                 <msup>
@@ -902,12 +913,12 @@
                     <mo>+</mo>
                 </msup>
             </math> <span class="mathbraille">⠭⠘⠌⠨⠨⠗⠈⠖</span> </p>
-        <p class="courant"> <span class="texte_equation">D est inclus dans F</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">D est inclus dans F</span><span class="texte_equation2">D inclus dans F</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>D</mi>
                 <mo>&#x2282;</mo>
                 <mi>F</mi>
             </math> <span class="mathbraille">⠨⠙⠨⠡⠨⠋</span> </p>
-        <p class="courant"> <span class="texte_equation">D n'est pas inclus dans E</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">D n'est pas inclus dans E</span><span class="texte_equation2">D non inclus dans E</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mi>D</mi>
                 <mo>&#x2284;</mo>
                 <mi>E</mi>
@@ -934,7 +945,7 @@
                 </mrow>
             </math> <span class="mathbraille">⠨⠩⠢⠨⠑⠨⠋</span> </p>
         <h2>7. Divisions, fractions</h2>
-        <p class="courant"> <span class="texte_equation">2 tiers égalent 4 sixièmes</span> <math class="js-math2braille  js-mathml2text" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">2 tiers égalent 4 sixièmes</span><span class="texte_equation2">2 sur 3 égale 4 sur 6</span> <math class="js-math2braille  js-mathml2text" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mfrac>
                     <mn>2</mn>
                     <mn>3</mn>
@@ -945,14 +956,12 @@
                     <mn>6</mn>
                 </mfrac>
             </math> <span class="mathbraille">⠣⠌⠩⠶⠹⠌⠫</span> </p>
-        <p class="courant"> <span class="texte_equation">1 divisé par 2 égale 0 virgule 5</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">1 divisé par 2 égale 0 virgule 5</span><span class="texte_equation2">1 divisé par 2 égale 0,5</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mn>1</mn>
                 <mo>&#xF7;</mo>
                 <mn>2</mn>
                 <mo>=</mo>
-                <mn>0</mn>
-                <mo>,</mo>
-                <mn>5</mn>
+                <mn>0,5</mn>
             </math> <span class="mathbraille">⠡⠒⠣⠶⠼⠂⠱</span> </p>
         <h2>8. Blocs</h2>
         <p class="courant"> <span class="texte_equation">«&#160;a plus b&#160;» sur a </span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -979,7 +988,7 @@
                     </mrow>
                 </mfrac>
             </math> <span class="mathbraille">⠰⠁⠖⠃⠆⠌⠰⠉⠖⠙⠆</span> </p>
-        <p class="courant"> <span class="texte_equation">«&#160;a sur b&#160;» plus «&#160;c sur d&#160;» égale «&#160;ad plus bc&#160;» sur «&#160;bd&#160;»</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">«&#160;a sur b&#160;» plus «&#160;c sur d&#160;» égale «&#160;ad plus bc&#160;» sur «&#160;bd&#160;»</span><span class="texte_equation2">«&#160;a sur b&#160;» plus «&#160;c sur d&#160;» égale «&#160;a d plus b c&#160;» sur «&#160;b d&#160;»</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <mfrac>
                     <mi>a</mi>
                     <mi>b</mi>
@@ -1044,7 +1053,7 @@
                     </mrow>
                 </msup>
             </math> <span class="mathbraille">⠑⠈⠤⠘⠏</span> <span class="mathbraille2">⠑⠈⠰⠤⠘⠏⠆</span> </p>
-        <p class="courant"> <span class="texte_equation">x exposant «&#160;moins 1&#160;» égale «&#160;1 sur x&#160;»</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
+        <p class="courant"> <span class="texte_equation">x exposant «&#160;moins 1&#160;» égale 1 sur x</span> <math class="js-math2braille" xmlns="http://www.w3.org/1998/Math/MathML">
                 <msup>
                     <mi>x</mi>
                     <mrow>
@@ -1121,14 +1130,13 @@
                     </mrow>
                 </msup>
             </math> <span class="mathbraille">⠭⠈⠰⠏⠖⠟⠆</span> </p>
-        <p class="courant"> <span class="texte_equation">a exposant «&#160;moins 5 virgule 3&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">a exposant «&#160;moins 5 virgule 3&#160;»</span>
+            <span class="texte_equation2">a exposant « moins 5,3 »</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <msup>
                     <mi>a</mi>
                     <mrow>
                         <mo>-</mo>
-                        <mn>5</mn>
-                        <mo>,</mo>
-                        <mn>3</mn>
+                        <mn>5,3</mn>
                     </mrow>
                 </msup>
             </math> <span class="mathbraille">⠁⠈⠤⠱⠂⠩</span> <span class="mathbraille2">⠁⠈⠰⠤⠱⠂⠩⠆</span> </p>
@@ -1314,13 +1322,14 @@
                     <mn>2</mn>
                 </msqrt>
             </math> <span class="mathbraille">⠜⠣</span> </p>
-        <p class="courant"> <span class="texte_equation">racine quatrième de a</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">racine quatrième de a</span><span class="texte_equation2">racine 4ème de a</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mroot>
                     <mi>a</mi>
                     <mn>4</mn>
                 </mroot>
             </math> <span class="mathbraille">⠈⠹⠜⠁</span> </p>
-        <p class="courant"> <span class="texte_equation">racine sixième de «&#160;(a plus b) au cube&#160;» égale racine carrée de «&#160;a plus b&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
+        <p class="courant"> <span class="texte_equation">racine sixième de «&#160;(a plus b) au cube&#160;» égale racine carrée de «&#160;a plus b&#160;»</span>
+            <span class="texte_equation2">racine 6ème de « ( a plus b ) au cube » égale racine carrée de « a plus b »</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mroot>
                     <msup>
                         <mfenced>
@@ -1343,7 +1352,7 @@
                     </mrow>
                 </msqrt>
             </math> <span class="mathbraille">⠈⠫⠜⠰⠦⠁⠖⠃⠴⠈⠩⠆⠶⠜⠰⠁⠖⠃⠆</span> </p>
-        <p class="courant"> <span class="texte_equation">racine cubique de «&#160;a plus racine carrée de "a plus b"&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille ">
+        <p class="courant"> <span class="texte_equation">racine cubique de «&#160;a plus racine carrée de "&#160;a plus b&#160;"&#160;»</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mroot>
                     <mrow>
                         <mi>a</mi>
@@ -1695,7 +1704,8 @@
                 <mo>=</mo>
                 <mn>3</mn>
             </math> <span class="mathbraille">⠨⠊⠶⠿⠡⠀⠼⠿
-                <br /> ⠀⠀⠀⠿⠣⠀⠩⠿⠶⠩</span> </p>
+                <br /> ⠀⠀⠀⠿⠣⠀⠩⠿⠶⠩</span>
+            <span class="mathbraille2">⠨⠊⠶⠸⠿⠡⠀⠼⠀⠠⠜⠀⠣⠀⠩⠸⠿⠶⠩</span> </p>
         <p class="courant"> <span class="texte_equation">J égale la matrice «&#160;1, case vide, case vide, 4 ; 2, 3, 5, 6; -7, 8, case vide, 9&#160;»</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille">
                 <mi>J</mi>
                 <mo>=</mo>
@@ -1742,7 +1752,8 @@
                 </mfenced>
             </math> <span class="mathbraille">⠨⠚⠶⠦⠡⠀⠀⠐⠂⠀⠐⠂⠀⠹⠴
                 <br /> ⠀⠀⠀⠦⠣⠀⠀⠩⠀⠀⠱⠀⠀⠫⠴
-                <br /> ⠀⠀⠀⠦⠤⠻⠀⠳⠀⠀⠐⠂⠀⠪⠴</span> </p>
+                <br /> ⠀⠀⠀⠦⠤⠻⠀⠳⠀⠀⠐⠂⠀⠪⠴</span>
+            <span class="mathbraille2">⠨⠚⠶⠘⠦⠡⠀⠐⠂⠀⠐⠂⠀⠹⠀⠠⠜⠀⠣⠀⠩⠀⠱⠀⠫⠀⠠⠜⠀⠤⠻⠀⠳⠀⠐⠂⠀⠪⠘⠴</span> </p>
         <p class="courant"> <span class="texte_equation">Linéaire</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-lineaire">
                 <mi>J</mi>
                 <mo>=</mo>
@@ -1898,7 +1909,8 @@
                     </mtable>
                 </mfenced>
             </math> <span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱
-                <br /> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
+                <br /> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span>
+            <span class="mathbraille2">⠸⠦⠣⠭⠖⠩⠽⠶⠱⠀⠠⠜⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
         <p class="courant"> <span>MathType (sans "mfenced")</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mrow>
                     <mrow>
@@ -1936,7 +1948,7 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠸⠦⠣⠭⠖⠩⠽⠶⠱
-                <br /> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
+                <br /> ⠀⠀⠩⠭⠤⠻⠽⠶⠳</span><span class="mathbraille2">⠸⠦⠣⠭⠖⠩⠽⠶⠱⠀⠠⠜⠀⠩⠭⠤⠻⠽⠶⠳</span> </p>
         <p class="courant"> <span class="texte_equation">Linéaire</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-matrice-lineaire">
                 <mfenced open="{" close="">
                     <mtable columnalign="left">
@@ -2599,8 +2611,9 @@
                     </mrow>
                 </mrow>
             </math> <span class="mathbraille">⠨⠊⠶⠸⠦⠭⠶⠰⠁⠖⠃⠆⠌⠽
-                <br /> ⠀⠀⠀⠀⠀⠩⠭⠶⠽⠤⠱⠀⠀⠀</span> </p>
-        <p class="courant"> <span class="texte_equation">Non linéaire</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-math2braille ">
+                <br /> ⠀⠀⠀⠀⠀⠩⠭⠶⠽⠤⠱⠀⠀⠀</span>
+            <span class="mathbraille2">⠨⠊⠶⠸⠦⠭⠶⠰⠁⠖⠃⠆⠌⠽⠀⠠⠜⠀⠩⠭⠶⠽⠤⠱</span> </p>
+        <p class="courant"> <span class="texte_equation">Non linéaire</span> <math xmlns="http://www.w3.org/1998/Math/MathML" class="js-matrice-non-lineaire ">
                 <mi>I</mi>
                 <mo>=</mo>
                 <mfenced open="{" close="">
@@ -2738,7 +2751,7 @@
                 </mfenced>
             </math> <span class="mathbraille">⠦⠁⠢⠡⠡⠀⠀⠀⠲⠲⠲⠀⠁⠢⠰⠡⠝⠆⠴
                 <br /> ⠦⠲⠲⠲⠀⠀⠀⠀⠲⠲⠲⠀⠲⠲⠲⠀⠀⠀⠴
-                <br /> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span> </p>
+                <br /> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span><span class="mathbraille2">⠘⠦⠁⠢⠡⠡⠀⠲⠲⠲⠀⠁⠢⠰⠡⠝⠆⠀⠠⠜⠀⠲⠲⠲⠀⠲⠲⠲⠀⠲⠲⠲⠀⠠⠜⠀⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠘⠴</span> </p>
         <p class="courant"> <span class="texte_equation">Sans "mfenced"</span> <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
                 <mrow>
                     <mrow>
@@ -2816,7 +2829,8 @@
                 </mrow>
             </math> <span class="mathbraille">⠦⠁⠢⠡⠡⠀⠀⠀⠲⠲⠲⠀⠁⠢⠰⠡⠝⠆⠴
                 <br /> ⠦⠲⠲⠲⠀⠀⠀⠀⠲⠲⠲⠀⠲⠲⠲⠀⠀⠀⠴
-                <br /> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span> </p>
+                <br /> ⠦⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠴</span>
+            <span class="mathbraille2">⠘⠦⠁⠢⠡⠡⠀⠲⠲⠲⠀⠁⠢⠰⠡⠝⠆⠀⠠⠜⠀⠲⠲⠲⠀⠲⠲⠲⠀⠲⠲⠲⠀⠠⠜⠀⠁⠢⠰⠍⠡⠆⠀⠲⠲⠲⠀⠁⠢⠰⠍⠝⠆⠘⠴</span> </p>
 
     </section>
     <script type="text/javascript" src="../js/varTBA.min.js"></script>
@@ -2838,13 +2852,20 @@
     var options3 = {
         'chimie': true, // false par défaut
     }
-    //    var test = new Mathml2braille('.test', options1);
-    //    test.mathml2text();
+    var options4 = {
+        'matriceLineaire': false, // false par défaut
+
+    }
+    // var test = new Mathml2braille('.test', options1);
+    // test.mathml2text();
+
+
     var math1 = new Mathml2braille('.js-math2braille', options1);
-    math1.mathml2text({
-        ponctuation: false
-    });
+    math1.mathml2text();
     var math2 = new Mathml2braille('.js-matrice-lineaire', options2);
+    math2.mathml2text();
+    var math3 = new Mathml2braille('.js-matrice-non-lineaire', options4);
+    math3.mathml2text();
     var chi1 = new Mathml2braille('.js-chimie', options3);
     chi1.mathml2text();
 

@@ -121,20 +121,20 @@
         }
 
     }
-    let options = {
-        'remplaceFormule': false,
-        'coupureFormule': 0,
-        'codeBrailleMath': 'fr',
-        'codeSysteme': 'SI',
-        'matriceLineaire': false,
-        'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
-        'chimie': false
-    };
+    let options = {};
     let hardmat;
     let mathml2braille = function(clmath) {
             this._mesFonctions = mesFonctions;
             this._writeEq = writeEq;
-
+            options = {
+                'remplaceFormule': false,
+                'coupureFormule': 0,
+                'codeBrailleMath': 'fr',
+                'codeSysteme': 'SI',
+                'matriceLineaire': false,
+                'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+                'chimie': false
+            };
             if (!clmath) {
                 clmath = 'math';
             } else if (typeof clmath === 'object') {
@@ -143,8 +143,8 @@
             } else if (arguments[1] && typeof arguments[1] === "object") {
                 options = mesFonctions._extendDefaults(options, arguments[1]);
             }
-           
-            var mesFormules = clmath && document.querySelectorAll(clmath) ,
+
+            var mesFormules = clmath && document.querySelectorAll(clmath),
                 l = mesFormules.length,
                 i = 0;
             this._formules = mesFormules;
@@ -229,6 +229,7 @@
 
                 writeEq._mi(m);
                 writeEq._mtext(m);
+                // console.log(m.innerHTML);
 
                 (options.matriceLineaire || hardmat) && writeEq._matriceLineaire(m);
                 writeEq._writeform(m);
@@ -1007,17 +1008,25 @@
                 mtable = fenced[0].getElementsByTagName('mtable');
                 parent = fenced[0].parentNode;
                 sep = fenced[0].getAttribute('separators');
+
                 if (sep) {
                     var s = sep.split(''),
                         slast,
                         enfants = fenced[0].children,
-                        lenfants = enfants.length,
                         i = 0;
-                    for (; i !== lenfants - 1; i++) {
+                    let row = document.createElement('mrow');
+                    while (enfants[0]) {
+                        let mo = document.createElement('mo');
+
                         s[i] = s[i] || slast;
-                        enfants[i].appendChild(document.createTextNode(s[i]));
+                        mo.appendChild(document.createTextNode(s[i]));
                         slast = s[i] && s[i];
+                        row.appendChild(enfants[0]);
+                        enfants[0] && row.appendChild(mo);
+                        i++;
                     }
+                    fenced[0].appendChild(row);
+
                 }
                 monBlock.innerHTML = fenced[0].innerHTML;
                 var monBool = mtable.length !== 0 && (options.matriceLineaire || hardmat);
@@ -1167,7 +1176,7 @@
                 i = 0;
             for (; i !== l; i++) {
                 let scriptBool = mn[i].getAttribute('mathvariant') && (mn[i].getAttribute('mathvariant') === 'script');
-                let doubleStruckBool=mn[i].getAttribute('mathvariant') && (mn[i].getAttribute('mathvariant') === 'double-struck');
+                let doubleStruckBool = mn[i].getAttribute('mathvariant') && (mn[i].getAttribute('mathvariant') === 'double-struck');
                 if (scriptBool) {
                     mn[i].textContent = mn[i].textContent.toLowerCase();
                 }
@@ -1197,8 +1206,8 @@
                             }
                         }
                         carac = moncar || num[j];
-                        carac= scriptBool && mathBraille.caracMath.majusculeronde + carac || carac;
-                        carac= doubleStruckBool && mathBraille.caracMath.majuscule + carac || carac;
+                        carac = scriptBool && mathBraille.caracMath.majusculeronde + carac || carac;
+                        carac = doubleStruckBool && mathBraille.caracMath.majuscule + carac || carac;
                         mn[i].textContent += carac;
                     }
                 }
@@ -1925,10 +1934,10 @@
             let textePlus = '';
             let cesure = mathBraille.caracMath.coupureFormule.braille() + '<br />';
             if ((long !== 0) || (long - 1 > 0)) {
-                let nbSplit = Math.floor(texte.length / long) + 1;
-                for (let i = 0; i < nbSplit; i++) {
-                    textePlus = texte.slice(i * (long - 1), i * (long - 1) + long - 1);
-                    texteCoupe = (i !== nbSplit - 1) && (texteCoupe + textePlus + cesure) || (texteCoupe + textePlus);
+                let nbSplit = Math.floor(texte.length / (long-1)) + 1;
+                for (let i = 0; i !== nbSplit; i++) {
+                    textePlus = (i !== nbSplit - 1)&&texte.slice(i * (long - 1), (i+1) * (long - 1))||texte.slice(i * (long - 1));
+                    texteCoupe += (i !== nbSplit - 1) && (textePlus + cesure) || (textePlus);
                 }
             }
 

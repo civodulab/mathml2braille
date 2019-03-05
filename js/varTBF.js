@@ -255,7 +255,7 @@
              123: '-46-236-', // { accolade gauche
              125: '-46-356-', // { accolade droite
              124: '-123456-', // |
-             8214: '-45-123456-', // ||
+             8214: '-45-123456-', // DOUBLE VERTICAL LINE ‖
              33: '-456-35-', // factoriel !
              160: '-BLANK-', // espace
              183: '-35-35-', // middle dot &#xB7;

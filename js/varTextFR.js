@@ -18,7 +18,7 @@
     //   123: '-46-236-', // { accolade gauche
     //   125: '-46-356-', // { accolade droite
     //   124: '-123456-', // |
-    //   8214: '-45-123456-', // ||
+    //   8214: '-45-123456-', // DOUBLE VERTICAL LINE ‖
       33: 'factoriel', // factoriel !
       160: ' ', // espace
     //   183: '-35-35-', // middle dot &#xB7;
@@ -33,12 +33,12 @@
     //   8292: '-35-', //invisible time
     //   8289: '', // function application
 
-      8804: 'inférieur ou égal à', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
-      8805: 'supérieur ou égal à', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
-      10877: 'inférieur ou égal à', // LESS-THAN OR SLANTED EQUAL TO ⩽
-      10878: 'supérieur ou égal à', // GREATER-THAN OR SLANTED EQUAL TO ⩾
+      8804: 'est inférieur ou égal à', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
+      8805: 'est supérieur ou égal à', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
+      10877: 'est inférieur ou égal à', // LESS-THAN OR SLANTED EQUAL TO ⩽
+      10878: 'est supérieur ou égal à', // GREATER-THAN OR SLANTED EQUAL TO ⩾
       177: 'plus ou moins', //PLUS OR MINUS ± &plusmn; &‌#177; &‌#xB1;
-      8800: 'différent de', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
+      8800: 'est différent de', //NOT EQUALS ≠ &ne; &‌#8800; &‌#x2260;
       247: 'divisé par', //DIVISION SIGN ÷ &divide; &‌#247; &‌#xF7;
       215: 'fois', //TIMES X × &times; &‌#215; &‌#x00D7;
       8722: 'moins', //MINUS − &minus; &‌#8722; &‌#x2212;
@@ -70,9 +70,9 @@
       8748: 'intégrale double', //DOUBLE INTEGRAL ∬ &‌#8748; &‌#x222C;
       8749: 'intégrale triple', //TRIPLE INTEGRAL ∭ &‌#8749; &‌#x222D;
       10764: '-12346-12346-12346-12346-', //QUADRUPLE INTEGRAL ⨌ &‌#10764; &‌#x2A0C;
-      8750: '-46-12346-', //CONTOUR INTEGRAL ∮ &‌#8750; &‌#x222E;
-      8751: '-46-12346-12346-', //SURFACE INTEGRAL ∯ &‌#8751; &‌#x222F;
-      8752: '-46-12346-12346-12346-', //VOLUME INTEGRAL ∰ &‌#8752; &‌#x2230;
+      8750: 'intégrale de flux', //CONTOUR INTEGRAL ∮ &‌#8750; &‌#x222E;
+      8751: 'intégrale de flux double', //SURFACE INTEGRAL ∯ &‌#8751; &‌#x222F;
+      8752: 'intégrale de flux triple', //VOLUME INTEGRAL ∰ &‌#8752; &‌#x2230;
       //CLOCKWISE INTEGRAL ∱ &‌#8753; &‌#x2231;
       //ANTICLOCKWISE INTEGRAL ⨑ &‌#10769; &‌#x2A11;
       //CLOCKWISE CONTOUR INTEGRAL ∲ &‌#8754; &‌#x2232;
@@ -102,9 +102,9 @@
       // NOR ⊽ — &‌#8893; &‌#x22BD;
       8745: 'inter', // INTERSECTION (Cap or Upside Down U) ∩ &cap;  &‌#8745; &‌#x2229;
       8746: 'union', // UNION (Cup or U Symbol) ∪ &cup;  &‌#8746; &‌#x222A;
-      8712: 'appartient à', //ELEMENT OF ∈ &isin;  &‌#8712; &‌#x2208;
+      8712: 'élément de', //ELEMENT OF ∈ &isin;  &‌#8712; &‌#x2208;
       8713: 'n\'appartient pas à', // NOT AN ELEMENT OF ∉ &notin;  &‌#8713; &‌#x2209;
-      8714: 'appartient à', // SMALL ELEMENT OF ∊ — &‌#8714; &‌#x220A;
+      8714: 'élément de', // SMALL ELEMENT OF ∊ — &‌#8714; &‌#x220A;
       8715: 'contient comme élément', // CONTAINS AS MEMBER ∋ &ni;  &‌#8715; &‌#x220B;
       8716: '-46-45-34-', // DOES NOT CONTAIN AS MEMBER ∌ — &‌#8716; &‌#x220C;
       8717: '-46-45-16-', // SMALL CONTAINS AS MEMBER ∍ — &‌#8717; &‌#x220D;
@@ -212,7 +212,7 @@
       8723: '-36-235-', // MINUS-OR-PLUS SIGN ∓ &‌#8723; &‌#x2213;
       // DOT PLUS ∔ &‌#8724; &‌#x2214;
       8727: 'étoile', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
-      8728: '-456-3456-', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
+      8728: 'rond', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
       8729: '-35-35-', // BULLET OPERATOR ∙ &‌#8729; &‌#x2219;
       // PROPORTIONAL TO ∝ &‌#8733; &‌#x221D;
       // RATIO ∶ &‌#8758; &‌#x2236;
@@ -462,7 +462,7 @@
       /*
       ⇑ 8657 21D1 &uArr; UPWARDS DOUBLE ARROW
       */
-      8658: '-25-2-', // ⇒ 8658 21D2 &rArr; RIGHTWARDS DOUBLE ARROW
+      8658: 'implique', // ⇒ 8658 21D2 &rArr; RIGHTWARDS DOUBLE ARROW
      
       // ⇓ 8659 21D3 &dArr; DOWNWARDS DOUBLE ARROW
       8660: 'est équivalent à', //⇔ 8660 21D4 &hArr; LEFT RIGHT DOUBLE ARROW

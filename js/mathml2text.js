@@ -38,6 +38,9 @@
         8748, //DOUBLE INTEGRAL ∬ &‌#8748; &‌#x222C;
         8749, //TRIPLE INTEGRAL ∭ &‌#8749; &‌#x222D;
         10764, //QUADRUPLE INTEGRAL ⨌ &‌#10764; &‌#x2A0C;
+        8750, //CONTOUR INTEGRAL ∮ &‌#8750; &‌#x222E;
+        8751, //SURFACE INTEGRAL ∯ &‌#8751; &‌#x222F;
+        8752 //VOLUME INTEGRAL ∰ &‌#8752; &‌#x2230;
     ];
 
     const texte = {
@@ -50,7 +53,7 @@
         'carre': '%1 au carré',
         'cube': '%1 au cube',
         'msub': '%1 indice %2',
-        'msqrt': 'racine carré de %1',
+        'msqrt': 'racine carrée de %1',
         'msubsup': '%1 indice %2 exposant %3',
         'msubsup_sans': '%1 %2 %3',
         'msubsup2': '%1 indice %2 au carré',
@@ -58,23 +61,35 @@
         'mroot': 'racine %2ème de %1',
         'mroot3': 'racine cubique de %1',
         'integrale': '%1 de %2 à %3 de',
+        'integrale2': '%1 sur %2 de',
         'limite1': 'limite quand %2 de',
         'limite2': 'limite quand %2, %3, de',
         'somme': 'somme pour %2 à %3 de',
+        'somme2': 'somme pour %2 de',
         'produit': 'produit pour %2 à %3 de',
+        'produit2': 'produit pour %2 de',
         'log_base': 'logarithme en base %2 de',
         'vecteur': 'vecteur %1',
         'angle': 'angle %1',
         'barre': 'mesure algébrique de %1',
         'arc': 'arc %1',
         'matrice': 'la matrice %1',
-        'determinant': 'le déterminant %1'
+        'determinant': 'le déterminant %1',
+        'systeme_equation': 'le système d\'équations %1',
+        'valeur_absolue': 'valeur absolue de %1',
+        'norme': 'norme de %1',
+        'intervalle_ferme': 'l\'intervalle fermé %1',
+        'intervalle_ouvert': 'l\'intervalle ouvert %1',
+        'intervalle_og_fd': 'l\'intervalle %1 ouvert à gauche et fermé à droite',
+        'intervalle_fg_od': 'l\'intervalle %1 fermé à gauche et ouvert à droite',
+        'ensemble': 'l\'ensemble d\'éléments %1'
     }
 
     let mesPosTexte = {};
 
     Object.keys(texte).forEach(k => {
         let montexte = texte[k];
+        montexte = montexte.replace(/\'/g, '¤prime¤');
         let regex = new RegExp('%([0-9])', 'g');
         let tsplit = montexte.split(/%[0-9]/);
         // position des %[0-9]
@@ -110,22 +125,31 @@
      *  mathml2text constructor
      */
     let options = {
-        'ponctuation': true
+        'ponctuation': false, // ponctuation en toutes lettres
+        'descMatrice': true // description matrice (lignes colonnes)
     };
+    let monTxtMath=txtMathFR;
     Mathml2braille.prototype.mathml2text = function() {
         mesFonctions = this._mesFonctions;
         writeEq = this._writeEq;
 
+
+
         if (arguments[0] && typeof arguments[0] === "object") {
             options = mesFonctions._extendDefaults(options, arguments[0]);
         }
+
         if (!options.ponctuation) {
-            txtMathFR = Object.keys(txtMathFR)
+            monTxtMath = Object.keys(txtMathFR)
                 .filter(key => ponctuations.indexOf(Number.parseInt(key)) === -1)
                 .reduce((res, key) => (res[key] = txtMathFR[key], res), {});
+        } else {
+            monTxtMath = txtMathFR;
         }
 
+
         let mesFormules = this._formules;
+        
         mesFormules.forEach(form => {
             let formClone = form.cloneNode(true);
             let i = 0;
@@ -133,14 +157,28 @@
             writeEq._ajoutmfenced(formClone);
             writeEq._reecritureMultiscripts(formClone);
 
+            rewrite._ilExisteUnique(formClone);
+
             let mesFenced = formClone.querySelectorAll('mfenced');
             i = mesFenced.length;
             while (i--) {
                 let mfenced = mesFenced[i];
-                if (mfenced.getAttribute('separators')) {
+                let nodeBefore = mfenced.previousElementSibling;
+
+                if (nodeBefore && nodeBefore.tagName.toLowerCase() === 'mi' && nodeBefore.textContent.trim().length === 1) {
+                    // ressemble à une fonction
+                    let open = mfenced.getAttribute('open') || '(';
+                    let close = mfenced.getAttribute('close') || ')';
+                    if (open === '(' && close === ')') {
+                        rewrite._fonctions(mfenced);
+                    }
+                } else if (mfenced.getAttribute('separators')) {
                     rewrite._mfenced(mfenced);
+                    render._mfenced(mfenced);
+                } else {
+                    render._mfenced(mfenced);
                 }
-                render._mfenced(mfenced);
+
             }
 
             let mesOver = formClone.querySelectorAll('mover');
@@ -274,15 +312,60 @@
             }
             let open = mfenced.getAttribute('open') || '(';
             let close = mfenced.getAttribute('close') || ')';
+            let separators = mfenced.getAttribute('separators');
             let row = document.createElement('mrow');
             let parent = mfenced.parentNode;
+            // intervalle
+            // L’intervalle []est un INTERVALLE FERMÉen ce sens que les crochets sont tournés/fermésvers l’intérieur.L’intervalle ][est  un INTERVALLE  OUVERTen  ce  sens  que  les  crochets  sont  tournés/ouvertsvers l’extérieur.Les intervalles [[et ]]sont des INTERVALLES SEMI-OUVERTS.Par exemple, on dit que l’intervalle [[est fermé à gauche et ouvert à droite et que l’intervalle ]]est ouvert à gauche et fermé à droite.Les réels et sont appelés les BORNESde l’intervalle.Lorsque l’une des bornes est (qu’on lit «moins l’infini») ou (qu’on lit «plus l’infini»), on dit que l’intervalle est NON BORNÉ
+            const crochets = ['[', ']', '{', '}'];
+            if (separators && crochets.indexOf(open) !== -1 && crochets.indexOf(close) !== -1) {
+                while (mfenced.children[0]) {
+                    row.appendChild(document.createTextNode('\n'));
+                    row.appendChild(mfenced.children[0]);
+                }
+                // row = render._writeGuillemet(row);
+                let row2 = document.createElement('mrow');
+                row2.appendChild(row)
+                parent.replaceChild(row2, mfenced);
+                if (open === '[' && close === ']') {
+                    // intervalle fermé
+                    render._writeText(row2, 'intervalle_ferme');
+                    return;
+                } else if (open === ']' && close === '[') {
+                    // intervalle ouvert
+                    render._writeText(row2, 'intervalle_ouvert');
+                    return;
+                } else if (open === ']' && close === ']') {
+                    // intervalle semi-ouvert
+                    render._writeText(row2, 'intervalle_og_fd');
+                    return;
+                } else if (open === '[' && close === '[') {
+                    // intervalle semi-ouvert
+                    render._writeText(row2, 'intervalle_fg_od');
+                    return;
+                } else if (open === '{' && close === '}') {
+                    // ensemble
+                    render._writeText(row2, 'ensemble');
+                    return;
+                }
+
+            }
+            //  norme et valeur absolue
+            const paraNorme = ['∥', '||', '‖'];
+            const paraAbsolue = ['∣', '|'];
+            if (open === close && paraNorme.indexOf(open) !== -1) {
+                render._writeText(mfenced, 'norme');
+                return;
+            } else if (open === close && paraAbsolue.indexOf(open) !== -1) {
+                render._writeText(mfenced, 'valeur_absolue');
+                return;
+            }
             row.appendChild(mesFonctions.block(mfenced.cloneNode(true), open, close));
             parent.replaceChild(row, mfenced);
         },
         /**
          * 
          * @param {HTMLElement} mfrac 
-         * @return {HTMLElement} la phrase
          */
         _mfrac: function(mfrac) {
             render._writeText(mfrac);
@@ -309,15 +392,18 @@
 
         },
         _msub: function(msub) {
-            switch (msub.children[0].textContent.trim()) {
+            let enfants = msub.children;
+
+            if (varintegral.indexOf(enfants[0].textContent.trim().charCodeAt()) !== -1) {
+                render._integrale(msub);
+                return;
+            }
+            switch (enfants[0].textContent.trim()) {
                 case 'log':
                     render._writeText(msub, 'log_base');
-
                     break;
-
                 default:
                     render._writeText(msub);
-
                     break;
             }
 
@@ -402,7 +488,12 @@
                         render._writeText(munder, 'limite1');
                     }
                     break;
-
+                case '∑':
+                    render._writeText(munder, 'somme2');
+                    break;
+                case '∏':
+                    render._writeText(munder, 'produit2');
+                    break;
                 default:
                     break;
             }
@@ -410,6 +501,9 @@
         _integrale: function(elt) {
             if (elt.children.length === 3) {
                 render._writeText(elt, 'integrale');
+            } else if (elt.children.length === 2) {
+                render._writeText(elt, 'integrale2');
+
             }
         },
         _vecteur: function(elt) {
@@ -427,12 +521,19 @@
         _matrice: function(mfenced) {
             let open = mfenced.getAttribute('open') || '(';
             let close = mfenced.getAttribute('close') || ')';
-            // déterminant
+
+            // déterminant ; matrice et système d'équations
             let boolD = (close === '|') && (open === '|');
             let boolM = (open === '(' && close === ')') || (open === '[' && close === ']');
-            rewrite._table(mfenced.children[0]);
+            let boolS = open !== close && open === '{';
+            if (boolS) {
+                rewrite._table(mfenced.children[0], 'lignes');
+            } else {
+                rewrite._table(mfenced.children[0]);
+            }
             boolD && render._writeText(mfenced, 'determinant');
             boolM && render._writeText(mfenced, 'matrice');
+            boolS && render._writeText(mfenced, 'systeme_equation');
 
 
         },
@@ -458,9 +559,12 @@
                     row.appendChild(monEnfant.cloneNode(true));
                 }
             });
-            if (parent.children.length > 1) {
+            const tagNameOut = ['msqrt', 'mroot', 'mmultiscripts'];
+            const tagNameParentOut = ['bloc', 'math']
+            if (row.children.length > 1 && tagNameOut.indexOf(elt.tagName.toLowerCase()) === -1 && tagNameParentOut.indexOf(parent.tagName.toLowerCase()) === -1) {
                 row = render._writeGuillemet(row);
             }
+
             parent.replaceChild(row, elt);
         },
         /**
@@ -472,16 +576,19 @@
             let span = document.createElement('span');
             span.classList.add('ecriture_auto');
             let txt = formClone.textContent;
-            txt = txt.replace(/\s+/g, ' ');
+            // txt = txt.replace(/\s+/g, ' ');
             Object.keys(casPart).forEach(d => {
                 txt = txt.replace(new RegExp('\\' + d, 'g'), casPart[d]);
             });
 
 
-            Object.keys(txtMathFR).forEach(d => {
-
-                txt = txt.replace(new RegExp('\\' + String.fromCharCode(d), 'g'), txtMathFR[d]);
+            Object.keys(monTxtMath).forEach(d => {
+                txt = txt.replace(new RegExp('\\' + String.fromCharCode(d), 'g'), ' '+monTxtMath[d]+' ');
             });
+            txt = txt.replace(/\s+/g, ' ');
+
+            txt = txt.replace(/¤prime¤/g, '\'');
+            txt = render._guillemetsDANSguillemets(txt);
             span.textContent = txt;
             form.parentNode.insertBefore(span, form);
         },
@@ -491,6 +598,45 @@
          */
         _writeGuillemet: function(elt) {
             return mesFonctions.block(elt.cloneNode(true), '«', '»');
+        },
+        _guillemetsDANSguillemets: function(txt) {
+            let gOuvert = [];
+            let gFerme = [];
+            let posG2 = [];
+            // position des guillemets ouverts
+            let pos = txt.indexOf('«');
+            while (pos !== -1) {
+                gOuvert.push(pos);
+                pos = txt.indexOf("«", pos + 1);
+            }
+            // position des guillemets fermés
+            pos = txt.indexOf('»');
+            while (pos !== -1) {
+                gFerme.push(pos);
+                pos = txt.indexOf("»", pos + 1);
+            }
+
+            // cherche les guillemets dans guillemets
+            let i = 0;
+            let l = gOuvert.length;
+            for (; i < l; i++) {
+                let k = 0;
+                while (gFerme[i] > gOuvert[i + k + 1]) {
+                    posG2.push(gOuvert[i + k + 1]);
+                    posG2.push(gFerme[i]);
+                    k++;
+                }
+                i = i + k;
+            }
+
+            // remplace  « et » par "
+            posG2.forEach(pos => {
+                txt = txt.substring(0, pos) + '"' + txt.substring(pos + 1, txt.length);
+            });
+
+            return txt;
+
+
         }
     };
 
@@ -585,13 +731,41 @@
                 let txt = mesMi[i].textContent.trim();
                 mesMi[i].textContent = miTexte[txt] && miTexte[txt] || mesMi[i].textContent;
             }
+
+        },
+        /**
+         * Recherche les "il existe un unique"
+         * @param {HTMLCollection} form 
+         */
+        _ilExisteUnique(form) {
+            let mesMi = form.querySelectorAll('mi');
+            let i = mesMi.length;
+            while (i--) {
+                if (mesMi[i].textContent.trim() === '∃') {
+                    if (mesMi[i].nextElementSibling && mesMi[i].nextElementSibling.textContent.trim() === '!') {
+                        let mtext = document.createElement('mtext');
+                        let parent = mesMi[i].parentNode;
+                        mtext.appendChild(document.createTextNode('un unique'));
+                        parent.replaceChild(mtext, mesMi[i].nextElementSibling);
+                    }
+                }
+
+            }
         },
         /**
          * recherche les fonctions et les récrit
          * @param {HTMLCollection} form 
          */
-        _fonctions: function(form) {
-
+        _fonctions: function(mfenced) {
+            let parent = mfenced.parentNode;
+            let mtext = document.createElement('mtext');
+            mtext.appendChild(document.createTextNode('\n'));
+            mtext.appendChild(document.createTextNode('de'));
+            mtext.appendChild(document.createTextNode('\n'));
+            while (mfenced.children[0]) {
+                mtext.appendChild(mfenced.children[0]);
+            }
+            parent.replaceChild(mtext, mfenced);
         },
 
         _table: function(mtable) {
@@ -600,7 +774,20 @@
             let k = 0;
             let ligne = mesTr.length;
             let colonne = mesTr[0].querySelectorAll('mtd').length;
-            mrow.appendChild(document.createTextNode('(' + ligne + ' lignes et ' + colonne + ' colonnes)\n'));
+            let textNode = '(' + ligne + ' lignes et ' + colonne + ' colonnes)\n';
+            if (arguments[1]) {
+                switch (arguments[1]) {
+                    case 'lignes':
+                        textNode = '(' + ligne + ' lignes)\n';
+                        break;
+                    case 'colonnes':
+                        textNode = '(' + colonne + ' colonnes)\n';
+                        break;
+                    default:
+                        break;
+                }
+            }
+            options.descMatrice && mrow.appendChild(document.createTextNode(textNode));
             for (; k !== ligne; k++) {
                 let mesTd = mesTr[k].querySelectorAll('mtd');
                 let i = 0;
