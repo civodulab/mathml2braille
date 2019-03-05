@@ -136,6 +136,7 @@ function option() {
            math3.mathml2text();
         let ch1 = new Mathml2braille('.js-chimie', options2);
           ch1.mathml2text(op_text1);
+          
         stat();
         stat_texte()
     })

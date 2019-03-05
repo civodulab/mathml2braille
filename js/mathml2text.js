@@ -82,7 +82,8 @@
         'intervalle_ouvert': 'l\'intervalle ouvert %1',
         'intervalle_og_fd': 'l\'intervalle %1 ouvert à gauche et fermé à droite',
         'intervalle_fg_od': 'l\'intervalle %1 fermé à gauche et ouvert à droite',
-        'ensemble': 'l\'ensemble d\'éléments %1'
+        'ensemble': 'l\'ensemble d\'éléments %1',
+        'combinaison':'combinaison de %2 parmi %3'
     }
 
     let mesPosTexte = {};
@@ -410,6 +411,11 @@
         },
         _msubsup: function(msubsup) {
             let enfants = msubsup.children;
+            // combinaison
+            if(enfants[0].textContent.trim()==='C'){
+                render._writeText(msubsup,'combinaison');
+                return;
+            }
             if (varintegral.indexOf(enfants[0].textContent.trim().charCodeAt()) !== -1) {
                 render._integrale(msubsup);
                 return;
@@ -559,7 +565,7 @@
                     row.appendChild(monEnfant.cloneNode(true));
                 }
             });
-            const tagNameOut = ['msqrt', 'mroot', 'mmultiscripts'];
+            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts'];
             const tagNameParentOut = ['bloc', 'math']
             if (row.children.length > 1 && tagNameOut.indexOf(elt.tagName.toLowerCase()) === -1 && tagNameParentOut.indexOf(parent.tagName.toLowerCase()) === -1) {
                 row = render._writeGuillemet(row);
