@@ -95,7 +95,7 @@
       8709: 'l\'ensemble vide', // EMPTY SET (O slash) ∅ &empty;  &‌#8709; &‌#x2205;
       // NOT SYMBOL (Corner) ¬ &not;  &‌#172; &‌#xAC;
       // TILDE (Alternate Not Symbol) ˜ &tilde;  — —
-      8743: 'ete', // LOGICAL AND (Wedge or Upside down V Symbol) ∧ &and;  &‌#8743; &‌#x2227;
+      8743: 'et', // LOGICAL AND (Wedge or Upside down V Symbol) ∧ &and;  &‌#8743; &‌#x2227;
       8744: 'et/ou', // LOGICAL OR (V Symbol) ∨ &or;  &‌#8744; &‌#x2228;
       // XOR ⊻ — &‌#8891; &‌#x22BB;
       // NAND ⊼ — &‌#8892; &‌#x22BC;

@@ -83,7 +83,7 @@
         'intervalle_og_fd': 'l\'intervalle %1 ouvert à gauche et fermé à droite',
         'intervalle_fg_od': 'l\'intervalle %1 fermé à gauche et ouvert à droite',
         'ensemble': 'l\'ensemble d\'éléments %1',
-        'combinaison':'combinaison de %2 parmi %3'
+        'combinaison': 'combinaison de %2 parmi %3'
     }
 
     let mesPosTexte = {};
@@ -127,9 +127,9 @@
      */
     let options = {
         'ponctuation': false, // ponctuation en toutes lettres
-        'descMatrice': true // description matrice (lignes colonnes)
+        'descMatrice': false // description matrice (lignes colonnes)
     };
-    let monTxtMath=txtMathFR;
+    let monTxtMath = txtMathFR;
     Mathml2braille.prototype.mathml2text = function() {
         mesFonctions = this._mesFonctions;
         writeEq = this._writeEq;
@@ -150,7 +150,7 @@
 
 
         let mesFormules = this._formules;
-        
+
         mesFormules.forEach(form => {
             let formClone = form.cloneNode(true);
             let i = 0;
@@ -159,7 +159,7 @@
             writeEq._reecritureMultiscripts(formClone);
 
             rewrite._ilExisteUnique(formClone);
-
+            rewrite._fonctionDe(formClone);
             let mesFenced = formClone.querySelectorAll('mfenced');
             i = mesFenced.length;
             while (i--) {
@@ -412,8 +412,8 @@
         _msubsup: function(msubsup) {
             let enfants = msubsup.children;
             // combinaison
-            if(enfants[0].textContent.trim()==='C'){
-                render._writeText(msubsup,'combinaison');
+            if (enfants[0].textContent.trim() === 'C') {
+                render._writeText(msubsup, 'combinaison');
                 return;
             }
             if (varintegral.indexOf(enfants[0].textContent.trim().charCodeAt()) !== -1) {
@@ -589,7 +589,7 @@
 
 
             Object.keys(monTxtMath).forEach(d => {
-                txt = txt.replace(new RegExp('\\' + String.fromCharCode(d), 'g'), ' '+monTxtMath[d]+' ');
+                txt = txt.replace(new RegExp('\\' + String.fromCharCode(d), 'g'), ' ' + monTxtMath[d] + ' ');
             });
             txt = txt.replace(/\s+/g, ' ');
 
@@ -773,7 +773,44 @@
             }
             parent.replaceChild(mtext, mfenced);
         },
+        /**
+         * Cherche et modifie les fonctions du style 
+         * f: R → R
+         * x ↦ y
+         * @param {HTMLCollection} form 
+         */
+        _fonctionDe: function(form) {
+            let mtable = form.querySelector('mtable');
+            if (mtable) {
+                let txt = mtable.textContent;
+                if (txt.indexOf('→') !== -1 && txt.indexOf('↦') !== -1) {
+                    let mesmo = mtable.querySelectorAll('mo');
+                    mesmo.forEach(m => {
+                        switch (m.textContent.trim()) {
+                            case '→':
+                                m.textContent = 'dans';
+                                break;
+                            case '↦':
+                                m.textContent = 'associe';
+                                break;
+                            case ':':
+                                m.textContent = 'de';
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    let mestd = mtable.querySelectorAll('mtd');
+                    let row = document.createElement('mrow');
 
+                    for (let i = 0; i !== mestd.length; i++) {
+                        row.appendChild(mestd[i]);
+                        (i !== mestd.length - 1) && row.appendChild(document.createTextNode('qui a\n'));
+                    }
+                    mtable.parentNode.replaceChild(row, mtable);
+                }
+            }
+        },
         _table: function(mtable) {
             let mesTr = mtable.querySelectorAll('mtr');
             let mrow = document.createElement('mrow');
