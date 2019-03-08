@@ -510,8 +510,8 @@
       ⇾ 8702 21FE   RIGHTWARDS OPEN-HEADED ARROW
       ⇿ 8703 21FF   LEFT RIGHT OPEN-HEADED ARROW
       */
-      9633: '-456-1456-', // □ alembertien
-      9651: '-46-45-145-', // White Up-Pointing Triangle △
+      9633: 'd\'alembertien', // □ alembertien
+      9651: 'laplatien', // White Up-Pointing Triangle △
       10548: '-45-156-', // ⤴ Arrow Pointing Rightwards Then Curving Upwards
       10549: '-46-156-', // ⤵ ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS
       10231: '-5-12456-', // ⟷

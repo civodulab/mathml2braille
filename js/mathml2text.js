@@ -565,7 +565,7 @@
                     row.appendChild(monEnfant.cloneNode(true));
                 }
             });
-            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts'];
+            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts','munder'];
             const tagNameParentOut = ['bloc', 'math']
             if (row.children.length > 1 && tagNameOut.indexOf(elt.tagName.toLowerCase()) === -1 && tagNameParentOut.indexOf(parent.tagName.toLowerCase()) === -1) {
                 row = render._writeGuillemet(row);
@@ -622,18 +622,28 @@
                 pos = txt.indexOf("»", pos + 1);
             }
 
-            // cherche les guillemets dans guillemets
-            let i = 0;
-            let l = gOuvert.length;
-            for (; i < l; i++) {
-                let k = 0;
-                while (gFerme[i] > gOuvert[i + k + 1]) {
-                    posG2.push(gOuvert[i + k + 1]);
-                    posG2.push(gFerme[i]);
-                    k++;
+            let gOF = gOuvert.concat(gFerme);
+            // clone array
+            let arrayO = gOuvert.slice(0);
+            let arrayF = gFerme.slice(0);
+            let mesG = [];
+            arrayO.sort((a, b) => b - a);
+            arrayF.forEach(p => {
+                let found = arrayO.find(m => p - m > 0);
+                mesG.push([p, found]);
+                arrayO.splice(arrayO.indexOf(found), 1);
+
+            });
+
+            mesG.forEach(a => {
+                let found = gOF.find(m => m > a[1] && m < a[0]);
+                while (found) {
+                    posG2.push(found);
+                    gOF.splice(gOF.indexOf(found), 1);
+                    found = gOF.find(m => m > a[1] && m < a[0]);
                 }
-                i = i + k;
-            }
+            });
+
 
             // remplace  « et » par "
             posG2.forEach(pos => {

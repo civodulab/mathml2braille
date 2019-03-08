@@ -136,7 +136,7 @@ function option() {
            math3.mathml2text();
         let ch1 = new Mathml2braille('.js-chimie', options2);
           ch1.mathml2text(op_text1);
-          
+
         stat();
         stat_texte()
     })
@@ -206,7 +206,7 @@ function _createForm() {
     input.setAttribute('size', '2');
     input.setAttribute('value', '0');
     label = document.createElement('label');
-    label.textContent = 'Nombre de caractères de la plage braille';
+    label.textContent = 'Césure équation';
     label.setAttribute('for', 'coupure');
     fieldset2.appendChild(input);
     fieldset2.appendChild(label);
@@ -231,7 +231,7 @@ function _createForm() {
     input.setAttribute('name', 'descMat');
     input.setAttribute('id', 'descMat');
     label = document.createElement('label');
-    label.textContent = 'Description tableaux (lignes et colonnes)';
+    label.textContent = 'Tableaux (lignes et colonnes)';
     label.setAttribute('for', 'descMat');
     fieldset2.appendChild(input);
     fieldset2.appendChild(label);

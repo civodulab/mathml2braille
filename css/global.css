@@ -91,14 +91,7 @@ math {
     border-bottom-width: 2px;
     border-bottom-style: solid;
 }
-form{
-    width: 100%;
-    position: fixed;
-    top:0;
-    background-color: white;
-    font-size: .8em
-    
-}
+
 fieldset{
     margin-bottom: .5em;
     display: inline-block
@@ -147,10 +140,22 @@ fieldset legend{
     margin-bottom: 0
 }
 #foption{
-    width: 94%;
+    width: 95%;
+    /* left: 5%;
+    margin: auto; */
     border: none;
     background-color:wheat
 }
 input[type=submit]{
     display: block
+}
+#monForm{
+    position: fixed;
+    width: 90%;
+    /* margin: auto; */
+    left: 5%;
+    top:0;
+    background-color: white;
+    font-size: .8em;
+    box-shadow: 0px 5px 5px black;
 }
