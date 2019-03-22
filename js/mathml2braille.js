@@ -1,22 +1,24 @@
 /**
- * mathml2braille
  * Convertit les équations mathML en Braille Unicode
+ * @name Mathml2braille
  * @author Ludovic BAL <ludo.bal62@gmail.com>
  * @version 2.0
- * 
+ * @constructor
  */
-
 (function(exports, undefined) {
     // body
     'use strict';
-
-
+    
+    /** 
+     * @var mesFonctions
+     * @namespace 
+     */
     let mesFonctions = {
         /**
-         * Savoir si un element a comme parent un node
-         *
-         * @param {*} element
-         * @param {*} parentTagname
+         * Savoir si un element a comme parent un node.
+         * @memberof mesFonctions
+         * @param {HTMLElement} element
+         * @param {string} parentTagname
          * @returns {boolean}
          */
         hasParent: function(element, parentTagname) {
@@ -39,7 +41,7 @@
         },
         /**
          * Savoir si un element contient un node
-         *
+         * @memberof mesFonctions
          * @param {HTMLElement} element
          * @param {string} parentTagname
          * @returns {boolean} true ou false
@@ -55,21 +57,21 @@
             return false;
         },
         /**
-         *
-         *
+         * nombre d'éléments dans le dom
+         * @memberof mesFonctions
          * @param {HTMLElement} element
          * @returns {long}
          */
         nbChildrens: function(element) {
             return element.querySelectorAll('*').length;
-
         },
-        /**
-         * getElementsByContainTagName
-         * 
-         * @param {string} tag 
-         * @returns {array}
-         */
+       /**
+        * les éléments dont le tagname contient "tag"
+        * @memberof mesFonctions
+        * @param {htmlelement} element 
+        * @param {string} tag
+        * @returns {array}
+        */
         getElementsByContainTagName: function(element, tag) {
             tag = Array.isArray(tag) && tag || [tag];
             var a = [],
@@ -88,11 +90,12 @@
             return a;
         },
         /**
-         * @description encadre l'élément avec les caractères openBloc et endBloc
+         * encadre l'élément avec les caractères openBloc et endBloc
+         * @memberof mesFonctions
          * @param {HTMLElement} element
          * @param {string} openBloc
          * @param {string} endBloc
-         * @returns fragment dom
+         * @returns {HTMLElement}
          */
         block: function(element, openBloc, endBloc) {
             (openBloc === undefined) && (openBloc = mathBraille.caracMath.blocks.open);
@@ -110,6 +113,13 @@
             df.appendChild(blocFermeture);
             return df;
         },
+        /**
+         * génére les options
+         * @memberof mesFonctions
+         * @param {object} source - options par défaut
+         * @param {object} properties - nouvelles options
+         * @returns {object}
+         */
         _extendDefaults: function(source, properties) {
             var property;
             for (property in properties) {
@@ -123,7 +133,13 @@
     }
     let options = {};
     let hardmat;
-    let mathml2braille = function(clmath) {
+  
+  /**
+   * @name mbraille
+   * @private
+   * @param {object|string} clmath
+   */
+    let mbraille = function(clmath) {
             this._mesFonctions = mesFonctions;
             this._writeEq = writeEq;
             options = {
@@ -1934,9 +1950,9 @@
             let textePlus = '';
             let cesure = mathBraille.caracMath.coupureFormule.braille() + '<br />';
             if ((long !== 0) || (long - 1 > 0)) {
-                let nbSplit = Math.floor(texte.length / (long-1)) + 1;
+                let nbSplit = Math.floor(texte.length / (long - 1)) + 1;
                 for (let i = 0; i !== nbSplit; i++) {
-                    textePlus = (i !== nbSplit - 1)&&texte.slice(i * (long - 1), (i+1) * (long - 1))||texte.slice(i * (long - 1));
+                    textePlus = (i !== nbSplit - 1) && texte.slice(i * (long - 1), (i + 1) * (long - 1)) || texte.slice(i * (long - 1));
                     texteCoupe += (i !== nbSplit - 1) && (textePlus + cesure) || (textePlus);
                 }
             }
@@ -1944,7 +1960,7 @@
             return texteCoupe;
         }
     };
-    exports.Mathml2braille = mathml2braille;
+    exports.Mathml2braille = mbraille;
     exports.Brailledirect = brailledirect;
 
 })(this);
