@@ -1,7 +1,3 @@
-/**
- * mathml2text
- */
-
 ;
 (function() {
     'use strict';
@@ -122,14 +118,28 @@
     };
     let mesFonctions = {};
     let writeEq = {};
-    /**
-     *  mathml2text constructor
+  
+     /**
+     * @var optionsTexte
+     * @type {object}
+     * @property {boolean} [ponctuation=false] true = ponctuation en toutes lettres
+     * @property {boolean} [descMatrice=false] true = description matrice (lignes colonnes)
      */
-    let options = {
+    let optionsText = {
         'ponctuation': false, // ponctuation en toutes lettres
         'descMatrice': false // description matrice (lignes colonnes)
     };
     let monTxtMath = txtMathFR;
+
+    /**
+     * @method
+     * @name Mathml2braille#mathml2text
+     * @param {object} [optionsText]
+     * @returns {string}
+     * @example
+     * let mathml2braille = new Mathml2braille();
+     * mathml2braille.mathml2text();
+     */
     Mathml2braille.prototype.mathml2text = function() {
         mesFonctions = this._mesFonctions;
         writeEq = this._writeEq;
@@ -137,10 +147,10 @@
 
 
         if (arguments[0] && typeof arguments[0] === "object") {
-            options = mesFonctions._extendDefaults(options, arguments[0]);
+            optionsText = mesFonctions._extendDefaults(optionsText, arguments[0]);
         }
 
-        if (!options.ponctuation) {
+        if (!optionsText.ponctuation) {
             monTxtMath = Object.keys(txtMathFR)
                 .filter(key => ponctuations.indexOf(Number.parseInt(key)) === -1)
                 .reduce((res, key) => (res[key] = txtMathFR[key], res), {});
@@ -565,7 +575,7 @@
                     row.appendChild(monEnfant.cloneNode(true));
                 }
             });
-            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts','munder'];
+            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts', 'munder'];
             const tagNameParentOut = ['bloc', 'math']
             if (row.children.length > 1 && tagNameOut.indexOf(elt.tagName.toLowerCase()) === -1 && tagNameParentOut.indexOf(parent.tagName.toLowerCase()) === -1) {
                 row = render._writeGuillemet(row);
@@ -840,7 +850,7 @@
                         break;
                 }
             }
-            options.descMatrice && mrow.appendChild(document.createTextNode(textNode));
+            optionsText.descMatrice && mrow.appendChild(document.createTextNode(textNode));
             for (; k !== ligne; k++) {
                 let mesTd = mesTr[k].querySelectorAll('mtd');
                 let i = 0;

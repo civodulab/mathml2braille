@@ -1,17 +1,28 @@
 /**
  * Convertit les équations mathML en Braille Unicode
  * @name Mathml2braille
+ * @param {string} [clmath=math] - class ou tagname à mettre dans la balise math
+ * @param {object} [optionsBraille] 
  * @author Ludovic BAL <ludo.bal62@gmail.com>
  * @version 2.0
  * @constructor
+ * 
+ * @example
+ * 
+ * const optionsBraille = {
+ *      'coupureFormule':true,
+ *      'chimie':true
+ * };
+ * 
+ * let mathml2braille = new Mathml2braille('.classmathML', optionsBraille);
  */
 (function(exports, undefined) {
     // body
     'use strict';
-    
+
     /** 
      * @var mesFonctions
-     * @namespace 
+     * @namespace
      */
     let mesFonctions = {
         /**
@@ -65,13 +76,13 @@
         nbChildrens: function(element) {
             return element.querySelectorAll('*').length;
         },
-       /**
-        * les éléments dont le tagname contient "tag"
-        * @memberof mesFonctions
-        * @param {htmlelement} element 
-        * @param {string} tag
-        * @returns {array}
-        */
+        /**
+         * les éléments dont le tagname contient "tag"
+         * @memberof mesFonctions
+         * @param {htmlelement} element 
+         * @param {string} tag
+         * @returns {array}
+         */
         getElementsByContainTagName: function(element, tag) {
             tag = Array.isArray(tag) && tag || [tag];
             var a = [],
@@ -114,10 +125,10 @@
             return df;
         },
         /**
-         * génére les options
+         * génére les optionsBraille
          * @memberof mesFonctions
-         * @param {object} source - options par défaut
-         * @param {object} properties - nouvelles options
+         * @param {object} source - optionsBraille par défaut
+         * @param {object} properties - nouvelles optionsBraille
          * @returns {object}
          */
         _extendDefaults: function(source, properties) {
@@ -130,19 +141,36 @@
             return source;
         }
 
-    }
-    let options = {};
+    };
+
+
+
+    /**
+     * @var optionsBraille
+     * @type {object}
+     * @property {boolean} [remplaceFormule=false]
+     * @property {long} [coupureFormule=false]
+     * @property {string} [codeBrailleMath=fr] fr, nemeth et ueb
+     * @property {string} [codeSysteme=SI]
+     * @property {boolean} [matriceLineaire=false]
+     * @property {long} [maxCaracCell=10]
+     * @property {boolean} [chimie=false]
+     */
+    let optionsBraille = {};
+
+    /**
+     * Indique si une matrice est complexe
+     * @function hardmat
+     * @param {htmlelement} m équation en html
+     * @returns {boolean}
+     */
     let hardmat;
-  
-  /**
-   * @name mbraille
-   * @private
-   * @param {object|string} clmath
-   */
+
+
     let mbraille = function(clmath) {
             this._mesFonctions = mesFonctions;
             this._writeEq = writeEq;
-            options = {
+            optionsBraille = {
                 'remplaceFormule': false,
                 'coupureFormule': 0,
                 'codeBrailleMath': 'fr',
@@ -154,10 +182,10 @@
             if (!clmath) {
                 clmath = 'math';
             } else if (typeof clmath === 'object') {
-                options = mesFonctions._extendDefaults(options, clmath);
+                optionsBraille = mesFonctions._extendDefaults(optionsBraille, clmath);
                 clmath = 'math';
             } else if (arguments[1] && typeof arguments[1] === "object") {
-                options = mesFonctions._extendDefaults(options, arguments[1]);
+                optionsBraille = mesFonctions._extendDefaults(optionsBraille, arguments[1]);
             }
 
             var mesFormules = clmath && document.querySelectorAll(clmath),
@@ -165,7 +193,7 @@
                 i = 0;
             this._formules = mesFormules;
             for (; i !== l; i++) {
-                mathBraille = allVar[options.codeBrailleMath].mathBraille;
+                mathBraille = allVar[optionsBraille.codeBrailleMath].mathBraille;
                 mesFormules[i].setAttribute('aria-hidden', true);
                 var parent = mesFormules[i].parentNode,
                     m = document.createElement('math'),
@@ -180,13 +208,13 @@
                 writeEq._mspace(m);
                 writeEq._espace(m)
                 // mover /munder  chimie
-                options.chimie && writeEq._moverChimie(m);
-                options.chimie && writeEq._munderChimie(m);
+                optionsBraille.chimie && writeEq._moverChimie(m);
+                optionsBraille.chimie && writeEq._munderChimie(m);
 
                 // munderover sur flèche
-                options.chimie && writeEq._munderoverChimie(m);
+                optionsBraille.chimie && writeEq._munderoverChimie(m);
 
-                if (options.codeBrailleMath === 'nemeth') {
+                if (optionsBraille.codeBrailleMath === 'nemeth') {
                     writeEq._numDecimalNemeth(m);
                     writeEq._espaceNemeth(m);
                 }
@@ -247,12 +275,12 @@
                 writeEq._mtext(m);
                 // console.log(m.innerHTML);
 
-                (options.matriceLineaire || hardmat) && writeEq._matriceLineaire(m);
+                (optionsBraille.matriceLineaire || hardmat) && writeEq._matriceLineaire(m);
                 writeEq._writeform(m);
                 maForm.innerHTML = m.innerHTML;
                 maForm.classList.add('js-mathmlConverti');
                 parent.insertBefore(maForm, mesFormules[i].nextSibling);
-                if (options.remplaceFormule) {
+                if (optionsBraille.remplaceFormule) {
                     mesFormules[i].setAttribute('style', 'display:none');
                 } else {
                     mesFormules[i].removeAttribute('style');
@@ -271,6 +299,14 @@
             }
         };
 
+
+    /**
+     * Vérifie si la chaîne est numérique
+     * @method
+     * @memberof String
+     * @name String#isNumeric
+     * 
+     */
     String.prototype.isNumeric = function() {
         if (Math.sign(this) === -1) return false;
         let n = this.replace(/\./g, '').replace(',', '.').replace(/\n|\r|\t|\s/g, '');
@@ -296,7 +332,6 @@
      * @param {array} maTable optionel
      * @returns {string}
      */
-
     String.prototype.braille = function(maTable) {
         // Source
         // http://symbolcodes.tlt.psu.edu/bylanguage/braillechart.html
@@ -594,8 +629,18 @@
         espace = String.fromCharCode(10240);
     /* fin variables matrice */
 
-
+    /** 
+     * Ensemble de fonctions qui réécrivent l'équation html
+     * @var writeEq
+     * @namespace 
+     */
     let writeEq = {
+        /**
+         * Réécrit les munderover
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _munderoverChimie: function(monEquation) {
             var munderover = monEquation.getElementsByTagName('munderover'),
                 i = 0,
@@ -619,6 +664,12 @@
                 // <mo>&#x21CC;</mo>
             }
         },
+        /**
+         * Réécrit les mover si chimie
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _moverChimie: function(monEquation) {
             var mover = monEquation.getElementsByTagName('mover'),
                 i = mover.length;
@@ -650,6 +701,12 @@
                 }
             }
         },
+        /**
+         * Réécrit les munder si chimie
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _munderChimie: function(monEquation) {
             var mover = monEquation.getElementsByTagName('munder'),
                 i = 0,
@@ -665,6 +722,12 @@
                 }
             }
         },
+        /**
+         * Réécrit les mspace
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _mspace: function(monEquation) {
             var space = monEquation.getElementsByTagName('mspace');
             while (space[0]) {
@@ -674,20 +737,31 @@
                 parent.replaceChild(mtext, space[0]);
             }
         },
+        /**
+         * Recherche les mtext avec un espace pour mettre un espace
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _espace: function(monEquation) {
             var mtext = monEquation.querySelectorAll('mtext');
             mtext.forEach(t => {
                 (t.textContent.charCodeAt() === 160) && (t.textContent = ' ');
             });
         },
-
+        /**
+         * Réécrit la décimal pour le code nemeth si SI
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _numDecimalNemeth: function(monEquation) {
             var mo = monEquation.getElementsByTagName('mo'),
                 lmo = mo.length,
                 i = 0;
             for (; i !== lmo; i++) {
                 var elt = mo[i];
-                if (elt.textContent.trim() === ',' && options.codeSysteme === 'SI') {
+                if (elt.textContent.trim() === ',' && optionsBraille.codeSysteme === 'SI') {
                     if (elt.previousElementSibling.tagName.toLowerCase() === 'mn' && elt.nextElementSibling.tagName.toLowerCase() === 'mn') {
                         elt.textContent = '.';
                     } else if (elt.nextElementSibling.textContent.charCodeAt() !== 160) {
@@ -699,6 +773,12 @@
                 }
             }
         },
+        /**
+         * Réécrit la décimal pour le code nemeth si SI
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _espaceNemeth: function(monEquation) {
             var bloc,
                 mo = monEquation.getElementsByTagName('mo'),
@@ -718,6 +798,12 @@
                 i++;
             }
         },
+        /**
+         * Réécrit la décimal pour le code nemeth si SI
+         * @memberof writeEq
+         * @param {htmlelement} monEquation
+         * @returns {htmlelement}
+         */
         _pbIntegrale: function(monEquation) {
             var subsup = monEquation.getElementsByTagName('msubsup'),
                 lsubsup = subsup.length,
@@ -831,7 +917,7 @@
                 var t = td[i].textContent.replace(/\s*/gi, '').length;
                 (tailleCell <= t) && (tailleCell = t);
             }
-            if (tailleCell >= options.maxCaracCell) return true;
+            if (tailleCell >= optionsBraille.maxCaracCell) return true;
             return false;
         },
         _supprimeprefix: function(monEquation) {
@@ -978,7 +1064,7 @@
                     var parent = multiscripts[0].parentElement,
                         bloc = document.createElement('mmultiscripts-f'),
                         enfants = multiscripts[0].children;
-                    if (options.chimie) {
+                    if (optionsBraille.chimie) {
                         bloc.appendChild(enfants[0]);
                         bloc.appendChild(document.createTextNode(mathBraille.caracMath.point6)); // insertion pt 6
                         bloc.appendChild(enfants[3]);
@@ -1045,7 +1131,7 @@
 
                 }
                 monBlock.innerHTML = fenced[0].innerHTML;
-                var monBool = mtable.length !== 0 && (options.matriceLineaire || hardmat);
+                var monBool = mtable.length !== 0 && (optionsBraille.matriceLineaire || hardmat);
 
                 switch (open) {
                     case 40: // para (
@@ -1098,7 +1184,7 @@
                         close = mathBraille.caracMath.crochetdouble.close;
                         break;
                 }
-                (!options.matriceLineaire && !hardmat) && writeEq._matriceBlock(open, close, monBlock);
+                (!optionsBraille.matriceLineaire && !hardmat) && writeEq._matriceBlock(open, close, monBlock);
                 parent.replaceChild(mesFonctions.block(monBlock, open, close), fenced[0]);
             }
         },
@@ -1196,7 +1282,7 @@
                 if (scriptBool) {
                     mn[i].textContent = mn[i].textContent.toLowerCase();
                 }
-                if (mn[i].textContent.trim() === ';' && options.chimie) {
+                if (mn[i].textContent.trim() === ';' && optionsBraille.chimie) {
                     mn[i].textContent = mathBraille.caracMath.point6 + mathBraille.caracDec[mn[i].textContent.trim().charCodeAt()];
                 } else if (mn[i].textContent === ' ') {
                     mn[i].textContent = mathBraille.caracMath.espaceInsecable;
@@ -1208,7 +1294,7 @@
                     mn[i].textContent = '';
                     for (; j < lnum; j++) {
                         let moncar;
-                        if (options.chimie) {
+                        if (optionsBraille.chimie) {
                             if (mathBraille.caracDec[num[j].charCodeAt()] && mathBraille.caracDec[num[j].charCodeAt()].chimie) {
                                 moncar = mathBraille.caracDec[num[j].charCodeAt()].chimie;
                             } else {
@@ -1240,7 +1326,7 @@
             writeEq._majus(monEquation, 'mtext');
         },
         _mn: function(monEquation) {
-            if (options.codeBrailleMath === 'ueb') {
+            if (optionsBraille.codeBrailleMath === 'ueb') {
                 var moNum = [',', '.'];
                 var mn = monEquation.getElementsByTagName('mn'),
                     l = mn.length,
@@ -1290,12 +1376,12 @@
                     switch (tagName.toLowerCase()) {
                         case 'mover':
                             sep = mathBraille.caracMath.suscrit;
-                            options.chimie && (sep = '');
+                            optionsBraille.chimie && (sep = '');
 
                             break;
                         case 'munder':
                             sep = mathBraille.caracMath.souscrit;
-                            sep = options.chimie && mathBraille.caracMath.point6 + sep || sep;
+                            sep = optionsBraille.chimie && mathBraille.caracMath.point6 + sep || sep;
                             break;
 
 
@@ -1649,8 +1735,8 @@
                 var elt = ie[j],
                     tagName = elt.tagName.toLowerCase().split('-'),
                     parent = elt.parentNode;
-                if (tagName[1] && (!(tagName[0] === 'blocIndiceNum') || options.codeBrailleMath === 'fr')) {
-                    var boolFrChimie = options.chimie && options.codeBrailleMath === 'fr' && !mesFonctions.hasParent(elt, ['mmultiscripts-f', 'mmultiscripts']);
+                if (tagName[1] && (!(tagName[0] === 'blocIndiceNum') || optionsBraille.codeBrailleMath === 'fr')) {
+                    var boolFrChimie = optionsBraille.chimie && optionsBraille.codeBrailleMath === 'fr' && !mesFonctions.hasParent(elt, ['mmultiscripts-f', 'mmultiscripts']);
                     var txt = tagName[1].split(''),
                         bloc = (elt.children[0].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && document.createElement(elt.tagName.toLowerCase()) || document.createElement('bloc');
                     bloc.innerHTML = elt.innerHTML;
@@ -1669,7 +1755,7 @@
                         for (; k !== ltext; k++) {
                             bloc = (txt[k].toLowerCase() === 'e') && mesFonctions.block(bloc, exposant, '') || bloc;
                             bloc = (txt[k].toLowerCase() === 'i') && mesFonctions.block(bloc, indice, '') || bloc;
-                            if (options.codeBrailleMath === 'fr') {
+                            if (optionsBraille.codeBrailleMath === 'fr') {
                                 break;
                             }
                         }
@@ -1924,16 +2010,16 @@
             monEquation.textContent = writeEq._petitsSoucis(monEquation);
             // console.log(monEquation.innerHTML);
 
-            (!options.matriceLineaire && !hardmat) && (monEquation.innerHTML = writeEq._calculEspaceMTD(monEquation));
+            (!optionsBraille.matriceLineaire && !hardmat) && (monEquation.innerHTML = writeEq._calculEspaceMTD(monEquation));
             // console.log(monEquation.innerHTML);
 
             monEquation.innerHTML = writeEq._retourChariotMatrice(monEquation);
 
-            if (options.codeBrailleMath === 'nemeth') {
+            if (optionsBraille.codeBrailleMath === 'nemeth') {
                 monEquation.innerHTML = writeEq._indicateurNumerique(monEquation);
             }
 
-            monEquation.innerHTML = (options.coupureFormule !== 0) && writeEq._coupureFormule(monEquation, options.coupureFormule) || monEquation.innerHTML;
+            monEquation.innerHTML = (optionsBraille.coupureFormule !== 0) && writeEq._coupureFormule(monEquation, optionsBraille.coupureFormule) || monEquation.innerHTML;
         },
         _petitsSoucis: function(monEquation) {
             let txt = monEquation.textContent.replace(/⠈⠖⠖/g, '⠈⠰⠖⠆⠖');
