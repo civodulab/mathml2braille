@@ -1,0 +1,9 @@
+{
+    "source": {
+        "include": ["./js"],
+        "exclude": ["./js/stat.js","./js/stat.min.js"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    }
+    
+}
