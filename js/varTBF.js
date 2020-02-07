@@ -612,6 +612,7 @@
               947: '-45-1245-', //GREEK SMALL LETTER GAMMA γ &‌#947; &‌#x03B3 &‌gamma;
               948: '-45-145-', //GREEK SMALL LETTER DELTA δ &‌#948; &‌#x03B4 &‌delta;
               949: '-45-15-', //GREEK SMALL LETTER EPSILON ε &‌#949; &‌#x03B5 &‌epsilon;
+              1013: '-45-15-', //Greek Lunate Epsilon Symbol ϵ &‌#1013; &#x3f5 &‌epsilon;
               950: '-45-1356-', //GREEK SMALL LETTER ZETA ζ &‌#950; &‌#x03B6 &‌zeta;
               951: '-45-125-', //GREEK SMALL LETTER ETA η &‌#951; &‌#x03B7 &‌eta;
               952: '-45-245-', //GREEK SMALL LETTER THETA θ &‌#952; &‌#x03B8 &‌theta;

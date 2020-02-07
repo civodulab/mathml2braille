@@ -132,15 +132,15 @@ fieldset legend{
     display: inline-block;
     /* font-size: .8em; */
     border: none;
-    height: 3.5em;
-    width:45%;
+    /* height: 3.5em;
+    width:45%; */
 }
 #stat, #stat_texte{
     margin-top: 0;
     margin-bottom: 0
 }
 #foption{
-    width: 95%;
+    /* width: 95%; */
     /* left: 5%;
     margin: auto; */
     border: none;
@@ -151,10 +151,11 @@ input[type=submit]{
 }
 #monForm{
     position: fixed;
-    width: 90%;
+    /* height: 90%; */
+    width: 15%;
     /* margin: auto; */
-    left: 5%;
-    top:0;
+    right: 0;
+    top:10%;
     background-color: white;
     font-size: .8em;
     box-shadow: 0px 5px 5px black;

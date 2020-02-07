@@ -13,14 +13,16 @@
       43: 'plus', // +
       47: 'divisé par', // /
       61: 'égale', // =
-    //   91: '-12356-', // [
-    //   93: '-23456-', // ]
+      91: 'crochet fermé', // [
+      93: 'croché ouvert', // ]
     //   123: '-46-236-', // { accolade gauche
     //   125: '-46-356-', // { accolade droite
     //   124: '-123456-', // |
     //   8214: '-45-123456-', // DOUBLE VERTICAL LINE ‖
       33: 'factoriel', // factoriel !
       160: ' ', // espace
+      171:'guillemet français ouvrant', //
+      187:'guillemet français fermant', //
     //   183: '-35-35-', // middle dot &#xB7;
       176: 'degré', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
     //   181: '-45-134-', //MICRO MU SYMBOL µ &micro; &‌#181; &‌#xB5;
@@ -363,6 +365,7 @@
        947: '‌gamma', //GREEK SMALL LETTER GAMMA γ &‌#947; &‌#x03B3 &‌gamma;
        948: '‌delta', //GREEK SMALL LETTER DELTA δ &‌#948; &‌#x03B4 &‌delta;
        949: '‌epsilon', //GREEK SMALL LETTER EPSILON ε &‌#949; &‌#x03B5 &‌epsilon;
+       1013: 'epsilon', //Greek Lunate Epsilon Symbol ϵ &‌#1013; &#x3f5 &‌epsilon;
        950: '‌zeta', //GREEK SMALL LETTER ZETA ζ &‌#950; &‌#x03B6 &‌zeta;
        951: '‌êta', //GREEK SMALL LETTER ETA η &‌#951; &‌#x03B7 &‌eta;
        952: '‌theta', //GREEK SMALL LETTER THETA θ &‌#952; &‌#x03B8 &‌theta;

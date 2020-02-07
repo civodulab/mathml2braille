@@ -114,8 +114,8 @@
                  }
              },
              'blocks': {
-                 'open': '',
-                 'close': ''
+                 'open': '-1-2-6-',
+                 'close': '-3-4-5-'
              },
              'parenthese': {
                  'open': '-5-126-',

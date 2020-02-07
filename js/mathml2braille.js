@@ -20,286 +20,7 @@
     // body
     'use strict';
 
-    /** 
-     * @var mesFonctions
-     * @namespace
-     */
-    let mesFonctions = {
-        /**
-         * Savoir si un element a comme parent un node.
-         * @memberof mesFonctions
-         * @param {HTMLElement} element
-         * @param {string} parentTagname
-         * @returns {boolean}
-         */
-        hasParent: function(element, parentTagname) {
-            parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
-            var l = parentTagname.length,
-                parent,
-                parentTag,
-                i = 0;
-            for (; i !== l; i++) {
-                parent = element.parentElement;
-                parentTag = parent.tagName.toLowerCase();
-                while (parent && parentTag !== 'math') {
-                    if (parent.tagName.toLowerCase() === parentTagname[i]) return true;
-                    parent = parent.parentElement;
-                    parentTag = parent.tagName.toLowerCase();
-
-                }
-            }
-            return false;
-        },
-        /**
-         * Savoir si un element contient un node
-         * @memberof mesFonctions
-         * @param {HTMLElement} element
-         * @param {string} parentTagname
-         * @returns {boolean} true ou false
-         */
-        hasChild: function(element, parentTagname) {
-            parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
-            var l = parentTagname.length,
-                i = 0;
-            for (; i !== l; i++) {
-                var node = element.getElementsByTagName(parentTagname[i]);
-                if (node[0] || element.tagName.toLowerCase() === parentTagname[i]) return true;
-            }
-            return false;
-        },
-        /**
-         * nombre d'éléments dans le dom
-         * @memberof mesFonctions
-         * @param {HTMLElement} element
-         * @returns {long}
-         */
-        nbChildrens: function(element) {
-            return element.querySelectorAll('*').length;
-        },
-        /**
-         * les éléments dont le tagname contient "tag"
-         * @memberof mesFonctions
-         * @param {htmlelement} element 
-         * @param {string} tag
-         * @returns {array}
-         */
-        getElementsByContainTagName: function(element, tag) {
-            tag = Array.isArray(tag) && tag || [tag];
-            var a = [],
-                n = element.getElementsByTagName('*'),
-                l = n.length,
-                i = 0;
-            for (; i !== l; i++) {
-                var node = n[i].tagName.toUpperCase(),
-                    ltag = tag.length,
-                    j = 0;
-                for (; j !== ltag; j++) {
-                    tag[j] = tag[j].toUpperCase();
-                    (node.indexOf(tag[j]) !== -1) && a.push(n[i]);
-                }
-            }
-            return a;
-        },
-        /**
-         * encadre l'élément avec les caractères openBloc et endBloc
-         * @memberof mesFonctions
-         * @param {HTMLElement} element
-         * @param {string} openBloc
-         * @param {string} endBloc
-         * @returns {HTMLElement}
-         */
-        block: function(element, openBloc, endBloc) {
-            (openBloc === undefined) && (openBloc = mathBraille.caracMath.blocks.open);
-            (endBloc === undefined) && (endBloc = mathBraille.caracMath.blocks.close);
-            var df = document.createElement('bloc'),
-                blocOuverture = document.createElement('blocOuverture'),
-                blocFermeture = document.createElement('blocFermeture');
-            blocOuverture.appendChild(document.createTextNode(openBloc));
-            blocFermeture.appendChild(document.createTextNode(endBloc));
-
-            df.appendChild(blocOuverture);
-            df.appendChild(document.createTextNode('\n'));
-            df.appendChild(element);
-            df.appendChild(document.createTextNode('\n'));
-            df.appendChild(blocFermeture);
-            return df;
-        },
-        /**
-         * génére les optionsBraille
-         * @memberof mesFonctions
-         * @param {object} source - optionsBraille par défaut
-         * @param {object} properties - nouvelles optionsBraille
-         * @returns {object}
-         */
-        _extendDefaults: function(source, properties) {
-            var property;
-            for (property in properties) {
-                if (properties.hasOwnProperty(property)) {
-                    source[property] = properties[property];
-                }
-            }
-            return source;
-        }
-
-    };
-
-
-
-    /**
-     * @var optionsBraille
-     * @type {object}
-     * @property {boolean} [remplaceFormule=false]
-     * @property {long} [coupureFormule=false]
-     * @property {string} [codeBrailleMath=fr] fr, nemeth et ueb
-     * @property {string} [codeSysteme=SI]
-     * @property {boolean} [matriceLineaire=false]
-     * @property {long} [maxCaracCell=10]
-     * @property {boolean} [chimie=false]
-     */
-    let optionsBraille = {};
-
-    /**
-     * Indique si une matrice est complexe
-     * @function hardmat
-     * @param {htmlelement} m équation en html
-     * @returns {boolean}
-     */
-    let hardmat;
-
-
-    let mbraille = function(clmath) {
-            this._mesFonctions = mesFonctions;
-            this._writeEq = writeEq;
-            optionsBraille = {
-                'remplaceFormule': false,
-                'coupureFormule': 0,
-                'codeBrailleMath': 'fr',
-                'codeSysteme': 'SI',
-                'matriceLineaire': false,
-                'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
-                'chimie': false
-            };
-            if (!clmath) {
-                clmath = 'math';
-            } else if (typeof clmath === 'object') {
-                optionsBraille = mesFonctions._extendDefaults(optionsBraille, clmath);
-                clmath = 'math';
-            } else if (arguments[1] && typeof arguments[1] === "object") {
-                optionsBraille = mesFonctions._extendDefaults(optionsBraille, arguments[1]);
-            }
-
-            var mesFormules = clmath && document.querySelectorAll(clmath),
-                l = mesFormules.length,
-                i = 0;
-            this._formules = mesFormules;
-            for (; i !== l; i++) {
-                mathBraille = allVar[optionsBraille.codeBrailleMath].mathBraille;
-                mesFormules[i].setAttribute('aria-hidden', true);
-                var parent = mesFormules[i].parentNode,
-                    m = document.createElement('math'),
-                    maForm = document.createElement('span');
-                m.innerHTML = mesFormules[i].innerHTML;
-                // TODO: mes fonctions
-                writeEq._supprimeprefix(m);
-                writeEq._superflus(m);
-
-                writeEq._inutile(m);
-                writeEq._tableSeul(m);
-                writeEq._mspace(m);
-                writeEq._espace(m)
-                // mover /munder  chimie
-                optionsBraille.chimie && writeEq._moverChimie(m);
-                optionsBraille.chimie && writeEq._munderChimie(m);
-
-                // munderover sur flèche
-                optionsBraille.chimie && writeEq._munderoverChimie(m);
-
-                if (optionsBraille.codeBrailleMath === 'nemeth') {
-                    writeEq._numDecimalNemeth(m);
-                    writeEq._espaceNemeth(m);
-                }
-
-                hardmat = writeEq._boolHardMatrice(m);
-
-                writeEq._ajoutmfenced(m);
-
-                // résolution problèmes blocs
-                writeEq._pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
-                writeEq._pbIntegrale(m);
-
-                /*
-                NEW
-                ajout de balises descriptives                
-                */
-                writeEq._newMfracBloc(m);
-                writeEq._newMsqrtBloc(m);
-                writeEq._newMrootBloc(m);
-
-                writeEq._reecritureMultiscripts(m);
-                writeEq._newMmultiscriptsBloc(m);
-
-
-                writeEq._newMsubsupBloc(m);
-
-                writeEq._newMunderover(m);
-                // console.log(m.innerHTML);
-
-                writeEq._newMsupBloc(m);
-                writeEq._newMsubBloc(m);
-
-                writeEq._newPlacementMultiscript(m);
-
-
-                /*
-                NEW réécriture
-                écriture de l'équation selon les nouvelles balises
-                */
-
-                writeEq._newMfracWrite(m);
-                writeEq._newMsqrtWrite(m);
-                writeEq._newMrootWrite(m);
-                writeEq._newIndiceExposantWrite(m);
-
-                writeEq._newBlocBase(m);
-
-
-                writeEq._mover(m, 'mover');
-                writeEq._munder(m);
-                writeEq._mfenced(m);
-
-                writeEq._mn(m);
-
-                writeEq._mo(m);
-
-                writeEq._mi(m);
-                writeEq._mtext(m);
-                // console.log(m.innerHTML);
-
-                (optionsBraille.matriceLineaire || hardmat) && writeEq._matriceLineaire(m);
-                writeEq._writeform(m);
-                maForm.innerHTML = m.innerHTML;
-                maForm.classList.add('js-mathmlConverti');
-                parent.insertBefore(maForm, mesFormules[i].nextSibling);
-                if (optionsBraille.remplaceFormule) {
-                    mesFormules[i].setAttribute('style', 'display:none');
-                } else {
-                    mesFormules[i].removeAttribute('style');
-                }
-
-            }
-        },
-        brailledirect = function(maClass, codeBrailleMath) {
-            codeBrailleMath = codeBrailleMath && codeBrailleMath || 'fr';
-            var tbf6 = document.querySelectorAll(maClass),
-                l = tbf6.length,
-                i = 0;
-            for (; i !== l; i++) {
-                var maTable = allVar[codeBrailleMath].TBdbt;
-                tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
-            }
-        };
-
-
+    // Fonctions prototypes
     /**
      * Vérifie si la chaîne est numérique
      * @method
@@ -607,6 +328,321 @@
         return String.fromCharCode.apply(String, txt);
     };
 
+    /**
+     * Savoir si un element a comme parent un node.
+     * @param {HTMLElement} element
+     * @param {string} parentTagname
+     * @returns {boolean}
+     */
+    HTMLElement.prototype.hasParent = function(parentTagname) {
+        parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
+        var l = parentTagname.length,
+            parent,
+            parentTag,
+            i = 0;
+        for (; i !== l; i++) {
+            parent = this.parentElement;
+            parentTag = parent.tagName.toLowerCase();
+            while (parent && parentTag !== 'math') {
+                if (parent.tagName.toLowerCase() === parentTagname[i]) return true;
+                parent = parent.parentElement;
+                parentTag = parent.tagName.toLowerCase();
+            }
+        }
+        return false;
+    }
+
+    Object.prototype.hasChild = function(parentTagname) {
+        parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
+        var l = parentTagname.length,
+            i = 0;
+        for (; i !== l; i++) {
+            var node = this.getElementsByTagName(parentTagname[i]);
+            if (node[0] || this.tagName.toLowerCase() === parentTagname[i]) return true;
+        }
+        return false;
+    }
+
+
+    /** 
+     * @var mesFonctions
+     * @namespace
+     */
+    var mesFonctions = {
+        /**
+         * Savoir si un element a comme parent un node.
+         * @memberof mesFonctions
+         * @param {HTMLElement} element
+         * @param {string} parentTagname
+         * @returns {boolean}
+         */
+        hasParent: function(element, parentTagname) {
+            parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
+            var l = parentTagname.length,
+                parent,
+                parentTag,
+                i = 0;
+            for (; i !== l; i++) {
+                parent = element.parentElement;
+                parentTag = parent.tagName.toLowerCase();
+                while (parent && parentTag !== 'math') {
+                    if (parent.tagName.toLowerCase() === parentTagname[i]) return true;
+                    parent = parent.parentElement;
+                    parentTag = parent.tagName.toLowerCase();
+                }
+            }
+            return false;
+        },
+        /**
+         * Savoir si un element contient un node
+         * @memberof mesFonctions
+         * @param {HTMLElement} element
+         * @param {string} parentTagname
+         * @returns {boolean} true ou false
+         */
+        hasChild: function(element, parentTagname) {
+            parentTagname = Array.isArray(parentTagname) && parentTagname || [parentTagname];
+            var l = parentTagname.length,
+                i = 0;
+            for (; i !== l; i++) {
+                var node = element.getElementsByTagName(parentTagname[i]);
+                if (node[0] || element.tagName.toLowerCase() === parentTagname[i]) return true;
+            }
+            return false;
+        },
+        /**
+         * nombre d'éléments dans le dom
+         * @memberof mesFonctions
+         * @param {HTMLElement} element
+         * @returns {long}
+         */
+        nbChildrens: function(element) {
+            return element.querySelectorAll('*').length;
+        },
+        /**
+         * les éléments dont le tagname contient "tag"
+         * @memberof mesFonctions
+         * @param {htmlelement} element 
+         * @param {string} tag
+         * @returns {array}
+         */
+        getElementsByContainTagName: function(element, tag) {
+            tag = Array.isArray(tag) && tag || [tag];
+            var a = [],
+                n = element.getElementsByTagName('*'),
+                l = n.length,
+                i = 0;
+            for (; i !== l; i++) {
+                var node = n[i].tagName.toUpperCase(),
+                    ltag = tag.length,
+                    j = 0;
+                for (; j !== ltag; j++) {
+                    tag[j] = tag[j].toUpperCase();
+                    (node.indexOf(tag[j]) !== -1) && a.push(n[i]);
+                }
+            }
+            return a;
+        },
+        /**
+         * encadre l'élément avec les caractères openBloc et endBloc
+         * @memberof mesFonctions
+         * @param {HTMLElement} element
+         * @param {string} openBloc
+         * @param {string} endBloc
+         * @returns {HTMLElement}
+         */
+        block: function(element, openBloc, endBloc) {
+            (openBloc === undefined) && (openBloc = mathBraille.caracMath.blocks.open);
+            (endBloc === undefined) && (endBloc = mathBraille.caracMath.blocks.close);
+            var df = document.createElement('bloc'),
+                blocOuverture = document.createElement('blocOuverture'),
+                blocFermeture = document.createElement('blocFermeture');
+            blocOuverture.appendChild(document.createTextNode(openBloc));
+            blocFermeture.appendChild(document.createTextNode(endBloc));
+
+            df.appendChild(blocOuverture);
+            df.appendChild(document.createTextNode('\n'));
+            df.appendChild(element);
+            df.appendChild(document.createTextNode('\n'));
+            df.appendChild(blocFermeture);
+            return df;
+        },
+        /**
+         * génére les optionsBraille
+         * @memberof mesFonctions
+         * @param {object} source - optionsBraille par défaut
+         * @param {object} properties - nouvelles optionsBraille
+         * @returns {object}
+         */
+        _extendDefaults: function(source, properties) {
+            var property;
+            for (property in properties) {
+                if (properties.hasOwnProperty(property)) {
+                    source[property] = properties[property];
+                }
+            }
+            return source;
+        }
+
+    };
+
+
+
+    /**
+     * @var optionsBraille
+     * @type {object}
+     * @property {boolean} [remplaceFormule=false]
+     * @property {long} [coupureFormule=false]
+     * @property {string} [codeBrailleMath=fr] fr, nemeth et ueb
+     * @property {string} [codeSysteme=SI]
+     * @property {boolean} [matriceLineaire=false]
+     * @property {long} [maxCaracCell=10]
+     * @property {boolean} [chimie=false]
+     */
+    var optionsBraille = {};
+
+    /**
+     * Indique si une matrice est complexe
+     * @function hardmat
+     * @param {htmlelement} m équation en html
+     * @returns {boolean}
+     */
+    var hardmat;
+
+
+    var mbraille = function(clmath) {
+            this._mesFonctions = mesFonctions;
+            this._writeEq = writeEq;
+            optionsBraille = {
+                'remplaceFormule': false,
+                'coupureFormule': 0,
+                'codeBrailleMath': 'fr',
+                'codeSysteme': 'SI',
+                'matriceLineaire': false,
+                'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+                'chimie': false
+            };
+            if (!clmath) {
+                clmath = 'math';
+            } else if (typeof clmath === 'object') {
+                optionsBraille = mesFonctions._extendDefaults(optionsBraille, clmath);
+                clmath = 'math';
+            } else if (arguments[1] && typeof arguments[1] === "object") {
+                optionsBraille = mesFonctions._extendDefaults(optionsBraille, arguments[1]);
+            }
+
+            var mesFormules = clmath && document.querySelectorAll(clmath),
+                l = mesFormules.length,
+                i = 0;
+            this._formules = mesFormules;
+            for (; i !== l; i++) {
+                mathBraille = allVar[optionsBraille.codeBrailleMath].mathBraille;
+                mesFormules[i].setAttribute('aria-hidden', true);
+                var parent = mesFormules[i].parentNode,
+                    m = document.createElement('math'),
+                    maForm = document.createElement('span');
+                m.innerHTML = mesFormules[i].innerHTML;
+                // TODO: mes fonctions
+                writeEq._supprimeprefix(m);
+                writeEq._superflus(m);
+
+                writeEq._inutile(m);
+                writeEq._tableSeul(m);
+                writeEq._mspace(m);
+                writeEq._espace(m)
+                // mover /munder  chimie
+                optionsBraille.chimie && writeEq._moverChimie(m);
+                optionsBraille.chimie && writeEq._munderChimie(m);
+
+                // munderover sur flèche
+                optionsBraille.chimie && writeEq._munderoverChimie(m);
+
+                if (optionsBraille.codeBrailleMath === 'nemeth') {
+                    writeEq._numDecimalNemeth(m);
+                    writeEq._espaceNemeth(m);
+                }
+
+                hardmat = writeEq._boolHardMatrice(m);
+
+                writeEq._ajoutmfenced(m);
+
+                // résolution problèmes blocs
+                writeEq._pbBlocs(m); // cas particulier de blocs (limite, cosinus, sinus, etc.)
+                writeEq._pbIntegrale(m);
+
+                /*
+                NEW
+                ajout de balises descriptives                
+                */
+                writeEq._newMfracBloc(m);
+                writeEq._newMsqrtBloc(m);
+                writeEq._newMrootBloc(m);
+
+                writeEq._reecritureMultiscripts(m);
+                writeEq._newMmultiscriptsBloc(m);
+
+
+                writeEq._newMsubsupBloc(m);
+
+                writeEq._newMunderover(m);
+                // console.log(m.innerHTML);
+
+                writeEq._newMsupBloc(m);
+                writeEq._newMsubBloc(m);
+
+                writeEq._newPlacementMultiscript(m);
+
+
+                /*
+                NEW réécriture
+                écriture de l'équation selon les nouvelles balises
+                */
+
+                writeEq._newMfracWrite(m);
+                writeEq._newMsqrtWrite(m);
+                writeEq._newMrootWrite(m);
+                writeEq._newIndiceExposantWrite(m);
+
+                writeEq._newBlocBase(m);
+
+
+                writeEq._mover(m, 'mover');
+                writeEq._munder(m);
+                writeEq._mfenced(m);
+
+                writeEq._mn(m);
+
+                writeEq._mo(m);
+
+                writeEq._mi(m);
+                writeEq._mtext(m);
+                // console.log(m.innerHTML);
+
+                (optionsBraille.matriceLineaire || hardmat) && writeEq._matriceLineaire(m);
+                writeEq._writeform(m);
+                maForm.innerHTML = m.innerHTML;
+                maForm.classList.add('js-mathmlConverti');
+                parent.insertBefore(maForm, mesFormules[i].nextSibling);
+                if (optionsBraille.remplaceFormule) {
+                    mesFormules[i].setAttribute('style', 'display:none');
+                } else {
+                    mesFormules[i].removeAttribute('style');
+                }
+
+            }
+        },
+        brailledirect = function(maClass, codeBrailleMath) {
+            codeBrailleMath = codeBrailleMath && codeBrailleMath || 'fr';
+            var tbf6 = document.querySelectorAll(maClass),
+                l = tbf6.length,
+                i = 0;
+            for (; i !== l; i++) {
+                var maTable = allVar[codeBrailleMath].TBdbt;
+                tbf6[i].textContent = tbf6[i].textContent.braille(maTable);
+            }
+        };
+
+
 
 
 
@@ -786,6 +822,7 @@
                 i = 0;
             while (i !== lmo) {
                 var boolparent = mesFonctions.hasParent(mo[i], ['msub', 'msup']);
+                // var boolparent = mo[i].hasParent(['msub', 'msup']);
                 // var boolparent=false;
                 if (mo[i].textContent.charCodeAt() === 160 && !boolparent) {
                     var parent = mo[i].parentNode;
@@ -933,6 +970,7 @@
             });
         },
         _inutile: function(monEquation) {
+            
             var mesTags = ['annotation-xml', 'annotation'],
                 l = mesTags.length,
                 i = 0;
@@ -945,21 +983,26 @@
             }
         },
         _superflus: function(monEquation) {
-            let mesTags = ['mstyle'],
+                     let mesTags = ['mstyle','annotation'],
                 l = mesTags.length,
                 i = 0,
                 df = document.createDocumentFragment();
             // parent;
             for (; i !== l; i++) {
                 let superflus = monEquation.getElementsByTagName(mesTags[i]);
+                // let lsuperflus=superflus.length;
+                // let j=lsuperflus-1;
+                // for (; j !== -1; j--) {
+
                 while (superflus[0]) {
                     let enfants = superflus[0].children;
                     let parent = superflus[0].parentNode;
+                    let mrow=document.createElement('mrow');
                     while (enfants[0]) {
-                        df.appendChild(enfants[0]);
+                        mrow.appendChild(enfants[0]);
                     }
                     // superflus[0].replaceWith(df);
-                    parent.replaceChild(df, superflus[0]);
+                    parent.replaceChild(mrow, superflus[0]);
                 }
             }
         },
@@ -976,8 +1019,10 @@
                     let fenced = document.createElement('mfenced');
                     let parent = m.parentNode;
                     let i = paraOpen.indexOf(m.textContent);
-
+                    let next=m.nextElementSibling;
+                    // console.log(next);
                     if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mtable' || mesFonctions.hasChild(m.nextElementSibling, 'mtable'))) {
+                        // if ((i !== -1 && next) && (next.tagName.toLowerCase() === 'mtable' ||next.hasChild('mtable'))) {
                         fenced.setAttribute('open', paraOpen[i]);
                         fenced.setAttribute('close', '');
                         fenced.appendChild(m.nextElementSibling);
@@ -1737,6 +1782,7 @@
                     parent = elt.parentNode;
                 if (tagName[1] && (!(tagName[0] === 'blocIndiceNum') || optionsBraille.codeBrailleMath === 'fr')) {
                     var boolFrChimie = optionsBraille.chimie && optionsBraille.codeBrailleMath === 'fr' && !mesFonctions.hasParent(elt, ['mmultiscripts-f', 'mmultiscripts']);
+                    // var boolFrChimie = optionsBraille.chimie && optionsBraille.codeBrailleMath === 'fr' && !(elt.hasParent(['mmultiscripts-f', 'mmultiscripts']));
                     var txt = tagName[1].split(''),
                         bloc = (elt.children[0].children.length === 0 || indExp.indexOf(tagName[0] !== -1)) && document.createElement(elt.tagName.toLowerCase()) || document.createElement('bloc');
                     bloc.innerHTML = elt.innerHTML;
@@ -2048,5 +2094,4 @@
     };
     exports.Mathml2braille = mbraille;
     exports.Brailledirect = brailledirect;
-
 })(this);

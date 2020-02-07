@@ -5,6 +5,8 @@
     const ponctuations = [
         44, // ,
         59, // ;
+        171, // «
+        187, // »
     ];
 
     const miTexte = {
@@ -54,7 +56,7 @@
         'msubsup_sans': '%1 %2 %3',
         'msubsup2': '%1 indice %2 au carré',
         'msubsup3': '%1 indice %2 au cube',
-        'mroot': 'racine %2ème de %1',
+        'mroot': 'racine %2ième de %1',
         'mroot3': 'racine cubique de %1',
         'integrale': '%1 de %2 à %3 de',
         'integrale2': '%1 sur %2 de',
@@ -79,7 +81,8 @@
         'intervalle_og_fd': 'l\'intervalle %1 ouvert à gauche et fermé à droite',
         'intervalle_fg_od': 'l\'intervalle %1 fermé à gauche et ouvert à droite',
         'ensemble': 'l\'ensemble d\'éléments %1',
-        'combinaison': 'combinaison de %2 parmi %3'
+        'combinaison': 'combinaison de %2 parmi %3',
+        'complementaire': 'complémentaire de %3 dans %2'
     }
 
     let mesPosTexte = {};
@@ -118,8 +121,8 @@
     };
     let mesFonctions = {};
     let writeEq = {};
-  
-     /**
+
+    /**
      * @var optionsTexte
      * @type {object}
      * @property {boolean} [ponctuation=false] true = ponctuation en toutes lettres
@@ -165,10 +168,14 @@
             let formClone = form.cloneNode(true);
             let i = 0;
             rewrite._miTexte(formClone);
+
+            writeEq._supprimeprefix(formClone);
+            writeEq._superflus(formClone);
             writeEq._ajoutmfenced(formClone);
             writeEq._reecritureMultiscripts(formClone);
 
             rewrite._ilExisteUnique(formClone);
+            rewrite._complementaire(formClone);
             rewrite._fonctionDe(formClone);
             let mesFenced = formClone.querySelectorAll('mfenced');
             i = mesFenced.length;
@@ -287,6 +294,8 @@
 
             //     }
             // }
+
+
 
             render._writeForm(form, formClone);
 
@@ -575,12 +584,11 @@
                     row.appendChild(monEnfant.cloneNode(true));
                 }
             });
-            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts', 'munder'];
+            const tagNameOut = ['msqrt', 'msubsup', 'mmultiscripts', 'munder', 'mrow', 'mfrac'];
             const tagNameParentOut = ['bloc', 'math']
             if (row.children.length > 1 && tagNameOut.indexOf(elt.tagName.toLowerCase()) === -1 && tagNameParentOut.indexOf(parent.tagName.toLowerCase()) === -1) {
                 row = render._writeGuillemet(row);
             }
-
             parent.replaceChild(row, elt);
         },
         /**
@@ -605,6 +613,9 @@
 
             txt = txt.replace(/¤prime¤/g, '\'');
             txt = render._guillemetsDANSguillemets(txt);
+
+            txt=rewriteTextFinal._angle(txt);
+
             span.textContent = txt;
             form.parentNode.insertBefore(span, form);
         },
@@ -665,9 +676,6 @@
 
         }
     };
-
-
-
 
 
     var rewrite = {
@@ -779,6 +787,38 @@
             }
         },
         /**
+         * recherche les complémentaires
+         * @param {HTMLCollection} form 
+         */
+        _complementaire(form) {
+            let mesMi = form.querySelectorAll('mi');
+            mesMi.forEach((mi) => {
+                if (mi.textContent.trim() === '∁') {
+                    let parent = mi.parentElement;
+                    if (parent && parent.tagName === 'msub') {
+                        let next = parent.nextElementSibling;
+                        if (next) {
+                            let mrow = document.createElement('mrow');
+                            mrow.appendChild(parent.firstElementChild);
+                            mrow.appendChild(parent.firstElementChild);
+                            mrow.appendChild(parent.nextElementSibling);
+                            parent.parentElement.replaceChild(mrow, parent);
+                            render._writeText(mrow, 'complementaire');
+                        }
+                    }
+
+                    // if (mi.nextElementSibling && mi.nextElementSibling.textContent.trim() === '!') {
+
+
+                    //     mtext.appendChild(document.createTextNode('un unique'));
+                    //     parent.replaceChild(mtext, mi.nextElementSibling);
+                    // }
+                }
+            });
+
+        },
+
+        /**
          * recherche les fonctions et les récrit
          * @param {HTMLCollection} form 
          */
@@ -870,6 +910,30 @@
             }
             mtable.parentNode.replaceChild(mrow, mtable);
         }
+
     };
 
+
+    var rewriteTextFinal = {
+        _angle: function(txt) {
+            var mots = txt.split(' ');
+            if (mots.indexOf('angle') !== -1 && mots.indexOf(',') !== -1) {
+
+                if (mots.indexOf('vecteur') !== -1) {
+                    txt = txt.replace(',', 'avec le').replace('(', 'du');
+                    // txt=txt.replace(',','avec')
+                } else if (mots.indexOf(',') !== -1) {
+                    txt = txt.replace(',', 'avec').replace('(', 'de');
+                    // txt = txt.replace('(', 'de');
+
+                }
+                txt = txt.replace(')', '');
+                console.log(txt);
+
+                // 'angle2': 'angle de %1 avec %2',
+                // 'angle3': 'angle du %1 avec le %2',
+            }
+            return txt;
+        }
+    }
 })();
