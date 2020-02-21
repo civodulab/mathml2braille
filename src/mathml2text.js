@@ -59,6 +59,7 @@
         'mroot': 'racine %2ième de %1',
         'mroot3': 'racine cubique de %1',
         'integrale': '%1 de %2 à %3 de',
+        'integrale3': '%1 de %2 à %3',
         'integrale2': '%1 sur %2 de',
         'limite1': 'limite quand %2 de',
         'limite2': 'limite quand %2, %3, de',
@@ -235,6 +236,12 @@
                 (arcs.indexOf(cca) !== -1) && render._arc(mesOver[i]);
             }
 
+            let menclose = formClone.querySelectorAll('menclose');
+            i = menclose.length;
+            while (i--) {
+                render._menclose(menclose[i]);
+            }
+
             let mesMultiscripts = formClone.querySelectorAll('mmultiscripts');
             i = mesMultiscripts.length;
             while (i--) {
@@ -251,6 +258,8 @@
             while (i--) {
                 render._mroot(mesRoot[i]);
             }
+
+        
 
             let mesFrac = formClone.querySelectorAll('mfrac');
             i = mesFrac.length;
@@ -312,6 +321,24 @@
          */
         get_formule: function(clmath) {
             return document.querySelectorAll(clmath);
+        },
+        _menclose:function(menclose){
+            let parent=menclose.parentNode;
+
+            switch (menclose.getAttribute('notation')) {
+                case 'radical':
+                    let msqrt=document.createElement('msqrt');
+                    msqrt.innerHTML=menclose.innerHTML;
+                    parent.replaceChild(msqrt,menclose);
+                    // render._msqrt(menclose);
+                    break;
+            
+                default:
+                    let mrow=document.createElement('mrow');
+                    mrow.innerHTML=menclose.innerHTML;
+                    parent.replaceChild(mrow,menclose);
+                    break;
+            }
         },
         _munderover: function(munderover) {
             switch (munderover.children[0].textContent.trim()) {
@@ -436,7 +463,11 @@
                 return;
             }
             if (varintegral.indexOf(enfants[0].textContent.trim().charCodeAt()) !== -1) {
-                render._integrale(msubsup);
+                if(!msubsup.nextElementSibling){
+                    render._writeText(msubsup, 'integrale3');
+                }else{
+                    render._integrale(msubsup);
+                }
                 return;
             }
             if (varsansup.indexOf(enfants[0].textContent.trim().charCodeAt()) !== -1) {
@@ -528,7 +559,6 @@
                 render._writeText(elt, 'integrale');
             } else if (elt.children.length === 2) {
                 render._writeText(elt, 'integrale2');
-
             }
         },
         _vecteur: function(elt) {

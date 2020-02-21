@@ -71,7 +71,7 @@
       8711: 'nabla', //NABLA (Backward Difference, Grad or upside down triangle) ∇ &nabla; &‌#8711; &‌#x2207;
       8748: 'intégrale double', //DOUBLE INTEGRAL ∬ &‌#8748; &‌#x222C;
       8749: 'intégrale triple', //TRIPLE INTEGRAL ∭ &‌#8749; &‌#x222D;
-      10764: '-12346-12346-12346-12346-', //QUADRUPLE INTEGRAL ⨌ &‌#10764; &‌#x2A0C;
+      10764: 'intégrale quadruple', //QUADRUPLE INTEGRAL ⨌ &‌#10764; &‌#x2A0C;
       8750: 'intégrale de flux', //CONTOUR INTEGRAL ∮ &‌#8750; &‌#x222E;
       8751: 'intégrale de flux double', //SURFACE INTEGRAL ∯ &‌#8751; &‌#x222F;
       8752: 'intégrale de flux triple', //VOLUME INTEGRAL ∰ &‌#8752; &‌#x2230;
@@ -171,7 +171,7 @@
       // BECAUSE (Upside down Triangular Dots) ∵ &‌#8757; &‌#x2235;
       // PROPORTIONAL TO Entity Code = &prop; ∝ &‌#8733; &‌#x221D;
       // END OF PROOF (solid rectangle) ∎ &‌#8718; &‌#x220E;
-      8773: '-456-2356-', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
+      8773: 'est approximativement égal à', //APPROXIMATELY EQUAL ≅ &cong; &‌#8773; &‌#x2245;
       8776: 'est approximativement égal à', // ALMOST EQUAL (ASYMPTOTIC) ≈ &asymp; &‌#8776; &‌#x2248;
       8777: '-46-5-2356-', // NOT ALMOST EQUAL TO ≉ — &‌#8777; &‌#x2249;
       8764: '-45-2356-', // TILDE SIMILAR TO ∼ &sim; &‌#8764; &‌#x223C;
@@ -208,10 +208,10 @@
       // NOT ASYMPTOTICALLY EQUAL TO ≄ &‌#8772; &‌#x2244;
       // APPROXIMATELY BUT NOT ACTUALLY EQUAL TO ≆ &‌#8774; &‌#x2246;
       // NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO ≇ &‌#8775; &‌#x2247;
-      8778: '-456-5-2356-', // ALMOST EQUAL OR EQUAL TO ≊ &‌#8778; &‌#x224A;
+      8778: 'est approximativement égal ou égal à', // ALMOST EQUAL OR EQUAL TO ≊ &‌#8778; &‌#x224A;
       // TRIPLE TILDE ≋ &‌#8779; &‌#x224B;
       // ALL EQUAL TO ≌ &‌#8780; &‌#x224C;
-      8723: '-36-235-', // MINUS-OR-PLUS SIGN ∓ &‌#8723; &‌#x2213;
+      8723: 'moins ou plus', // MINUS-OR-PLUS SIGN ∓ &‌#8723; &‌#x2213;
       // DOT PLUS ∔ &‌#8724; &‌#x2214;
       8727: 'étoile', // ASTERISK OPERATOR ∗ &‌#8727; &‌#x2217;
       8728: 'rond', // RING OPERATOR ∘ &‌#8728; &‌#x2218;
@@ -387,16 +387,16 @@
       968: '‌psi', //GREEK SMALL LETTER PSI ψ &‌#968; &‌#x03C8 &‌psi;
       969: '‌omega', //GREEK SMALL LETTER OMEGA ω &‌#969; &‌#x03C9 &‌omega;
       /* Flèches */
-      8592: '-456-246-', // ← 8592 2190 &larr; LEFTWARDS ARROW
-      8593: '-45-12456-', // ↑ 8593 2191 &uarr; UPWARDS ARROW
-      8594: '-456-156-', // → 8594 2192 &rarr; RIGHTWARDS ARROW
-      8595: '-46-12456-', // ↓ 8595 2193 &darr; DOWNWARDS ARROW
-      8596: '-5-12456-', // ↔ 8596 2194 &harr; LEFT RIGHT ARROW
+      8592: 'flèche gauche', // ← 8592 2190 &larr; LEFTWARDS ARROW
+      8593: 'flèche haut', // ↑ 8593 2191 &uarr; UPWARDS ARROW
+      8594: 'flèche droite', // → 8594 2192 &rarr; RIGHTWARDS ARROW
+      8595: 'flèche bas', // ↓ 8595 2193 &darr; DOWNWARDS ARROW
+      8596: 'flèche droite et gauche', // ↔ 8596 2194 &harr; LEFT RIGHT ARROW
       //↕ 8597 2195   UP DOWN ARROW
-      8598: '-45-246-', // ↖ 8598 2196   NORTH WEST ARROW
-      8599: '-45-156-', // ↗ 8599 2197   NORTH EAST ARROW
-      8600: '-46-156-', // ↘ 8600 2198   SOUTH EAST ARROW
-      8601: '-46-246-', // ↙ 8601 2199   SOUTH WEST ARROW
+      8598: 'flèche nord ouest', // ↖ 8598 2196   NORTH WEST ARROW
+      8599: 'flèche nord est', // ↗ 8599 2197   NORTH EAST ARROW
+      8600: 'flèche sud est', // ↘ 8600 2198   SOUTH EAST ARROW
+      8601: 'flèche sud ouest', // ↙ 8601 2199   SOUTH WEST ARROW
       /* ↚ 8602 219A   LEFTWARDS ARROW WITH STROKE
        ↛ 8603 219B   RIGHTWARDS ARROW WITH STROKE
        ↜ 8604 219C   LEFTWARDS WAVE ARROW

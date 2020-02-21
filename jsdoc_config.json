@@ -1,7 +1,7 @@
 {
     "source": {
-        "include": ["./js"],
-        "exclude": ["./js/stat.js","./js/stat.min.js"],
+        "include": ["./src"],
+        "exclude": ["./src/stat.js","./src/stat.min.js"],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     }

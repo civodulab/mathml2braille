@@ -519,7 +519,7 @@
                 'codeBrailleMath': 'fr',
                 'codeSysteme': 'SI',
                 'matriceLineaire': false,
-                'maxCaracCell': 10, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
+                'maxCaracCell': 20, //correspond à peu près au nombre limite de carac dans la cellule avant de basculer en mode linéaire
                 'chimie': false
             };
             if (!clmath) {
@@ -545,11 +545,14 @@
                 // TODO: mes fonctions
                 writeEq._supprimeprefix(m);
                 writeEq._superflus(m);
-
                 writeEq._inutile(m);
                 writeEq._tableSeul(m);
                 writeEq._mspace(m);
                 writeEq._espace(m)
+
+                //menclose
+                writeEq._menclose(m);
+
                 // mover /munder  chimie
                 optionsBraille.chimie && writeEq._moverChimie(m);
                 optionsBraille.chimie && writeEq._munderChimie(m);
@@ -605,9 +608,17 @@
 
                 writeEq._newBlocBase(m);
 
+                try {
+                    writeEq._mover(m, 'mover');
+                } catch (error) {
+                    console.log(error);
+                }
+                try {
+                    writeEq._munder(m);
+                } catch (error) {
+                    console.log(error);
 
-                writeEq._mover(m, 'mover');
-                writeEq._munder(m);
+                }
                 writeEq._mfenced(m);
 
                 writeEq._mn(m);
@@ -699,6 +710,27 @@
 
                 // <mo>&#x21CC;</mo>
             }
+        },
+        _menclose: function(monEquation) {
+            var menclose = monEquation.getElementsByTagName('menclose'),
+                i = menclose.length;
+            while (i--) {
+                let parent = menclose[i].parentNode;
+                switch (menclose[i].getAttribute('notation')) {
+                    case 'radical':
+                        let sqrt = document.createElement('msqrt');
+                        sqrt.innerHTML = menclose[i].innerHTML;
+                        parent.replaceChild(sqrt, menclose[i]);
+                        break;
+                    default:
+                        let mrow = document.createElement('mrow');
+                        mrow.innerHTML = menclose[i].innerHTML;
+                        parent.replaceChild(mrow, menclose[i]);
+                        break;
+                }
+            }
+
+
         },
         /**
          * Réécrit les mover si chimie
@@ -850,7 +882,7 @@
                     next = subsup[i].nextElementSibling,
                     parent = subsup[i].parentNode;
 
-                if (enfants[0].textContent.charCodeAt() === 8747 && next.tagName.toLowerCase() === 'mn') {
+                if (enfants[0].textContent.charCodeAt() === 8747 && (next && next.tagName.toLowerCase() === 'mn')) {
                     parent.insertBefore(document.createTextNode(mathBraille.caracMath.blocks.open), subsup[i].nextSibling);
                     while (next && next.textContent !== 'd') {
                         // bloc.appendChild(next);
@@ -970,7 +1002,7 @@
             });
         },
         _inutile: function(monEquation) {
-            
+
             var mesTags = ['annotation-xml', 'annotation'],
                 l = mesTags.length,
                 i = 0;
@@ -982,8 +1014,9 @@
                 }
             }
         },
+
         _superflus: function(monEquation) {
-                     let mesTags = ['mstyle','annotation'],
+            let mesTags = ['mstyle', 'annotation'],
                 l = mesTags.length,
                 i = 0,
                 df = document.createDocumentFragment();
@@ -997,7 +1030,7 @@
                 while (superflus[0]) {
                     let enfants = superflus[0].children;
                     let parent = superflus[0].parentNode;
-                    let mrow=document.createElement('mrow');
+                    let mrow = document.createElement('mrow');
                     while (enfants[0]) {
                         mrow.appendChild(enfants[0]);
                     }
@@ -1019,7 +1052,7 @@
                     let fenced = document.createElement('mfenced');
                     let parent = m.parentNode;
                     let i = paraOpen.indexOf(m.textContent);
-                    let next=m.nextElementSibling;
+                    let next = m.nextElementSibling;
                     // console.log(next);
                     if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mtable' || mesFonctions.hasChild(m.nextElementSibling, 'mtable'))) {
                         // if ((i !== -1 && next) && (next.tagName.toLowerCase() === 'mtable' ||next.hasChild('mtable'))) {
@@ -1361,6 +1394,7 @@
 
             }
         },
+
         _mi: function(monEquation) {
             writeEq._majus(monEquation, 'mi');
         },
@@ -1397,6 +1431,7 @@
             var mover = monEquation.getElementsByTagName(tagName),
                 monbool = false;
             while (mover[0]) {
+
                 var tbl = mover[0].getElementsByTagName('mtable');
                 if (tbl.length !== 0) {
                     writeEq._tableUnder(mover[0]);
@@ -1468,7 +1503,10 @@
             return under;
         },
         _munder: function(monEquation) {
+
             writeEq._mover(monEquation, 'munder');
+
+
         },
         _newMunderover: function(eq) {
                 writeEq._newMsubsupBloc(eq, 'munderover')
@@ -2050,6 +2088,7 @@
         },
         _writeform: function(monEquation) {
             monEquation.textContent = monEquation.textContent.trimall();
+            monEquation.textContent = monEquation.textContent.replace(/-EMPTY-/g, '');
             monEquation.textContent = monEquation.textContent.replace(/--/gi, '-');
 
             monEquation.textContent = monEquation.textContent.braille();

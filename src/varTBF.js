@@ -7,6 +7,7 @@
   // table française basée sur DBTWin
   const TBFdbt = {
           ' ': 'BLANK',
+          '': 'EMPTY',
           'a': 1,
           'b': 12,
           'c': 14,
@@ -270,6 +271,7 @@
               8214: '-45-123456-', // DOUBLE VERTICAL LINE ‖
               33: '-456-35-', // factoriel !
               160: '-BLANK-', // espace
+              32: '-BLANK-', // espace
               183: '-35-35-', // middle dot &#xB7;
               176: '-135-', // DEGREE SYMBOL ° &deg; &‌#176; &‌#xB0;
               181: '-45-134-', //MICRO MU SYMBOL µ &micro; &‌#181; &‌#xB5;
@@ -280,7 +282,7 @@
 
               8290: '-35-', //invisible time
               8292: '-35-', //invisible time
-              8289: '', // function application
+              8289: '-EMPTY-', // function application
 
               8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
               8805: '-45-345-', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
@@ -336,7 +338,12 @@
               8473: '-46-46-1234-', // PRIME NUMBERS (Doublestruck P) ℙ — &‌#8473; &‌#x2119;
               8474: '-46-46-12345-', // RATIONAL NUMBERS (Doublestruck Q) ℚ — &‌#8474; &‌#x211A;
               8484: '-46-46-1356-', // INTEGERS (Doublestruck Z) ℤ — &‌#8484; &‌#x2124;
-              8518: '', //double struck small ⅆ
+              8518: '-145-', //double struck small ⅆ
+              120149:'-145-', //double struck small 𝕕
+              8519: '-15-', //double struck small ⅇ
+              120150: '-15-', //double struck small 𝕖
+              120154: '-24-', //double struck small 𝕚
+             8520: '-24-', //double struck small ⅈ
               8704: '-456-34-', // FOR ALL (Upside-down A) ∀ &forall;  &‌#8704; &‌#x2200;
               8705: '-46-146-', // COMPLEMENT (Thin C) ∁ — &‌#8705; &‌#x2201;
               8707: '-456-16-', // THERE EXISTS (Backwards E) ∃ &exist;  &‌#8707; &‌#x2203;
@@ -404,6 +411,7 @@
               // ANGLE Entity Code = &ang; ∠ &‌#8736; &‌#x2220;
               // MEASURED ANGLE ∡ &‌#8737; &‌#x2221;
               // SPHERICAL ANGLE ∢ &‌#8738; &‌#x2222;
+              8291:'-EMPTY-', //Invisible Separator
               8739: '-123456-', // DIVIDES ∣ &‌#8739; &‌#x2223;
               // DOES NOT DIVIDE ∤ &‌#8740; &‌#x2224;
               8741: '-456-1256-', //PARALLEL TO ∥ &‌#8741; &‌#x2225;
