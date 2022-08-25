@@ -19,10 +19,9 @@ function stat() {
             reg2 = new RegExp('(<br[^>]+\/>|<br[^>]+><\/br>)', 'g'),
             txt = converti[i].innerHTML.replace(reg1, '');
         txt = txt.replace(reg2, '');
-        
         parent.classList.remove('good', 'bad');
-        if (math.textContent !== '') {
-            if (txt === math.textContent.trimall()) {
+        if (math) {
+            if (math && (math.textContent.trimall() === txt)) {
                 parent.classList.add('good');
                 g++
             } else if (math2 && (math2.textContent.trimall() === txt)) {
@@ -32,6 +31,8 @@ function stat() {
                 parent.classList.add('bad');
                 b++
             }
+        }else{
+            parent.classList.add('totest');
         }
 
     }
@@ -41,7 +42,7 @@ function stat() {
     } else {
         document.getElementById('fstat').classList.add('bad');
     }
-    document.getElementById('stat').textContent = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
+    document.getElementById('stat').textContent = g + ' équations bonnes sur ' + (b + g) + ' (' + pourcent + '%)';
 }
 
 function stat_texte() {
@@ -74,7 +75,7 @@ function stat_texte() {
     } else {
         document.getElementById('fstat_texte').classList.add('bad');
     }
-    document.getElementById('stat_texte').textContent = g + ' équations bonnes sur ' + (b + g) + ' - ' + pourcent + '%';
+    document.getElementById('stat_texte').textContent = g + ' équations bonnes sur ' + (b + g) + ' (' + pourcent + '%)';
 }
 
 function option() {

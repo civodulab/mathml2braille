@@ -27,6 +27,15 @@ h3 {
     margin-bottom: 0;
 }
 
+.totest{
+    background-color: #d0eeff;
+    border-top-color: rgb(0, 76, 139);
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-bottom-color: rgb(0, 76, 139);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
 .bad {
     background-color: #FFEBEB;
     border-top-color: darkred;
@@ -56,9 +65,16 @@ math {
     font-family: 'Courier New', Courier, monospace
 }
 
+.totest::before {
+    content: "TO TEST";
+    display:block;
+    color: #002f96
+}
 .bad::before {
     content: "BAD";
-    color: #B30101
+    color: #B30101;
+    display:block;
+
 }
 
 .bad>.mathbraille {
@@ -68,6 +84,8 @@ math {
 .good::before {
     content: "GOOD";
     color: #006900;
+    display:block;
+
 }
 
 .good>.mathbraille {

@@ -1735,7 +1735,6 @@
                     bloc = document.createElement('msub-f'),
                     bloc2 = lvl === -1 && document.createElement('bloc') || document.createElement('blocsubsup-' + lvl);
                 bloc2 = (writeEq._conditionsIndiceNum(msub[0].children[0], msub[0].children[1], lvl)) && document.createElement('blocIndiceNum-' + lvl) || bloc2;
-
                 bloc.innerHTML = msub[0].innerHTML;
                 bloc2.appendChild(bloc.children[1]);
                 parent.replaceChild(bloc, msub[0]);
