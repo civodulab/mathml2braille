@@ -5,6 +5,10 @@
 <head>
     <title>Formules mathématiques</title>
     <link href="../css/global.css" rel="stylesheet" type="text/css" />
+   
+    <script type="text/javascript" async="async"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 </head>
 
 <body>
@@ -70,7 +74,7 @@
                                     <mn>2</mn>
                                 </msup>
                             </menclose>
-                        </math></td>
+                        </math><span class="mathbraille">⠜⠰⠁⠈⠣⠖⠃⠈⠣⠆</span></td>
                     <td>Symbole de la racine carrée</td>
                 </tr>
                 <tr>
@@ -1447,13 +1451,16 @@
                 <mfrac>
                     <mrow>
                         <mi>a</mi>
+                        <mo>&#x2062;</mo>
                         <mi>d</mi>
                         <mo>+</mo>
                         <mi>b</mi>
+                        <mo>&#x2062;</mo>
                         <mi>c</mi>
                     </mrow>
                     <mrow>
                         <mi>b</mi>
+                        <mo>&#x2062;</mo>
                         <mi>d</mi>
                     </mrow>
                 </mfrac>
@@ -1921,8 +1928,8 @@
                 </mover>
             </math> <span class="mathbraille">⠘⠒⠨⠁⠨⠕⠨⠃</span>
         </p>
-        <p class="courant"> <span class="texte_equation">angle de Ox avec Oy </span>
-            <span class="texte_equation2">angle de O x avec O y </span>
+        <p class="courant"> <span class="texte_equation">angle de Ox avec Oy</span>
+            <span class="texte_equation2">angle de O x avec O y</span>
             <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille ">
                 <mover>
                     <mrow>
@@ -1940,6 +1947,7 @@
                 </mover>
             </math> <span class="mathbraille">⠘⠒⠦⠨⠕⠭⠂⠨⠕⠽⠴</span>
         </p>
+      
         <p class="courant"> <span class="texte_equation">angle du vecteur OA avec le vecteur OM</span>
             <span class="texte_equation2">angle du vecteur « O A » avec le vecteur « O M »</span>
             <math xmlns='http://www.w3.org/1998/Math/MathML' class="js-math2braille">
@@ -3367,9 +3375,9 @@
         var chi1 = new Mathml2braille('.js-chimie', options3);
         chi1.mathml2text();
         console.timeEnd('Formule');
-
     </script>
     <script type="text/javascript" src="../src/stat.js"></script>
+    
     <script></script>
 </body>
 

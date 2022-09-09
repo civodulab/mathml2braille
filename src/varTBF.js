@@ -280,8 +280,8 @@
               60: '-5-126-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
               62: '-5-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
 
-              8290: '-35-', //invisible time
-              8292: '-35-', //invisible time
+              8290: '-EMPTY-', //invisible time
+              8292: '-EMPTY-', //invisible time
               8289: '-EMPTY-', // function application
 
               8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;

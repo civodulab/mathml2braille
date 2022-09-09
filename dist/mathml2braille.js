@@ -281,8 +281,8 @@
               60: '-5-126-', //LESS THAN <  &lt; &‌#60; &‌#x3C;
               62: '-5-345-', //GREATER THAN > &gt; &‌#62; &‌#x3E;
 
-              8290: '-35-', //invisible time
-              8292: '-35-', //invisible time
+              8290: '-EMPTY-', //invisible time
+              8292: '-EMPTY-', //invisible time
               8289: '-EMPTY-', // function application
 
               8804: '-45-126-', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
@@ -3365,7 +3365,7 @@
                     let parent = m.parentNode;
                     let i = paraOpen.indexOf(m.textContent);
                     let next = m.nextElementSibling;
-                    // console.log(next);
+                    // si table
                     if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mtable' || mesFonctions.hasChild(m.nextElementSibling, 'mtable'))) {
                         // if ((i !== -1 && next) && (next.tagName.toLowerCase() === 'mtable' ||next.hasChild('mtable'))) {
                         fenced.setAttribute('open', paraOpen[i]);
@@ -3376,6 +3376,19 @@
                             parent.removeChild(m.nextElementSibling);
                         }
                         parent.replaceChild(fenced, m);
+                    }
+                    // si row
+                    if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mrow' )) {
+                        // if ((i !== -1 && next) && (next.tagName.toLowerCase() === 'mtable' ||next.hasChild('mtable'))) {
+                        fenced.setAttribute('open', paraOpen[i]);
+                        fenced.setAttribute('close', '');
+                        fenced.appendChild(m.nextElementSibling);
+                        if (m.nextElementSibling && m.nextElementSibling.textContent === paraClose[i]) {
+                            fenced.setAttribute('close', paraClose[i]);
+                            parent.removeChild(m.nextElementSibling);
+                        }
+                        parent.replaceChild(fenced, m);
+                        console.log(parent.innerHTML);
                     }
                 })
 
@@ -4047,8 +4060,12 @@
                     bloc = document.createElement('msub-f'),
                     bloc2 = lvl === -1 && document.createElement('bloc') || document.createElement('blocsubsup-' + lvl);
                 bloc2 = (writeEq._conditionsIndiceNum(msub[0].children[0], msub[0].children[1], lvl)) && document.createElement('blocIndiceNum-' + lvl) || bloc2;
-console.log(msub[0].children[1]);
                 bloc.innerHTML = msub[0].innerHTML;
+                if(msub[0].children[1].tagName==="mrow"){
+                    console.log("children1",msub[0].children[1]);
+                    console.log("children2",msub[0].children[1].children[0]);
+                }
+               
                 bloc2.appendChild(bloc.children[1]);
                 parent.replaceChild(bloc, msub[0]);
                 bloc.appendChild(bloc2);
@@ -4479,8 +4496,8 @@ console.log(msub[0].children[1]);
       60: 'inférieur strictement à', //LESS THAN <  &lt; &‌#60; &‌#x3C;
       62: 'supérieur strictement à', //GREATER THAN > &gt; &‌#62; &‌#x3E;
 
-    //   8290: '-35-', //invisible time
-    //   8292: '-35-', //invisible time
+      8290: 'fois', //invisible time
+      8292: 'fois', //invisible time
     //   8289: '', // function application
 
       8804: 'est inférieur ou égal à', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;

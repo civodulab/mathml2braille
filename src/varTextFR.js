@@ -31,8 +31,8 @@
       60: 'inférieur strictement à', //LESS THAN <  &lt; &‌#60; &‌#x3C;
       62: 'supérieur strictement à', //GREATER THAN > &gt; &‌#62; &‌#x3E;
 
-    //   8290: '-35-', //invisible time
-    //   8292: '-35-', //invisible time
+      8290: 'fois', //invisible time
+      8292: 'fois', //invisible time
     //   8289: '', // function application
 
       8804: 'est inférieur ou égal à', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;

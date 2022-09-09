@@ -1053,7 +1053,7 @@
                     let parent = m.parentNode;
                     let i = paraOpen.indexOf(m.textContent);
                     let next = m.nextElementSibling;
-                    // console.log(next);
+                    // si table
                     if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mtable' || mesFonctions.hasChild(m.nextElementSibling, 'mtable'))) {
                         // if ((i !== -1 && next) && (next.tagName.toLowerCase() === 'mtable' ||next.hasChild('mtable'))) {
                         fenced.setAttribute('open', paraOpen[i]);
@@ -1064,6 +1064,19 @@
                             parent.removeChild(m.nextElementSibling);
                         }
                         parent.replaceChild(fenced, m);
+                    }
+                    // si row
+                    if ((i !== -1 && m.nextElementSibling) && (m.nextElementSibling.tagName.toLowerCase() === 'mrow' )) {
+                        // if ((i !== -1 && next) && (next.tagName.toLowerCase() === 'mtable' ||next.hasChild('mtable'))) {
+                        fenced.setAttribute('open', paraOpen[i]);
+                        fenced.setAttribute('close', '');
+                        fenced.appendChild(m.nextElementSibling);
+                        if (m.nextElementSibling && m.nextElementSibling.textContent === paraClose[i]) {
+                            fenced.setAttribute('close', paraClose[i]);
+                            parent.removeChild(m.nextElementSibling);
+                        }
+                        parent.replaceChild(fenced, m);
+                        console.log(m);
                     }
                 })
 
@@ -1736,6 +1749,11 @@
                     bloc2 = lvl === -1 && document.createElement('bloc') || document.createElement('blocsubsup-' + lvl);
                 bloc2 = (writeEq._conditionsIndiceNum(msub[0].children[0], msub[0].children[1], lvl)) && document.createElement('blocIndiceNum-' + lvl) || bloc2;
                 bloc.innerHTML = msub[0].innerHTML;
+                if(msub[0].children[1].tagName==="mrow"){
+                    console.log("children1",msub[0].children[1]);
+                    console.log("children2",msub[0].children[1].children[0]);
+                }
+               
                 bloc2.appendChild(bloc.children[1]);
                 parent.replaceChild(bloc, msub[0]);
                 bloc.appendChild(bloc2);
