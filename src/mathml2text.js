@@ -958,7 +958,7 @@
 
                 }
                 txt = txt.replace(')', '');
-                console.log(txt);
+                // console.log(txt);
 
                 // 'angle2': 'angle de %1 avec %2',
                 // 'angle3': 'angle du %1 avec le %2',

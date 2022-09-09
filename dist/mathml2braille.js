@@ -3387,8 +3387,18 @@
                             fenced.setAttribute('close', paraClose[i]);
                             parent.removeChild(m.nextElementSibling);
                         }
+                        
+                        fenced.innerHTML=fenced.children[0].innerHTML;
+                       
                         parent.replaceChild(fenced, m);
-                        console.log(parent.innerHTML);
+                        if(parent.children.length === 1){
+                            var grandParent=parent.parentNode;
+                            var enfant=parent.children[0];
+                            grandParent.replaceChild(enfant, parent);
+                            
+                        }
+                        // console.log('mrow',parent.innerHTML);
+
                     }
                 })
 
@@ -4061,11 +4071,6 @@
                     bloc2 = lvl === -1 && document.createElement('bloc') || document.createElement('blocsubsup-' + lvl);
                 bloc2 = (writeEq._conditionsIndiceNum(msub[0].children[0], msub[0].children[1], lvl)) && document.createElement('blocIndiceNum-' + lvl) || bloc2;
                 bloc.innerHTML = msub[0].innerHTML;
-                if(msub[0].children[1].tagName==="mrow"){
-                    console.log("children1",msub[0].children[1]);
-                    console.log("children2",msub[0].children[1].children[0]);
-                }
-               
                 bloc2.appendChild(bloc.children[1]);
                 parent.replaceChild(bloc, msub[0]);
                 bloc.appendChild(bloc2);
@@ -5946,7 +5951,7 @@
 
                 }
                 txt = txt.replace(')', '');
-                console.log(txt);
+                // console.log(txt);
 
                 // 'angle2': 'angle de %1 avec %2',
                 // 'angle3': 'angle du %1 avec le %2',
