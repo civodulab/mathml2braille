@@ -47,7 +47,7 @@
 			<span class="mathbraille2">⠨⠍⠝⠠⠢⠰⠣⠱⠠⠢⠢⠱⠹⠂⠪⠆⠠⠈⠱⠱</span>
 		</p>
 		<h2>3) L'écriture moléculaire</h2>
-		<p class="courant">
+		<p class="courant"><span class="texte_equation">H deux O</span>
 			<math xmlns="http://www.w3.org/1998/Math/MathML" class="js-chimie">
 				<msub>
 					<mi mathvariant="normal">H</mi>
@@ -772,20 +772,24 @@
 			</math><span class="mathbraille">⠨⠉⠫⠨⠓⠱⠤⠨⠉⠨⠓⠨⠕</span>
 		</p>
 	</section>
-	<script type="text/javascript" src="../js/varTBA.min.js"></script>
-	<script type="text/javascript" src="../js/varTBUE.min.js"></script>
-	<script type="text/javascript" src="../js/varTBF.min.js"></script>
-	<script type="text/javascript" src="../js/allVar.js"></script>
-	<script type="text/javascript" src="../js/mathml2braille.min.js"></script>
+	<!-- <script type="text/javascript" src="../js/varTBA.min.js"></script>
+    <script type="text/javascript" src="../js/varTBUE.min.js"></script>
+    <script type="text/javascript" src="../js/varTBF.min.js"></script>
+    <script type="text/javascript" src="../js/allVar.js"></script>
+    <script type="text/javascript" src="../js/mathml2braille.js"></script>
+    <script type="text/javascript" src="../js/varTextFR.js"></script>
+    <script type="text/javascript" src="../js/mathml2text.js"></script> -->
+	<script type="text/javascript" src="../dist/mathml2braille.js"></script>
 	<script>
 		var options3 = {
 			'chimie': true, // false par défaut
 		}
-		mathml2braille(options3);
+		var chim= new Mathml2braille(options3);
+		chim.mathml2text();
 		// mathml2braille('.test', options3);
-		brailledirect('.js-brailleDirect');
+		var direct= new Brailledirect('.js-brailleDirect');
 	</script>
-	<script type="text/javascript" src="../js/stat.js"></script>
+	<script type="text/javascript" src="../src/stat.js"></script>
 
 </body>
 
