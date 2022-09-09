@@ -55,12 +55,14 @@ function stat_texte() {
         let bontexte = parent.querySelector('.texte_equation');
         let bontexte2 = parent.querySelector('.texte_equation2');
         if (bontexte) {
+            let textElt=elt.textContent.trim().replace(/\s/g, ' ');
             let bontxt = bontexte.textContent.trim().replace(/\s/g, ' ');
             bontexte2 = bontexte2 && bontexte2.textContent.trim().replace(/\s/g, ' ');
-            if (bontxt === elt.textContent.trim()) {
+            console.log(textElt);
+            if (bontxt === textElt) {
                 elt.classList.add('good');
                 g++;
-            } else if (bontexte2 && bontexte2 === elt.textContent.trim()) {
+            } else if (bontexte2 && bontexte2 === textElt) {
                 elt.classList.add('good');
                 g++;
             } else {

@@ -4503,7 +4503,9 @@
 
       8290: 'fois', //invisible time
       8292: 'fois', //invisible time
-    //   8289: '', // function application
+      8291:'', //Invisible Separator
+
+      8289: '', // function application
 
       8804: 'est inférieur ou égal à', //LESS THAN OR EQUAL TO ≤ &le; &‌#8804; &‌#x2264;
       8805: 'est supérieur ou égal à', //GREATER THAN OR EQUAL TO ≥ &ge; &‌#8805; &‌#x2265;
