@@ -9,7 +9,7 @@
 
 <body>
 	<section epub:type="subchapter">
-		<p id="stat"></p>
+	
 		<h1>Exemples tirés du document PDF "
 			<a href="https://nfb.org/images/nfb/documents/pdf/nemeth_1972.pdf">The Nemeth braille code for mathematics and science notation 1972 revision</a>"</h1>
 		<h2>Règle II - Signes et symboles numériques</h2>
@@ -1494,9 +1494,9 @@
 		</p>
 	</section>
 	<p class="js-brailleDirect">ü*/@"abcdefghijklmnopqrstuvwxyz ê 0123456789</p>
-	<script type="text/javascript" src="../js/varTBA.js"></script>
-	<script type="text/javascript" src="../js/varTBF.js"></script>
-	<script type="text/javascript" src="../js/varTBUE.js"></script>
+	<script type="text/javascript" src="../js/varTBA.min.js"></script>
+	<script type="text/javascript" src="../js/varTBF.min.js"></script>
+	<script type="text/javascript" src="../js/varTBUE.min.js"></script>
 	<script type="text/javascript" src="../js/allVar.js"></script>
 	<script type="text/javascript" src="../js/mathml2braille.js"></script>
 	<script>
@@ -1517,10 +1517,10 @@
 		};
 		// mathml2braille('.test', options1);
 		// mathml2braille('.test', options3);
-		mathml2braille('.js-math2braille', options1);
-		brailledirect('.js-brailleDirect', 'fr');
-		mathml2braille('.js-chimie', options3);
-		mathml2braille('.js-SA', options4);
+		new Mathml2braille('.js-math2braille', options1);
+		// brailledirect('.js-brailleDirect', 'fr');
+		new Mathml2braille('.js-chimie', options3);
+		new Mathml2braille('.js-SA', options4);
 	</script>
 	<script type="text/javascript" src="../js/stat.js"></script>
 
